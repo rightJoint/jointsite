@@ -1,0 +1,102 @@
+/*body-->*/
+BODY {
+    width: 100%;
+    font-family: Cambria, Courier New, Calibri, Arial, MS Trebichet;
+    margin: 0;
+    text-align: center;
+    font-size: 25px;
+}
+/*body--<*/
+.page-wrap{
+    position: relative;
+    min-height: calc(100vh - 45px);
+    padding-bottom: 45px;
+}
+/*footer-->*/
+.contentBlock-frame.dark.ft{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+footer{
+    background-color: rgba(25,25,50,1);
+    color: #ffffff;
+    padding: 0.2em 0;
+    height: 45px;
+}
+footer div, footer a, footer img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.ft-service{
+    width: 30%;
+}
+.ft-center{
+    width: 40%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.ft-center hr{
+    border: none;
+    position: absolute;
+    top: 0px;
+    height: 1px;
+    width: 100%;
+    background-color: #ffffff;
+}
+.ft-center span{
+    background: radial-gradient(ellipse ,
+    rgba(25,25,50,1), rgba(25,25,50,1), rgba(25,25,50,1), rgba(25,25,50,0.2), rgba(25,25,50,0.5));
+    position: relative;
+    z-index: 1;
+    padding: 0.2em 0;
+}
+.ft-right{
+    width: 30%;
+}
+/*footer<--*/
+/*contentBlock-->*/
+.contentBlock-frame{
+    width: 100%;
+    display: inline-block;
+}
+.contentBlock-center{
+    display: inline-block;
+    max-width: 1366px;
+    width: 100%;
+}
+.contentBlock-frame.dark{
+    background: rgba(25,25,50,1);
+    color: #ffffff;
+}
+
+@media only screen and (max-width : 1200px) {
+    body {
+        font-size: 20px;
+    }
+    .page-wrap{
+        min-height: calc(100vh - 2em);
+        padding-bottom: 2em;
+    }
+    footer {
+        height: 2em;
+    }
+}
+
+@media only screen and (max-width : 960px) {
+    body {
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width : 640px) {
+    body{
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width : 360px) {
+    body{
+        font-size: 12px;
+    }
+}
