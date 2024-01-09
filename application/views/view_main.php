@@ -6,6 +6,10 @@ class view_main extends View
         $this->styles[] = "/css/main_view.css";
 
         $this->branches = array(
+            "admin" => array(
+                "href" => "/admin",
+                "img" => "/img/popimg/admin-logo.png",
+            ),
             "record" => array(
                 "href" => "#",
                 "img" => "/img/popimg/record.png",
@@ -34,6 +38,40 @@ class view_main extends View
                 "rus" => "Зависимости"
             ),
             "list" => array(
+                "admin" => array(
+                    "title" => array(
+                        "en" => "mysql admin",
+                        "rus" => "Админка для MYSQL",
+                    ),
+                    "descr" => array(
+                        "en" => "With admin tool you can connect to database, ".
+                            "load to DB entire tables, execute sql queries, ".
+                            "find and edit records in tables. ".
+                            "It is completed project, may use for deploy another modules to make ".
+                            "needed migrations, might be helpful who dont know another simple way for that",
+                        "rus" => "С помощью админки можно подключаться к базе занных, ".
+                            "делать копии и вставки таблиц, выполнять sql запросы, ".
+                            "искать и редактировать записи в таблицах. ".
+                            "Это завершенный проект, можно использовать для развертвания других модулей чтоб ".
+                            "провести необходимые миграции в БД, подойдет тех кто не имеет для этого другого простого способа.",
+                    ),
+                    "version" => array(
+                        "en" => "3.01",
+                        "rus" => "3.01",
+                    ),
+                    "get" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "more" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "depend" => array(
+                        "en" => "#Record-branch",
+                        "rus" => "#ветка Запись",
+                    ),
+                ),
                 "record" => array(
                     "title" => array(
                         "en" => "Record-branch",
