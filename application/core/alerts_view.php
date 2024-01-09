@@ -19,6 +19,14 @@ class Alerts_View extends View
             "rus" => "ОШИБКА",
         );
 
+        global $routes;
+
+        if($routes[1] == "admin") {
+            if (!$_SESSION["admin_user"]["id"]) {
+                $this->active_modal_menu = true;
+            }
+        }
+
         parent::__construct();
     }
 

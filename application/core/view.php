@@ -77,6 +77,86 @@ class View
             "en" => "view in english",
             "rus" => "смотреть на русском"
         ),
+        "admin_block" => array(
+            "form_title" => array(
+                "en" => "Get in Admin",
+                "rus" => "Вход в Админ"
+            ),
+            "placeholder_login" => array(
+                "en" => "Your login...",
+                "rus" => "Ваш логин...",
+            ),
+            "placeholder_password" => array(
+                "en" => "Enter Your password...",
+                "rus" => "введите пароль...",
+            ),
+            "submit_btn" => array(
+                "en" => "Submit",
+                "rus" => "Войти",
+            ),
+            "modules_list" => array(
+                "server" => array(
+                    "aliasMenu" => array(
+                        "en" => "SQL-Server",
+                        "rus" => "SQL-Сервер",
+                    ) ,
+                    "altText" => array(
+                        "en" => "Set up connection to mySql server and database",
+                        "rus" =>"Настройка подключения к SQL-серверу и БД"
+                    )
+                ),
+                "users" => array(
+                    "aliasMenu" => array(
+                        "en" => "Users",
+                        "rus" => "Пользователи"
+                    ),
+                    "altText" => array(
+                        "en" => "Users list, add or delete user",
+                        "rus" => "Список пользователей, добавить или удалить пользователя"
+                    ),
+                ),
+                "sql" => array(
+                    "aliasMenu" => array(
+                        "en" => "SQL",
+                        "rus" => "SQL",
+                    ),
+                    "altText" => array(
+                        "en" => "SQL-injections. Execute query",
+                        "rus" => "Выполнить SQL-запрос",
+                    )
+                ),
+                "printquery" => array(
+                    "aliasMenu" => array(
+                        "en" => "Print query",
+                        "rus" => "Печать запроса"
+                    ),
+                    "altText" => array(
+                        "en" =>"Output of select query",
+                        "rus" => "Вывод в таблицу резулитата select"
+                    )
+                ),
+                "tables" => array(
+                    "aliasMenu" => array(
+                        "en" => "Tables",
+                        "rus" => "Таблицы",
+                    ),
+                    "altText" => array(
+                        "en" => "Action with tables: create, drop, clear, upload, download",
+                        "rus" =>"Действия с таблицами: создать, удалить, очистить, выгрузить, загрузить"
+                    ),
+                ),
+                "records" => array(
+                    "aliasMenu" => array(
+                        "en" => "Edit records",
+                        "rus" => "Редактирование записей",
+                    ),
+                    "altText" => array(
+                        "en" => "Edit records, add records to tables",
+                        "rus" => "Редактировать, добавить, удалить запись в таблице"
+                    ),
+                ),
+            ),
+        ),
     );
 
     function __construct()
@@ -84,9 +164,10 @@ class View
 
     }
 
-    function generate()
+    function generate($metrik_block = false)
     {
-        if($this->metrik_block){
+        if($metrik_block){
+            $this->metrik_block = true;
             if(file_exists($_SERVER["DOCUMENT_ROOT"]."/".JOINT_CONF_DIR."/yandexmetrika.php")){
                 require_once($_SERVER["DOCUMENT_ROOT"] . "/".JOINT_CONF_DIR."/yandexmetrika.php");
                 $this->metrika = $yandex_metrika;
@@ -249,7 +330,83 @@ class View
             "</div>".
             "</div>";
 
+        $this->print_admin_menu();
+
         echo "</div></div></div></div>";
+    }
+
+    public function print_admin_menu()
+    {
+        global $routes;
+        if($routes[1] == "admin") {
+            if (!$_SESSION["admin_user"]["id"]) {
+                echo "<form class='auth-form admin' method='post'>".
+                    "<div class='modal-line'>".
+                    "<div class='modal-line-img'><img src='/img/popimg/admin-logo.png'></div>".
+                    "<div class='modal-line-text'><a class='m-l-blue title decnone' href='#'>".$this->lang_map["admin_block"]["form_title"][$_SESSION["lang"]].
+                    "</a></div>".
+                    "</div>".
+                    "<div class='modal-line'>".
+                    "<div class='modal-line-text'><input type='text' name='login' value='";
+                if($_POST["login"]){
+                    echo $_POST["login"];
+                }
+                echo "' placeholder='".$this->lang_map["admin_block"]["placeholder_login"][$_SESSION["lang"]]."'>"."</div>".
+                    "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>".
+                    "</div>".
+                    "<div class='modal-line'>".
+                    "<div class='modal-line-text'>".
+                    "<input type='password' name='password' value='";
+                if($_POST["password"]){
+                    echo $_POST["password"];
+                }
+                echo "' placeholder='".$this->lang_map["admin_block"]["placeholder_password"][$_SESSION["lang"]]."'>".
+                    "</div>".
+                    "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
+                if($_SESSION["admin_user"]["auth_err"]){
+                    echo "<div class='modal-line-err'>".$_SESSION["admin_user"]["auth_err"]."</div>";
+                }
+                echo "</div>".
+                    "<div class='modal-line'>" .
+
+                    "<div class='modal-line-text'>".
+                    "<input type='submit' name='auth_admin' value='".$this->lang_map["admin_block"]["submit_btn"][$_SESSION["lang"]]."'></div>" .
+                    "<div class='modal-line-img'></div>" .
+                    "</div>".
+                    "</form>";
+            }
+        }
+        if ($_SESSION["admin_user"]["id"]) {
+            echo "<div class='modal-line'>".
+                "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>".
+                "<div class='modal-line-text'>Admin user: ".$_SESSION['admin_user']['id']."<sup><a href='/admin?cmd=exit'>Exit</sup></div>".
+                "</div>".
+                "<div class='modal-line'><div class='modal-line-img'>".
+                "<img src='/img/popimg/admin-logo.png' alt='admin-logo'></div>";
+
+            $menuSign = "+";
+            $menuStyle = "style='display: none'";
+
+            echo "<div class='modal-line-text'>";
+
+            global $routes;
+
+            if ($routes[1] == "admin") {
+                $menuSign = "-";
+                $menuStyle = null;
+            }
+            echo "<a href='/admin' title='php-mysql-admin'>Admin</a> ".
+                "<span class='opnSubMenu'>" . $menuSign . "</span> "."<ul " . $menuStyle . ">";
+
+            foreach ($this->lang_map["admin_block"]["modules_list"] as $admin_mod => $mod_opt) {
+                echo "<li><a href='/admin/" . $admin_mod . "' class='sub-lnk light ";
+                if ($routes[2] == $admin_mod) {
+                    echo "active";
+                }
+                echo "' title='".$mod_opt["altText"][$_SESSION["lang"]]."'>" . $mod_opt["aliasMenu"][$_SESSION["lang"]] . "</a></li>";
+            }
+            echo "</ul></div></div>";
+        }
     }
 
     function generateJson($data)
