@@ -3,6 +3,9 @@ RewriteBase /
 
 RewriteRule ^__config(.*)$ ?errType=access&message=denied-in-htaccess
 
+#protect database uploaded files
+RewriteRule ^usrdata/db(.*)$ ?errType=access&message=denied-in-htaccess-for-db
+
 RewriteCond %{REQUEST_FILENAME} !-f
 
 DirectoryIndex index.php
