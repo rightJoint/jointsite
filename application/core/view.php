@@ -164,10 +164,9 @@ class View
 
     }
 
-    function generate($metrik_block = false)
+    function generate()
     {
-        if($metrik_block){
-            $this->metrik_block = true;
+        if($this->metrik_block){
             if(file_exists($_SERVER["DOCUMENT_ROOT"]."/".JOINT_CONF_DIR."/yandexmetrika.php")){
                 require_once($_SERVER["DOCUMENT_ROOT"] . "/".JOINT_CONF_DIR."/yandexmetrika.php");
                 $this->metrika = $yandex_metrika;
