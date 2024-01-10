@@ -77,6 +77,87 @@ class View
             "en" => "view in english",
             "rus" => "смотреть на русском"
         ),
+        "site-signIn-form" => array(
+            "form_title" => array(
+                "en" => "Sign in",
+                "rus" => "Вход на сайт"
+            ),
+            "placeholder_login" => array(
+                "en" => "Your login...",
+                "rus" => "Ваш логин...",
+            ),
+            "placeholder_password" => array(
+                "en" => "Enter Your password...",
+                "rus" => "введите пароль...",
+            ),
+
+            "submit_btn" => array(
+                "en" => "Submit",
+                "rus" => "Войти",
+            ),
+            "errors" => array(
+                "wrong_login_or_pass" => array(
+                    "en" => "wrong login or password",
+                    "rus" => "неправильный логин или пароль",
+                ),
+                "user_in_black_list" => array(
+                    "en" => "user in black list",
+                    "rus" => "Пользователь заблокирован",
+                ),
+                "email_not_validated" => array(
+                    "en" => "email not validated",
+                    "rus" => "email не подтвержден",
+                ),
+            ),
+        ),
+        "site-signUp-form" => array(
+            "form_title" => array(
+                "en" => "Sign up",
+                "rus" => "Регистрация на сайте",
+            ),
+            "placeholder_login" => array(
+                "en" => "Make up login...",
+                "rus" => "Придумайте логин...",
+            ),
+            "placeholder_password" => array(
+                "en" => "password...",
+                "rus" => "пароль...",
+            ),
+            "placeholder_repeat" => array(
+                "en" => "repeat password...",
+                "rus" => "повторите пароль...",
+            ),
+            "placeholder_mail" => array(
+                "en" => "your email...",
+                "rus" => "Ваш email...",
+            ),
+            "submit_btn" => array(
+                "en" => "Register now",
+                "rus" => "Зарегистрировать",
+            ),
+            "errors" => array(
+                "login_unacceptable" => array(
+                    "en" => "login unacceptable",
+                    "rus" => "недопустимый логин",
+                ),
+                "login_reserved" => array(
+                    "en" => "login reserved",
+                    "rus" => "логин зарезервирован",
+                ),
+                "pass_unacceptable" => array(
+                    "en" => "password unacceptable",
+                    "rus" => "недопустимый пароль",
+                ),
+                "pass_dont_match" => array(
+                    "en" => "passwords dont match",
+                    "rus" => "пароль не совпадают",
+                ),
+                "email_unacceptable" => array(
+                    "en" => "email unacceptable",
+                    "rus" => "недопустимый email",
+                ),
+            ),
+        ),
     );
 
     function __construct()
@@ -249,7 +330,197 @@ class View
             "</div>".
             "</div>";
 
+        if($_SESSION["site_user"]){
+            echo "<div class='modal-line'>".
+                "<div class='modal-line-img'><img src='";
+            if($_SESSION["site_user"]["avatar"]){
+                echo USERS_AVATARS_DIR."/".$_SESSION["site_user"]["avatar"];
+            }else{
+                echo "/img/popimg/avatar-default.png";
+            }
+            $user_link_add_class = null;
+            $user_link_ref = "/user";
+            if($routes[1] == "user" and $routes[2] != "signIn"){
+                $user_link_add_class = " decnone";
+                $user_link_ref = "#";
+            }
+
+            echo "'></div>".
+                "<div class='modal-line-text'><a class='m-l-blue".$user_link_add_class."' href='".$user_link_ref."' title='personal page'>Site user:</a>".
+                $_SESSION['site_user']['accAlias']."<sup><a href='/user?cmd=exit'>Exit</sup></div>".
+                "</div>";
+        }else{
+            $this->print_auth_forms();
+        }
+
+        $this->print_siteman_menu();
+
         echo "</div></div></div></div>";
+    }
+
+    public function print_siteman_menu()
+    {
+
+        global $routes;
+
+        require_once "application/core/Module/ModuleMenu.php";
+
+        if($siteman_menu = moduleMenu::sitemanMenuAccess()){
+
+            echo "<div class='modal-line'><div class='modal-line-img'>".
+                "<img src='/img/popimg/leverage.png' alt='admin-logo'></div>";
+
+            $menuSign = "+";
+            $menuStyle = "style='display: none'";
+
+            echo "<div class='modal-line-text'>";
+
+            if ($routes[1] == "siteman") {
+                $menuSign = "-";
+                $menuStyle = null;
+            }
+
+            $list_menu = null;
+
+            foreach ($siteman_menu as $mUrl => $mOpt){
+                $list_menu.= "<li><a href='/" . $mUrl . "' class='sub-lnk light ";
+                if ($mOpt["active"]) {
+                    $list_menu.= "active";
+                }
+                $list_menu.= "' title='".$mOpt["mAliases"][$_SESSION["lang"]]."'>" . $mOpt["mAlias"] . "</a></li>";
+            }
+
+            echo "<a href='/siteman' title='".$this->lang_map["sitemanmenu"]["ref-title"][$_SESSION["lang"]]."'>".$this->lang_map["sitemanmenu"]["ref-text"][$_SESSION["lang"]]."</a> ".
+                "<span class='opnSubMenu'>" . $menuSign . "</span> "."<ul " . $menuStyle . ">".
+                $list_menu."</ul></div></div>";
+        }
+    }
+
+    function print_auth_forms()
+    {
+        $this->print_signIn_form();
+        $this->print_signUp_form("disp-none");
+    }
+
+    function print_signIn_form($add_form_class = null, $signIn_err=null)
+    {
+        echo "<form class='auth-form signIn ".$add_form_class."' method='post' action='/user/signIn'>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-img'><img src='/img/popimg/user-logo.png'></div>".
+            "<div class='modal-line-text'>".
+            "<a class='m-l-blue title decnone' id='siteSignIn' href='#'>".
+            $this->lang_map["site-signIn-form"]["form_title"][$_SESSION["lang"]].
+            "</a>".
+            "</div>".
+            "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'><input type='text' name='login' value='";
+        if($_POST["login"]){
+            echo $_POST["login"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signIn-form"]["placeholder_login"][$_SESSION["lang"]]."'>"."</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>".
+            "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'>".
+            "<input type='password' name='password' value='";
+        if($_POST["password"]){
+            echo $_POST["password"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signIn-form"]["placeholder_password"][$_SESSION["lang"]]."'>".
+            "</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
+        if($signIn_err["wrong_login_or_pass"]){
+            echo "<div class='modal-line-err'>".
+                $this->lang_map["site-signIn-form"]["errors"]["wrong_login_or_pass"][$_SESSION["lang"]]."</div>";
+        }
+        echo "</div>".
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'>".
+            "<a class='m-l-blue title' href='#siteSignUp'>".
+            $this->lang_map["site-signUp-form"]["form_title"][$_SESSION["lang"]].
+            "</a>".
+            "<input type='submit' name='auth_signIn' value='".$this->lang_map["site-signIn-form"]["submit_btn"][$_SESSION["lang"]]."'></div>" .
+            "<div class='modal-line-img'></div>" .
+            "</div>".
+            "</form>";
+    }
+
+    function print_signUp_form($add_form_class = null, $signUp_err=null)
+    {
+        echo "<form class='auth-form signUp ".$add_form_class."' method='post' action='/user/signUp'>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-img'><img src='/img/popimg/checkInNow.png'></div>".
+            "<div class='modal-line-text'>".
+            "<a class='m-l-blue title decnone' href='#' id='siteSignUp'>".
+            $this->lang_map["site-signUp-form"]["form_title"][$_SESSION["lang"]].
+            "</a>".
+            "</div>".
+            "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'><input type='text' name='login' value='";
+        if($_POST["login"]){
+            echo $_POST["login"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signUp-form"]["placeholder_login"][$_SESSION["lang"]]."'>"."</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>";
+        if($signUp_err["login_unacceptable"]){
+            echo "<div class='modal-line-err'>".$this->lang_map["site-signUp-form"]["errors"]["login_unacceptable"][$_SESSION["lang"]]."</div>";
+        }
+        if($signUp_err["login_reserved"]){
+            echo "<div class='modal-line-err'>".$this->lang_map["site-signUp-form"]["errors"]["login_reserved"][$_SESSION["lang"]]."</div>";
+        }
+        echo    "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'>".
+            "<input type='password' name='password' value='";
+        if($_POST["password"]){
+            echo $_POST["password"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signUp-form"]["placeholder_password"][$_SESSION["lang"]]."'>".
+            "</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
+        if($signUp_err["pass_unacceptable"]){
+            echo "<div class='modal-line-err'>".$this->lang_map["site-signUp-form"]["errors"]["pass_unacceptable"][$_SESSION["lang"]]."</div>";
+        }
+        echo "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'>".
+            "<input type='password' name='repeat_password' value='";
+        if($_POST["repeat_password"]){
+            echo $_POST["repeat_password"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signUp-form"]["placeholder_repeat"][$_SESSION["lang"]]."'>".
+            "</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
+        if($signUp_err["pass_dont_match"]){
+            echo "<div class='modal-line-err'>".$this->lang_map["site-signUp-form"]["errors"]["pass_dont_match"][$_SESSION["lang"]]."</div>";
+        }
+        echo "</div>".
+            "<div class='modal-line'>".
+            "<div class='modal-line-text'>".
+            "<input type='email' name='email' value='";
+        if($_POST["email"]){
+            echo $_POST["email"];
+        }
+        echo "' placeholder='".$this->lang_map["site-signUp-form"]["placeholder_mail"][$_SESSION["lang"]]."'>".
+            "</div>".
+            "<div class='modal-line-img'><img src='/img/popimg/eMailLogo.png'></div>";
+        if($signUp_err["email_unacceptable"]){
+            echo "<div class='modal-line-err'>".$this->lang_map["site-signUp-form"]["errors"]["email_unacceptable"][$_SESSION["lang"]]."</div>";
+        }
+        echo "</div>".
+            "<div class='modal-line'>" .
+
+            "<div class='modal-line-text'>".
+            "<a class='m-l-blue title' href='#siteSignIn'>".
+            $this->lang_map["site-signIn-form"]["form_title"][$_SESSION["lang"]].
+            "</a>".
+            "<input type='submit' name='auth_signUp' value='".$this->lang_map["site-signUp-form"]["submit_btn"][$_SESSION["lang"]]."'></div>" .
+            "<div class='modal-line-img'></div>" .
+            "</div>".
+            "</form>";
+
     }
 
     function generateJson($data)
