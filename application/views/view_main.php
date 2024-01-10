@@ -10,6 +10,10 @@ class view_main extends View
                 "href" => "#",
                 "img" => "/img/popimg/record.png",
             ),
+            "module" => array(
+                "href" => "#",
+                "img" => "/img/popimg/module.png",
+            ),
         );
 
         $this->lang_map["branches"] = array(
@@ -34,6 +38,38 @@ class view_main extends View
                 "rus" => "Зависимости"
             ),
             "list" => array(
+                "module" => array(
+                    "title" => array(
+                        "en" => "Module-branch",
+                        "rus" => "ветка Модуль",
+                    ),
+                    "descr" => array(
+                        "en" => "Support group tables as main table - slave, allow setup relationships between tables ".
+                            "for group actions (delete and view main record), ".
+                            "its possible to use roles users in groups for adjust access records in tables. ".
+                            "This branch for quick start new modules.",
+                        "rus" => "Поддерживает группировку таблицы в виде модуля главная таблица - подчиненные, ".
+                            "позволяет настроить связи между таблицами в модуле для групповых операций (удаление и просмотр), ".
+                            "можно использовать роли и настраивать доступ к записям включив пользователей в группу. ".
+                            "Эта ветка для быстрого развертыванния новых модулей.",
+                    ),
+                    "version" => array(
+                        "en" => "alfa",
+                        "rus" => "alfa",
+                    ),
+                    "get" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "more" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "depend" => array(
+                        "en" => "#Record-branch",
+                        "rus" => "#ветка Запись",
+                    ),
+                ),
                 "record" => array(
                     "title" => array(
                         "en" => "Record-branch",
