@@ -90,3 +90,39 @@ $modulesInfo["notifications"] = array(
         ),
     )
 );
+$modulesInfo["music"] = array(
+    "mUrl" => "siteman/music",
+    "mImg" => "/img/popimg/music-logo.png",
+    "mAliases" => array(
+        "en" => "Music",
+        "rus" => "Музыка"
+    ),
+    "moduleTable" => array(
+        "tableName" => "musicAlb_dt",
+        "aliases" => array(
+            "en" => "Albums",
+            "rus" => "Альбомы"
+        ),
+        "tUrl" => "albums",
+    ),
+
+    "bindTables" => array(
+        "musictracks_dt" => array(
+            "aliases" => array(
+                "en" => "Music tracks",
+                "rus" => "Мелодии"
+            ),
+            "tUrl" => "musictracks",
+        ),
+        "musictrackstoalb_dt" => array(
+            "aliases" => array(
+                "en" => "Track to albums",
+                "rus" => "Трэки в альбом"
+            ),
+            "tUrl" => "musictrackstoalb",
+            "relationships" => array(
+                "album_id" => "album_id",
+            ),
+        ),
+    )
+);
