@@ -33,7 +33,7 @@ class Application
 
         global $routes;
 
-        define("JOINT_CONF_DIR", "__config");
+        define("JOINT_CONF_DIR", "__jointconf");
 
         include JOINT_CONF_DIR."/dir_const.php";
 
