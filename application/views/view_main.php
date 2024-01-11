@@ -18,6 +18,10 @@ class view_main extends View
                 "href" => "#",
                 "img" => "/img/popimg/module.png",
             ),
+            "music" => array(
+                "href" => "/music",
+                "img" => "/img/popimg/music-logo.png",
+            ),
         );
 
         $this->lang_map["branches"] = array(
@@ -42,6 +46,32 @@ class view_main extends View
                 "rus" => "Зависимости"
             ),
             "list" => array(
+                "music" => array(
+                    "title" => array(
+                        "en" => "Music branch",
+                        "rus" => "Ветка музыка",
+                    ),
+                    "descr" => array(
+                        "en" => "Simplest music gallery to store and play favorite tracks, able bind tracks to albums.",
+                        "rus" => "Простейшая музыкальная галлерея чтоб хранить и слушать несколько любимых трэков, можно разбить трэки по альбомам.",
+                    ),
+                    "version" => array(
+                        "en" => "alfa",
+                        "rus" => "alfa",
+                    ),
+                    "get" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "more" => array(
+                        "en" => "there should be refer - admin",
+                        "rus" => "Здесь ссылку откуда скачать - admin",
+                    ),
+                    "depend" => array(
+                        "en" => "#site manager",
+                        "rus" => "#Управление сайтом",
+                    ),
+                ),
                 "module" => array(
                     "title" => array(
                         "en" => "Module-branch",
