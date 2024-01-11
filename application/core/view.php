@@ -440,7 +440,7 @@ class View
 
             echo "'></div>".
                 "<div class='modal-line-text'><a class='m-l-blue".$user_link_add_class."' href='".$user_link_ref."' title='personal page'>Site user:</a>".
-                $_SESSION['site_user']['accAlias']."<sup><a href='/user?cmd=exit'>Exit</sup></div>".
+                $_SESSION['site_user']['accAlias']."<sup><a href='/user?cmd=exit'>Exit</a></sup></div>".
                 "</div>";
         }else{
             $this->print_auth_forms();
