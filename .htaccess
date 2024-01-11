@@ -3,6 +3,7 @@ RewriteBase /
 
 RewriteRule ^__config(.*)$ ?errType=access&message=denied-in-htaccess
 RewriteRule ^__jointconf(.*)$ ?errType=access&message=denied-in-htaccess
+RewriteRule ^migrations/(.*)$ ?errType=access&message=denied-in-htaccess-for-migrations
 
 #protect database uploaded files
 RewriteRule ^usrdata/db(.*)$ ?errType=access&message=denied-in-htaccess-for-db
