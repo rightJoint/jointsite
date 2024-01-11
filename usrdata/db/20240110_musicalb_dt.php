@@ -1,0 +1,1 @@
+insert into musicalb_dt (album_id, albumName, albumAlias, metaDescr, dateOfCr, albumImg, activeFlag, refreshDate, robIndex) values('E2AB986E-DBFD-4F1E-BF58-6B95FA587EFE', 'ringtones', 'ringtones', 'ringtones', '2023-12-12', 'F829CE91-EB16-484C-A303-A9CC71C13D16.png', '1', '2023-12-11', '1')
