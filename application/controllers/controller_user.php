@@ -110,7 +110,7 @@ class Controller_User extends RecordsController
         $this->model = new changePasswordModel();
         include "application/views/user/changePasswordView.php";
         $this->view = new changePasswordView();
-        $this->view->h2 = "change password";
+        $this->view->h2 = $this->user_modules["bindTables"]["password"]["aliases"][$_SESSION["lang"]];
         $this->model->getRecordStructure();
         $this->model->copyRecord();
 
