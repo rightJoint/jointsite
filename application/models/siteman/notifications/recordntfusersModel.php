@@ -295,7 +295,7 @@ class recordntfusersModel extends ModuleRecordsModel
 
                 if($template_params){
                     foreach ($template_params as $tp_key => $tp_val){
-                        $replaced_text = str_replace("$".$tp_key, $tp_val, $replaced_text);
+                        $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
                     }
                 }
 
