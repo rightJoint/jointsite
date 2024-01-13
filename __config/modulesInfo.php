@@ -59,6 +59,7 @@ $modulesInfo["groups"] = array(
     )
 );
 $modulesInfo["notifications"] = array(
+    "accessGroups" => array("admin-group-only"),
     "mUrl" => "siteman/notifications",
     "mImg" => "/img/popimg/eMailLogo-2.png",
     "mAliases" => array(

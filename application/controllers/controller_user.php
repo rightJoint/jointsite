@@ -46,11 +46,6 @@ class Controller_User extends RecordsController
             "rus" => "требуется авторизация в",
         );
 
-        $this->lang_map["user_main_h2"] = array(
-            "en" => "Main info",
-            "rus" => "Основная информация",
-        );
-
         if($_GET["cmd"] == "exit"){
             unset($_SESSION["site_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
@@ -73,7 +68,8 @@ class Controller_User extends RecordsController
         include "application/views/user/userGroups_view.php";
         $this->view = new userGroups_view();
 
-        $this->view->h2 = "some text";
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["groups"]["aliases"];
 
         $this->view->module = $this->user_modules;
 
@@ -110,7 +106,9 @@ class Controller_User extends RecordsController
         $this->model = new changePasswordModel();
         include "application/views/user/changePasswordView.php";
         $this->view = new changePasswordView();
-        $this->view->h2 = $this->user_modules["bindTables"]["password"]["aliases"][$_SESSION["lang"]];
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["password"]["aliases"];
+
         $this->model->getRecordStructure();
         $this->model->copyRecord();
 
@@ -189,6 +187,8 @@ class Controller_User extends RecordsController
         $this->model = new changeMailModel();
         include "application/views/user/changeEmailView.php";
         $this->view = new changeEmailView();
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["email"]["aliases"];
         $this->view->user_modules = $this->user_modules;
 
         $this->model->getRecordStructure();
@@ -216,7 +216,6 @@ class Controller_User extends RecordsController
                     "log" => $log_message,
                 );
             }
-            $this->view->h2 = $this->lang_map["user_main_h2"][$_SESSION["lang"]];
             $this->view->record = $this->model->record;
             $this->view->editFields = $this->model->editFields;
             $this->view->generate();
@@ -240,6 +239,9 @@ class Controller_User extends RecordsController
 
             include "application/views/user/userNotificationsListView.php";
             $this->view = new userNotificationsListView();
+
+            $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+                $this->user_modules["bindTables"]["notifications"]["aliases"];
             $this->view->module = $this->user_modules;
             if($this->model->access_rules["create_rule"] < 7){
                 $this->view->hasAccessCreate = false;
@@ -324,7 +326,7 @@ class Controller_User extends RecordsController
                 );
             }
         }
-        $this->view->h2 = $this->lang_map["user_main_h2"][$_SESSION["lang"]];
+
         $this->view->record = $this->model->record;
         $this->view->editFields = $this->model->editFields;
         $this->view->generate();
