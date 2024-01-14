@@ -57,7 +57,7 @@ class validateView extends View
         }else{
             echo "<p>".$this->lang_map["vld_txt_2"][$_SESSION["lang"]]." ".$this->view_data["validDate"]." for user ".$this->lang_map["vld_login"][$_SESSION["lang"]].
                 ": ".$this->view_data["accLogin"]." (".$this->lang_map["vld_alias"][$_SESSION["lang"]].": ".$this->view_data["accAlias"].")".
-                "<p>Use menu to sign in site</p>";
+                "<p>".$this->lang_map["vld_txt_3"][$_SESSION["lang"]]."</p>";
         }
 
         echo "</div></div></div>";
