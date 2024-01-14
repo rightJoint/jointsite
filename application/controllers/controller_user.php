@@ -402,4 +402,20 @@ class Controller_User extends RecordsController
         }
         $this->view->generate();
     }
+
+    public function action_validate()
+    {
+        $this->model = new Model();
+        if($_GET["code"]){
+            $find_qry = "select vldCode, accLogin, accAlias, validDate from users_dt where vldCode='".$_GET["code"]."'";
+            $find_res = $this->model->query($find_qry);
+            if($find_res->rowCount() == 1){
+                //$find_row = $find_res->fetch(PDO::FETCH_ASSOC);
+                //echo "<pre>";
+                //print_r($find_row);
+            }else{
+                echo "xxx=".$find_res->rowCount();
+            }
+        }
+    }
 }
