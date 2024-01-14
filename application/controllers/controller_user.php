@@ -390,7 +390,7 @@ class Controller_User extends RecordsController
         if($_POST["auth_signIn"] == $this->view->lang_map["site-signIn-form"]["submit_btn"][$_SESSION["lang"]]){
             if($this->model->checkUserLogin($_POST["login"]) and $this->model->checkUserPassword($_POST["password"])){
                 $this->model->login = $_POST["login"];
-                $this->view->signIn_err[$this->model->auth_site_user($_POST["password"])] = true;
+                $this->view->signIn_err = array($this->model->auth_site_user($_POST["password"]) =>  true);
             }else{
                 $this->view->signIn_err=array(
                     "wrong_login_or_pass" => true,

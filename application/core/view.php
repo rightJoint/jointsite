@@ -440,9 +440,11 @@ class View
         echo "' placeholder='".$this->lang_map["site-signIn-form"]["placeholder_password"][$_SESSION["lang"]]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
-        if($signIn_err["wrong_login_or_pass"]){
-            echo "<div class='modal-line-err'>".
-                $this->lang_map["site-signIn-form"]["errors"]["wrong_login_or_pass"][$_SESSION["lang"]]."</div>";
+        foreach ($this->lang_map["site-signIn-form"]["errors"] as $err_k => $err_v){
+            if($signIn_err[$err_k]){
+                echo "<div class='modal-line-err'>".
+                    $err_v[$_SESSION["lang"]]."</div>";
+            }
         }
         echo "</div>".
             "<div class='modal-line'>" .
