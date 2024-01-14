@@ -446,7 +446,7 @@ class recorduserstogroupsModel extends ModuleRecordsModel
             "inner join usersGroups_dt on usersGroups_dt.group_id = ".$this->tableName.".group_id ".
             $where.$order.$limit;
 
-        return $this->query($findList_qry);
+        return $this->fetchToArray($findList_qry);
     }
 
     public function countRecords($where = null)

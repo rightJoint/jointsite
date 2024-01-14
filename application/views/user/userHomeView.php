@@ -5,7 +5,7 @@ require_once "application/core/Module/ModuleEditView.php";
 class userHomeView extends ModuleEditView
 {
     public $logo = "/img/popimg/user-logo.png";
-    public $shortcut_icon = "/img/popimg/checkInNow.png";
+    public $shortcut_icon = "/img/popimg/user-logo.png";
 
     public $user_modules = null;
 
@@ -16,6 +16,13 @@ class userHomeView extends ModuleEditView
             "en" => "Update",
             "rus" => "Обновить"
         );
+
+        $this->lang_map["h2_users"] = array(
+            "en" => "Main info",
+            "rus" => "Основная информация",
+        );
+
+        $this->h2 = $this->lang_map["h2_users"][$_SESSION["lang"]];
 
         parent::__construct();
 

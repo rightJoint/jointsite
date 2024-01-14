@@ -24,11 +24,27 @@ class Model_Auth extends Model_User
         $user->record["blackList"]["curVal"] = 0;
         $user->record["created_by"]["curVal"] = $user->record["user_id"]["curVal"];
 
-        //$newUserNtf = new ntSendModel();
-        //$newUserNtf->AddNtf("changePassForUser", "group", "---group_id---",
-        //    "---template-params---");
+        if($user->insertRecord()){
+            require_once "application/core/Module/ntSendModel.php";
+            $UserNtf_model = new ntSendModel();
+            $UserNtf_model->AddNtf("welcomeFromSiteForUser", "user",
+                $user->record["user_id"]["curVal"], json_encode(
+                    array(
+                        "accLogin" => $user->record["accLogin"]["curVal"],
+                        "accAlias" => $user->record["accAlias"]["curVal"],
+                        "accPass" => $password,
+                        "validCode" => $user->record["vldCode"]["curVal"],
+                    )
+                ), true);
+            $UserNtf_model->AddNtf("newUserOnSite-site", "group",
+                "A8357ED4-D2FD-45B3-9ACD-950950BE3535", json_encode(
+                    array(
+                        "accLogin" => $user->record["accLogin"]["curVal"],
+                        "accAlias" => $user->record["accAlias"]["curVal"],
+                    )
+                ), true);
+        }
 
-        return $user->insertRecord();
     }
 
     function auth_site_user()

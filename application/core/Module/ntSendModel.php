@@ -92,10 +92,10 @@ class ntSendModel extends Model
     function sendNtfForUser($ntf_id, $user_id)
     {
         $return = array(
-            "put_ntf" => false,
-            "send_flag" => false,
-            "foundMail" => false,
-            "sendToEmail" => false,
+            "put_ntf" => 0,
+            "send_flag" => 0,
+            "foundMail" => 0,
+            "sendToEmail" => 0,
         );
         $template_qry = "select ntfTemplates_dt.tHeader_en, ntfTemplates_dt.tBody_en, ntfList_dt.subscriber_type, ntfList_dt.type_id from ntfTemplates_dt ".
             "inner join ntfList_dt on ntfTemplates_dt.template_id = ntfList_dt.template_id where ntfList_dt.ntf_id='".$ntf_id."'";
@@ -119,9 +119,9 @@ class ntSendModel extends Model
                 $findUserNtf_flag_row = $findUserNtf_flag_res->fetch(PDO::FETCH_ASSOC);
 
                 if($findUserNtf_flag_row["send_ntf"]){
-                    $return["send_flag"] = true;
+                    $return["send_flag"] = 1;
                     if($findUserNtf_flag_row["eMail"]){
-                        $return["foundMail"] = true;
+                        $return["foundMail"] = 1;
                         $send_flag = "true";
                     }
                 }
@@ -137,7 +137,7 @@ class ntSendModel extends Model
 
                 $this->query($putNtf_qry);
 
-                $return["put_ntf"] = true;
+                $return["put_ntf"] = 1;
 
             }
         }
