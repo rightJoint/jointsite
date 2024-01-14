@@ -410,12 +410,30 @@ class Controller_User extends RecordsController
             $find_qry = "select vldCode, accLogin, accAlias, validDate from users_dt where vldCode='".$_GET["code"]."'";
             $find_res = $this->model->query($find_qry);
             if($find_res->rowCount() == 1){
-                //$find_row = $find_res->fetch(PDO::FETCH_ASSOC);
-                //echo "<pre>";
-                //print_r($find_row);
+                include "application/views/user/validateView.php";
+                $this->view = new validateView();
+
+                $find_row = $find_res->fetch(PDO::FETCH_ASSOC);
+
+                $view_data = $find_row;
+
+                if($find_row["validDate"]){
+                    $view_data["status"] = false;
+                }else{
+                    //$this->view->view_data "yyy";
+                    $update_qry = "update users_dt set validDate = ".date("Y-m-d H:i:s")." where vldCode='".$_GET["code"]."'";
+                    $view_data["status"] = true;
+                    //$this->model->query($update_qry);
+
+                }
+
+                $this->view->view_data = $view_data;
+                $this->view->generate();
             }else{
-                echo "xxx=".$find_res->rowCount();
+                throwErr("request", "validate code doesnt not much any record");
             }
+        }else{
+            throwErr("request", "validate null validate code");
         }
     }
 }
