@@ -201,7 +201,8 @@ class Controller_User extends RecordsController
 
                 if($this->model->record["eMail"]["curVal"] != $this->model->record['eMail']["fetchVal"]){
                     if($this->model->checkUserEmail($this->model->record["eMail"]["curVal"])){
-                        $log_res = true;
+
+                        $log_res = $this->model->updateRecord();
                         $log_message = "email ok";
                     }else{
                         $log_message = "wrong email";
@@ -420,11 +421,9 @@ class Controller_User extends RecordsController
                 if($find_row["validDate"]){
                     $view_data["status"] = false;
                 }else{
-                    //$this->view->view_data "yyy";
-                    $update_qry = "update users_dt set validDate = ".date("Y-m-d H:i:s")." where vldCode='".$_GET["code"]."'";
+                    $update_qry = "update users_dt set validDate = '".date("Y-m-d H:i:s")."' where vldCode='".$_GET["code"]."'";
+                    $this->model->query($update_qry);
                     $view_data["status"] = true;
-                    //$this->model->query($update_qry);
-
                 }
 
                 $this->view->view_data = $view_data;
