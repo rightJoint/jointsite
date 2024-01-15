@@ -4,8 +4,8 @@ require_once "application/core/Records/RecordEditView.php";
 require_once "application/core/Module/ModuleEditView.php";
 class changePasswordView extends ModuleEditView
 {
-    public $logo = "/img/popimg/user-logo.png";
-    public $shortcut_icon = "/img/popimg/checkInNow.png";
+    public $logo = "/img/popimg/pass-img.png";
+    public $shortcut_icon = "/img/popimg/pass-img.png";
 
     public $user_modules = null;
 
@@ -15,6 +15,13 @@ class changePasswordView extends ModuleEditView
             "en" => "Update",
             "rus" => "Обновить"
         );
+
+        $this->lang_map["h2_users"] = array(
+            "en" => "change password",
+            "rus" => "сменить пароль"
+        );
+
+        $this->h2 = $this->lang_map["h2_users"][$_SESSION["lang"]];
 
         parent::__construct();
 

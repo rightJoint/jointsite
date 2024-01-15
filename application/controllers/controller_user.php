@@ -46,11 +46,6 @@ class Controller_User extends RecordsController
             "rus" => "требуется авторизация в",
         );
 
-        $this->lang_map["user_main_h2"] = array(
-            "en" => "Main info",
-            "rus" => "Основная информация",
-        );
-
         if($_GET["cmd"] == "exit"){
             unset($_SESSION["site_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
@@ -73,7 +68,8 @@ class Controller_User extends RecordsController
         include "application/views/user/userGroups_view.php";
         $this->view = new userGroups_view();
 
-        $this->view->h2 = "some text";
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["groups"]["aliases"];
 
         $this->view->module = $this->user_modules;
 
@@ -110,7 +106,9 @@ class Controller_User extends RecordsController
         $this->model = new changePasswordModel();
         include "application/views/user/changePasswordView.php";
         $this->view = new changePasswordView();
-        $this->view->h2 = "change password";
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["password"]["aliases"];
+
         $this->model->getRecordStructure();
         $this->model->copyRecord();
 
@@ -189,6 +187,8 @@ class Controller_User extends RecordsController
         $this->model = new changeMailModel();
         include "application/views/user/changeEmailView.php";
         $this->view = new changeEmailView();
+        $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+            $this->user_modules["bindTables"]["email"]["aliases"];
         $this->view->user_modules = $this->user_modules;
 
         $this->model->getRecordStructure();
@@ -201,7 +201,8 @@ class Controller_User extends RecordsController
 
                 if($this->model->record["eMail"]["curVal"] != $this->model->record['eMail']["fetchVal"]){
                     if($this->model->checkUserEmail($this->model->record["eMail"]["curVal"])){
-                        $log_res = true;
+
+                        $log_res = $this->model->updateRecord();
                         $log_message = "email ok";
                     }else{
                         $log_message = "wrong email";
@@ -216,7 +217,6 @@ class Controller_User extends RecordsController
                     "log" => $log_message,
                 );
             }
-            $this->view->h2 = $this->lang_map["user_main_h2"][$_SESSION["lang"]];
             $this->view->record = $this->model->record;
             $this->view->editFields = $this->model->editFields;
             $this->view->generate();
@@ -240,6 +240,9 @@ class Controller_User extends RecordsController
 
             include "application/views/user/userNotificationsListView.php";
             $this->view = new userNotificationsListView();
+
+            $this->view->lang_map["head"]["description"] = $this->view->lang_map["head"]["title"] = $this->view->lang_map["head"]["h1"] =
+                $this->user_modules["bindTables"]["notifications"]["aliases"];
             $this->view->module = $this->user_modules;
             if($this->model->access_rules["create_rule"] < 7){
                 $this->view->hasAccessCreate = false;
@@ -324,7 +327,7 @@ class Controller_User extends RecordsController
                 );
             }
         }
-        $this->view->h2 = $this->lang_map["user_main_h2"][$_SESSION["lang"]];
+
         $this->view->record = $this->model->record;
         $this->view->editFields = $this->model->editFields;
         $this->view->generate();
@@ -388,7 +391,7 @@ class Controller_User extends RecordsController
         if($_POST["auth_signIn"] == $this->view->lang_map["site-signIn-form"]["submit_btn"][$_SESSION["lang"]]){
             if($this->model->checkUserLogin($_POST["login"]) and $this->model->checkUserPassword($_POST["password"])){
                 $this->model->login = $_POST["login"];
-                $this->view->signIn_err[$this->model->auth_site_user($_POST["password"])] = true;
+                $this->view->signIn_err = array($this->model->auth_site_user($_POST["password"]) =>  true);
             }else{
                 $this->view->signIn_err=array(
                     "wrong_login_or_pass" => true,
@@ -399,5 +402,37 @@ class Controller_User extends RecordsController
 
         }
         $this->view->generate();
+    }
+
+    public function action_validate()
+    {
+        $this->model = new Model();
+        if($_GET["code"]){
+            $find_qry = "select vldCode, accLogin, accAlias, validDate from users_dt where vldCode='".$_GET["code"]."'";
+            $find_res = $this->model->query($find_qry);
+            if($find_res->rowCount() == 1){
+                include "application/views/user/validateView.php";
+                $this->view = new validateView();
+
+                $find_row = $find_res->fetch(PDO::FETCH_ASSOC);
+
+                $view_data = $find_row;
+
+                if($find_row["validDate"]){
+                    $view_data["status"] = false;
+                }else{
+                    $update_qry = "update users_dt set validDate = '".date("Y-m-d H:i:s")."' where vldCode='".$_GET["code"]."'";
+                    $this->model->query($update_qry);
+                    $view_data["status"] = true;
+                }
+
+                $this->view->view_data = $view_data;
+                $this->view->generate();
+            }else{
+                throwErr("request", "validate code doesnt not much any record");
+            }
+        }else{
+            throwErr("request", "validate null validate code");
+        }
     }
 }

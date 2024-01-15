@@ -4,6 +4,9 @@ include "application/core/Records/RecordDetailView.php";
 include "application/views/siteman/sitemanDetailView.php";
 class userNotificationDetailView extends sitemanDetailView
 {
+    public $logo = "/img/popimg/eye-icon.png";
+    public $shortcut_icon = "/img/popimg/eye-icon.png";
+
     function set_head_array()
     {
         $this->lang_map["head"]["description"] = array(

@@ -1,5 +1,5 @@
 <?php
-class recordntfusersModel extends ModuleRecordsModel
+class userNotificationsRead extends ModuleRecordsModel
 {
     public $tableName = "ntfRead_dt";
     public $modelAliases = array(
@@ -21,22 +21,6 @@ class recordntfusersModel extends ModuleRecordsModel
             "read_date" => array(
                 "format" => "datetime",
             ),
-            "accAlias" => array(
-                "format" => "varchar",
-                "use_table_name" => "users_dt",
-            ),
-            "subscriber_type" => array(
-                "format" => "varchar",
-                "use_table_name" => "ntfList_dt",
-            ),
-            "tName" => array(
-                "format" => "varchar",
-                "use_table_name" => "ntfTemplates_dt",
-            ),
-            "tHeader_en" => array(
-                "format" => "varchar",
-                "use_table_name" => "ntfTemplates_dt",
-            ),
             "put_date" => array(
                 "format" => "datetime",
             ),
@@ -46,31 +30,30 @@ class recordntfusersModel extends ModuleRecordsModel
             "del_flag" => array(
                 "format" => "tinyint",
             ),
-            "tHeader" => array(
-                "use_table_name" => 1,
+            "tHeader_en" => array(
                 "format" => "varchar",
+                "use_table_name" => "ntfTemplates_dt",
+            ),
+            "tHeader" => array(
+                "format" => "varchar",
+                "use_table_name" => 1,
             ),
             "tBody" => array(
+                "format" => "text",
                 "use_table_name" => 1,
-                "format" => "varchar",
-            ),
+            )
         );
 
         $this->listFields = array(
             "btnDetail" => array(
                 "replaces" => array("ntf_id", "user_id"),
                 "format" => "link",
-                "url" => "ntf_id=ntf_id&user_id=user_id",
-            ),
-            "btnEdit" => array(
-                "replaces" => array("ntf_id", "user_id"),
-                "format" => "link",
-                "url" => "ntf_id=ntf_id&user_id=user_id",
+                "url" => "ntf_id=ntf_id",
             ),
             "btnDelete" => array(
                 "replaces" => array("ntf_id", "user_id"),
                 "format" => "link",
-                "url" => "ntf_id=ntf_id&user_id=user_id",
+                "url" => "ntf_id=ntf_id",
             ),
             "ntf_id" => array(
                 "format" => "hidden",
@@ -78,11 +61,11 @@ class recordntfusersModel extends ModuleRecordsModel
             "user_id" => array(
                 "format" => "hidden",
             ),
-            "accAlias" => array(
+            "tHeader_en" => array(
                 "format" => "varchar",
                 "fieldAliases" => array(
-                    "en" => "accAlias",
-                    "rus" => "Псевдоним"
+                    "en" => "Subject",
+                    "rus" => "Тема"
                 ),
             ),
             "subscriber_type" => array(
@@ -92,34 +75,6 @@ class recordntfusersModel extends ModuleRecordsModel
                     "rus" => "ТипПодписч."
                 ),
             ),
-            "tName" => array(
-                "format" => "varchar",
-                "fieldAliases" => array(
-                    "en" => "Template",
-                    "rus" => "Шаблон"
-                ),
-            ),
-            "tHeader_en" => array(
-                "format" => "varchar",
-                "fieldAliases" => array(
-                    "en" => "Subject",
-                    "rus" => "Тема"
-                ),
-            ),
-            "put_date" => array(
-                "format" => "datetime",
-                "fieldAliases" => array(
-                    "en" => "add date",
-                    "rus" => "Дт. доб."
-                ),
-            ),
-            "send_flag" => array(
-                "format" => "tinyint",
-                "fieldAliases" => array(
-                    "en" => "Mailed",
-                    "rus" => "Отослано"
-                ),
-            ),
             "read_date" => array(
                 "format" => "datetime",
                 "fieldAliases" => array(
@@ -127,26 +82,23 @@ class recordntfusersModel extends ModuleRecordsModel
                     "rus" => "Дт. прочит."
                 ),
             ),
-            "del_flag" => array(
+            "put_date" => array(
+                "format" => "datetime",
+                "fieldAliases" => array(
+                    "en" => "added",
+                    "rus" => "Добавлено."
+                ),
+            ),
+            "send_flag" => array(
                 "format" => "tinyint",
                 "fieldAliases" => array(
-                    "en" => "Deleted",
-                    "rus" => "Удалено"
+                    "en" => "is send",
+                    "rus" => "Отправка"
                 ),
             ),
         );
 
         $this->searchFields = array(
-            "accAlias" => array(
-                "format" => "varchar",
-                "sort" => 1,
-                "search" => 1,
-                "fieldAliases" => array(
-                    "en" => "accAlias",
-                    "rus" => "Псевдоним"
-                ),
-                "use_table_name" => "users_dt",
-            ),
             "subscriber_type" => array(
                 "format" => "varchar",
                 "sort" => 1,
@@ -157,16 +109,6 @@ class recordntfusersModel extends ModuleRecordsModel
                     "rus" => "ТипПодписч."
                 ),
             ),
-            "tName" => array(
-                "format" => "varchar",
-                "use_table_name" => "ntfTemplates_dt",
-                "sort" => 1,
-                "search" => 1,
-                "fieldAliases" => array(
-                    "en" => "Template",
-                    "rus" => "Шаблон"
-                ),
-            ),
             "tHeader_en" => array(
                 "format" => "varchar",
                 "use_table_name" => "ntfTemplates_dt",
@@ -185,50 +127,22 @@ class recordntfusersModel extends ModuleRecordsModel
                 ),
             ),
             "put_date" => array(
+                "format" => "datetime",
+                "fieldAliases" => array(
+                    "en" => "added",
+                    "rus" => "Добавлено."
+                ),
                 "sort" => 1,
                 "search" => 1,
-                "format" => "datetime",
-                "fieldAliases" => array(
-                    "en" => "add date",
-                    "rus" => "Дт. доб."
-                ),
-            ),
-        );
-
-        $this->editFields = array(
-            "ntf_id" => array(
-                "format" => "varchar",
-            ),
-            "user_id" => array(
-                "format" => "varchar",
-            ),
-            "read_date" => array(
-                "format" => "datetime",
-                "fieldAliases" => array(
-                    "en" => "read date",
-                    "rus" => "Дт. прочит."
-                ),
-            ),
-            "put_date" => array(
-                "format" => "datetime",
-                "fieldAliases" => array(
-                    "en" => "add date",
-                    "rus" => "Дт. доб."
-                ),
             ),
             "send_flag" => array(
                 "format" => "tinyint",
                 "fieldAliases" => array(
-                    "en" => "Mailed",
-                    "rus" => "Отослано"
+                    "en" => "is send",
+                    "rus" => "Отправка"
                 ),
-            ),
-            "del_flag" => array(
-                "format" => "tinyint",
-                "fieldAliases" => array(
-                    "en" => "Deleted",
-                    "rus" => "Удалено"
-                ),
+                "sort" => 1,
+                "search" => 1,
             ),
 
         );
@@ -275,6 +189,33 @@ class recordntfusersModel extends ModuleRecordsModel
 
         );
 
+        $this->editFields = array(
+            "ntf_id" => array(
+                "format" => "varchar",
+                "indexes" => true,
+            ),
+            "user_id" => array(
+                "format" => "varchar",
+                "indexes" => true,
+            ),
+            "read_date" => array(
+                "format" => "datetime",
+            ),
+            "put_date" => array(
+                "format" => "datetime",
+            ),
+            "send_flag" => array(
+                "format" => "tinyint",
+            ),
+            "del_flag" => array(
+                "format" => "tinyint",
+            ),
+            "tHeader_en" => array(
+                "format" => "varchar",
+                "use_table_name" => "ntfTemplates_dt",
+            ),
+        );
+
 
     }
 
@@ -306,13 +247,38 @@ class recordntfusersModel extends ModuleRecordsModel
         }
     }
 
+    function filterWhere($method = "POST")
+    {
+
+        $sup_cond = parent::filterWhere($method); // TODO: Change the autogenerated stub
+
+        $add_user_where = "ntfRead_dt.user_id='".$_SESSION["site_user"]["user_id"]."' and del_flag is not true";
+
+        if($sup_cond["where"]){
+            $sup_cond["where"] .= " and ".$add_user_where;
+        }else{
+            $sup_cond["where"] = "where ".$add_user_where;
+        }
+
+        return $sup_cond;
+    }
+
+    function checkAccessModel()
+    {
+        $this->access_rules = array(
+            "read_rule" => 7,
+            "create_rule" => 0,
+            "edit_rule" => 0,
+            "delete_rule" => 7,
+        );
+        return true;
+    }
 
     function countRecords($where = null)
     {
         $countList_qry = "select count(".
             $this->tableName.".ntf_id) as cnt ".
             "from ".$this->tableName." ".
-            "inner join users_dt on ".$this->tableName.".user_id = users_dt.user_id ".
             "inner join ntfList_dt on ntfList_dt.ntf_id = ".$this->tableName.".ntf_id ".
             "inner join ntfTemplates_dt on ntfTemplates_dt.template_id = ntfList_dt.template_id ";
         return $this->query($countList_qry." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
@@ -326,13 +292,9 @@ class recordntfusersModel extends ModuleRecordsModel
             $this->tableName.".read_date, ".
             $this->tableName.".put_date, ".
             $this->tableName.".send_flag, ".
-            $this->tableName.".del_flag, ".
-            "users_dt.accAlias as accAlias, ".
             "ntfList_dt.subscriber_type, ".
-            "ntfTemplates_dt.tName, ".
             "ntfTemplates_dt.tHeader_en ".
             "from ".$this->tableName." ".
-            "inner join users_dt on ".$this->tableName.".user_id = users_dt.user_id ".
             "inner join ntfList_dt on ntfList_dt.ntf_id = ".$this->tableName.".ntf_id ".
             "inner join ntfTemplates_dt on ntfTemplates_dt.template_id = ntfList_dt.template_id ".
             $where.$order.$limit;

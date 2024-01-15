@@ -4,8 +4,9 @@ include "application/core/Records/RecordsListView.php";
 include "application/views/siteman/sitemanListView.php";
 class userGroups_view extends sitemanListView
 {
-    public $logo = "/img/popimg/user-logo.png";
+    public $logo = "/img/popimg/user_group.png";
     public $shortcut_icon = "/img/popimg/user_group.png";
+    public $h2;
 
     public function __construct()
     {
@@ -15,6 +16,12 @@ class userGroups_view extends sitemanListView
             "en" => "Update",
             "rus" => "Обновить"
         );
+        $this->lang_map["h2_users"] = array(
+            "en" => "users groups",
+            "rus" => "гуппы пользователя"
+        );
+
+        $this->h2 = $this->lang_map["h2_users"][$_SESSION["lang"]];
     }
 
     function print_page_content()

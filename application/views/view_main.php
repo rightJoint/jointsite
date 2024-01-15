@@ -70,18 +70,19 @@ class view_main extends View
                 ),
                 "module" => array(
                     "title" => array(
-                        "en" => "Module-branch",
-                        "rus" => "ветка Модуль",
+                        "en" => "Module (Site manager)-branch",
+                        "rus" => "ветка Модуль (Управление сайтом)",
                     ),
                     "descr" => array(
-                        "en" => "Support group tables as main table - slave, allow setup relationships between tables ".
-                            "for group actions (delete and view main record), ".
-                            "its possible to use roles users in groups for adjust access records in tables. ".
-                            "This branch for quick start new modules.",
-                        "rus" => "Поддерживает группировку таблицы в виде модуля главная таблица - подчиненные, ".
-                            "позволяет настроить связи между таблицами в модуле для групповых операций (удаление и просмотр), ".
+                        "en" => "Module is group of table by the way master - slave for group operations like look up and delete, ".
+                            "its possible to use users roles in groups for access records in tables. ".
+                            "Site manager (siteman) for quick start new modules, has users personal page and siteman for manage users, ".
+                            "groups and notifications embedded.",
+                        "rus" => "Модуль ипользует группировку таблицы по типу главная таблица - подчиненные ".
+                            "для групповых операций (просмотр и удаление), ".
                             "можно использовать роли и настраивать доступ к записям включив пользователей в группу. ".
-                            "Эта ветка для быстрого развертыванния новых модулей.",
+                            "Управление сайтом (siteman) - для быстрого старта новых модулей, включает личный кабинет пользователя ".
+                            "и админку для управления пользователями, группами и уведомлениями.",
                     ),
                     "version" => array(
                         "en" => "alfa",

@@ -16,6 +16,7 @@ class ModuleRecordsController extends RecordsController
         $loaded_view = parent::loadView($type_of_view, $process_path, $custom_name);
         $loaded_view->module = $this->module;
         $loaded_view->logo = $this->module["mImg"];
+        $loaded_view->shortcut_icon = $this->module["mImg"];
         if($this->model->access_rules["create_rule"] < 7){
             $loaded_view->hasAccessCreate = false;
         }
