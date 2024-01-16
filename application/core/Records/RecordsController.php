@@ -53,7 +53,6 @@ class RecordsController extends Controller
             }
 
             $this->view->list_frame_id = $this->model->tableName;
-            $this->view->set_head_array();
             $this->view->generate();
         } elseif ($routes[$pp_cnt + 2] == "edit") {
             $this->view = $this->loadView("edit", $process_path, $custom_name);
@@ -69,7 +68,6 @@ class RecordsController extends Controller
                 }else{
                     $this->view->h2 = $this->model->tableName;
                 }
-                $this->view->set_head_array();
                 $this->view->generate();
             } else {
                 throwErr("request", $this->model->log_message);
@@ -95,7 +93,6 @@ class RecordsController extends Controller
                 }else{
                     $this->view->h2 = $this->model->tableName;
                 }
-                $this->view->set_head_array();
                 $this->view->generate();
             } else {
                 throwErr("request", $this->model->log_message);
@@ -145,7 +142,6 @@ class RecordsController extends Controller
         }else{
             $this->view->h2 = $this->model->tableName;
         }
-        $this->view->set_head_array();
         $this->view->generate();
     }
 
@@ -181,7 +177,6 @@ class RecordsController extends Controller
             );
             $this->view->generateJson($listJson);
         } else {
-            $this->view->set_head_array();
             $sup_cond = $this->model->filterWhere();
             $this->view->listCount = $this->model->countRecords($sup_cond["where"]);
             $this->view->listFields = $this->model->listFields;

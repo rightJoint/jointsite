@@ -32,6 +32,16 @@ class ModulesStatView extends View
         );
     }
 
+    function set_head_array()
+    {
+        $this->logo = $this->modules["mImg"];
+        $this->shortcut_icon = $this->modules["mImg"];
+        $this->lang_map["head"]["h1"] = $this->lang_map["head"]["title"] = $this->lang_map["head"]["description"] = array(
+            "en" => $this->modules["mAliases"]["en"],
+            "rus" => $this->modules["mAliases"]["rus"],
+        );
+    }
+
     function print_page_content()
     {
         $this->modulesSubMenu();
