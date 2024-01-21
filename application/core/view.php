@@ -40,8 +40,8 @@ class View
                 "rus" => "Web сайт от Right Joint"
             ),
             "header_text" => array(
-                "en" => "Web site",
-                "rus" => "Web сайт",
+                "en" => "RIGHT JOINt",
+                "rus" => "РАЙТ ДЖОЙНt",
             )
 
         ),
@@ -427,6 +427,8 @@ class View
             "</div>".
             "</div>";
 
+        $this->print_products_menu();
+
         $this->print_admin_menu();
 
 
@@ -457,6 +459,18 @@ class View
         $this->print_siteman_menu();
 
         echo "</div></div></div></div>";
+    }
+
+    function print_products_menu()
+    {
+        echo "<div class='modal-line prod'>".
+            "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointsite'>Web site</a><sup>php, js, mvc</sup><span>product</span></div>".
+            "</div>";
+        echo "<div class='modal-line prod'>".
+            "<div class='modal-line-img'><img src='/img/popimg/jointPass.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointpass'>jointPass</a><sup>c#, wpf</sup><span>product</span></div>".
+            "</div>";
     }
 
     function print_auth_forms()
