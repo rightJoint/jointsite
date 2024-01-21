@@ -17,9 +17,8 @@ function tinyInit(selector)
     });
 }
 
-$.fn["findselect"] = function (url, table=null, findField = null, returnKey = null, returnValue = null) {
+$.fn["findselect"] = function (process_path, custom_name, findField, returnKey, where_field = null) {
     var find_type = $(this).find("input[type=text]");
-
 
     var t_id = $(this).attr("id");
 
@@ -28,15 +27,18 @@ $.fn["findselect"] = function (url, table=null, findField = null, returnKey = nu
         search_params = "&"+search_params.substring(1);
     }
 
-
     $(find_type).keyup(function (){
         $("#"+t_id).find(".fss").html("");
 
         var find_type_val = $(find_type).val();
+
         $(this).find("#fs-"+$(this).attr("id")).remove();
 
-        if(table && findField && find_type_val && returnKey && returnValue){
-            $.get(url, "fillDl=yyy&table="+table+"&findField="+findField+"&findValue="+find_type_val+"&returnKey="+returnKey+"&returnValue="+returnValue+search_params, function (data){
+        if(custom_name && findField && find_type_val && returnKey && where_field){
+            var req_text = "method=fillDL&process_path="+process_path+
+                "&custom_name="+custom_name+"&findField="+findField+"&returnKey="+returnKey+
+                "&where={%22"+where_field+"%22:%22"+find_type_val+"%22}"+search_params;
+            $.get("/siteman/jointApi", req_text, function (data){
                 var newFill_select = "<select id='fs-"+t_id+"' name='"+t_id+"' size='5' onchange='changeTextValue(this)'>";
                 if(data){
                     var options = JSON.parse(data);

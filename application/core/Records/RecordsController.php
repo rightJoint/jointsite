@@ -1,6 +1,9 @@
 <?php
 class RecordsController extends Controller
 {
+    /*process_url of last loaded model, it applied in view */
+    public $loaded_model_process_url;
+
     public function records_process($process_path="admin/records", $custom_name, $view_data = null)
     {
         include "application/core/Records/RecordsView.php";
@@ -191,6 +194,7 @@ class RecordsController extends Controller
         if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/application/models/" . $process_path . "/record" . $custom_name . "Model.php")) {
             require_once($_SERVER["DOCUMENT_ROOT"] . "/application/models/" . $process_path . "/record" . $custom_name . "Model.php");
             $type = "record" . $custom_name."Model";
+            $this->loaded_model_process_url = $process_path."/". $custom_name;
             return new $type;
         } else {
             $return_model = new RecordsModel();
@@ -198,6 +202,7 @@ class RecordsController extends Controller
             if(!$return_model->tableName_exist()){
                 throwErr("request", "RecordsController, RecordsModel: cant use custom url without custom model");
             }
+            $this->loaded_model_process_url = $process_path."/". $custom_name;
             return $return_model;
         }
     }

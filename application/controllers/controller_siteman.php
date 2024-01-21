@@ -33,10 +33,6 @@ class Controller_Siteman extends ModuleRecordsController
 
     function action_notifications()
     {
-
-        if($this->fillDataList()){
-            return true;
-        }
         $this->module_process("notifications");
     }
 }
