@@ -8,8 +8,8 @@ class landing_view extends View
             "rus" => "Реконструкция, обновления скоро выйдут",
         );
         $this->lang_map["head"]["h1"] = array(
-            "en" => "Реконструкция",
-            "rus" => "Reconstruction",
+            "en" => "Reconstruction",
+            "rus" => "Реконструкция",
         );
     }
 
