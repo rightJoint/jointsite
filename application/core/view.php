@@ -255,8 +255,15 @@ class View
 
     }
 
+    function set_head_array()
+    {
+
+    }
+
     function generate()
     {
+        $this->set_head_array();
+
         if($this->metrik_block){
             if(file_exists($_SERVER["DOCUMENT_ROOT"]."/".JOINT_CONF_DIR."/yandexmetrika.php")){
                 require_once($_SERVER["DOCUMENT_ROOT"] . "/".JOINT_CONF_DIR."/yandexmetrika.php");

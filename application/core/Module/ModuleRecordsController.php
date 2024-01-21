@@ -1,6 +1,9 @@
 <?php
 class ModuleRecordsController extends RecordsController
 {
+    /*modules from __config/modulesInfo.php */
+    public $modules;
+    /*current one module from modules to process*/
     public $module;
 
     function __construct()
@@ -38,23 +41,8 @@ class ModuleRecordsController extends RecordsController
             if($this->module["bindTables"]){
                 foreach ($this->module["bindTables"] as $tName => $tOptions){
                     if($tOptions["relationships"]){
-                        if(file_exists($_SERVER["DOCUMENT_ROOT"]."/application/models/".
-                            $this->module["mUrl"]."/record".$tOptions["tUrl"]."Model.php")){
-                            require_once ($_SERVER["DOCUMENT_ROOT"]."/application/models/".
-                                $this->module["mUrl"]."/record".$tOptions["tUrl"]."Model.php");
-                            $type = "record".$tOptions["tUrl"]."Model";
-                            $bindModel = new $type;
-                            $bindModel_process_url = $process_path."/". $tOptions["tUrl"];
 
-                        }else{
-                            $bindModel = new ModuleRecordsModel();
-                            $bindModel->tableName = $tName;
-                            $bindModel_process_url= $process_path."/". $tName;
-                        }
-
-                        $bindModel->access_groups = $this->module["accessGroups"];
-                        $bindModel->checkAccessModel();
-
+                        $bindModel = $this->loadModel($this->module["mUrl"], $tOptions["tUrl"]);
                         $bindModel->getRecordStructure();
 
                         $bindModel_where = null;
@@ -71,11 +59,11 @@ class ModuleRecordsController extends RecordsController
 
                         $sup_cond["where"] = " where ".$bindModel_where;
 
-                        $bind_list_view = $this->loadView("list", $bindModel_process_url);
+                        $bind_list_view = $this->loadView("list", $this->loaded_model_process_url);
 
                         $bind_list_view->newBtn_qry = "?".$slave_req;
 
-                        $bind_list_view->process_url = $bindModel_process_url;
+                        $bind_list_view->process_url = $this->loaded_model_process_url;
 
                         $bind_list_view->listCount = $bindModel->countRecords($sup_cond["where"]);
 
@@ -131,29 +119,31 @@ class ModuleRecordsController extends RecordsController
         $this->model->copyCustomFields();
     }
 
+    function checkAccessMenu($process_module_url)
+    {
+        require_once "application/core/Module/ModuleMenu.php";
+        $checkMenuAccess = false;
+        if($access_items = moduleMenu::sitemanMenuAccess()){
+            foreach ($access_items as $mUrl => $mOpt){
+                if($mUrl == $process_module_url){
+                    $checkMenuAccess = true;
+                    break;
+                }
+            }
+        }
+
+        if(!$checkMenuAccess){
+            throwErr("access", $this->lang_map["menu-access-warning"][$_SESSION["lang"]]);
+        }
+    }
+
     public function module_process($mName)
     {
         global $routes;
 
         if($process_module = $this->modules[$mName]){
-
-
-
-
-            require_once "application/core/Module/ModuleMenu.php";
-            $checkMenuAccess = false;
-            if($access_items = moduleMenu::sitemanMenuAccess()){
-                foreach ($access_items as $mUrl => $mOpt){
-                    if($mUrl == $process_module["mUrl"]){
-                        $checkMenuAccess = true;
-                        break;
-                    }
-                }
-            }
-
-            if(!$checkMenuAccess){
-                throwErr("access", $this->lang_map["menu-access-warning"][$_SESSION["lang"]]);
-            }
+            $this->module = $this->modules[$mName];
+            $this->checkAccessMenu($process_module["mUrl"]);
 
             $mUri_exp = explode("/", $process_module["mUrl"]);
             $mUri_cnt = count($mUri_exp);
@@ -162,17 +152,15 @@ class ModuleRecordsController extends RecordsController
                 $mainModel = $this->loadModel($process_module["mUrl"], $process_module["moduleTable"]["tUrl"]);
 
                 $mainModel->getRecordStructure();
+                $countMain_where = $mainModel->filterWhere()["where"];
 
-                $process_module["moduleTable"]["countRecords"]=$mainModel->countRecords();
+                $process_module["moduleTable"]["countRecords"]=$mainModel->countRecords($countMain_where);
 
                 if($process_module["bindTables"]){
                     foreach ($process_module["bindTables"] as $tName => $tOptions){
                         $bindModel = $this->loadModel($process_module["mUrl"], $tOptions["tUrl"]);
                         $bindModel->getRecordStructure();
                         $count_where = $bindModel->filterWhere()["where"];
-                        if($count_where){
-                            $count_where.="where ".$count_where;
-                        }
                         $process_module["bindTables"][$tName]["countRecords"]=$bindModel->countRecords($count_where);
                     }
                 }
@@ -230,29 +218,6 @@ class ModuleRecordsController extends RecordsController
         }
     }
 
-    function fillDataList()
-    {
-        if($_GET["fillDl"] == "yyy"){
-            $this->view = new View();
-            if($_GET["table"]){
-
-                $list_qry = "select ".$_GET["findField"].", ".$_GET["returnKey"]." from ".$_GET["table"]." where ".$_GET["findField"]." like '%".$_GET["findValue"]."%'";
-                $this->model = new Model();
-                $list_res = $this->model->query($list_qry);
-                $list_return = array("" => "");
-                if($list_res->rowCount()){
-                    while ($list_row = $list_res->fetch(PDO::FETCH_ASSOC)){
-                        $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
-                    }
-                }
-
-                $this->view->generateJson($list_return);
-            }
-
-            return true;
-        }
-    }
-
     function delete_record($process_path, $custom_name)
     {
         if($this->module["moduleTable"]["tableName"] == $this->model->tableName) {
@@ -260,25 +225,7 @@ class ModuleRecordsController extends RecordsController
                 foreach ($this->module["bindTables"] as $tName => $tOptions){
                     if($tOptions["relationships"]){
 
-
-
-                        if(file_exists($_SERVER["DOCUMENT_ROOT"]."/application/models/".
-                            $this->module["mUrl"]."/record".$tOptions["tUrl"]."Model.php")){
-                            require_once ($_SERVER["DOCUMENT_ROOT"]."/application/models/".
-                                $this->module["mUrl"]."/record".$tOptions["tUrl"]."Model.php");
-                            $type = "record".$tOptions["tUrl"]."Model";
-                            $bindModel = new $type;
-                            $bindModel_process_url = $process_path."/". $tOptions["tUrl"];
-
-                        }else{
-                            $bindModel = new ModuleRecordsModel();
-                            $bindModel->tableName = $tName;
-                            $bindModel_process_url= $process_path."/". $tName;
-                        }
-
-                        $bindModel->access_groups = $this->module["accessGroups"];
-                        $bindModel->checkAccessModel();
-
+                        $bindModel = $this->loadModel($this->module["mUrl"], $tOptions["tUrl"]);
                         $bindModel->getRecordStructure();
 
                         $bindModel_where = null;
@@ -315,5 +262,67 @@ class ModuleRecordsController extends RecordsController
         }else{
             parent::delete_record($process_path, $custom_name);
         }
+    }
+
+    function action_jointApi()
+    {
+        if(($_GET["method"] == "list") or ($_GET["method"] == "fillDL")){
+            if($_GET["process_path"]){
+                if($_GET["custom_name"]){
+
+                    $module_name = explode("/", $_GET["process_path"])[1];
+
+                    if($this->module = $this->modules[$module_name]){
+
+                        $apiModel = $this->loadModel($_GET["process_path"], $_GET["custom_name"]);
+                        $apiModel->getRecordStructure();
+
+                        $req_where = json_decode($_GET["where"], true);
+                        $api_where = $apiModel->filterWhere("custom", $req_where);
+
+                        $api_listRecords = $apiModel->listRecords($api_where["where"]);
+
+
+                        if($_GET["method"] == "fillDL"){
+                            if($_GET["findField"] and $_GET["returnKey"]){
+                                $list_return = array("" => "");
+                                if($api_listRecords){
+                                    foreach ($api_listRecords as $list_num => $list_row){
+                                        $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
+                                    }
+
+                                }
+                            }else{
+                                $list_return = array(
+                                    "error" => "fields not set",
+                                );
+                            }
+                        }else{
+                            $list_return = array(
+                                "error" => "unknown api method fillDL only",
+                            );
+                        }
+                    }else{
+                        $list_return = array(
+                            "error" => "unknown module_name",
+                        );
+                    }
+                }else{
+                    $list_return = array(
+                        "error" => "custom_name is not set",
+                    );
+                }
+            }else{
+                $list_return = array(
+                    "error" => "process_path is not set",
+                );
+            }
+        }else{
+            $list_return = array(
+                "error" => "unknown api method",
+            );
+        }
+        $this->view = new View();
+        $this->view->generateJson($list_return);
     }
 }

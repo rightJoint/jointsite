@@ -34,6 +34,7 @@ class Model_Auth extends Model_User
                         "accAlias" => $user->record["accAlias"]["curVal"],
                         "accPass" => $password,
                         "validCode" => $user->record["vldCode"]["curVal"],
+                        "host" => $_SERVER["HTTP_HOST"],
                     )
                 ), true);
             $UserNtf_model->AddNtf("newUserOnSite-site", "group",

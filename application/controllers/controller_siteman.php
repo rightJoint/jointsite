@@ -21,6 +21,11 @@ class Controller_Siteman extends ModuleRecordsController
         parent::__construct();
     }
 
+    function action_music()
+    {
+        $this->module_process("music");
+    }
+
     function action_groups()
     {
         $this->module_process("groups");
@@ -33,10 +38,43 @@ class Controller_Siteman extends ModuleRecordsController
 
     function action_notifications()
     {
-
-        if($this->fillDataList()){
-            return true;
-        }
         $this->module_process("notifications");
+    }
+
+    function action_jointApi()
+    {
+        if($_GET["method"] == "fillDL"){
+            if($_GET["custom_name"] == "musictracks"){
+                if($_GET["album_id"]){
+                    $req_where = json_decode($_GET["where"], true);
+                    $search_tmp = $req_where["track_name"];
+                    $this->fillMusicTracksList($search_tmp);
+                }
+            }
+        }
+        parent::action_jointApi();
+    }
+    /*used in music*/
+    function fillMusicTracksList($search_tmp = null)
+    {
+
+        $this->view = new View();
+        $list_qry = "select musicTracks_dt.track_name, musicTracks_dt.track_id from musicTracks_dt ".
+            "left join musicTracksToAlb_dt on musicTracksToAlb_dt.track_id = musicTracks_dt.track_id ".
+            "and musicTracksToAlb_dt.album_id = '".$_GET["album_id"]."' ".
+            "where musicTracks_dt.track_name like '%".$search_tmp."%' ".
+            "and musicTracksToAlb_dt.album_id is null";
+        $this->model = new Model();
+        $list_res = $this->model->query($list_qry);
+        $list_return = array("" => "");
+        if($list_res->rowCount()){
+            while ($list_row = $list_res->fetch(PDO::FETCH_ASSOC)){
+                $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
+            }
+        }
+
+        $this->view->generateJson($list_return);
+        exit;
+
     }
 }
