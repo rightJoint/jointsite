@@ -575,7 +575,7 @@ class recordusersModel extends ModuleRecordsModel
             "left join users_dt udtcreated on ".$this->tableName.".created_by = udtcreated.user_id ".
             $where.$order.$limit;
 
-        return $this->query($findList_qry);
+        return $this->fetchToArray($findList_qry);
     }
 
     public function copyRecord()

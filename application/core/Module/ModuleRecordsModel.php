@@ -80,9 +80,9 @@ class ModuleRecordsModel extends RecordsModel
 
     }
 
-    function filterWhere($method = "POST")
+    function filterWhere($method = "POST", $REQ_ARR = null)
     {
-        $filter_where = parent::filterWhere($method);
+        $filter_where = parent::filterWhere($method, $REQ_ARR);
         if($this->access_rules["read_rule"] > 2){
             return $filter_where;
         }elseif($this->access_rules["read_rule"] == 2){
@@ -140,7 +140,7 @@ class ModuleRecordsModel extends RecordsModel
         if(parent::copyRecord()){
             if($this->access_rules["read_rule"]<3){
                 if ($this->access_rules["edit_rule"] == 2) {
-                    if($this->record["created_by"] == $_SESSION["site_user"]["user_id"]){
+                    if($this->record["created_by"]["curVal"] == $_SESSION["site_user"]["user_id"]){
                         return true;
                     }else{
                         throwErr("access", "access denied in ModuleRecordsModel copyRecord on user_id");

@@ -14,18 +14,18 @@ class signInView extends View
         parent::__construct();
 
         $this->lang_map["head"]["description"] = array(
-            "en" => "Register new user on site",
-            "rus" => "Регистрация на сайте",
+            "en" => "Get on site",
+            "rus" => "Войти (зарегистрироваться на сайте)",
         );
 
         $this->lang_map["head"]["title"] = array(
-            "en" => "Register",
-            "rus" => "Регистрация",
+            "en" => "Sign in",
+            "rus" => "Вход на сайт",
         );
 
         $this->lang_map["head"]["h1"] = array(
-            "en" => "Register now",
-            "rus" => "Регистрация",
+            "en" => "Sign in now",
+            "rus" => "Вход на сайт",
         );
     }
 

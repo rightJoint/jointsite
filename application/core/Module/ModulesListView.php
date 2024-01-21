@@ -8,6 +8,11 @@ class ModulesListView extends View
     function __construct()
     {
         $this->styles[] = "/css/records.css";
+
+        $this->lang_map["head"]["h1"] = $this->lang_map["head"]["title"] = $this->lang_map["head"]["description"] = array(
+            "en" => "Siteman - Modules",
+            "rus" => "Админка - Модули",
+        );
     }
 
     function print_page_content()

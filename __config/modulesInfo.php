@@ -1,6 +1,6 @@
 <?php
 $modulesInfo["users"] = array(
-    "accessGroups" => array("10DA61AA-63CE-491F-90B4-3493E02F2A81"),
+    "accessGroups" => array("10DA61AA-63CE-491F-90B4-3493E02F2A81", "A8357ED4-D2FD-45B3-9ACD-950950BE3535"),
     "mUrl" => "siteman/users",
     "mImg" => "/img/popimg/user-logo.png",
     "mAliases" => array(
