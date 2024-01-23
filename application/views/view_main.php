@@ -60,12 +60,12 @@ class view_main extends View
                         "rus" => "3.01",
                     ),
                     "get" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='load from github'>link to github</a>",
+                        "rus" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
                     ),
                     "more" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='/products/jointsite/admin' title='learn more about Admin'>view on site</a>",
+                        "rus" => "<a href='/products/jointsite/admin' title='узнать подробнее про Admin'>смотреть на сайте</a>",
                     ),
                     "depend" => array(
                         "en" => "#Record-branch",
