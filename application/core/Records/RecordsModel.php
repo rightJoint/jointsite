@@ -302,12 +302,11 @@ class RecordsModel extends Model
         }
     }
 
-    function filterWhere($method = "POST")
+    function filterWhere($method = "POST", $REQ_ARR = null)
     {
-
         if($method == "GET"){
             $REQ_ARR = $_GET;
-        }else{
+        }elseif(!$method){
             $REQ_ARR = $_POST;
         }
 
