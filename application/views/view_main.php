@@ -47,16 +47,16 @@ class view_main extends View
                             "Возможно использовать кастомные модели описав структуру записи в таблице ввиде массива, и кастомные представления ",
                     ),
                     "version" => array(
-                        "en" => "betta",
-                        "rus" => "betta",
+                        "en" => "v1.0",
+                        "rus" => "v1.0",
                     ),
                     "get" => array(
-                        "en" => "there should be refer",
-                        "rus" => "Здесь ссылку откуда скачать",
+                        "en" => "<a href='https://github.com/rightJoint/jointsite/tree/Record' title='load from github'>link to github</a>",
+                        "rus" => "<a href='https://github.com/rightJoint/jointsite/tree/Record' title='скачать с гит хаба'>ссылка на github</a>",
                     ),
                     "more" => array(
-                        "en" => "there should be refer",
-                        "rus" => "Здесь ссылку откуда скачать",
+                        "en" => "<a href='/products/jointsite/record' title='learn more about Record'>view on site</a>",
+                        "rus" => "<a href='/products/jointsite/record' title='узнать подробнее про Record'>смотреть на сайте</a>",
                     ),
                     "depend" => array(
                         "en" => "no dependences",
