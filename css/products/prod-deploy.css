@@ -1,11 +1,55 @@
-.prod-deploy{
+section.prod-about p{
+    background-color: lightgray;
+    border: 1px solid darkgreen;
+    color: midnightblue;
+    padding: 1em;
+}
+
+section.prod-menu{
 
 }
 
-.prod-deploy h2{
+section.prod-menu,
+section.prod-deploy{
+    margin-left: 1em;
+}
+
+section h2{
     font-size: 1.2em;
+    border-bottom: 1px solid darkgray;
+}
+section.prod-menu ul,
+section.prod-deploy ul{
+    text-align: left;
+}
+section.prod-menu ul a{
+    color: midnightblue;
 }
 
-.prod-deploy h3{
+
+section h3{
+    margin-left: 1em;
+    text-align: left;
     font-size: 1em;
+}
+section.prod-deploy p{
+    text-align: left;
+    padding: 0.5em;
+}
+
+.example{
+    text-align: left;
+    border: 1px solid darkgray;
+}
+.example-code{
+    font-family: Arial;
+    padding: 0.1em;
+    background-color: midnightblue;
+    color: silver;
+}
+.example-text{
+    padding: 0.1em;
+    font-size: 0.8em;
+    background-color: silver;
+    color: midnightblue;
 }
