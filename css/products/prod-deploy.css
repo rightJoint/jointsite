@@ -53,3 +53,10 @@ section.prod-deploy p{
     background-color: silver;
     color: midnightblue;
 }
+.example.eximg{
+    margin-bottom: 1em;
+}
+.example-img{
+    text-align: center;
+    background-color: teal;
+}
