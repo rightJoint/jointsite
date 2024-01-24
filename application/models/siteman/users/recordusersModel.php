@@ -20,8 +20,6 @@ class recordusersModel extends ModuleRecordsModel
         parent::__construct();
     }
 
-
-
     public function getRecordStructure()
     {
         $this->record = array(
@@ -31,7 +29,6 @@ class recordusersModel extends ModuleRecordsModel
             ),
             "accLogin" => array(
                 "format" => "varchar",
-                //"curVal" => $_SESSION["site_user"]["accLogin"],
             ),
             "accAlias" => array(
                 "format" => "varchar",
@@ -77,6 +74,9 @@ class recordusersModel extends ModuleRecordsModel
                 "curVal" => $_SESSION["site_user"]["accLogin"],
             ),
             "send_ntf" => array(
+                "format" => "tinyint",
+            ),
+            "is_admin" => array(
                 "format" => "tinyint",
             ),
         );
@@ -139,13 +139,6 @@ class recordusersModel extends ModuleRecordsModel
                     "file_type" => "img",
                 ),
             ),
-             /*"photoLink" => array(
-                "format" => "varchar",
-                "fieldAliases" => array(
-                    "en" => "Avatar",
-                    "rus" => "Аватарка",
-                ),
-            ),*/
             "eMail" => array(
                 "format" => "varchar",
                 "fieldAliases" => array(
@@ -197,6 +190,14 @@ class recordusersModel extends ModuleRecordsModel
                     "rus" => "Владелец",
                 ),
             ),
+            "is_admin" => array(
+                "format" => "tinyint",
+                "readonly" => !$_SESSION["site_user"]["is_admin"],
+                "fieldAliases" => array(
+                    "en" => "admin",
+                    "rus" => "админ",
+                ),
+            ),
         );
 
         $this->listFields = array(
@@ -235,16 +236,6 @@ class recordusersModel extends ModuleRecordsModel
                     "rus" => "Псевдоним",
                 ),
             ),
-            /*
-            "pw_hash" => array(
-                "format" => "varchar",
-                "maxLength" => 20,
-            ),
-            "vldCode" => array(
-                "format" => "varchar",
-                "maxLength" => 20,
-            ),
-            */
             "regDate" => array(
                 "format" => "datetime",
                 "maxLength" => 20,
@@ -326,16 +317,16 @@ class recordusersModel extends ModuleRecordsModel
                     "rus" => "Владелец",
                 ),
             ),
+            "is_admin" => array(
+                "format" => "tinyint",
+                "fieldAliases" => array(
+                    "en" => "admin",
+                    "rus" => "админ",
+                ),
+            ),
         );
 
         $this->searchFields = array(
-            /*
-            "user_id" => array(
-                "indexes" => 1,
-                "format" => "varchar",
-                "sort" => 1,
-                "search" => 1,
-            ),*/
             "accLogin" => array(
                 "format" => "varchar",
                 "sort" => 1,
@@ -436,6 +427,15 @@ class recordusersModel extends ModuleRecordsModel
                 ),
                 "use_table_name" => "udtcreated",
                 "use_field_name" => "accLogin",
+            ),
+            "is_admin" => array(
+                "format" => "tinyint",
+                "sort" => 1,
+                "search" => 1,
+                "fieldAliases" => array(
+                    "en" => "admin",
+                    "rus" => "админ",
+                ),
             ),
         );
 
@@ -549,6 +549,14 @@ class recordusersModel extends ModuleRecordsModel
                     "rus" => "Создал(а)",
                 ),
             ),
+            "is_admin" => array(
+                "format" => "tinyint",
+                "readonly" => 1,
+                "fieldAliases" => array(
+                    "en" => "admin",
+                    "rus" => "админ",
+                ),
+            ),
         );
     }
 
@@ -570,6 +578,7 @@ class recordusersModel extends ModuleRecordsModel
             $this->tableName.".blackList, ".
             $this->tableName.".created_by, ".
             $this->tableName.".send_ntf, ".
+            $this->tableName.".is_admin, ".
             "udtcreated.accLogin as createdLogin ".
             "from ".$this->tableName." ".
             "left join users_dt udtcreated on ".$this->tableName.".created_by = udtcreated.user_id ".

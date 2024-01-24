@@ -1,7 +1,7 @@
 <?php
 class AdminView extends View
 {
-    public $shortcut_icon = "/img/popimg/admin-favicon.png";
+    public $shortcut_icon = "/img/popimg/admin-logo.png";
     public $logo = "/img/popimg/admin-logo.png";
 
     public $img_for_modules = array(

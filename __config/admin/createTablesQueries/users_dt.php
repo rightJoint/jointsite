@@ -14,6 +14,7 @@ $query_text="(".
     "socProf varchar(512) collate utf8_unicode_ci, ".
     "blackList BOOLEAN not null, ".
     "created_by varchar(36) not null, ".
+    "is_admin BOOLEAN, ".
     "send_ntf BOOLEAN, ".
     "primary key (user_id)".
     ") ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";

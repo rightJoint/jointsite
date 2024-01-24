@@ -35,7 +35,7 @@ class ModuleRecordsModel extends RecordsModel
     function checkAccessModel()
     {
 
-        if($_SESSION["site_user"]["groups"]["F84A347D-C278-4EB8-82FB-CD41ED33B3E0"]){
+        if($_SESSION["site_user"]["is_admin"]){
             $this->access_rules = array(
                 "read_rule" => 7,
                 "create_rule" => 7,
