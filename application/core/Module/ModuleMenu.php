@@ -66,7 +66,7 @@ class moduleMenu
                 foreach ($modulesInfo as $siteman_mod => $mod_opt) {
                     $addInMenu = false;
                     if($mod_opt["accessGroups"]){
-                        if($_SESSION["site_user"]["groups"]["F84A347D-C278-4EB8-82FB-CD41ED33B3E0"] //all menu for Admin group
+                        if($_SESSION["site_user"]["is_admin"] //all menu for Admin users
                         ){
                             $addInMenu = true;
                         }else{

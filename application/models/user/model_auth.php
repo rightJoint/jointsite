@@ -23,6 +23,7 @@ class Model_Auth extends Model_User
         $user->record["socProf"]["curVal"] = null;
         $user->record["blackList"]["curVal"] = 0;
         $user->record["created_by"]["curVal"] = $user->record["user_id"]["curVal"];
+        $user->record["is_admin"]["curVal"] = 0;
 
         if($user->insertRecord()){
             require_once "application/core/Module/ntSendModel.php";
@@ -63,6 +64,7 @@ class Model_Auth extends Model_User
                         $_SESSION["site_user"]["user_id"] = $user_row["user_id"];
                         $_SESSION["site_user"]["accLogin"] = $user_row["accLogin"];
                         $_SESSION["site_user"]["accAlias"] = $user_row["accAlias"];
+                        $_SESSION["site_user"]["is_admin"] = $user_row["is_admin"];
                         if($user_row["photoLink"]){
                             $_SESSION["site_user"]["avatar"] = $user_row["photoLink"];
                         }
