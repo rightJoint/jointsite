@@ -151,16 +151,16 @@ class view_main extends View
                             "Возможно использовать кастомные модели описав структуру записи в таблице ввиде массива, и кастомные представления ",
                     ),
                     "version" => array(
-                        "en" => "betta",
-                        "rus" => "betta",
+                        "en" => "v1.0",
+                        "rus" => "v1.0",
                     ),
                     "get" => array(
-                        "en" => "there should be refer",
-                        "rus" => "Здесь ссылку откуда скачать",
+                        "en" => "<a href='https://github.com/rightJoint/jointsite/tree/Record' title='load from github'>link to github</a>",
+                        "rus" => "<a href='https://github.com/rightJoint/jointsite/tree/Record' title='скачать с гит хаба'>ссылка на github</a>",
                     ),
                     "more" => array(
-                        "en" => "there should be refer",
-                        "rus" => "Здесь ссылку откуда скачать",
+                        "en" => "<a href='/products/jointsite/record' title='learn more about Record'>view on site</a>",
+                        "rus" => "<a href='/products/jointsite/record' title='узнать подробнее про Record'>смотреть на сайте</a>",
                     ),
                     "depend" => array(
                         "en" => "no dependences",
@@ -189,45 +189,47 @@ class view_main extends View
             "</h2>";
 
         foreach ($this->lang_map["branches"]["list"] as $b_name=>$b_info){
-            echo "<div class='branch-block'>".
-                "<div class='branch-img'>".
-                "<img src='".$this->branches[$b_name]["img"]."'>".
-                "</div>".
-                "<div class='branch-main'>".
-                "<div class='branch-title'>".
-                "<a href='".$this->branches[$b_name]["href"]."'>".
-                $b_info["title"][$_SESSION["lang"]].
-                "</a>".
-                "</div>".
-                "<p>".
-                $b_info["descr"][$_SESSION["lang"]].
-                "</p>".
-                "</div>".
-                "<div class='branch-info'>".
-                "<div class='branch-version'>".
-                "<span>".$this->lang_map["branches"]["branch-version"][$_SESSION["lang"]].":</span>".
-                $b_info["version"][$_SESSION["lang"]].
-                "</div>".
-                "<div class='branch-get'>".
-                "<span>".$this->lang_map["branches"]["branch-get"][$_SESSION["lang"]].":</span>".
-                $b_info["get"][$_SESSION["lang"]].
-                "</div>".
-                "<div class='learn-more'>".
-                "<span>".$this->lang_map["branches"]["learn-more"][$_SESSION["lang"]].":</span>".
-                $b_info["more"][$_SESSION["lang"]].
-                "</div>".
-                "<div class='depend'>".
-                "<span>".$this->lang_map["branches"]["depend"][$_SESSION["lang"]].":</span>".
-                $b_info["depend"][$_SESSION["lang"]].
-                "</div>".
-                "</div>".
-                "</div>";
-
-
+            $this->print_branch($b_name, $b_info);
         }
         echo "</div>".
             "</div></div></div>";
+    }
 
+    function print_branch($b_name, $b_info)
+    {
+        echo "<div class='branch-block'>".
+            "<div class='branch-img'>".
+            "<img src='".$this->branches[$b_name]["img"]."'>".
+            "</div>".
+            "<div class='branch-main'>".
+            "<div class='branch-title'>".
+            "<a href='".$this->branches[$b_name]["href"]."'>".
+            $b_info["title"][$_SESSION["lang"]].
+            "</a>".
+            "</div>".
+            "<p>".
+            $b_info["descr"][$_SESSION["lang"]].
+            "</p>".
+            "</div>".
+            "<div class='branch-info'>".
+            "<div class='branch-version'>".
+            "<span>".$this->lang_map["branches"]["branch-version"][$_SESSION["lang"]].":</span>".
+            $b_info["version"][$_SESSION["lang"]].
+            "</div>".
+            "<div class='branch-get'>".
+            "<span>".$this->lang_map["branches"]["branch-get"][$_SESSION["lang"]].":</span>".
+            $b_info["get"][$_SESSION["lang"]].
+            "</div>".
+            "<div class='learn-more'>".
+            "<span>".$this->lang_map["branches"]["learn-more"][$_SESSION["lang"]].":</span>".
+            $b_info["more"][$_SESSION["lang"]].
+            "</div>".
+            "<div class='depend'>".
+            "<span>".$this->lang_map["branches"]["depend"][$_SESSION["lang"]].":</span>".
+            $b_info["depend"][$_SESSION["lang"]].
+            "</div>".
+            "</div>".
+            "</div>";
     }
 
     function print_title()
