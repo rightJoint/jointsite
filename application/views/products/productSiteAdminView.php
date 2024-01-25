@@ -17,11 +17,22 @@ class productSiteAdminView extends productSiteView
         );
         $this->lang_map["prod_about"] = $this->lang_map["branches"]["list"]["admin"]["descr"];
 
+        $this->lang_map["product-info"] = array(
+            "h2_common" => array(
+                "en" => "About admin branch",
+                "rus" => "О ветке Админ",
+            ),
+            "h2_setup" => array(
+                "en" => "Set up Admin",
+                "rus" => "Установка Админки",
+            ),
+        );
+
         $this->lang_map["prod-info-text"] = array(
 
             "get_in" => array(
-                "en" => "get in admin using menu ref /admin",
-                "rus" => "вход админ через меню по адресу /admin",
+                "en" => "get in admin using menu ref <span class='ex-conf'>/admin</span>",
+                "rus" => "вход в админку через меню по адресу <span class='ex-conf'>/admin</span>",
             ),
             "menu_1" => array(
                 "en" => "admin menu in modal win",
@@ -57,19 +68,59 @@ class productSiteAdminView extends productSiteView
             ),
 
         );
+
+        $this->lang_map["product-deploy"] = array(
+            "install" => array(
+                'checkout-branch' => array(
+                    "en" => "admin",
+                    "rus" => "admin",
+                ),
+
+                "download_link" => array(
+                    "en" => "(or download archive file <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>')",
+                    "rus" => "(или скачать архив с файлами <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>)",
+                ),
+                "example-text" => array(
+                    "en" => "clone repository and checkout branch <span class='ex-conf'>admin</span>",
+                    "rus" => "клонирование репозитория и переключение на ветку <span class='ex-conf'>admin</span>",
+                ),
+            ),
+        );
+
+        $this->lang_map["product-migration"] = array(
+
+            "p1" => array(
+                "en" => "Set up",
+                "rus" => "После того как вы создадите базу данных, вам надо будет создать таблицы и вставить в них начальные данные для работы",
+            ),
+            "p2" => array(
+                "en" => "About product",
+                "rus" => "В качестве примера можно использовать миграцию 20240109_213031_testtable_3_rec.php чтоб протестить как работать с админкой и записями",
+            ),
+        );
     }
 
-    function prod_info(){
-        foreach ($this->branches as $b_name=>$b_info){
-            $this->branches[$b_name]["href"] = "/products/jointsite/".$b_name;
-        }
-        echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
-            "<div class='contentBlock-wrap'>".
-            "<section>".
-            "<h2 id='product-info'>Общая информация</h2>".
+    function prod_deploy_config()
+    {
+        parent::prod_deploy_config();
+        echo "<p>Файл с настройками админки <span class='ex-conf'>admin_conf.php</span> включается в проект в ".
+            "<span class='ex-conf'>controller_admin.php</span></p>".
+            "<div class='example'>".
+        "<div class='example-code'>".
+        "require_once JOINT_CONF_DIR.'/admin/admin_conf.php';".
+        "</div>".
+        "<div class='example-text'>".
+        "включение файла с натройками <span class='ex-conf'>admin_conf.php</span> из каталога <span class='ex-conf'>__config/admin/</span>".
+        "</div>".
+        "</div>".
+        "<p>Вы можете изменить настройки по умолчанию указав другие каталоги.</p>";
+    }
+
+    function prod_info_custom(){
+        echo
             "<div class='branches-block'>".
             "<p>Ветка админ наследуется от ветки Record для работы с записями в таблицах, ".
-            "дополнена моделями и представления загрузки/выгрузки таблиц, выполнения SQL запросов и других целей</p>".
+            "дополнена моделями и представлениями загрузки/выгрузки таблиц, выполнения SQL запросов и других целей</p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin-get_in_admin_".$_SESSION["lang"].".png'>".
@@ -78,7 +129,7 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["get_in"][$_SESSION["lang"]].
             "</div>".
             "</div>".
-            "<p>defaul user login password</p>".
+            "<p>Для входа в admin используйте настроенные по умолчанию логин <span class='ex-conf'>admin</span> пароль <span class='ex-conf'>admin</span></p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin_menu-1_".$_SESSION["lang"].".png'>".
@@ -103,7 +154,7 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["users"][$_SESSION["lang"]].
             "</div>".
             "</div>".
-            "<p>where users files</p>".
+            "<p>Текстовый файл с данными пользователей админки <span class='ex-conf'>adminUsers.txt</span> по умолчанию находится в каталоге <span class='ex-conf'>__config/admin/</span></p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin-server_".$_SESSION["lang"].".png'>".
@@ -112,7 +163,7 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["server"][$_SESSION["lang"]].
             "</div>".
             "</div>".
-            "<p>where sql files</p>".
+            "<p>Файл с настройками подключения к SQL-серверу и базе данных <span class='ex-conf'>db_conn.php</span> по умолчанию находится в <span class='ex-conf'>__config/</span></p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin-create_db_sql_".$_SESSION["lang"].".png'>".
@@ -129,7 +180,8 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
             "</div>".
-            "<p>where upload table files, where create files</p>".
+            "<p>По умолчанию скрипт смотрит запросы на создание таблиц в каталоге <span class='ex-conf'>__config/admin/createTablesQueries/</span>, ".
+            "запросы на загрузку и выгрузку таблиц в <span class='ex-conf'>usrdata/db/</span></p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin-query_".$_SESSION["lang"].".png'>".
@@ -145,9 +197,7 @@ class productSiteAdminView extends productSiteView
             "<div class='example-text'>".
             $this->lang_map["prod-info-text"]["records"][$_SESSION["lang"]].
             "</div>".
-            "</div>".
-            "</section>".
-            "</div></div></div>";
+            "</div>";
     }
 
 }

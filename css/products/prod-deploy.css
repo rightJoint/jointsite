@@ -12,6 +12,8 @@ section.prod-menu{
 section.prod-menu,
 section.prod-deploy{
     margin-left: 1em;
+    margin-right: 1em;
+
 }
 
 section h2{
@@ -46,6 +48,7 @@ section.prod-deploy p{
     padding: 0.1em;
     background-color: midnightblue;
     color: silver;
+    border-bottom: 1px dotted darkgray;
 }
 .example-text{
     padding: 0.1em;
@@ -58,5 +61,12 @@ section.prod-deploy p{
 }
 .example-img{
     text-align: center;
-    background-color: teal;
+    background-color: darkslategray;
+}
+.example-img img{
+    max-width: 100%;
+}
+
+span.ex-conf{
+    font-weight: bold;
 }
