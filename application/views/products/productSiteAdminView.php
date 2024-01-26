@@ -87,17 +87,10 @@ class productSiteAdminView extends productSiteView
             ),
         );
 
-        $this->lang_map["product-migration"] = array(
-
-            "p1" => array(
-                "en" => "Set up",
-                "rus" => "После того как вы создадите базу данных, вам надо будет создать таблицы и вставить в них начальные данные для работы",
-            ),
-            "p2" => array(
-                "en" => "About product",
-                "rus" => "В качестве примера можно использовать миграцию <span class='ex-conf'>20240109_213031_testtable_3_rec.php</span>".
-                    " чтоб протестить как работать с админкой и записями",
-            ),
+        $this->lang_map["product-migration"]["p2"] = array(
+            "en" => "About product",
+            "rus" => "В качестве примера можно использовать миграцию <span class='ex-conf'>20240109_213031_testtable_3_rec.php</span>".
+                " чтоб протестить как работать с админкой и записями",
         );
     }
 
@@ -107,14 +100,14 @@ class productSiteAdminView extends productSiteView
         echo "<p>Файл с настройками админки <span class='ex-conf'>admin_conf.php</span> включается в проект в ".
             "<span class='ex-conf'>controller_admin.php</span></p>".
             "<div class='example'>".
-        "<div class='example-code'>".
-        "require_once JOINT_CONF_DIR.'/admin/admin_conf.php';".
-        "</div>".
-        "<div class='example-text'>".
-        "включение файла с натройками <span class='ex-conf'>admin_conf.php</span> из каталога <span class='ex-conf'>__config/admin/</span>".
-        "</div>".
-        "</div>".
-        "<p>Вы можете изменить настройки по умолчанию указав другие каталоги.</p>";
+            "<div class='example-code'>".
+            "require_once JOINT_CONF_DIR.'/admin/admin_conf.php';".
+            "</div>".
+            "<div class='example-text'>".
+            "включение файла с натройками <span class='ex-conf'>admin_conf.php</span> из каталога <span class='ex-conf'>__config/admin/</span>".
+            "</div>".
+            "</div>".
+            "<p>Вы можете изменить настройки по умолчанию указав другие каталоги.</p>";
     }
 
     function prod_info_custom(){
@@ -173,13 +166,13 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["sql"][$_SESSION["lang"]].
             "</div>".
             "</div>".
-            "<p>Например, для создания базы данных <span class='ex-conf'>test_db</span> выполните запрос</p>".
+            "<p>Например, для создания базы данных <span class='ex-conf'>jointdb</span> выполните запрос</p>".
             "<div class='example'>".
             "<div class='example-code'>".
-            "CREATE DATABASE test_db CHARACTER SET utf8 COLLATE utf8_general_ci".
+            "CREATE DATABASE jointdb CHARACTER SET utf8 COLLATE utf8_general_ci".
             "</div>".
             "<div class='example-text'>".
-            "создание базы данных <span class='ex-conf'>test_db</span>".
+            "создание базы данных <span class='ex-conf'>jointdb</span>".
             "</div>".
             "</div>".
             "<p></p>".
