@@ -47,12 +47,6 @@ class productSiteModuleView extends productSiteView
             ),
         );
 
-
-        $this->lang_map["product-migration"]["p2"] = array(
-            "en" => "About product",
-            "rus" => "3333333 <span class='ex-conf'>20240109_213031_testtable_3_rec.php</span>".
-                " чтоб протестить как работать с админкой и записями",
-        );
     }
 
     function prod_info_custom(){
