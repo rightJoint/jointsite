@@ -95,7 +95,8 @@ class productSiteAdminView extends productSiteView
             ),
             "p2" => array(
                 "en" => "About product",
-                "rus" => "В качестве примера можно использовать миграцию 20240109_213031_testtable_3_rec.php чтоб протестить как работать с админкой и записями",
+                "rus" => "В качестве примера можно использовать миграцию <span class='ex-conf'>20240109_213031_testtable_3_rec.php</span>".
+                    " чтоб протестить как работать с админкой и записями",
             ),
         );
     }
@@ -172,6 +173,16 @@ class productSiteAdminView extends productSiteView
             $this->lang_map["prod-info-text"]["sql"][$_SESSION["lang"]].
             "</div>".
             "</div>".
+            "<p>Например, для создания базы данных <span class='ex-conf'>test_db</span> выполните запрос</p>".
+            "<div class='example'>".
+            "<div class='example-code'>".
+            "CREATE DATABASE test_db CHARACTER SET utf8 COLLATE utf8_general_ci".
+            "</div>".
+            "<div class='example-text'>".
+            "создание базы данных <span class='ex-conf'>test_db</span>".
+            "</div>".
+            "</div>".
+            "<p></p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/admin-tables_".$_SESSION["lang"].".png'>".
