@@ -1,1 +1,1 @@
-insert into usersgroups_dt (group_id, groupAlias_en, groupAlias_rus, activeFlag, created_by) values 
+insert into usersgroups_dt (group_id, groupAlias_en, groupAlias_rus, activeFlag, created_by) values('E97601F3-B968-4826-8772-AA405B2F5B01', 'music', 'музыка - управление', '1', '36332131-C26E-4B63-A22D-11A3076074ED')
