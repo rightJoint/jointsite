@@ -1,0 +1,1 @@
+insert into userstogroups_dt (group_id, user_id, read_rule, create_rule, edit_rule, delete_rule, created_by, send_ntf) values('E97601F3-B968-4826-8772-AA405B2F5B01', '76E1A6EB-7459-4C90-AD08-35DEE6F3AB9F', 'any', 'enable', 'any', 'any', '36332131-C26E-4B63-A22D-11A3076074ED', '1')

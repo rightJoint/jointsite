@@ -92,6 +92,7 @@ $modulesInfo["notifications"] = array(
     )
 );
 $modulesInfo["music"] = array(
+    "accessGroups" => array("E97601F3-B968-4826-8772-AA405B2F5B01"), //music group
     "mUrl" => "siteman/music",
     "mImg" => "/img/popimg/music-logo.png",
     "mAliases" => array(
