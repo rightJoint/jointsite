@@ -398,17 +398,20 @@ class RecordsModel extends Model
     {
         foreach ($this->record as $fName=>$fData){
             if($this->editFields[$fName]){
-                if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
-                    if($_POST[$fName] == "on"){
-                        $this->record[$fName]["curVal"] = 1;
+                //skip (dont rewrite) readonly fields
+                if(!$this->editFields[$fName]["readonly"]){
+                    if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
+                        if($_POST[$fName] == "on"){
+                            $this->record[$fName]["curVal"] = 1;
+                        }else{
+                            $this->record[$fName]["curVal"] = 0;
+                        }
                     }else{
-                        $this->record[$fName]["curVal"] = 0;
-                    }
-                }else{
-                    if(isset($_POST[$fName])){
-                        $this->record[$fName]["curVal"] = $_POST[$fName];
-                    }else{
-                        $this->record[$fName]["curVal"]=null;
+                        if(isset($_POST[$fName])){
+                            $this->record[$fName]["curVal"] = $_POST[$fName];
+                        }else{
+                            $this->record[$fName]["curVal"]=null;
+                        }
                     }
                 }
             }
