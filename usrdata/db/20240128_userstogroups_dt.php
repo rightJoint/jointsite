@@ -1,0 +1,1 @@
+insert into userstogroups_dt (group_id, user_id, read_rule, create_rule, edit_rule, delete_rule, created_by, send_ntf) values 

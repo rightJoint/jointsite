@@ -1,0 +1,1 @@
+insert into users_dt (user_id, accLogin, accAlias, pw_hash, vldCode, regDate, netWork, validDate, photoLink, eMail, birthDay, socProf, blackList, created_by, send_ntf, is_admin)values

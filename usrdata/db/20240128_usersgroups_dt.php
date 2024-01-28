@@ -1,0 +1,1 @@
+insert into usersgroups_dt (group_id, groupAlias_en, groupAlias_rus, activeFlag, created_by) values 
