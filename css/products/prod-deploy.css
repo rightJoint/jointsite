@@ -9,8 +9,7 @@ section.prod-menu{
 
 }
 
-section.prod-menu,
-section.prod-deploy{
+section{
     margin-left: 1em;
     margin-right: 1em;
 
