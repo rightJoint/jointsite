@@ -19,7 +19,7 @@ class productJointPassView extends View
 
         $this->lang_map["prod_about"] = array(
             "en" => "tra-ta-ta",
-            "rus" => "Упорядоченное и безопасное хранение паролей. Вам не придется помнить пароли от всех ваших учеток, достаточно помнить один МастерПасс от программы.",
+            "rus" => "Органайзер паролей. Вам не придется помнить пароли от всех ваших учеток, достаточно помнить один МастерПасс от программы.",
         );
 
         $this->lang_map["product-info"] = array(
@@ -34,6 +34,10 @@ class productJointPassView extends View
             "h2_craft" => array(
                 "en" => "Set up",
                 "rus" => "Принцип работы программы",
+            ),
+            "h2_feedback" => array(
+                "en" => "Feedback",
+                "rus" => "Обратная связь",
             ),
         );
         $this->lang_map["product-deploy"] = array(
@@ -89,6 +93,20 @@ class productJointPassView extends View
         $this->prod_downloads();
         $this->prod_info();
         $this->prod_craft();
+        $this->prod_feedback();
+    }
+
+    function prod_feedback()
+    {
+        echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
+            "<div class='contentBlock-wrap'>".
+            "<section style='margin-bottom: 4em'>".
+            "<h2 id='product-feedback'>".$this->lang_map["product-info"]["h2_feedback"][$_SESSION["lang"]]."</h2>".
+            "<p>".
+            "Если у вас есть вопросы по программе Джойнт Пасс, напишите мне на eMail <span class='ex-conf'>rightjoint@yandex.ru</span>".
+            "</p>".
+            "</section>".
+            "</div></div></div>";
     }
 
     function prod_downloads()
@@ -96,26 +114,44 @@ class productJointPassView extends View
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<section>".
-            "<h2 id='product-info'>".$this->lang_map["product-info"]["h2_dwl"][$_SESSION["lang"]]."</h2>";
-        echo "<p>".
-            "<a class='dwl-img-link' href='/downloads/jointPass.zip'><img src='/img/popimg/jointPass.png' title='download jointPass.zip'>jointPass.zip</a>".
-            ".zip архив содержит приложение jointPass.exe".
-            "<div>КОНТРОЛЬНЫЕ СУММЫ</div>".
+            "<h2 id='product-downloads'>".$this->lang_map["product-info"]["h2_dwl"][$_SESSION["lang"]]."</h2>".
+            "<p>".
+            "<a class='dwl-img-link' href='/downloads/jointPass.zip' title='download jointPass.zip'>".
+            "<img src='/img/popimg/jointPass.png' title='download jointPass.zip'>jointPass.zip</a>".
+            " архив содержит приложение <span class='ex-conf'>jointPass.exe</span>. ".
+            "Распакуйте jointPass.zip, содайте директорию для запуска приложения и скопируйте в нее jointPass.exe из архива.".
             "</p>".
-            "<p>Для скачивания доступен репозиторий</p>".
+            "<p>Для проверки контрольных сумм можно использовать <span class='ex-conf'>CertUtil</span> из консоли. ".
+            "Хэш MD5 должен быть равен <strong>cd4bbe9c5088226f9e781199d8c301cd</strong>".
+            "</p>".
             "<div class='example'>".
             "<div class='example-code'>".
-            "git clone jointpass".
+            "CertUtil -hashfile jointPass.exe MD5".
+            "</div>".
+            "<div class='example-code'>".
+            "Хэш MD5 : jointPass.exe: cd4bbe9c5088226f9e781199d8c301cd".
             "</div>".
             "<div class='example-code'>".
             "git checkout main".
             "</div>".
             "<div class='example-text'>".
-            "установка каталога <span class='ex-conf'>__config</span> в <span class='ex-conf'>core/application.php</span>".
+            "Проверка  <span class='ex-conf'>Хэш MD5</span>".
             "</div>".
-            "</div>";
-        //$this->prod_info_custom();
-        echo "</section>".
+            "</div>".
+            "</p>".
+            "<p>Для скачивания, кому интересен код, доступен репозиторий</p>".
+            "<div class='example'>".
+            "<div class='example-code'>".
+            "git clone https://github.com/rightJoint/jointpass".
+            "</div>".
+            "<div class='example-code'>".
+            "git checkout main".
+            "</div>".
+            "<div class='example-text'>".
+            "клонирование репозитория программы Джойнт Пасс".
+            "</div>".
+            "</div>".
+            "</section>".
             "</div></div></div>";
     }
 
@@ -134,170 +170,102 @@ class productJointPassView extends View
     {
 
         echo "<div class='branches-block'>".
-
-            "<p>Распакуйте jointPass.zip, содайте директорию для запуска приложения и скопируйте в нее jointPass.exe из архива.</p>".
-            "<p>Программа проверяет наличие файла настроек jPass.ini в директории запуска и при первом запуске создает этот файл. ".
-            "jPass.ini нельзя удалять, хотя в случае удаления .ini-файла данные все равно можно будет восстановить если вы помните МастерПасс</p>".
+            "<p>Программа проверяет наличие файла настроек <span class='ex-conf'>jPass.ini</span> в директории запуска и при первом запуске создает этот файл. ".
+            "jPass.ini нельзя удалять, хотя в случае удаления .ini-файла данные все равно можно будет восстановить если вы помните МастерПасс.</p>".
             "<p>Введите МастерПасс и повторите, выберите язык интерфейса и каталог хранения данных, по умолчанию ".
-            "программа предложит /jPass_data</p>";
-        echo "<div class='example'>".
+            "программа предложит <span class='ex-conf'>C:\Users\CurrentUser\Documents\jPass_data</span></p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-signup_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "выберите язык интерфейса и каталог хранения данных".
+            "Окно первичной авторизации".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo "<p>Далее вы перейдете к входу в обычном режиме.</p>";
-        echo "<p>Иногда вы можете захотеть изменить MasterPass, для этого нажмите изменить пароль в левом нижнем ".
-            "углу чтоб перейти к режиму изменения пароля</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>Далее вы перейдете к входу в обычном режиме.</p>".
+            "<p>Иногда вы можете захотеть изменить MasterPass, для этого нажмите изменить пароль в левом нижнем ".
+            "углу чтоб перейти к режиму изменения пароля.</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-change-pass.png'>".
             "</div>".
             "<div class='example-text'>".
-            "Программа покажет сколько учеток проверено и сколько паролей перешифровано".
+            "Окно изменения пароля. Программа покажет сколько учеток проверено и сколько паролей перешифровано".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo "<p>После входа вам доступно главное окно программы, а из него остальные окна с отдельной панели</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>После входа вам доступно главное окно программы, а из него по кнопкам с отдельной панели другие окна.</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-mainWin_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Главное окно программы".
+            "Главное окно программы, слева фильтры, справа учетки.".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo "<p>Левая часть, с группами и категориями используется для фильтра учеток в таблице в правой части.</p>";
-        echo "<p>При выделении строки учетной записи на панели появятся кнопки для копирования в буфер обмена логина и пароля.</p>";
-        echo "<p>Вы можете сортировать учетки по дате обновления пароля.</p>";
-        echo "<p>Двойной клик на строке учетной приводит к открытию полей учетной записи, так как мы можете хранить и шифровать ".
-            "кастомные поля.</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>Левая часть, с группами и категориями используется для фильтра учеток в таблице в правой части.</p>".
+            "<p>При выделении строки учетной записи на панели появятся кнопки для копирования в буфер обмена логина и пароля.</p>".
+            "<p>Вы можете сортировать учетки по дате обновления пароля.</p>".
+            "<p>Двойной клик на строке учетной приводит к открытию полей учетной записи, так как мы можете хранить и шифровать ".
+            "кастомные поля.</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-accFields_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Создание и удаление полей учетной записи".
+            "Окно поля учетной записи".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo
-            "<p>В верхней части главного окна расположены кнопки для перехода к группам, категорям, полям и учеткам</p>".
+            "</div>".
+            "<p>В верхней части главного окна на отдельной панели расположены кнопки для перехода к группам, категориям, списку полей и учеткам.</p>".
             "<strong>Для применения большинства изменений в этих окнах на главном окне предназначены кнопки обновить на панели фильтров. ".
-            "Некоторые изменения применятся только после перезапуска программы.</strong>";
-
-        echo "<p>Группы и категории предназначены для классификации и фильтрации уетных записей, единственное различие в том что ".
-            "категории в главном окне отображаются в таблице, а группы в выпадающем списке.</p>";
-
-        echo "<div class='example'>".
+            "Некоторые изменения применятся только после перезапуска программы.</strong>".
+            "<p>Группы и категории предназначены для классификации и фильтрации учетных записей, единственное различие в том что ".
+            "категории в главном окне отображаются в таблице, а группы в выпадающем списке.</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-group_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Миграции через админку".
+            "Окно группы".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-
-
-
-        echo "<p>Создайте группу, нажмите обновить</p>";
-        echo "<p>Создайте категории, нажмите обновить</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>Вы можете добавлять изображения к группам, категориям и полям.<br>".
+            "<strong>Программа не обрабатывает изображения при загрузке, рекомендуется загружать иконки, а не фотографии высоком разрешении.</strong>".
+            "</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-cat_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Миграции через админку".
+            "Окно категории".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo "<p>Создайте поля</p>";
-        echo "<p>Создайте категории, нажмите обновить</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>Часто к учетной записи кроме логина и пароля хочется добавить еще какую нибудь полезную информацию, ".
+            "например token git hub или ip-адрес. ".
+            "Для этого вы можете создать собственные поля и включить их шифрование.</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-fields_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Миграции через админку".
+            "Окно поля (список)".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
-        echo "<p>Добавьте учетнуюзапись</p>";
-        echo "<div class='example'>".
+            "</div>".
+            "<p>Добавьте учетную запись, двойным кликом сразу можно перейти к полям. Не забудьте нажать ".
+            "<span class='ex-conf'>кнопку Обновить</span> чтоб перезаргузить таблицу в главном окне</p>".
+            "<div class='example'>".
             "<div class='example-img'>".
             "<img src='/img/Products/jp-acc_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Миграции через админку".
+            "Окно учетные записи".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
-            "</div>".
-            "</div>";
-
-
-
-
-        //    "<p>Введите МастерПасс и повторите пароль, выберите язык интерфейса и каталог хранения данных</p>".
-            /*"<h3>Тематические ветки</h3>";
-        $this->print_branch("music", $this->lang_map["branches"]["list"]["music"]);
-        $this->print_branch("admin", $this->lang_map["branches"]["list"]["admin"]);
-
-        echo "<h3>Core - ветки</h3>";
-        $this->print_branch("module", $this->lang_map["branches"]["list"]["module"]);
-        $this->print_branch("record", $this->lang_map["branches"]["list"]["record"]);
-        echo "</div>";*/
-    }
-
-    function prod_deploy_migrations()
-    {
-        echo "<h3>Миграции</h3>".
-            "<p>".$this->lang_map["product-migration"]["p1"][$_SESSION["lang"]]."</p>".
-            "<p>".$this->lang_map["product-migration"]["p2"][$_SESSION["lang"]]."</p>";
-    }
-
-    function prod_deploy_config()
-    {
-        echo "<h3>Конфигурирование</h3>".
-            "<p>По умолчанию каталог для файлов конфигурации настраивается в <span class='ex-conf'>core/application.php</span></p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "define('JOINT_CONF_DIR', '__config');".
-            "</div>".
-            "<div class='example-text'>".
-            "установка каталога <span class='ex-conf'>__config</span> в <span class='ex-conf'>core/application.php</span>".
-            "</div>".
-            "</div>".
-            "<p>в каталоге <span class='ex-conf'>__config</span> находится файл <span class='ex-conf'>dir_const.php</span>, ".
-            "он включается в код и содержит информацию о других настройках сайта</p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "define('SQL_CONN_DEFAULT', '/'.JOINT_CONF_DIR.'/db_conn.php');".
-            "</div>".
-            "<div class='example-text'>".
-            "настройки подключения к БД в <span class='ex-conf'>dir_const.php</span> указывают на файл <span class='ex-conf'>__config/db_conn.php</span>".
-            "</div>".
-            "</div>";
-    }
-    function prod_deploy_install()
-    {
-        echo "<h3>Копирование файлов</h3>".
-            "<p>Все библиотеки, конфиги и медиа-файлы максимально включены в репозирорий, ничего отдельно копировать не надо.</p>".
-            "<p>Получить файлы проекта можно с помощью гит, клонировав верку из репозитория ".
-            $this->lang_map["product-deploy"]["install"]["download_link"][$_SESSION["lang"]].
-            "</p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "git clone jointsite".
-            "</div>".
-            "<div class='example-code'>".
-            "git checkout ".$this->lang_map["product-deploy"]["install"]["checkout-branch"][$_SESSION["lang"]].
-            "</div>".
-            "<div class='example-text'>".
-            $this->lang_map["product-deploy"]["install"]["example-text"][$_SESSION["lang"]].
             "</div>".
             "</div>";
     }
@@ -307,30 +275,50 @@ class productJointPassView extends View
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<section class='prod-deploy'>".
-            "<h2 id='product-setup'>".$this->lang_map["product-info"]["h2_craft"][$_SESSION["lang"]]."</h2>";
-
-        echo "<p>При авторизации программа читает jPass.ini и берет из него\ соль (обычный GUID), ".
-            "которая прибаляется к введенному паролю, вычисляется hash, который сравниеватся с hash в jointPass.ini. ".
-            "После создается новая соль и вычисляется новый hash, перезаписывается jPass.ini</p>";
-        echo "<p>Введеный при входе в программу МастерПасс хранится в оперативной памяти на время работы программы ".
-            "и испольуется для ширования полей учетных записей. Расшифрованные пароли хранятся в элементах управления при доступах к полю.</p>".
-        "<p>Принцип шифрования остнован на этом классе отрывок с гитаба. В программе он реализуется в одном месте, может быть лего дополнен новыми опциями</p>".
-            "<p>Пример зашированного поля</p>".
+            "<h2 id='product-craft'>".$this->lang_map["product-info"]["h2_craft"][$_SESSION["lang"]]."</h2>".
+            "<p>При авторизации программа читает файл <span class='ex-conf'>jPass.ini</span> из каталога запуска и берет из него соль (обычный GUID), ".
+            "которая прибавляется к введенному паролю, от суммы вычисляется hash, который сравниваeтся с hash в jPass.ini. ".
+            "После создается новая соль и вычисляется новый hash, перезаписывается jPass.ini</p>".
+            "<p>Введеный при входе в программу МастерПасс хранится в оперативной памяти на время работы программы ".
+            "и используется для ширования и расшифровки полей учетных записей. Расшифрованные пароли хранятся в ".
+            "оперативной памяти в элементах управления при доступах к полю.</p>".
+            "<div class='example'>".
+            "<div class='example-code'>".
+            "4O5VjnGixFORFSNfwfZwSl+LDrkF3C98EiaY87EweKN7bKSSv3ER6U8rq03yx8rwsCCK5DrP6yrR0ED6oVttrlotC8Cqu4E4I8MCQqxwDu61U4PE/sOUrNkI9SSrAzqj".
+            "</div>".
+            "<div class='example-text'>".
+            "Шифрование слова <span class='ex-conf'>silver</span> на МастерПасс <span class='ex-conf'>123</span>".
+            "</div>".
+            "</div>".
+            "<p>Принцип шифрования данных учетных записей основан на ".
+            "<a href='https://gist.github.com/Echo-Peak/b93ed94c48048a7041215d4a3f4ad0a2' title='отрывок с github'>этом примере</a>. ".
+            "В программе он реализуется в одном месте, может быть легко дополнен новыми опциями.</p>".
             "<strong>Я не являюсь специалистом по алгоритмам шифрования или сбора метаданных ".
-            "работы программы, каких то способов вытащить пароли мне неизвестны, но это не значит что их не существует.</strong>";
-        //$this->prod_deploy_install();
-
-        //$this->prod_deploy_migrations();
-        echo "</section>".
+            "работы программы, каких то способов вытащить пароли мне неизвестны, но это не значит что их не существует.</strong>".
+            "<p>Папка с данными программы задается в <span class='ex-conf'>jPass.ini</span> по умолчанию ".
+            "<span class='ex-conf'>C:\Users\CurrentUser\Documents\jPass_data</span> содержит файлы пользователя ".
+            "для групп, категорий, списка полей и учетных записей. ".
+            "Папка <span class='ex-conf'>accounts</span> предназначена для хранения полей учетных записей.</p>".
+            "<div class='example'>".
+            "<div class='example-img'>".
+            "<img src='/img/Products/jp-dataFolder.png'>".
+            "</div>".
+            "<div class='example-text'>".
+            "Папка с пользовательскими данными".
+            $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
+            "</div>".
+            "</div>".
+            "<p><strong>Для применения изменений каждый раз accounts.jpass перезаписывается целиком. Для теста использовал 25 учеток, ".
+            "но думаю не будет никаких проблем с большим количеством, однако это не база данных для хранения тысяч паролей.</strong>".
+            "</p></section>".
             "</div></div></div>";
-
     }
 
     function prod_about()
     {
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
-            "<section>".
+            "<section class='prod-about'>".
             "<p>".
             $this->lang_map["prod_about"][$_SESSION["lang"]].
             "</p>".
@@ -345,12 +333,12 @@ class productJointPassView extends View
             "<section class='prod-menu'>".
             "<h2>Содержание</h2>".
             "<ul>".
-            "<li><a href='#product-info'>".$this->lang_map["product-info"]["h2_dwl"][$_SESSION["lang"]]."</a></li>".
+            "<li><a href='#product-downloads'>".$this->lang_map["product-info"]["h2_dwl"][$_SESSION["lang"]]."</a></li>".
             "<li><a href='#product-info'>".$this->lang_map["product-info"]["h2_common"][$_SESSION["lang"]]."</a></li>".
-            "<li><a href='#product-setup'>".$this->lang_map["product-info"]["h2_craft"][$_SESSION["lang"]]."</a></li>".
+            "<li><a href='#product-craft'>".$this->lang_map["product-info"]["h2_craft"][$_SESSION["lang"]]."</a></li>".
+            "<li><a href='#product-feedback'>".$this->lang_map["product-info"]["h2_feedback"][$_SESSION["lang"]]."</a></li>".
             "</ul>".
             "</section>".
             "</div></div></div>";
-
     }
 }

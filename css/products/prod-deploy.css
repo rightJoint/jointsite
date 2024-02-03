@@ -48,6 +48,7 @@ section p{
     background-color: midnightblue;
     color: silver;
     border-bottom: 1px dotted darkgray;
+    overflow: hidden;
 }
 .example-text{
     padding: 0.1em;

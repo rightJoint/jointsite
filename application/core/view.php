@@ -464,12 +464,12 @@ class View
     function print_products_menu()
     {
         echo "<div class='modal-line prod'>".
-            "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
-            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointsite'>Web site</a><sup>php, js, mvc</sup><span>product</span></div>".
-            "</div>";
-        echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='/img/popimg/jointPass.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointpass'>jointPass</a><sup>c#, wpf</sup><span>product</span></div>".
+            "</div>";
+        echo "<div class='modal-line prod'>".
+            "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointsite'>Web site</a><sup>php, js, mvc</sup><span>product</span></div>".
             "</div>";
     }
 
