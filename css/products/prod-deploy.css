@@ -51,7 +51,7 @@ section p{
 }
 .example-text{
     padding: 0.1em;
-    font-size: 0.8em;
+    font-size: 0.9em;
     background-color: silver;
     color: midnightblue;
 }
@@ -60,12 +60,21 @@ section p{
 }
 .example-img{
     text-align: center;
-    background-color: darkslategray;
+    background-color: lightyellow;
 }
 .example-img img{
-    max-width: 100%;
+    max-width:calc(100% - 1em);
+    padding: 0.5em;
 }
 
 span.ex-conf{
     font-weight: bold;
+}
+
+a.dwl-img-link{
+
+}
+a.dwl-img-link img{
+    height: 1.5em;
+    width: 1.5em;
 }
