@@ -24,7 +24,7 @@ class productSiteMusicView extends productSiteView
             ),
             "h2_setup" => array(
                 "en" => "Set up music gallery",
-                "rus" => "Установка музыкально галлереи",
+                "rus" => "Установка музыкальной галлереи",
             ),
         );
         $this->lang_map["product-deploy"] = array(
@@ -53,12 +53,12 @@ class productSiteMusicView extends productSiteView
             ),
             "p2" => array(
                 "en" => "Set up",
-                "rus" => "Создайте табллицы".
-            "<ul>".
-            "<li>musicalb_dt</li>".
-            "<li>musictrackstoalb_dt</li>".
-            "<li>musictracks_dt</li>".
-            "</ul>",
+                "rus" => "Дополнительно создайте табллицы".
+                    "<ul>".
+                    "<li>musicalb_dt</li>".
+                    "<li>musictrackstoalb_dt</li>".
+                    "<li>musictracks_dt</li>".
+                    "</ul>",
             ),
             "p3" => array(
                 "en" => "About product",
@@ -77,60 +77,47 @@ class productSiteMusicView extends productSiteView
 
     function prod_info_custom(){
 
-        echo "<p>Эта музыкальная галлерея точно такая же как на этом сайте <a href='/music' title='слушать'>смотреть</a> </p>".
-            "<p>Ветка музыка использует ветку Управление сайтом в админской части для создания альбомов и трэков, ".
-            "доступ к управлению музыкой как и с другими группами ветки Управление сайтом".
+        echo "<p>".
+            "Эта музыкальная галлерея точно такая же как на этом сайте <a href='/music' title='слушать'>смотреть</a>".
             "</p>".
-            "<p>После проведения миграций, для входа используйте логин musicman и пароль siteman</p>".
+            "<p>".
+            "Ветка музыка использует ветку Управление сайтом в админской части для создания альбомов и трэков, ".
+            "доступ к управлению музыкой настраивается через админку <span class='ex-conf'>siteman</span> как и с другими ".
+            "группами ветки Управление сайтом".
+            "</p>".
+            "<p>".
+            "После проведения миграций, для входа используйте логин <span class='ex-conf'>musicman</span> и пароль <span class='ex-conf'>siteman</span>".
+            "</p>".
             "<div class='example eximg'>".
             "<div class='example-img'>".
             "<img src='/img/Products/music-sm-main_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Управление музыкой в /siteman/music.".
+            "Управление музыкой в <span class='ex-conf'>/siteman/music</span>".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
             "</div>".
 
-            "<p>После авторизации адмика доступна по url /siteman</p>";
+            "<p>После авторизации адмика доступна по url <span class='ex-conf'>/siteman</span></p>";
     }
 
     function prod_deploy_config()
     {
         echo "<h3>Конфигурирование</h3>".
-            "<p>Конфигурирование для Музыка<span class='ex-conf'>core/application.php</span></p>";
-        //parent::prod_deploy_config();
-        /*
-        parent::prod_deploy_config();
-        echo "<p>По умолчанию каталог для файлов конфигурации настраивается в <span class='ex-conf'>core/application.php</span></p>".
-            "<p>в каталоге <span class='ex-conf'>__config</span> находится файл <span class='ex-conf'>dir_const.php</span>, ".
-            "он включается в код и содержит информацию о других настройках сайта</p>".
+            "<p>Поскольку ветка музыка зависит от ветки Модуль, то и начальное конфигурирование такое же как и для ".
+            "Управление сайтом. В файле <span class='ex-conf'>dir_const.php</span> дополнительно настраиваются директории для ".
+            "хранения трэков и обложек альбомов</p>".
             "<div class='example'>".
             "<div class='example-code'>".
-            "define('UPLOAD_DIR_DEFAULT', '/usrdata');".
+            "define('MUSIC_COVERS_DIR', UPLOAD_DIR_DEFAULT.'/music/covers');".
             "</div>".
             "<div class='example-code'>".
-            "define('USERS_AVATARS_DIR', '/usrdata/avatars');".
+            "define('MUSIC_TRACKS_DIR', UPLOAD_DIR_DEFAULT.'/music/tracks');".
             "</div>".
             "<div class='example-text'>".
-            "каталоги для хранения данных пользователя <span class='ex-conf'>/usrdata</span> аватарки <span class='ex-conf'>/usrdata/avatars</span>".
-            "</div>".
-            "</div>".
-            "<p>Дополнительно устанавлюваются еще две настройки</p>".
-            "<ul>".
-            "<li>UPLOAD_DIR_DEFAULT - директория хранения данных пользователя /usrdata </li>".
-            "<li>USERS_AVATARS_DIR - директория для выгрузки аватарок пользователей /usrdata/avatars</li>".
-            "</ul>".
-            "<p><strong>Настройки модуля, доступы, связи, элиасы и другие устанавливаются в __config/modulesInfo.php</strong></p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "require_once JOINT_CONF_DIR.'/modulesInfo.php';".
-            "</div>".
-            "<div class='example-text'>".
-            "включение файла <span class='ex-conf'>__config/modulesInfo.php</span> в <span class='ex-conf'>controller_siteman.php</span>".
+            "каталоги для хранения данных пользователя <span class='ex-conf'>/usrdata/music/covers</span> аватарки <span class='ex-conf'>/usrdata/avatars/music/tracks</span>".
             "</div>".
             "</div>";
-        */
     }
 
     function prod_deploy_migrations()
@@ -142,10 +129,13 @@ class productSiteMusicView extends productSiteView
             "<img src='/img/Products/music-migr_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
-            "Миграции через админку".
+            "Миграции в музыке через админку".
             $this->lang_map["prod-info-text"]["tables"][$_SESSION["lang"]].
             "</div>".
-            "</div>";
+            "</div>".
+            "<p>".
+            $this->lang_map["product-migration"]["p3"][$_SESSION["lang"]].
+            "</p>";
     }
 
 }

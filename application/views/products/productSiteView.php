@@ -89,7 +89,7 @@ class productSiteView extends view_main
         echo "<div class='branches-block'>".
 
             "<p>Реальный сайт настроен на этот репозитории и может содержать другие ветки, ".
-            "для скачивания в полностью собраном виде доступны только те что ветки что даны в описании</p>".
+            "для скачивания в полностью собраном виде доступны только те ветки, что даны в описании</p>".
             "<h3>Тематические ветки</h3>";
         $this->print_branch("music", $this->lang_map["branches"]["list"]["music"]);
         $this->print_branch("admin", $this->lang_map["branches"]["list"]["admin"]);
