@@ -4,12 +4,17 @@ class view_products extends View
 
     function __construct()
     {
+
         $this->logo = 'img/popimg/dev-logo.png';
         $this->styles[] = "css/products/prod-main.css";
 
         $this->lang_map["head"]["h1"] = array(
             "en" => "My products",
             "rus" => "Мои продукты",
+        );
+        $this->lang_map["head"]["title"] = array(
+            "en" => "My products - free",
+            "rus" => "Мои продукты - бесплатно",
         );
 
         $this->lang_map["jointsite"] = array(
@@ -41,6 +46,18 @@ class view_products extends View
                     "<li>Music - простейшая музыкальная галлерея чтоб хранить и слушать несколько альбомов любимых трэков</li>".
                     "</ul>",
             ),
+            "a_title" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "Описание и установка",
+            ),
+            "a_text" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "Смотреть",
+            ),
+            "arrow" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "Узнать больше",
+            ),
         );
         $this->lang_map["jointpass"] = array(
             "title" => array(
@@ -69,6 +86,18 @@ class view_products extends View
                 "rus" => "Следите за обновлением паролей просто отсортировав учетки в таблице по дате обновления. ".
                     "Вы можете скопировать данные программы чтоб перенести на другой ПК. ".
                     "Мастер Пас можно менять, программа перешифрует данные.",
+            ),
+            "a_title" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "скачать приложение jointPass",
+            ),
+            "a_text" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "Скачать",
+            ),
+            "arrow" => array(
+                "en" => "adasdwdwdwed",
+                "rus" => "Узнать больше",
             ),
         );
     }
@@ -105,8 +134,10 @@ class view_products extends View
 
             "</div>".
             "<div class='promote-block-order'>".
-            "<div class='pbo-ctrl'><a href='/products/jointpass' class='pbo-ctrl-feedback'><img src='/img/Products/get-jp-icon.png'>Скачать</a></div>".
-            "<div class='pbo-txt'><div class='pbc-arrow'></div>Узнать больше</div>".
+            "<div class='pbo-ctrl'><a href='/products/jointpass' class='pbo-ctrl-feedback' ".
+            "title='".$this->lang_map["jointpass"]["a_title"][$_SESSION["lang"]]."'><img src='/img/Products/get-jp-icon.png'>".
+            $this->lang_map["jointpass"]["a_text"][$_SESSION["lang"]]."</a></div>".
+            "<div class='pbo-txt'><div class='pbc-arrow'></div>".$this->lang_map["jointpass"]["arrow"][$_SESSION["lang"]]."</div>".
             "</div>".
             "</div>";
         echo $promoteBlock_txt;
@@ -139,18 +170,13 @@ class view_products extends View
 
             "</div>".
             "<div class='promote-block-order'>".
-            "<div class='pbo-ctrl'><a href='/products/jointsite' class='pbo-ctrl-feedback'><img src='/img/popimg/eye-icon.png'>Смотреть</a></div>".
-            "<div class='pbo-txt'><div class='pbc-arrow'></div>Узнать больше</div>".
+            "<div class='pbo-ctrl'><a href='/products/jointsite' class='pbo-ctrl-feedback' ".
+            "title='".$this->lang_map["jointsite"]["a_title"][$_SESSION["lang"]]."'><img src='/img/popimg/eye-icon.png'>".
+            $this->lang_map["jointsite"]["a_text"][$_SESSION["lang"]]."</a></div>".
+            "<div class='pbo-txt'><div class='pbc-arrow'></div>".$this->lang_map["jointsite"]["arrow"][$_SESSION["lang"]]."</div>".
             "</div>".
             "</div>";
-
-
-
         echo $promoteBlock_txt;
-
-
-
-
         echo "</div></div></div>";
 
     }

@@ -20,6 +20,10 @@ class productSiteView extends view_main
         $this->lang_map["prod_about"] = $this->lang_map["branches"]["site-descr"];
 
         $this->lang_map["product-info"] = array(
+            "h_content" => array(
+                "en" => "Table of content",
+                "rus" => "Сщдержание",
+            ),
             "h2_common" => array(
                 "en" => "About product",
                 "rus" => "О продукте",
@@ -191,10 +195,10 @@ class productSiteView extends view_main
 
     function prod_menu()
     {
-        echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
+        echo "<div class='contentBlock-frame '><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<section class='prod-menu'>".
-            "<h2>Содержание</h2>".
+            "<h2>".$this->lang_map["product-info"]["h2_сontent"][$_SESSION["lang"]]."</h2>".
             "<ul>".
             "<li><a href='#product-info'>".$this->lang_map["product-info"]["h2_common"][$_SESSION["lang"]]."</a></li>".
             "<li><a href='#product-setup'>".$this->lang_map["product-info"]["h2_setup"][$_SESSION["lang"]]."</a></li>".
