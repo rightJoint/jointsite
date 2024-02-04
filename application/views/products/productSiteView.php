@@ -216,7 +216,7 @@ class productSiteView extends view_main
             "</p>".
             "<div class='example'>".
             "<div class='example-code'>".
-            "git clone jointsite".
+            "git clone https://github.com/rightJoint/jointsite".
             "</div>".
             "<div class='example-code'>".
             "git checkout ".$this->lang_map["product-deploy"]["install"]["checkout-branch"][$_SESSION["lang"]].
