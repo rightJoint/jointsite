@@ -167,9 +167,6 @@ class productJointPassView extends View
             "<div class='example-code'>".
             "Хэш MD5 : jointPass.exe: cd4bbe9c5088226f9e781199d8c301cd".
             "</div>".
-            "<div class='example-code'>".
-            "git checkout main".
-            "</div>".
             "<div class='example-text'>".
             $this->lang_map["jp-dwl"]["ex-text1"][$_SESSION["lang"]].
             "</div>".
@@ -226,7 +223,7 @@ class productJointPassView extends View
             "</p>".
             "<div class='example'>".
             "<div class='example-img'>".
-            "<img src='/img/Products/jp-change-pass.png'>".
+            "<img src='/img/Products/jp-change-pass_".$_SESSION["lang"].".png'>".
             "</div>".
             "<div class='example-text'>".
             "Окно изменения пароля. Программа покажет сколько учеток проверено и сколько паролей перешифровано".
@@ -234,7 +231,7 @@ class productJointPassView extends View
             "</div>".
             "</div>".
             "<p>".
-            "После входа откроется главное окно программы, а из него по кнопкам с отдельной панели другие окна.".
+            "После входа откроется главное окно программы, а из него по кнопкам с отдельной панели доступны другие окна.".
             "</p>".
             "<div class='example'>".
             "<div class='example-img'>".
@@ -255,7 +252,7 @@ class productJointPassView extends View
             "Вы можете сортировать учетки по дате обновления пароля.".
             "</p>".
             "<p>".
-            "Двойной клик на строке учетной приводит к открытию полей учетной записи, так как мы можете хранить и шифровать ".
+            "Двойной клик на строке учетки приводит к открытию полей учетной записи, так как мы можете хранить и шифровать ".
             "кастомные поля.".
             "</p>".
             "<div class='example'>".

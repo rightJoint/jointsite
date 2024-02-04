@@ -53,7 +53,7 @@ class productSiteMusicView extends productSiteView
             ),
             "p2" => array(
                 "en" => "Set up",
-                "rus" => "Дополнительно создайте табллицы".
+                "rus" => "Дополнительно создайте таблицы:".
                     "<ul>".
                     "<li>musicalb_dt</li>".
                     "<li>musictrackstoalb_dt</li>".
@@ -78,11 +78,11 @@ class productSiteMusicView extends productSiteView
     function prod_info_custom(){
 
         echo "<p>".
-            "Эта музыкальная галлерея точно такая же как на этом сайте <a href='/music' title='слушать'>смотреть</a>".
+            "Музыкальная галлерея, точно такая же как на этом сайте <a href='/music' title='слушать'>смотреть</a>".
             "</p>".
             "<p>".
-            "Ветка музыка использует ветку Управление сайтом в админской части для создания альбомов и трэков, ".
-            "доступ к управлению музыкой настраивается через админку <span class='ex-conf'>siteman</span> как и с другими ".
+            "Ветка музыка использует ветку Модуль (Управление сайтом) в админской части для создания альбомов и трэков, ".
+            "доступ к управлению музыкой настраивается через админку <span class='ex-conf'>siteman</span> по аналогии с другими ".
             "группами ветки Управление сайтом".
             "</p>".
             "<p>".
@@ -115,7 +115,8 @@ class productSiteMusicView extends productSiteView
             "define('MUSIC_TRACKS_DIR', UPLOAD_DIR_DEFAULT.'/music/tracks');".
             "</div>".
             "<div class='example-text'>".
-            "каталоги для хранения данных пользователя <span class='ex-conf'>/usrdata/music/covers</span> аватарки <span class='ex-conf'>/usrdata/avatars/music/tracks</span>".
+            "каталоги для хранения данных пользователя <span class='ex-conf'>/usrdata/music/covers</span> обложки".
+            " <span class='ex-conf'>/usrdata/avatars/music/tracks</span> мелодии".
             "</div>".
             "</div>";
     }

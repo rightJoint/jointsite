@@ -51,7 +51,7 @@ class view_products extends View
             "img-2" => "img/Products/encrypt-img.png",
             "p1" => array(
                 "en" => "adasdwdwdwed",
-                "rus" => "Оргранайзер паролей. ".
+                "rus" => "Органайзер паролей. ".
                     "Вам не придется помнить пароли от всех ваших учеток, достаточно помнить один МастерПасс от программы. ",
             ),
             "p2" => array(
