@@ -27,23 +27,20 @@ class productSiteMusicView extends productSiteView
                 "rus" => "Установка музыкальной галлереи",
             ),
         );
-        $this->lang_map["product-deploy"] = array(
-            "install" => array(
-                'checkout-branch' => array(
-                    "en" => "music",
-                    "rus" => "music",
-                ),
-
-                "download_link" => array(
-                    "en" => "ref to wdl",
-                    "rus" => "ref to wdl",
-                ),
-                "example-text" => array(
-                    "en" => "clone repository and checkout branch <span class='ex-conf'>music</span>",
-                    "rus" => "клонирование репозитория и переключение на ветку <span class='ex-conf'>music</span>",
-                ),
-            ),
+        $this->lang_map["product-deploy"]["install"]["checkout-branch"] = array(
+            "en" => "music",
+            "rus" => "music",
         );
+
+        $this->lang_map["product-deploy"]["install"]["download_link"]   = array(
+            "en" => "ref to wdl",
+            "rus" => "ref to wdl",
+        );
+        $this->lang_map["product-deploy"]["install"]["example-text"] = array(
+            "en" => "clone repository and checkout branch <span class='ex-conf'>music</span>",
+            "rus" => "клонирование репозитория и переключение на ветку <span class='ex-conf'>music</span>",
+        );
+
 
         $this->lang_map["product-migration"] = array(
 

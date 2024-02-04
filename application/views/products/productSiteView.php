@@ -35,6 +35,18 @@ class productSiteView extends view_main
         );
         $this->lang_map["product-deploy"] = array(
             "install" => array(
+                'h3' => array(
+                    "en" => "Getting files",
+                    "rus" => "Копирование файлов",
+                ),
+                'p1' => array(
+                    "en" => "Getting files",
+                    "rus" => "Все библиотеки, конфиги и медиа-файлы максимально включены в репозирорий, ничего отдельно копировать не надо.",
+                ),
+                'p2' => array(
+                    "en" => "Getting files",
+                    "rus" => "Получить файлы проекта можно с помощью гит, клонировав ветку из репозитория ",
+                ),
                 'checkout-branch' => array(
                     "en" => "theme-branch",
                     "rus" => "theme-branch",
@@ -52,9 +64,22 @@ class productSiteView extends view_main
                     "rus" => "клонирование репозитория и переключение на ветку (<strong>вместо theme-branch вам надо указать название одной из веток сайта</strong>)",
                 ),
             ),
+            "server" => array(
+                "h3" => array(
+                    "en" => "Server",
+                    "rus" => "Сервер",
+                ),
+                "p1" => array(
+                    "en" => "Setver",
+                    "rus" => "Сайт установлен на хостинг, локально тестировался на Open Server Panel со следующими настройками:",
+                ),
+            ),
         );
         $this->lang_map["product-migration"] = array(
-
+            "h3" => array(
+                "en" => "Set up",
+                "rus" => "Миграции",
+            ),
             "p1" => array(
                 "en" => "Set up",
                 "rus" => "После того как вы создадите базу данных, вам надо будет создать таблицы и вставить в них начальные данные для работы",
@@ -62,9 +87,48 @@ class productSiteView extends view_main
             "p2" => array(
                 "en" => "About product",
                 "rus" => "Для настройки подключения к базе данных и проведения миграций можно использовать ветку Admin, если у вас нет другого простого способа для этого. ".
-            "К сожалению автослияние в гит дает конфликт в меню view.php, при решении вручную главное чтоб блоки админки добавились, а не перезаписывались.",
+                    "К сожалению автослияние в гит дает конфликт в меню view.php, при решении вручную главное чтоб все блоки добавились, а не перезаписывались.",
             ),
         );
+        $this->lang_map["product-custom"] = array(
+            "p1" => array(
+                "en" => "Table of content",
+                "rus" => "Реальный сайт настроен на этот репозитории и может содержать другие ветки, ".
+                    "для скачивания в полностью собраном виде доступны только те ветки, что даны в описании.",
+            ),
+            "h3-1" => array(
+                "en" => "Table of content",
+                "rus" => "Тематические ветки",
+            ),
+            "h3-2" => array(
+                "en" => "Table of content",
+                "rus" => "Core - ветки",
+            ),
+        );
+        $this->lang_map["product-config"] = array(
+            "h3" => array(
+                "en" => "Table of content",
+                "rus" => "Конфигурирование",
+            ),
+            "p1" => array(
+                "en" => "Table of content",
+                "rus" => "По умолчанию каталог для файлов конфигурации настраивается в ",
+            ),
+            "example-text-1" => array(
+                "en" => "Table of content",
+                "rus" => "установка каталога ",
+            ),
+            "p2" => array(
+                "en" => "Table of content",
+                "rus" => "в каталоге <span class='ex-conf'>__config</span> находится файл <span class='ex-conf'>dir_const.php</span>, ".
+                    "он включается в код и содержит информацию о других настройках сайта",
+            ),
+            "example-text-2" => array(
+                "en" => "Table of content",
+                "rus" => "настройки подключения к БД в ",
+            ),
+        );
+
     }
 
     function print_page_content()
@@ -92,14 +156,14 @@ class productSiteView extends view_main
             $this->branches[$b_name]["href"] = "/products/jointsite/".$b_name;
         }
         echo "<div class='branches-block'>".
-
-            "<p>Реальный сайт настроен на этот репозитории и может содержать другие ветки, ".
-            "для скачивания в полностью собраном виде доступны только те ветки, что даны в описании</p>".
-            "<h3>Тематические ветки</h3>";
+            "<p>".
+            $this->lang_map["product-custom"]["p1"][$_SESSION["lang"]].
+            "</p>".
+            "<h3>".$this->lang_map["product-custom"]["h3-1"][$_SESSION["lang"]]."</h3>";
         $this->print_branch("music", $this->lang_map["branches"]["list"]["music"]);
         $this->print_branch("admin", $this->lang_map["branches"]["list"]["admin"]);
 
-        echo "<h3>Core - ветки</h3>";
+        echo "<h3>".$this->lang_map["product-custom"]["h3-2"][$_SESSION["lang"]]."</h3>";
         $this->print_branch("module", $this->lang_map["branches"]["list"]["module"]);
         $this->print_branch("record", $this->lang_map["branches"]["list"]["record"]);
         echo "</div>";
@@ -107,39 +171,47 @@ class productSiteView extends view_main
 
     function prod_deploy_migrations()
     {
-        echo "<h3>Миграции</h3>".
+        echo "<h3>".$this->lang_map["product-migration"]["h3"][$_SESSION["lang"]]."</h3>".
             "<p>".$this->lang_map["product-migration"]["p1"][$_SESSION["lang"]]."</p>".
             "<p>".$this->lang_map["product-migration"]["p2"][$_SESSION["lang"]]."</p>";
     }
 
     function prod_deploy_config()
     {
-        echo "<h3>Конфигурирование</h3>".
-            "<p>По умолчанию каталог для файлов конфигурации настраивается в <span class='ex-conf'>core/application.php</span></p>".
+        echo "<h3>".$this->lang_map["product-config"]["h3"][$_SESSION["lang"]]."</h3>".
+            "<p>".
+            $this->lang_map["product-config"]["p1"][$_SESSION["lang"]].
+            "<span class='ex-conf'>core/application.php</span></p>".
             "<div class='example'>".
             "<div class='example-code'>".
             "define('JOINT_CONF_DIR', '__config');".
             "</div>".
             "<div class='example-text'>".
-            "установка каталога <span class='ex-conf'>__config</span> в <span class='ex-conf'>core/application.php</span>".
+            $this->lang_map["product-config"]["example-text-1"][$_SESSION["lang"]].
+            "<span class='ex-conf'>__config</span> в <span class='ex-conf'>core/application.php</span>".
             "</div>".
             "</div>".
-            "<p>в каталоге <span class='ex-conf'>__config</span> находится файл <span class='ex-conf'>dir_const.php</span>, ".
-            "он включается в код и содержит информацию о других настройках сайта</p>".
+            "<p>".
+            $this->lang_map["product-config"]["p2"][$_SESSION["lang"]].
+            "</p>".
             "<div class='example'>".
             "<div class='example-code'>".
             "define('SQL_CONN_DEFAULT', '/'.JOINT_CONF_DIR.'/db_conn.php');".
             "</div>".
             "<div class='example-text'>".
-            "настройки подключения к БД в <span class='ex-conf'>dir_const.php</span> указывают на файл <span class='ex-conf'>__config/db_conn.php</span>".
+            $this->lang_map["product-config"]["example-text-2"][$_SESSION["lang"]].
+            "<span class='ex-conf'>dir_const.php</span> указывают на файл <span class='ex-conf'>__config/db_conn.php</span>".
             "</div>".
             "</div>";
     }
     function prod_deploy_install()
     {
-        echo "<h3>Копирование файлов</h3>".
-            "<p>Все библиотеки, конфиги и медиа-файлы максимально включены в репозирорий, ничего отдельно копировать не надо.</p>".
-            "<p>Получить файлы проекта можно с помощью гит, клонировав ветку из репозитория ".
+        echo "<h3>".$this->lang_map["product-deploy"]["install"]["h3"][$_SESSION["lang"]]."</h3>".
+            "<p>".
+            $this->lang_map["product-deploy"]["install"]["p1"][$_SESSION["lang"]].
+            "</p>".
+            "<p>".
+            $this->lang_map["product-deploy"]["install"]["p2"][$_SESSION["lang"]].
             $this->lang_map["product-deploy"]["install"]["download_link"][$_SESSION["lang"]].
             "</p>".
             "<div class='example'>".
@@ -156,13 +228,15 @@ class productSiteView extends view_main
     }
     function prod_deploy_server()
     {
-        echo "<h3>Сервер</h3>".
-            "<p>Сайт установлен на хостинг, локально тестировался на Open Server Panel со следующими настройками:</p>".
+        echo "<h3>".$this->lang_map["product-deploy"]["server"]["h3"][$_SESSION["lang"]]."</h3>".
+            "<p>".
+            $this->lang_map["product-deploy"]["server"]["p1"][$_SESSION["lang"]].
             "<ul>".
             "<li>Apache_2.4-PHP_7.2+Nginx_1.23</li>".
             "<li>MySQL-5.6</li>".
             "<li>PHP_7.2</li>".
-            "</ul>";
+            "</ul>".
+            "</p>";
     }
 
 

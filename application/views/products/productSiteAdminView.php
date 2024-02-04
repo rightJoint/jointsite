@@ -69,22 +69,18 @@ class productSiteAdminView extends productSiteView
 
         );
 
-        $this->lang_map["product-deploy"] = array(
-            "install" => array(
-                'checkout-branch' => array(
-                    "en" => "admin",
-                    "rus" => "admin",
-                ),
+        $this->lang_map["product-deploy"]["install"]["checkout-branch"] = array(
+            "en" => "admin",
+            "rus" => "admin",
+        );
 
-                "download_link" => array(
-                    "en" => "(or download archive file <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>')",
-                    "rus" => "(или скачать архив с файлами <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>)",
-                ),
-                "example-text" => array(
-                    "en" => "clone repository and checkout branch <span class='ex-conf'>admin</span>",
-                    "rus" => "клонирование репозитория и переключение на ветку <span class='ex-conf'>admin</span>",
-                ),
-            ),
+        $this->lang_map["product-deploy"]["install"]["download_link"] = array(
+            "en" => "(or download archive file <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>')",
+            "rus" => "(или скачать архив с файлами <a href='/downloads/admin_v3.0.rar'>admin_v3.0.rar</a>)",
+        );
+        $this->lang_map["product-deploy"]["install"]["example-text"] = array(
+            "en" => "clone repository and checkout branch <span class='ex-conf'>admin</span>",
+            "rus" => "клонирование репозитория и переключение на ветку <span class='ex-conf'>admin</span>",
         );
 
         $this->lang_map["product-migration"]["p2"] = array(
