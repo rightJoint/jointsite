@@ -1,6 +1,9 @@
 <?php
 class adminListView extends RecordsListView
 {
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public function __construct()
     {
         $this->lang_map["table-selector"] =array(
