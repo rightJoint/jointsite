@@ -16,14 +16,22 @@ class ModuleRecordsController extends RecordsController
 
     function loadView($type_of_view, $process_path, $custom_name = null)
     {
-        $loaded_view = parent::loadView($type_of_view, $process_path, $custom_name);
-        $loaded_view->module = $this->module;
-        $loaded_view->logo = $this->module["mImg"];
-        $loaded_view->shortcut_icon = $this->module["mImg"];
-        if($this->model->access_rules["create_rule"] < 7){
-            $loaded_view->hasAccessCreate = false;
+        if($type_of_view == "ModulesListView"){
+            include "application/core/Module/ModulesListView.php";
+            $loaded_view = new ModulesListView();
+        }elseif($type_of_view == "ModulesStatView"){
+            include "application/core/Module/ModulesStatView.php";
+            $loaded_view = new ModulesStatView();
+        }else{
+            $loaded_view = parent::loadView($type_of_view, $process_path, $custom_name);
+            $loaded_view->module = $this->module;
+            $loaded_view->logo = $this->module["mImg"];
+            $loaded_view->shortcut_icon = $this->module["mImg"];
+            if($this->model->access_rules["create_rule"] < 7){
+                $loaded_view->hasAccessCreate = false;
+            }
+            $loaded_view->logo = $this->module["mImg"];
         }
-        $loaded_view->logo = $this->module["mImg"];
         return $loaded_view;
     }
 
@@ -165,8 +173,7 @@ class ModuleRecordsController extends RecordsController
                     }
                 }
 
-                include "application/core/Module/ModulesStatView.php";
-                $this->view = new ModulesStatView();
+                $this->view = $this->loadView("ModulesStatView", "", "");
 
                 $this->view->logo = $process_module["mImg"];
 
@@ -208,8 +215,7 @@ class ModuleRecordsController extends RecordsController
 
         if($access_items = moduleMenu::sitemanMenuAccess()){
             $this->model = new Model_Siteman();
-            include "application/core/Module/ModulesListView.php";
-            $this->view = new ModulesListView();
+            $this->view = $this->loadView("ModulesListView", "", "");
             $this->view->modules = $this->modules;
             $this->view->access_items = $access_items;
             $this->view->generate();

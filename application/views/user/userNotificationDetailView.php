@@ -7,6 +7,9 @@ class userNotificationDetailView extends sitemanDetailView
     public $logo = "/img/popimg/eye-icon.png";
     public $shortcut_icon = "/img/popimg/eye-icon.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     function set_head_array()
     {
         $this->lang_map["head"]["description"] = array(
