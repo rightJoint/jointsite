@@ -38,7 +38,6 @@ class controller_products extends Controller
 
     function action_jointpass()
     {
-        //https://gist.github.com/Echo-Peak/b93ed94c48048a7041215d4a3f4ad0a2
         include "application/views/products/productJointPassView.php";
         $this->view = new productJointPassView();
         $this->view->generate();

@@ -128,7 +128,14 @@ class productSiteView extends view_main
                 "rus" => "настройки подключения к БД в ",
             ),
         );
+    }
 
+    function set_head_array()
+    {
+        $this->lang_map["head"]["description"] = array(
+            "en" => $this->lang_map["head"]["h1"]["en"].". ".$this->lang_map["prod_about"]["en"],
+            "rus" => $this->lang_map["head"]["h1"]["rus"].". ".$this->lang_map["prod_about"]["rus"],
+        );
     }
 
     function print_page_content()
