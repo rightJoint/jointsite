@@ -44,9 +44,9 @@ class view_main extends View
                         "rus" => "ветка Модуль (Управление сайтом)",
                     ),
                     "descr" => array(
-                        "en" => "Module is group of table by the way master - slave for group operations like look up and delete, ".
-                            "its possible to use users roles in groups for access records in tables. ".
-                            "Site manager (siteman) for quick start new modules, has users personal page and siteman for manage users, ".
+                        "en" => "Module is a group of tables by the way master - slave for group operations like search and delete, ".
+                            "provide users roles in groups for access records in tables. ".
+                            "Site manager (siteman) for quick start new modules, has users personal page and admin part for manage users, ".
                             "groups and notifications embedded.",
                         "rus" => "Модуль ипользует группировку таблицы по типу главная таблица - подчиненные ".
                             "для групповых операций (просмотр и удаление), ".
@@ -55,16 +55,16 @@ class view_main extends View
                             "и админку для управления пользователями, группами и уведомлениями.",
                     ),
                     "version" => array(
-                        "en" => "alfa",
-                        "rus" => "alfa",
+                        "en" => "v1.0",
+                        "rus" => "v1.0",
                     ),
                     "get" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='load from github'>link to github</a>",
+                        "rus" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='скачать с гит хаба'>ссылка на github</a>",
                     ),
                     "more" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='/products/jointsite/module' title='learn more about Site manager'>view on site</a>",
+                        "rus" => "<a href='/products/jointsite/module' title='узнать подробнее про Управление сайтом'>смотреть на сайте</a>",
                     ),
                     "depend" => array(
                         "en" => "#Record-branch",
