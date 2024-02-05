@@ -248,6 +248,32 @@ class View
                 "rus" => "Управление контентом на сайте",
             ),
         ),
+        "products" => array(
+            "jointPass" => array(
+                "link_text" => array(
+                    "en" => "jointPass",
+                    "rus" => "ДжойнтПасс",
+                ),
+                "link_title" => array(
+                    "en" => "get passwords organizer",
+                    "rus" => "Скачать органайзер паролей",
+                ),
+                "prod-text" => array(
+                    "en" => "product",
+                    "rus" => "продукт",
+                ),
+            ),
+        ),
+        "music" => array(
+            "link_text" => array(
+                "en" => "MyFavMusic",
+                "rus" => "Избранные трэки",
+            ),
+            "link_title" => array(
+                "en" => "Work a little fun with good music",
+                "rus" => "Работать приятней под хорошую музыку",
+            ),
+        ),
     );
 
     function __construct()
@@ -455,22 +481,38 @@ class View
             $this->print_auth_forms();
         }
 
-
         $this->print_siteman_menu();
+
+        $this->print_music_menu();
 
         echo "</div></div></div></div>";
     }
+
+    function print_music_menu()
+    {
+        echo "<div class='modal-line'>".
+            "<div class='modal-line-img'><img src='/img/popimg/music-logo.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/music/my-fav-misic' ".
+            "title='".$this->lang_map["music"]["link_title"][$_SESSION["lang"]]."'>".
+            $this->lang_map["music"]["link_text"][$_SESSION["lang"]].
+            "</a></div>".
+            "</div>";
+    }
+
 
     function print_products_menu()
     {
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='/img/popimg/jointPass.png'></div>".
-            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointpass'>jointPass</a><sup>c#, wpf</sup><span>product</span></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointpass' ".
+            "title='".$this->lang_map["products"]["jointPass"]["link_title"][$_SESSION["lang"]]."'>".
+            $this->lang_map["products"]["jointPass"]["link_text"][$_SESSION["lang"]].
+            "</a><sup>c#, wpf</sup><span>".$this->lang_map["products"]["jointPass"]["prod-text"][$_SESSION["lang"]]."</span></div>".
             "</div>";
-        echo "<div class='modal-line prod'>".
+        /*echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='/products/jointsite'>Web site</a><sup>php, js, mvc</sup><span>product</span></div>".
-            "</div>";
+            "</div>";*/
     }
 
     function print_auth_forms()

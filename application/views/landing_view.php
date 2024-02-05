@@ -1,6 +1,8 @@
 <?php
-class landing_view extends View
+include "application/views/products/view_products.php";
+class landing_view extends view_products
 {
+    /*
     function __construct()
     {
         $this->lang_map["stab_landing"] = array(
@@ -16,5 +18,5 @@ class landing_view extends View
     function print_page_content()
     {
         echo $this->lang_map["stab_landing"][$_SESSION["lang"]];
-    }
+    }*/
 }

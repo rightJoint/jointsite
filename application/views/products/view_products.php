@@ -8,12 +8,17 @@ class view_products extends View
         $this->logo = 'img/popimg/dev-logo.png';
         $this->styles[] = "css/products/prod-main.css";
 
+        $this->lang_map["head"]["description"] = array(
+            "en" => "My products: jointPass - passwords organizer.",
+            "rus" => "Мои продукты: jointPass - органайзер паролей.",
+        );
+
         $this->lang_map["head"]["h1"] = array(
             "en" => "My products",
             "rus" => "Мои продукты",
         );
         $this->lang_map["head"]["title"] = array(
-            "en" => "My products - free",
+            "en" => "My products - for free",
             "rus" => "Мои продукты - бесплатно",
         );
 
@@ -67,36 +72,40 @@ class view_products extends View
             "img-1" => "img/popimg/jointPass.png",
             "img-2" => "img/Products/encrypt-img.png",
             "p1" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "Passwords organizer. No needs keep in mind all passwords of yours accounts, remember only one Master Pass of this app. ",
                 "rus" => "Органайзер паролей. ".
                     "Вам не придется помнить пароли от всех ваших учеток, достаточно помнить один МастерПасс от программы. ",
             ),
             "p2" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "Tap on account row in grid and buttons to copy clipboard login and password just appear on filter panel. ".
+                    "All data store encrypted in yor disk. You may sort out your accounts by groups and categories.",
                 "rus" => "Нажмите на учетку в таблице и кнопки копирования логина и пароля сразу доступны на панели. ".
                     "Все данные шифруются и хранятся на вашем диске. Вы можете распределить ваши учетки на группы и категории.",
             ),
             "p3" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "In addition two predefined fields (login and password) you may add custom fields, attach to that images, turn on encryption. ".
+                    "Account may contain any unique fields.",
                 "rus" => "Кроме двух предустановленных полей (логин и пароль) вы можете создать собственные, добавить к ним изображения и включить шифрование. ".
                     "К учетке можно добавлять любое количество уникальных полей.",
             ),
             "p4" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "Watch when your password was last updated just sort them in grid by date. ".
+                    "Your may migrate you data to use on another PC. ".
+                    "It is possible to change MasterPass, app re-crypt data.",
                 "rus" => "Следите за обновлением паролей просто отсортировав учетки в таблице по дате обновления. ".
                     "Вы можете скопировать данные программы чтоб перенести на другой ПК. ".
                     "Мастер Пас можно менять, программа перешифрует данные.",
             ),
             "a_title" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "get app jointPass",
                 "rus" => "скачать приложение jointPass",
             ),
             "a_text" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "Download",
                 "rus" => "Скачать",
             ),
             "arrow" => array(
-                "en" => "adasdwdwdwed",
+                "en" => "learn more",
                 "rus" => "Узнать больше",
             ),
         );
@@ -110,7 +119,7 @@ class view_products extends View
         $promoteBlock_txt = "<div class='promote-block'>".
             "<div class='promote-block-title'>".
             "<div class='pbt-header'>".$this->lang_map["jointpass"]['title'][$_SESSION["lang"]]."</div>".
-            "<div class='pbt-numbers'><span onclick='promoteBlock(1)'>c#</span><span  onclick='promoteBlock(2)'>wpf</span></div>".
+            "<div class='pbt-numbers'><span>c#</span><span>wpf</span></div>".
             "</div>".
             "<div class='promote-block-content'>".
             "<div class='pbc-line f-left'>".
@@ -146,7 +155,7 @@ class view_products extends View
         $promoteBlock_txt = "<div class='promote-block'>".
             "<div class='promote-block-title'>".
             "<div class='pbt-header'>".$this->lang_map["jointsite"]['title'][$_SESSION["lang"]]."</div>".
-            "<div class='pbt-numbers'><span onclick='promoteBlock(1)'>php</span><span  onclick='promoteBlock(2)'>js</span><span onclick='promoteBlock(3)'>mvc</span></div>".
+            "<div class='pbt-numbers'><span>php</span><span>js</span><span>mvc</span></div>".
             "</div>".
             "<div class='promote-block-content'>".
             "<div class='pbc-line f-left'>".
@@ -176,7 +185,7 @@ class view_products extends View
             "<div class='pbo-txt'><div class='pbc-arrow'></div>".$this->lang_map["jointsite"]["arrow"][$_SESSION["lang"]]."</div>".
             "</div>".
             "</div>";
-        echo $promoteBlock_txt;
+        // echo $promoteBlock_txt;
         echo "</div></div></div>";
 
     }

@@ -7,7 +7,7 @@ class controller_products extends Controller
         $this->view = new view_products();
         $this->view->generate();
     }
-
+/*
     function action_jointsite()
     {
         global $routes;
@@ -35,7 +35,7 @@ class controller_products extends Controller
             throwErr("request", "product not exist in controller product");
         }
     }
-
+*/
     function action_jointpass()
     {
         include "application/views/products/productJointPassView.php";
