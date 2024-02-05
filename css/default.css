@@ -100,3 +100,21 @@ footer div, footer a, footer img{
         font-size: 12px;
     }
 }
+
+img.toTop
+{
+    position: fixed;
+    bottom: 5em;
+    right: 3em;
+    display: none;
+    width: 2em;
+    height: 2.5em;
+    cursor: pointer;
+}
+
+@media only screen and (max-width : 360px){
+    img.toTop {
+        bottom: 5em;
+        right: 3em;
+    }
+}
