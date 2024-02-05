@@ -40,8 +40,8 @@ class View
                 "rus" => "Web сайт от Right Joint"
             ),
             "header_text" => array(
-                "en" => "Web site",
-                "rus" => "Web сайт",
+                "en" => "RIGHT JOINt",
+                "rus" => "РАЙТ ДЖОЙНt",
             ),
             "menu-btn-text" => array(
                 "en" => "MENU",
