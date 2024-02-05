@@ -40,10 +40,13 @@ class View
                 "rus" => "Web сайт от Right Joint"
             ),
             "header_text" => array(
-                "en" => "RIGHT JOINt",
-                "rus" => "РАЙТ ДЖОЙНt",
-            )
-
+                "en" => "Web site",
+                "rus" => "Web сайт",
+            ),
+            "menu-btn-text" => array(
+                "en" => "MENU",
+                "rus" => "МЕНЮ",
+            ),
         ),
         "view_err" => array(
             "generate_cv" => array(
@@ -373,7 +376,9 @@ class View
         echo "en' href='?lang=en' title='".$this->lang_map["lang_panel_text"]["en"]."'><span>En</span></a>".
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>".
-            "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>МЕНЮ</span></span></div>".
+            "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>".
+            $this->lang_map["head"]["menu-btn-text"][$_SESSION["lang"]].
+            "</span></span></div>".
             "<div class='h-caption'>".
             "<div class='textBlock ";
         global $server;
