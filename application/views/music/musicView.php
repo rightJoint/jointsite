@@ -15,6 +15,29 @@ class musicView extends View
         );
         $this->scripts[]="/js/musicgallery.js";
         $this->styles[]="/css/musicgallery.css";
+
+        $this->lang_map["music"] = array(
+            "alb_created" => array(
+                "en" => "Created",
+                "rus" => "Создано",
+            ),
+            "alb_updated" => array(
+                "en" => "Updated",
+                "rus" => "Обновлено",
+            ),
+            "t_song" => array(
+                "en" => "Track",
+                "rus" => "Трэк",
+            ),
+            "t_art" => array(
+                "en" => "Artist",
+                "rus" => "Исполнитель",
+            ),
+            "t_play" => array(
+                "en" => "Tune",
+                "rus" => "Воспр.",
+            ),
+        );
     }
 
     function print_page_content()
@@ -39,8 +62,10 @@ class musicView extends View
                 "<div class='alb-name'>".$this->playAlb["albumName"]."</div>".
                 "<div class='alb-cover'><img src='".MUSIC_COVERS_DIR."/".$this->playAlb["albumImg"]."'></div>".
                 "<div class='alb-descr'>".$this->playAlb["metaDescr"]."</div>".
-                "<div class='alb-created'>Created: <span>".$this->playAlb["dateOfCr"]."</span></div>".
-                "<div class='alb-updated'>Updated: <span>".$this->playAlb["refreshDate"]."</span></div>".
+                "<div class='alb-created'>".$this->lang_map["music"]["alb_created"][$_SESSION["lang"]].": <span>".
+                $this->playAlb["dateOfCr"]."</span></div>".
+                "<div class='alb-updated'>".$this->lang_map["music"]["alb_updated"][$_SESSION["lang"]].": <span>".
+                $this->playAlb["refreshDate"]."</span></div>".
                 "</div>";
         }
 
@@ -53,9 +78,9 @@ class musicView extends View
         if($this->trackList->rowCount() > 0){
             echo "<div class='track-line caption'>".
                 "<div class='track-num'>No</div>".
-                "<div class='track-artist'>Artist</div>".
-                "<div class='track-name'>Song</div>".
-                "<div class='track-play'>Play</div>".
+                "<div class='track-artist'>".$this->lang_map["music"]["t_art"][$_SESSION["lang"]]."</div>".
+                "<div class='track-name'>".$this->lang_map["music"]["t_song"][$_SESSION["lang"]]."</div>".
+                "<div class='track-play'>".$this->lang_map["music"]["t_play"][$_SESSION["lang"]]."</div>".
                 "</div>";
 
             $track_num = 0;
