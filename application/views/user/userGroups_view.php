@@ -8,6 +8,9 @@ class userGroups_view extends sitemanListView
     public $shortcut_icon = "/img/popimg/user_group.png";
     public $h2;
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public function __construct()
     {
         parent::__construct();

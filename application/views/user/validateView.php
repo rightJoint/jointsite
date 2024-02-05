@@ -4,6 +4,9 @@ class validateView extends View
     public $logo = "/img/popimg/checkinNow.png";
     public $shortcut_icon = "/img/popimg/checkinNow.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     function __construct()
     {
         $this->lang_map["head"]["title"] = array(

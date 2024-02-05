@@ -7,6 +7,9 @@ class userHomeView extends ModuleEditView
     public $logo = "/img/popimg/user-logo.png";
     public $shortcut_icon = "/img/popimg/user-logo.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public $user_modules = null;
 
     public function __construct()

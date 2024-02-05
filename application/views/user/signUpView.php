@@ -4,6 +4,9 @@ class signUpView extends View
     public $logo = "/img/popimg/checkInNow.png";
     public $shortcut_icon = "/img/popimg/checkInNow.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public $signUp_err = array(
         "login_unacceptable" => false,
         "login_reserved" => false,
