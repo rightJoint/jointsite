@@ -13,6 +13,9 @@ class AdminView extends View
         "records" => "/img/admin/editRecords.png",
         );
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
 
     function __construct()
     {

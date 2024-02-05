@@ -1,6 +1,9 @@
 <?php
 class adminDetailView extends RecordDetailView
 {
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public function __construct()
     {
 
