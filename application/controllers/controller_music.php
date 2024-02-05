@@ -30,8 +30,8 @@ class Controller_Music extends Controller
             $this->view->robot_no_index = true;
         }
         $this->view->lang_map["head"]["title"] = array(
-           "en" => "music-".$this->view->playAlb["albumName"],
-            "rus" => "music-".$this->view->playAlb["albumName"],
+           "en" => "Music-".$this->view->playAlb["albumName"],
+            "rus" => "Музыка -".$this->view->playAlb["albumName"],
         );
         $this->view->lang_map["head"]["description"] = array(
             "en" => $this->view->playAlb["metaDescr"],

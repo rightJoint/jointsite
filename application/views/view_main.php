@@ -48,20 +48,21 @@ class view_main extends View
                         "rus" => "Ветка музыка",
                     ),
                     "descr" => array(
-                        "en" => "Simplest music gallery to store and play favorite tracks, able bind tracks to albums.",
-                        "rus" => "Простейшая музыкальная галлерея чтоб хранить и слушать несколько любимых трэков, можно разбить трэки по альбомам.",
+                        "en" => "Simplest music gallery to store and play few albums of favorite tracks, may attach cover to album.",
+                        "rus" => "Простейшая музыкальная галлерея чтоб хранить и слушать несколько альбомов любимых трэков, ".
+                            "к альбому можно добавить обложку.",
                     ),
                     "version" => array(
-                        "en" => "alfa",
-                        "rus" => "alfa",
+                        "en" => "v1.0",
+                        "rus" => "v1.0",
                     ),
                     "get" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='load from github'>link to github</a>",
+                        "rus" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='скачать с гит хаба'>ссылка на github</a>",
                     ),
                     "more" => array(
-                        "en" => "there should be refer - admin",
-                        "rus" => "Здесь ссылку откуда скачать - admin",
+                        "en" => "<a href='/products/jointsite/music' title='learn more about music'>view on site</a>",
+                        "rus" => "<a href='/products/jointsite/music' title='узнать подробнее про music'>смотреть на сайте</a>",
                     ),
                     "depend" => array(
                         "en" => "#site manager",
