@@ -31,6 +31,24 @@ class Controller_Siteman extends ModuleRecordsController
         return $loadedView;
     }
 
+    function action_sitemap()
+    {
+        global $routes;
+        if($routes[3] == "update"){
+
+            $this->model = $this->loadModel("siteman/sitemap", "update");
+            $this->model->getRecordStructure();
+            $view_data = $this->model->update_sitemap();
+            include "application/views/siteman/sitemap/sitemapUpdateView.php";
+            $this->view = new sitemapUpdateView();
+            $this->view->module = $this->modules["sitemap"];
+            $this->view->view_data = $view_data;
+            $this->view->generate();
+        }else{
+            $this->module_process( "sitemap");
+        }
+    }
+
     function action_music()
     {
         $this->module_process("music");
