@@ -269,7 +269,7 @@ class View
         ),
         "music" => array(
             "link_text" => array(
-                "en" => "MyFavMusic",
+                "en" => "My favorite music",
                 "rus" => "Избранные трэки",
             ),
             "link_title" => array(
@@ -497,7 +497,7 @@ class View
     {
         echo "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='/img/popimg/music-logo.png'></div>".
-            "<div class='modal-line-text'><a class='m-l-blue' href='/music/my-fav-misic' ".
+            "<div class='modal-line-text'><a class='m-l-blue' href='/music/my-fav-music' ".
             "title='".$this->lang_map["music"]["link_title"][$_SESSION["lang"]]."'>".
             $this->lang_map["music"]["link_text"][$_SESSION["lang"]].
             "</a></div>".
