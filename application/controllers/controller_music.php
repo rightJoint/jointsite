@@ -26,7 +26,8 @@ class Controller_Music extends Controller
 
         $this->view->trackList = $this->model->getAlbTracksList($this->view->playAlb["album_id"]);
 
-        if($this->view->playAlb["robIndex"]){
+        if(!$this->view->playAlb["robIndex"]){
+            $this->view->metrik_block = false;
             $this->view->robot_no_index = true;
         }
         $this->view->lang_map["head"]["title"] = array(
