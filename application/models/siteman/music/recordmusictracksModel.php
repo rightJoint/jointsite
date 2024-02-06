@@ -1,7 +1,7 @@
 <?php
 class recordmusictracksModel extends ModuleRecordsModel
 {
-    public $tableName = "musictracks_dt";
+    public $tableName = "musicTracks_dt";
     public $modelAliases = array(
         "en" => "music tracks",
         "rus" => "мелодии"
