@@ -288,14 +288,14 @@ class productJointPassView extends View
             " ".$this->lang_map["jp-dwl"]["p1_txt1"][$_SESSION["lang"]]." <span class='ex-conf'>jointPass.exe</span>. ".
             $this->lang_map["jp-dwl"]["p1_txt2"][$_SESSION["lang"]].
             "</p>".
-            "<p>".$this->lang_map["jp-dwl"]["p2"][$_SESSION["lang"]]." <strong>cd4bbe9c5088226f9e781199d8c301cd</strong>".
+            "<p>".$this->lang_map["jp-dwl"]["p2"][$_SESSION["lang"]]." <strong>aa653c47a6b6925441fb7faf0689eb3a</strong>".
             "</p>".
             "<div class='example'>".
             "<div class='example-code'>".
             "CertUtil -hashfile jointPass.exe MD5".
             "</div>".
             "<div class='example-code'>".
-            "Хэш MD5 : jointPass.exe: cd4bbe9c5088226f9e781199d8c301cd".
+            "Хэш MD5 : jointPass.exe: aa653c47a6b6925441fb7faf0689eb3a".
             "</div>".
             "<div class='example-text'>".
             $this->lang_map["jp-dwl"]["ex-text1"][$_SESSION["lang"]].
