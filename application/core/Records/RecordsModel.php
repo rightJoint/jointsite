@@ -304,10 +304,12 @@ class RecordsModel extends Model
 
     function filterWhere($method = "POST", $REQ_ARR = null)
     {
-        if($method == "GET"){
-            $REQ_ARR = $_GET;
-        }elseif(!$method){
-            $REQ_ARR = $_POST;
+        if(!$REQ_ARR){
+            if($method == "GET"){
+                $REQ_ARR = $_GET;
+            }elseif($method == "POST" and !($REQ_ARR)){
+                $REQ_ARR = $_POST;
+            }
         }
 
         $return_where = null;
