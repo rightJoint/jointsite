@@ -267,7 +267,7 @@ class View
                 ),
             ),
         ),
-        "music" => array(
+        "music-menu" => array(
             "link_text" => array(
                 "en" => "My favorite music",
                 "rus" => "Избранные трэки",
@@ -498,8 +498,8 @@ class View
         echo "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='/img/popimg/music-logo.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='/music/album/my-fav-music' ".
-            "title='".$this->lang_map["music"]["link_title"][$_SESSION["lang"]]."'>".
-            $this->lang_map["music"]["link_text"][$_SESSION["lang"]].
+            "title='".$this->lang_map["music-menu"]["link_title"][$_SESSION["lang"]]."'>".
+            $this->lang_map["music-menu"]["link_text"][$_SESSION["lang"]].
             "</a></div>".
             "</div>";
     }
