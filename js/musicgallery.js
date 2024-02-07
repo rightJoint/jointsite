@@ -3,12 +3,14 @@ $(document).ready(function (){
     $("#music-album").jointMusicPlayer();
 })
 
+var cur_track_num = 0;
+var new_track_num = 0;
+var next_num = 0;
+
 $.fn["jointMusicPlayer"] = function () {
     var htmlMusicPlayer = document.getElementById("htmlMusicPlayer");
 
     var music_album = $(this);
-
-    var cur_track_num = 0;
 
     var timerId;
 
@@ -19,7 +21,7 @@ $.fn["jointMusicPlayer"] = function () {
         alb_length++;
         $(this).on("click", function () {
             var track_file = $(this).parent().parent().find(".track-name a").attr("href");
-            var new_track_num =parseInt($(this).parent().parent().find(".track-num").html());
+            new_track_num =parseInt($(this).parent().parent().find(".track-num").html());
 
             if(cur_track_num != new_track_num){
                 htmlMusicPlayer.src = track_file;
@@ -38,7 +40,7 @@ $.fn["jointMusicPlayer"] = function () {
                 }
             }
 
-            var next_num = cur_track_num+1;
+            next_num = cur_track_num+1;
 
             if(alb_length < next_num){
                 next_num = 1;
