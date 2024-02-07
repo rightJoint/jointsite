@@ -7,6 +7,9 @@ class changePasswordView extends ModuleEditView
     public $logo = "/img/popimg/pass-img.png";
     public $shortcut_icon = "/img/popimg/pass-img.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     public $user_modules = null;
 
     public function __construct()
