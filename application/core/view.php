@@ -386,7 +386,16 @@ class View
             echo "landing";
         }
         echo "'><span class='firmName'>".$this->lang_map["head"]["header_text"][$_SESSION["lang"]]."</span>".
-            "<h1>".$this->lang_map["head"]["h1"][$_SESSION["lang"]]."</h1></div></div></div></header>".
+            "<h1>".$this->lang_map["head"]["h1"][$_SESSION["lang"]]."</h1></div></div>".
+            "<div class='orderBtn hi-icon-effect-1 hi-icon-effect-1a'>".
+            "<span class='hi-icon hi-icon-mobile order ";
+        if($_SESSION['basket']['total']>0){
+           // $appRJ->response['result'].= "buy";
+        }
+        echo "'><span class='hi-text'>ЗАКАЗ</span></span>".
+            "</div>".
+
+            "</div></header>".
             "<style>.hi-icon-mobile.menu:before {background-image: url(".$this->logo.");}</style>";
     }
 

@@ -39,7 +39,7 @@ header .headerCenter{
     display: inline-block;
 }
 header .h-caption{
-    width: 80%;
+    width: 60%;
     max-width: 1600px;
     display: inline-block;
     vertical-align: middle;
@@ -72,6 +72,17 @@ header .h-caption span.firmName{
 }
 /*<--header*/
 .menuBtn {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    width: 8%;
+    margin: 0.2em 6%;
+    max-width: 273px;
+    vertical-align: middle;
+    position: relative;
+
+}
+.menuBtn, .orderBtn {
     display: inline-block;
     text-align: center;
     padding: 0;
@@ -172,6 +183,15 @@ span.hi-text{
     animation-iteration-count: 1
 
 }
+.hi-icon-effect-1a .hi-icon.order:hover span.hi-text{
+    /*color: lime;*/
+    display: inline-block;
+    animation: center-animate 1s ease infinite alternate;
+    -webkit-animation-fill-mode: forwards;
+    animation-iteration-count: 1
+
+
+}
 @keyframes center-animate {
     0% { left: -30%;}
     100%{ left: -90%;}
@@ -187,6 +207,14 @@ span.hi-text{
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
+}
+.hi-icon-mobile.order:before {
+    background-image: url("/img/Services/order.png");
+    z-index: 3;
+    position: relative;
+}
+.hi-icon-mobile.order.buy:before {
+    background-image: url("/img/Services/money.png");
 }
 /*modal-->*/
 .modal{
