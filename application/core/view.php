@@ -25,6 +25,8 @@ class View
 
     public $active_modal_menu = false;
 
+    public $basket_prod = array();
+
     public $lang_map = array(
         "head" => array(
             "description" => array(
@@ -277,6 +279,51 @@ class View
                 "rus" => "Работать приятней под хорошую музыку",
             ),
         ),
+        "modal-order" => array(
+            "btn-hire" => array(
+                "en" => "HIRE",
+                "rus" => "ЗАКАз",
+            ),
+            "hire-txt" => array(
+                "en" => "Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreement.",
+                "rus" => "Присматриваю варианты для взаимовыгодного сотрудничества. Готов приступить к работе по договоренности",
+            ),
+            "telega-t" => array(
+                "en" => "contact by telegram",
+                "rus" => "связаться по телеграмм",
+            ),
+            "order-form" => array(
+                "leave-app" => array(
+                    "en" => "New application",
+                    "rus" => "Оставить заявку",
+                ),
+                "app-txt" => array(
+                    "en" => "Next you will be redirected to the page, where you can watch status of your application, add details or attachments",
+                    "rus" => "Далее вы будете переадресованы на страницу, ".
+                        "на которой всегда сможете отследить статус вашей заявки, добавить описание и вложение"
+                ),
+                "name-ps" => array(
+                    "en" => "Your name",
+                    "rus" =>"Ваше имя",
+                ),
+                "mail-ps" => array(
+                    "en" => "Your email",
+                    "rus" =>"Ваш email",
+                ),
+                "phone-ps" => array(
+                    "en" => "Phone number",
+                    "rus" =>"Номер телефона",
+                ),
+                "message-ps" => array(
+                    "en" => "Subject",
+                    "rus" =>"Сообщение",
+                ),
+                "submit" => array(
+                    "en" => "Send",
+                    "rus" =>"Отправить",
+                ),
+            ),
+        ),
     );
 
     function __construct()
@@ -381,8 +428,8 @@ class View
             "</span></span></div>".
             "<div class='h-caption'>".
             "<div class='textBlock ";
-        global $server;
-        if(!$server['reqUri_expl'][1]){
+        global $routes;
+        if(!$routes[1]){
             echo "landing";
         }
         echo "'><span class='firmName'>".$this->lang_map["head"]["header_text"][$_SESSION["lang"]]."</span>".
@@ -390,9 +437,9 @@ class View
             "<div class='orderBtn hi-icon-effect-1 hi-icon-effect-1a'>".
             "<span class='hi-icon hi-icon-mobile order ";
         if($_SESSION['basket']['total']>0){
-           // $appRJ->response['result'].= "buy";
+            echo "buy";
         }
-        echo "'><span class='hi-text'>ЗАКАЗ</span></span>".
+        echo "'><span class='hi-text'>".$this->lang_map["modal-order"]["btn-hire"][$_SESSION["lang"]]."</span></span>".
             "</div>".
 
             "</div></header>".
@@ -423,6 +470,7 @@ class View
     public function print_modals()
     {
         $this->modalMenu();
+        $this->modalOrder();
     }
 
     function modalMenu()
@@ -732,7 +780,6 @@ class View
 
     }
 
-
     public function print_siteman_menu()
     {
 
@@ -769,6 +816,128 @@ class View
                 "<span class='opnSubMenu'>" . $menuSign . "</span> "."<ul " . $menuStyle . ">".
                 $list_menu."</ul></div></div>";
         }
+    }
+
+    function modalOrder()
+    {
+        echo "<div class='modal order'><div class='overlay'></div><div class='contentBlock-frame'>" .
+            "<div class='contentBlock-center'><div class='modal-right'><div class='modal-close'></div></div>" .
+            "<div class='modal-left'>" .
+
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/Services/logo-free.png'></div>" .
+            "<div class='modal-line-text free'><a href='tel:+7(903)8887772' class='phone' target='_blank'>+7 (903) 888-7772</a>" .
+            "<p>".$this->lang_map["modal-order"]["hire-txt"][$_SESSION["lang"]]."</p><div>" .
+            "</div></div></div>" .
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/popimg/eMailLogo.png'></div><div class='modal-line-text mail'>" .
+            "<a href='mailto:rightjoint@yandex.ru' class='mailto' target='_blank'>rightjoint@yandex.ru</a></div></div>" .
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/Services/telegram.png'></div><div class='modal-line-text'>" .
+            "<a href='https://t.me/rightjoint' class='mailto' target='_blank' title='".$this->lang_map["modal-order"]["telega-t"][$_SESSION["lang"]]."'>".
+            "t.me/rightjoint</a></div></div>" .
+            "<form class='auth-form order'>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text fbm-title ta-right'>" .
+            $this->lang_map["modal-order"]["order-form"]["leave-app"][$_SESSION["lang"]].
+            "<p>".$this->lang_map["modal-order"]["order-form"]["app-txt"][$_SESSION["lang"]]."</p>" .
+            "</div>" .
+            "<div class='modal-line-img'><img src='/img/Services/application-logo.png'></div>" .
+            "</div>" .
+            "<div class='modal-line' ";
+        if ($_SESSION["basket"]["total"] > 0) {
+            echo "style='position: relative' ";
+        } else {
+            echo "style='display: none' ";
+        }
+        $data_basket = $this->print_basket();
+        echo "><div class='modal-line-img'>" .
+            "<img src='/img/Services/handsShake-color.png'></div><div class='modal-line-text basket'>" .
+            "<div>Ваш заказ: <span>" . $_SESSION["basket"]["total"] . "</span> ".$_SESSION["basket"]["currency"].".".
+            "<a href='/?basket-clear=1' onclick='event.preventDefault(); basketDrop();' class='basket-clear' title='Отменить заказ'><img src='/img/popimg/drop-icon.png'></a></div>".
+            "</div></div>" .
+            "<div class='modal-basket-list'>".$data_basket["basket"]."</div>".
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'>" .
+            "<input type='text' name='clientName' placeholder='".$this->lang_map["modal-order"]["order-form"]["name-ps"][$_SESSION["lang"]]."..' required></div>" .
+            "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'>" .
+            "<input type='email' name='clientMail' placeholder='".$this->lang_map["modal-order"]["order-form"]["mail-ps"][$_SESSION["lang"]]."..' required></div>" .
+            "<div class='modal-line-img'><img src='/img/popimg/eMailLogo-2.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'><input type='text' name='clientPhone' placeholder='".$this->lang_map["modal-order"]["order-form"]["phone-ps"][$_SESSION["lang"]]."..'></div>" .
+            "<div class='modal-line-img'><img src='/img/Services/typeNum.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'><textarea name='clientSubject' placeholder='".$this->lang_map["modal-order"]["order-form"]["message-ps"][$_SESSION["lang"]]."..'></textarea></div>" .
+            "<div class='modal-line-img'><img src='/img/Services/appQuestion.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-err'></div>" .
+            "<div class='modal-line-text ta-right'><input type='submit' name='mo-submit' value='".$this->lang_map["modal-order"]["order-form"]["submit"][$_SESSION["lang"]]."' onclick='event.preventDefault(); mkApplication()'></div>" .
+            "<div class='modal-line-img'></div>" .
+
+            "<input type='hidden' name='feedBack-form-modal' value='newAppl'>" .
+            "</div>" .
+            "</form>";
+        echo "</div></div></div></div>";
+    }
+
+    function print_basket()
+    {
+        $return = null;
+        if (count($this->basket_prod)) {
+            foreach ($this->basket_prod as $num=> $findProd_row){
+                $return.= "<div class='mbl-line'><div class='mbl-line-img'><img src='" .
+                    "/img/Services/services/".$findProd_row['card_id']."/". "/preview/" .
+                    $findProd_row['cardImg'] . "'></div>" .
+                    "<div class='mbl-line-info'>";
+                if($_SESSION["lang"]=="en"){
+                    $return.=$findProd_row['cardName_en'];
+                }else{
+                    $return.=$findProd_row['cardName_rus'];
+                }
+
+                $val = $_SESSION["basket"]["prod"][$findProd_row["cardAlias"]];
+                $return.= " ".$val;
+                if ($findProd_row['srvCat_id'] == 1) {
+                    if($_SESSION["lang"]=="en"){
+                        $return.=" (h)";
+                    }else{
+                        $return.=" (час.)";
+                    }
+                } else {
+                    if($_SESSION["lang"]=="en"){
+
+                    }else{
+                        $return.=" (шт.)";
+                    }
+                }
+
+
+                if($_SESSION["lang"]=="en"){
+                    $return.=" * " .$findProd_row['cardPrice_en']." = ".($val * $findProd_row['cardPrice_en']) .
+                        " ($)";
+                    $_SESSION["basket"]["total"]+=$val * $findProd_row['cardPrice_en'];
+                }else{
+                    $return.=" * " .$findProd_row['cardPrice_rus']." = ".($val * $findProd_row['cardPrice_rus']) .
+                        " (руб.)";
+                    $_SESSION["basket"]["total"]+=$val * $findProd_row['cardPrice_rus'];
+                }
+                $return.="</div></div>";
+            }
+        }
+
+        return array(
+            "basket" => $return,
+        );
     }
 
     function generateJson($data)
