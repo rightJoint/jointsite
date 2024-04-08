@@ -136,7 +136,7 @@ class Controller_User extends RecordsController
                                             "accAlias" => $_SESSION["site_user"]["accAlias"],
                                             "newPassword" => $this->model->record["new_password"]["curVal"],
                                         )
-                                    ), true);
+                                    ), true, "default");
 
                                 $this->view->action_log = array(
                                     "result" => true,

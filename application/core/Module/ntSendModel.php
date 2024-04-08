@@ -1,7 +1,7 @@
 <?php
 class ntSendModel extends Model
 {
-    public function AddNtf($templateName, $subscriber_type, $type_id, $template_params, $send_now = false)
+    public function AddNtf($templateName, $subscriber_type, $type_id, $template_params, $send_now, $method)
     {
         $findTemplate_qry = "select template_id from ntfTemplates_dt where template_id = '".$templateName."' or tName = '".$templateName."'";
         $findTemplate_res = $this->query($findTemplate_qry);

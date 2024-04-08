@@ -37,14 +37,14 @@ class Model_Auth extends Model_User
                         "validCode" => $user->record["vldCode"]["curVal"],
                         "host" => $_SERVER["HTTP_HOST"],
                     )
-                ), true);
+                ), true, "default");
             $UserNtf_model->AddNtf("newUserOnSite-site", "group",
                 "A8357ED4-D2FD-45B3-9ACD-950950BE3535", json_encode(
                     array(
                         "accLogin" => $user->record["accLogin"]["curVal"],
                         "accAlias" => $user->record["accAlias"]["curVal"],
                     )
-                ), true);
+                ), true, "default");
         }
 
     }
