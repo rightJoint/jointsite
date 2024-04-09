@@ -114,7 +114,8 @@ class ModuleRecordsController extends RecordsController
             $update = true;
             foreach ($_FILES as $file_field => $file_info){
                 if($this->model->editFields[$file_field]["format"] == "file"){
-                    $this->model->uploadRecordFile($file_field, false, true);
+                    $this->model->record[$file_field]["curVal"] = $file_info["name"];
+                    $this->model->uploadRecordFile($file_field, $this->model->editFields[$file_field]["file_options"]["use_file_name"], true);
                 }
             }
         }

@@ -67,7 +67,15 @@ class ModuleEditView extends RecordEditView
                 "<span class='file_val'>".$value."</span>";
             if($fieldOption["file_options"]["load_dir"] and $value){
                 if($fieldOption["file_options"]["file_type"] == "img"){
-                    $return_input .= "<img class='cell-img float-l' src='".$fieldOption["file_options"]["load_dir"]."/".$value."'>";
+                    if($fieldOption["replaces"]){
+                        $imgLink = $fieldOption["file_options"]["load_dir"];
+                        foreach ($fieldOption["replaces"] as $replace){
+                            $imgLink = str_replace($replace, $this->record[$replace]["curVal"], $imgLink);
+                        }
+                    }else{
+                        $imgLink = $fieldOption["file_options"]["load_dir"]."/".$value;
+                    }
+                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>";
                 }
             }
         }elseif($fieldOption["format"] == "radio"){
