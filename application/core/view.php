@@ -74,7 +74,7 @@ class View
                 "rus" => "Вы уже на главной"
             ),
             "home_descr" => array(
-                "en" => "Geek services - portfoloi",
+                "en" => "Geek services - portfolio",
                 "rus" => "Услуги программиста - портфолио"
             )
         ),

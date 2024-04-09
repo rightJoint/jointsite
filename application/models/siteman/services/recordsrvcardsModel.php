@@ -256,11 +256,11 @@ class recordsrvcardsModel extends ModuleRecordsModel
                     "rus" => "cardName_rus"
                 ),
             ),
-            "cardName_em" => array(
+            "cardName_en" => array(
                 "format" => "varchar",
                 "fieldAliases" => array(
-                    "en" => "cardName_em",
-                    "rus" => "cardName_em"
+                    "en" => "cardName_en",
+                    "rus" => "cardName_en"
                 ),
             ),
             "cardAlias" => array(

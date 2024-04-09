@@ -1,0 +1,186 @@
+.apl-detail{
+    width: 100%;
+}
+.apl-detail .client-info,
+.apl-detail .invoice-info,
+.apl-detail .c-cont-info,
+.apl-detail .appl-basket
+{
+    border: 1px solid black;
+    box-shadow: 0 0 0.2em rgb(0 0 0.5);
+    display: inline-block;
+    width: 40%;
+    margin: 0.5em 2%;
+    padding: 1%;
+    vertical-align: top;
+}
+.apl-detail .c-subject{
+    border: 1px solid black;
+    box-shadow: 0 0 0.2em rgb(0 0 0.5);
+    width: 88%;
+    margin: 0.5em 6%;
+}
+.apl-detail .client-info .ci-img {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+.apl-detail .client-info .ci-img img{
+    height: 4em;
+    width: 4em;
+    vertical-align: middle;
+}
+.apl-detail .client-info{
+    vertical-align: middle;
+}
+.apl-detail .client-info .ci-detail{
+    display: inline-block;
+    width: 70%;
+    text-align: right;
+}
+.apl-detail .client-info .cid-name{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+.apl-detail .client-info .ci-detail img{
+    height: 1.5em;
+    width: 1.5em;
+}
+.c-cont-info .ci-detail .cid-mail,
+.c-cont-info .ci-detail .cid-phone{
+    width: 100%;
+    text-align: left;
+    margin: 0.2em 0;
+}
+.c-cont-info  .ci-detail .cid-mail img,
+.c-cont-info .ci-detail .cid-phone img
+{
+    height: 1.2em;
+    width: 1.2em;
+    vertical-align: middle;
+}
+.c-cont-info .ci-detail .cid-mail span,
+.c-cont-info .ci-detail .cid-phone span
+{
+    margin-left: 1em;
+}
+.apl-detail .apd-cap{
+    width: 96%;
+    margin: 0 2%;
+    border-bottom: 2px solid silver;
+}
+.c-subject .cs-content{
+    width: 90%;
+    margin: 1em 4%;
+    border: 1px solid darkgray;
+    font-style: italic;
+}
+.apl-detail .invoice-info .ii-status,
+.apl-detail .invoice-info .ii-date,
+.apl-detail .invoice-info .ii-amount{
+    text-align: left;
+}
+.apl-detail .invoice-info span.st-var{
+    display: inline-block;
+    width: 30%;
+}
+.apl-detail .invoice-info span.st-val{
+    display: inline-block;
+    width: 70%;
+}
+.appl-basket .appl-basket-line{
+    text-align: left;
+}
+.appl-attach {
+    width: 88%;
+    margin: 0 6%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.appl-attach .apt-title{
+
+}
+form.aplc-form{
+    width: 88%;
+    margin: 0 6%;
+}
+form.aplc-form .aplcf-title{
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+form.aplc-form .aplcf-title img{
+    height: 2em;
+    width: 2em;
+    vertical-align: middle;
+    margin-right: 1em;
+}
+form.aplc-form .aplcf-title span{
+    float: right;
+    font-weight: normal;
+}
+form.aplc-form .aplcf-ctrl{
+
+}
+form.aplc-form .aplcf-ctrl .aplcf-ctrl-block{
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+}
+form.aplc-form .aplcf-ctrl .aplcf-ctrl-block input[type=button]{
+    margin-left: 1em;
+}
+.appl-attach .applCm{
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    margin: 1em 0;
+}
+.appl-attach .applCm.manag{
+    text-align: left;
+}
+.appl-attach .applCm .usr-line{
+    display: inline-block;
+    width: 100%;
+}
+.appl-attach .applCm .usr-line img{
+    height: 1.5em;
+    width: 1.5em;
+}
+.appl-attach .applCm .content{
+    display: inline-block;
+    width: 100%;
+
+}
+.appl-attach .applCm .content .c-wrap{
+    width: auto;
+    display: inline-block;
+    border: 2px solid green;
+    border-radius: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.appl-attach .applCm.manag .content .c-wrap{
+    border: 2px solid blue;
+}
+.appl-attach .applCm .cm-attach{
+    display: inline-block;
+    width: 50%;
+}
+.appl-attach .applCm .cm-date{
+    display: inline-block;
+    width: 50%;
+    font-size: 0.8em;
+}
+@media only screen and (max-width : 1024px) and (orientation : portrait){
+    .apl-detail .client-info,
+    .apl-detail .invoice-info,
+    .apl-detail .c-cont-info,
+    .apl-detail .appl-basket
+
+    {
+        width: 88%;
+        margin: 1em 6%;
+    }
+}
