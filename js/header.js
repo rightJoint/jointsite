@@ -6,6 +6,9 @@ $(document).ready(function() {
         $('.modal.menu, .modal.menu .overlay').css({'opacity': 1, 'visibility': 'visible'});
         e.preventDefault();
     });
+    $('.orderBtn span, .orderBtn img, span.feedback-title').click(function (e) {
+        $('.modal.order, .modal.order .overlay').css({'opacity': 1, 'visibility': 'visible'});
+    });
 
     $(".modal-left span.opnSubMenu").click(function () {
         if($(this).html()=='+'){

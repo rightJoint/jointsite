@@ -338,6 +338,147 @@ span.hi-text{
     background: #b30000;
 }
 /*<--modal-scroll*/
+/*modal order-->*/
+.modal-line-text.free{
+    margin-top: 0.2em;
+    font-size: 0.8em;
+    color: green;
+}
+.modal-line-text.lookFor{
+    margin-top: 0.2em;
+    color: wheat;
+    font-size: 0.8em;
+}
+.modal-line-text.busy{
+    margin-top: 0.2em;
+    color: red;
+    font-size: 0.8em;
+}
+.modal-line-text.free a.phone{
+    display: inline-block;
+    color: limegreen;
+    padding-top: 0.4em;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+.modal-line-text.lookFor a{
+    color: orange;
+    text-decoration: none;
+}
+.modal-line-text.lookFor p{
+    margin-bottom: 1em;
+}
+.modal-line-text a.mailto{
+    color: white;
+    text-decoration: none;
+
+}
+.modal-basket-list .mbl-line .mbl-line-img {
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+}
+
+.modal-basket-list .mbl-line .mbl-line-img img{
+    height: 1.5em;
+    width: 1.5em;
+}
+/*
+form.feedBack-form-modal{
+
+}
+form.feedBack-form-modal .modal-line:not(:last-child){
+    border: none;
+}
+*/
+form.order .modal-line .modal-line-text.fbm-title{
+    color: turquoise;
+    font-weight: bold;
+
+}
+form.order .modal-line-text.fbm-title p{
+    font-size: 0.8em;
+    color: PowderBlue;
+    font-weight: normal;
+}
+.modal-basket-list .mbl-line .mbl-line-info {
+    text-align: left;
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+}
+/*
+form.feedBack-form-modal .modal-line-img{
+    text-align: center;
+}
+form.feedBack-form-modal input[type=text],
+form.feedBack-form-modal input[type=email],
+form.feedBack-form-modal textarea{
+    background-color: transparent;
+    color: white;
+    width: 90%;
+    margin: 0 5%;
+    display: inline-block;
+    font-size: 1em;
+    padding: 0.2em;
+    border: 1px solid mediumaquamarine;
+    border-radius: 0.2em;
+}
+*/
+form.order textarea{
+
+    height: 5em;
+}
+/*
+form.feedBack-form-modal .modal-line-text input[type=submit]{
+    font-size: 1em;
+    background-color: transparent;
+    border: 1px solid mediumaquamarine;
+    color: PowderBlue;
+    padding: 0.2em;
+    margin-bottom: 1em;
+}
+
+form.order .modal-line-text input[type=submit]:hover{
+    background-color: snow;
+    box-shadow: 5px -5px 5px gray;
+    color: rgb(25,25,50);
+}
+
+form.feedBack-form-modal .modal-line {
+    position: relative;
+}
+form.feedBack-form-modal .modal-line .modal-line-err{
+    position: absolute;
+    width: 98%;
+    margin: 0 1%;
+    left: 0;
+    bottom: -0.2em;
+    font-size: 0.8em;
+    color: firebrick;
+}
+form.feedBack-form-modal .modal-line:nth-last-child(2) .modal-line-err{
+    bottom: -0.8em;
+}
+
+ */
+/*
+.modal.order .details a{
+    display: inline-block;
+    color: lightblue;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+ */
+.modal-line-text img.payStat{
+    height: 3em;
+    width: 3em;
+    position: absolute;
+    right: 1em;
+    top: 0em;
+}
+/*<--modal order*/
 /*lang-panel-->*/
 .lang-panel{
     position: absolute;
@@ -400,6 +541,7 @@ form.auth-form .modal-line-text img{
 }
 form.auth-form .modal-line-text{
     text-align: right;
+    margin-bottom: 0.4em;
 }
 
 form.auth-form .modal-line:not(:last-child){
@@ -407,7 +549,8 @@ form.auth-form .modal-line:not(:last-child){
 }
 form.auth-form input[type=text],
 form.auth-form input[type=password],
-form.auth-form input[type=email]{
+form.auth-form input[type=email],
+form.auth-form textarea {
     background-color: transparent;
     color: white;
     width: 90%;

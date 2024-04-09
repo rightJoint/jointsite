@@ -282,7 +282,7 @@ class View
         "modal-order" => array(
             "btn-hire" => array(
                 "en" => "HIRE",
-                "rus" => "ЗАКАз",
+                "rus" => "ЗАКАЗ",
             ),
             "hire-txt" => array(
                 "en" => "Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreement.",
@@ -293,9 +293,17 @@ class View
                 "rus" => "связаться по телеграмм",
             ),
             "order-form" => array(
+                "basket-txt" => array(
+                    "en" => "Your order",
+                    "rus" => "Ваш заказ",
+                ),
                 "leave-app" => array(
                     "en" => "New application",
                     "rus" => "Оставить заявку",
+                ),
+                "cancel-order" => array(
+                    "en" => "cancel order",
+                    "rus" => "Отменить заказ",
                 ),
                 "app-txt" => array(
                     "en" => "Next you will be redirected to the page, where you can watch status of your application, add details or attachments",
@@ -851,10 +859,16 @@ class View
             echo "style='display: none' ";
         }
         $data_basket = $this->print_basket();
+        if($_SESSION["basket"]["lang"] == "en"){
+            $p_curr = "$";
+        }else{
+            $p_curr = "руб";
+        }
         echo "><div class='modal-line-img'>" .
             "<img src='/img/Services/handsShake-color.png'></div><div class='modal-line-text basket'>" .
-            "<div>Ваш заказ: <span>" . $_SESSION["basket"]["total"] . "</span> ".$_SESSION["basket"]["currency"].".".
-            "<a href='/?basket-clear=1' onclick='event.preventDefault(); basketDrop();' class='basket-clear' title='Отменить заказ'><img src='/img/popimg/drop-icon.png'></a></div>".
+            "<div>".$this->lang_map["modal-order"]["order-form"]["basket-txt"][$_SESSION["lang"]].": <span>" . $_SESSION["basket"]["total"] . "</span> ".$p_curr.".".
+            "<a href='/?basket-clear=1' onclick='event.preventDefault(); basketDrop();' class='basket-clear' ".
+            "title='".$this->lang_map["modal-order"]["order-form"]["cancel-order"][$_SESSION["lang"]]."'><img src='/img/popimg/drop-icon.png'></a></div>".
             "</div></div>" .
             "<div class='modal-basket-list'>".$data_basket["basket"]."</div>".
             "<div class='modal-line'>" .
@@ -892,6 +906,7 @@ class View
 
     function print_basket()
     {
+        $_SESSION["basket"]["lang"] = $_SESSION["lang"];
         $return = null;
         if (count($this->basket_prod)) {
             foreach ($this->basket_prod as $num=> $findProd_row){
@@ -899,38 +914,12 @@ class View
                     "/img/Services/services/".$findProd_row['card_id']."/". "/preview/" .
                     $findProd_row['cardImg'] . "'></div>" .
                     "<div class='mbl-line-info'>";
-                if($_SESSION["lang"]=="en"){
-                    $return.=$findProd_row['cardName_en'];
-                }else{
-                    $return.=$findProd_row['cardName_rus'];
-                }
-
+                $return.=$findProd_row['cardName_'.$_SESSION["lang"]];
                 $val = $_SESSION["basket"]["prod"][$findProd_row["cardAlias"]];
                 $return.= " ".$val;
-                if ($findProd_row['srvCat_id'] == 1) {
-                    if($_SESSION["lang"]=="en"){
-                        $return.=" (h)";
-                    }else{
-                        $return.=" (час.)";
-                    }
-                } else {
-                    if($_SESSION["lang"]=="en"){
-
-                    }else{
-                        $return.=" (шт.)";
-                    }
-                }
-
-
-                if($_SESSION["lang"]=="en"){
-                    $return.=" * " .$findProd_row['cardPrice_en']." = ".($val * $findProd_row['cardPrice_en']) .
-                        " ($)";
-                    $_SESSION["basket"]["total"]+=$val * $findProd_row['cardPrice_en'];
-                }else{
-                    $return.=" * " .$findProd_row['cardPrice_rus']." = ".($val * $findProd_row['cardPrice_rus']) .
-                        " (руб.)";
-                    $_SESSION["basket"]["total"]+=$val * $findProd_row['cardPrice_rus'];
-                }
+                $return.=" (".$findProd_row['unit_'.$_SESSION["lang"]].")";
+                $return.=" * " .$findProd_row['cardPrice_'.$_SESSION["lang"]]." = ".($val * $findProd_row['cardPrice_'.$_SESSION["lang"]]) .
+                    " (".$findProd_row['cardCurr_'.$_SESSION["lang"]].")";
                 $return.="</div></div>";
             }
         }

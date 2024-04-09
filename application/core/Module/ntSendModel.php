@@ -1,6 +1,30 @@
 <?php
 class ntSendModel extends Model
 {
+    public $phpMailer;
+    function __construct($sql_db_connect_json = SQL_CONN_DEFAULT)
+    {
+        parent::__construct($sql_db_connect_json);
+
+        require_once ($_SERVER["DOCUMENT_ROOT"]."/lib/php/PHPMailer.php");
+        require_once ($_SERVER["DOCUMENT_ROOT"]."/lib/php/SMTP.php");
+
+        $this->phpMailer = new PHPMailer;
+        $this->phpMailer->isSMTP();
+
+        require_once (JOINT_CONF_DIR."/phpMailer-1.php");
+
+        $this->phpMailer->CharSet = 'UTF-8';
+        $this->phpMailer->Host = PHP_MAILER_HOST_1;
+        $this->phpMailer->SMTPAuth = PHP_MAILER_SMTP_AUTH_1;
+        $this->phpMailer->Username = PHP_MAILER_USER_NAME_1; // Ваш логин в Яндексе. Именно логин, без @yandex.ru
+        $this->phpMailer->Password = PHP_MAILER_PASSWORD_1; //CONT_MAIL_1_PASS// Ваш пароль
+        $this->phpMailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;;
+        $this->phpMailer->Port = PHP_MAILER_PORT_1;
+        $this->phpMailer->setFrom(PHP_MAILER_FROM_1); // Ваш Email
+        $this->phpMailer->isHTML(PHP_MAILER_IS_HTML_1);
+    }
+
     public function AddNtf($templateName, $subscriber_type, $type_id, $template_params, $send_now, $method)
     {
         $findTemplate_qry = "select template_id from ntfTemplates_dt where template_id = '".$templateName."' or tName = '".$templateName."'";
@@ -16,14 +40,14 @@ class ntSendModel extends Model
                 "'".date("Y-m-d H:i:s")."', '".$template_params."', null, null, null, null, null)";
             if($this->query($addNtf_qry)){
                 if($send_now){
-                    $this->SendNtf($newNtf_id);
+                    $this->SendNtf($newNtf_id, $method);
                 }
                 return true;
             }
         }
     }
 
-    public function SendNtf($ntf_id = null, $method = null)
+    public function SendNtf($ntf_id, $method)
     {
         $sendList_qry = "select * from ntfList_dt where send_date is null";
         if($ntf_id){
@@ -67,7 +91,37 @@ class ntSendModel extends Model
                     }else{
                         $send_res["log"] = "no subscribers in group<br>";
                     }
-                }else{
+                }elseif($sendList_row["subscriber_type"] == "email"){
+                    $template_qry = "select ntfTemplates_dt.tHeader_en, ntfTemplates_dt.tBody_en, ntfList_dt.subscriber_type, ".
+                        "ntfList_dt.type_id, ntfList_dt.send_params, ntfList_dt.template_params from ntfTemplates_dt ".
+                        "inner join ntfList_dt on ntfTemplates_dt.template_id = ntfList_dt.template_id where ntfList_dt.ntf_id='".$ntf_id."'";
+
+                    $template_res = $this->query($template_qry);
+
+                    if($template_res->rowCount() === 1){
+                        $template_row = $template_res->fetch(PDO::FETCH_ASSOC);
+                        $template_params = json_decode($template_row["template_params"], true);
+                        $replaced_text = $template_row["tBody_en"];
+
+                        if($template_params){
+                            foreach ($template_params as $tp_key => $tp_val){
+                                $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
+                            }
+                        }
+                        $this->sendOnEmail($template_row["type_id"], $template_row["tHeader_en"], $replaced_text);
+
+                        $send_res = array(
+                            "result" => 1,
+                            "log" => null,
+                            "put_ntf" => 1,
+                            "send_flag" => 1,
+                            "foundMail" => 0,
+                            "sendToEmail" => 1,
+                        );
+
+                    }
+                }
+                else{
                     $send_res["log"] = "unknown subscriber type<br>";
                 }
 
@@ -97,7 +151,8 @@ class ntSendModel extends Model
             "foundMail" => 0,
             "sendToEmail" => 0,
         );
-        $template_qry = "select ntfTemplates_dt.tHeader_en, ntfTemplates_dt.tBody_en, ntfList_dt.subscriber_type, ntfList_dt.type_id from ntfTemplates_dt ".
+        $template_qry = "select ntfTemplates_dt.tHeader_en, ntfTemplates_dt.tBody_en, ntfList_dt.subscriber_type, ".
+            "ntfList_dt.type_id, ntfList_dt.send_params, ntfList_dt.template_params from ntfTemplates_dt ".
             "inner join ntfList_dt on ntfTemplates_dt.template_id = ntfList_dt.template_id where ntfList_dt.ntf_id='".$ntf_id."'";
 
         $template_res = $this->query($template_qry);
@@ -123,6 +178,28 @@ class ntSendModel extends Model
                     if($findUserNtf_flag_row["eMail"]){
                         $return["foundMail"] = 1;
                         $send_flag = "true";
+                        $template_params = json_decode($template_row["template_params"], true);
+                        $replaced_text = $template_row["tBody_en"];
+
+                        if($template_params){
+                            foreach ($template_params as $tp_key => $tp_val){
+                                $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
+                            }
+                        }
+                        $this->sendOnEmail($findUserNtf_flag_row["eMail"], $template_row["tHeader_en"], $replaced_text);
+
+                        //$this->phpMailer->Subject =
+
+
+                        //$this->phpMailer->Subject = "Заявка на " .$_SERVER["HTTP_HOST"]." принята "; // Заголовок письма
+                        /*$this->phpMailer->Body = "Спасибо что выбрали нашу компанию. Мы свяжемся с вами по eMail или телефону. Вы также всегда
+        можете отследить статус вашей заявки по ссылке https://".$_SERVER["HTTP_HOST"]."/applications/details/".
+                            $appl_rd["result"]["appl_id"]; // Текст письма*/
+
+
+
+
+
                     }
                 }
 
@@ -143,5 +220,13 @@ class ntSendModel extends Model
         }
 
         return $return;
+    }
+
+    function sendOnEmail($email, $subject, $body)
+    {
+        $this->phpMailer->addAddress($email); // Email получателя
+        $this->phpMailer->Subject = $subject;
+        $this->phpMailer->Body = $body;
+        $this->phpMailer->send();
     }
 }

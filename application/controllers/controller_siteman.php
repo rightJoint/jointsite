@@ -105,4 +105,14 @@ class Controller_Siteman extends ModuleRecordsController
         exit;
 
     }
+
+    function action_services()
+    {
+        $this->module_process("services");
+    }
+
+    function action_applications()
+    {
+        $this->module_process("applications");
+    }
 }

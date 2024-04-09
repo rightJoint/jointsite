@@ -19,11 +19,11 @@
     position: relative;
     opacity: 1;
 }
-.services-title-wrap .service-title-photo img{
+.services-title-wrap .service-title-photo #rain-canvas{
     height: 7em;
     width: 7em;
-    border-radius: 3.5em;
-    border: 1px solid #555;
+    /*border-radius: 3.5em;
+    border: 1px solid #555;*/
 
 }
 .services-title-wrap .services-title-left b{
@@ -237,7 +237,7 @@
         width: 70%;
         color: green;
     }
-    .services-title-wrap .service-title-photo img{
+    .services-title-wrap .service-title-photo #rain-canvas{
         height: 5em;
         width: 5em;
         border-radius: 2.5em;
