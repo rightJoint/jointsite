@@ -311,6 +311,7 @@ class recordsrvcardsModel extends ModuleRecordsModel
                     "load_dir" => SERVICE_CARDS_IMG."/card_id/cardImg",
                     "file_type" => "img",
                     "accept" => ".jpg, .png",
+                    "use_file_name" => 1,
                 ),
                 "replaces" => array("card_id", "cardImg"),
                 "fieldAliases" => array(

@@ -74,8 +74,8 @@ class View
                 "rus" => "Вы уже на главной"
             ),
             "home_descr" => array(
-                "en" => "Software product by Right Joint",
-                "rus" => "Программы от Right Joint"
+                "en" => "Geek services - portfoloi",
+                "rus" => "Услуги программиста - портфолио"
             )
         ),
         "lang_panel_text" => array(
