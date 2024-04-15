@@ -51,53 +51,73 @@ class Model_Auth extends Model_User
 
     function auth_site_user()
     {
-        $this->tableName = "users_dt";
-        $this->getRecordStructure();
-
-        $user_res = $this->listRecords("where users_dt.accLogin='".$this->login."' ");
-        if(isset($user_res) and count($user_res) == 1){
-            $user_row = $user_res[0];
-            if(password_verify($_POST['password'], $user_row["pw_hash"])){
-                if($user_row["validDate"]){
-                    if(!$user_row["blackList"]){
-
-                        $_SESSION["site_user"]["user_id"] = $user_row["user_id"];
-                        $_SESSION["site_user"]["accLogin"] = $user_row["accLogin"];
-                        $_SESSION["site_user"]["accAlias"] = $user_row["accAlias"];
-                        $_SESSION["site_user"]["is_admin"] = $user_row["is_admin"];
-                        if($user_row["photoLink"]){
-                            $_SESSION["site_user"]["avatar"] = $user_row["photoLink"];
-                        }
-                        $groupsModel = new RecordsModel();
-                        $groupsModel->tableName = "usersToGroups_dt";
-                        $groupsModel->getRecordStructure();
-                        $userToGroups_res = $groupsModel->listRecords("where usersToGroups_dt.user_id='".$user_row["user_id"]."' ");
-
-                        if(count($userToGroups_res)){
-                            foreach ($userToGroups_res as $row_num => $userToGroups_row){
-                                $_SESSION["site_user"]["groups"][$userToGroups_row["group_id"]] = array(
-                                    "read_rule" => $userToGroups_row["read_rule"],
-                                    "create_rule" => $userToGroups_row["create_rule"],
-                                    "edit_rule" => $userToGroups_row["edit_rule"],
-                                    "delete_rule" => $userToGroups_row["delete_rule"],
-                                );
-                            }
-                        }
-                        header("Location: ".$_SERVER["HTTP_REFERER"]);
-                    }else{
-
-                        return "user_in_black_list";
-                    }
-                }else{
-                    return "email_not_validated";
-                }
-            }else{
-                return "wrong_login_or_pass";
-            }
+        if(password_verify($_POST['password'], $this->record["pw_hash"]["curVal"])) {
+            return $this->auth_user();
         }else{
             return "wrong_login_or_pass";
         }
+    }
 
+    function ok_auth()
+    {
+        include JOINT_CONF_DIR."/social_auth.php";
+        $ok_conf = $auth_conf["ok"];
+        $this->record["accLogin"]["curVal"] = "xerman3";
+        $this->record["netWork"]["curVal"] = "ok";
+        $this->record["accAlias"]["curVal"] = "XER-XER1";
+        //$this->record["photoLink"]["curVal"] = $usrArr['pic_2'];
+        //$this->record["birthDay"]["curVal"] = $usrArr['birthday'];
+        $this->record["socProf"]["curVal"] = "https://ok.ru/profile/xer-man";
+        $this->record["regDate"]["curVal"] = $this->record["validDate"]["curVal"] = date("Y-m-h H:i:s");
+        $this->record["blackList"]["curVal"] = false;
+
+        //$this->log_message = "test-ok-err";
+        return true;
+
+        $postReq = http_build_query(
+            array(
+                'code' => $_GET['code'],
+                'client_id' => $ok_conf['client_id'],
+                'client_secret' => $ok_conf['client_secret'],
+                "redirect_uri" => $ok_conf['redirect_uri'],
+                "grant_type" => "authorization_code"
+            )
+        );
+        $opts = array('http' =>
+            array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postReq
+            )
+        );
+        $context = stream_context_create($opts);
+        $tokenReq = file_get_contents('https://api.ok.ru/oauth/token.do?', false, $context);
+        $tokenArr = json_decode($tokenReq, true);
+        if(isset($tokenArr['access_token']) and $tokenArr['access_token']!=null){
+            $secret_key = MD5($tokenArr['access_token'] . $ok_conf['client_secret']);
+            $sig = MD5("application_key=" . $ok_conf['application_key'] . "format=jsonmethod=users.getCurrentUser" . $secret_key);
+
+            $usrReq = file_get_contents("https://api.ok.ru/fb.do?application_key=" . $ok_conf['application_key'] . "&format=json" .
+                "&method=users.getCurrentUser&sig=" . $sig . "&access_token=" . $tokenArr['access_token']);
+            $usrArr = json_decode($usrReq, true);
+
+            if(isset($usrArr['uid']) and $usrArr['uid']!=null){
+                $this->record["netWork"]["curVal"] = "ok";
+                $this->record["accLogin"]["curVal"] = $usrArr['uid'];
+                $this->record["accAlias"]["curVal"] = $usrArr['name'];
+                $this->record["photoLink"]["curVal"] = $usrArr['pic_2'];
+                $this->record["birthDay"]["curVal"] = $usrArr['birthday'];
+                $this->record["socProf"]["curVal"] = "https://ok.ru/profile/".$usrArr['uid'];
+                $this->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                $this->record["blackList"]["curVal"] = false;
+                return true;
+            }else{
+                $this->log_message = "no-user-uid";
+            }
+        }else{
+            $this->log_message = "access_token-problem";
+        }
+        return false;
     }
 
     function checkDoubleLogin($login)

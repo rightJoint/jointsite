@@ -16,6 +16,10 @@ class simpleUserModel extends ModuleRecordsModel
                 "en" => "site",
                 "rus" => "сайт",
             ),
+            "ok" => array(
+                "en" => "ok",
+                "rus" => "Одноклассники",
+            ),
         );
 
         parent::__construct();
@@ -148,7 +152,7 @@ class simpleUserModel extends ModuleRecordsModel
 
     function fillNetworkSelect()
     {
-        return array("site" => $this->lang_map["network_select"]["site"][$_SESSION["lang"]]);
+        return array("site" => $this->lang_map["network_select"]["site"][$_SESSION["lang"]], "ok" => $this->lang_map["network_select"]["ok"][$_SESSION["lang"]]);
     }
 
 }

@@ -543,6 +543,9 @@ form.auth-form .modal-line-text{
     text-align: right;
     margin-bottom: 0.4em;
 }
+form.auth-form .modal-line-text a{
+    vertical-align: top;
+}
 
 form.auth-form .modal-line:not(:last-child){
     border: none;

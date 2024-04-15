@@ -670,8 +670,9 @@ class View
         echo "<form class='auth-form signIn ".$add_form_class."' method='post' action='/user/signIn'>".
             "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='/img/popimg/user-logo.png'></div>".
-            "<div class='modal-line-text'>".
-            "<a class='m-l-blue title decnone' id='siteSignIn' href='#'>".
+            "<div class='modal-line-text'>";
+        $this->print_social_buttons();
+        echo "<a class='m-l-blue title decnone' id='siteSignIn' href='#'>".
             $this->lang_map["site-signIn-form"]["form_title"][$_SESSION["lang"]].
             "</a>".
             "</div>".
@@ -711,13 +712,30 @@ class View
             "</form>";
     }
 
+    function print_social_buttons()
+    {
+        include JOINT_CONF_DIR."/social_auth.php";
+
+        echo "<a href='https://connect.ok.ru/oauth/authorize?client_id=".$auth_conf["ok"]["client_id"]."&scope=VALUABLE_ACCESS".
+        "&response_type=code&redirect_uri=".$auth_conf["ok"]["redirect_uri"]."&layout=w&state=ok' ".
+        "title='Вход через Одноклассники' class='sb_auth'>".
+        "<img src='/img/social_logo/ok-logo.png' alt='ok-кнопка'>".
+        "</a>".
+        "<a href='https://oauth.vk.com/authorize?client_id=".$auth_conf["vk"]["client_id"].
+        "&display=page&redirect_uri=".$auth_conf["vk"]["redirect_uri"]."&scope=friends&response_type=code&v=5.62' ".
+        "title='Вход через ВКонтакте' class='sb_auth'>".
+        "<img src='/img/social_logo/vk-logo.png' alt='vk-кнопка'>".
+        "</a>";
+    }
+
     function print_signUp_form($add_form_class = null, $signUp_err=null)
     {
         echo "<form class='auth-form signUp ".$add_form_class."' method='post' action='/user/signUp'>".
             "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='/img/popimg/checkInNow.png'></div>".
-            "<div class='modal-line-text'>".
-            "<a class='m-l-blue title decnone' href='#' id='siteSignUp'>".
+            "<div class='modal-line-text'>";
+        $this->print_social_buttons();
+        echo "<a class='m-l-blue title decnone' href='#' id='siteSignUp'>".
             $this->lang_map["site-signUp-form"]["form_title"][$_SESSION["lang"]].
             "</a>".
             "</div>".

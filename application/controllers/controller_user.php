@@ -384,22 +384,66 @@ class Controller_User extends RecordsController
     {
         include "application/models/user/model_auth.php";
         $this->model = new Model_Auth();
+        $this->model->getRecordStructure();
         include "application/views/user/signInView.php";
-
         $this->view = new signInView();
 
-        if($_POST["auth_signIn"] == $this->view->lang_map["site-signIn-form"]["submit_btn"][$_SESSION["lang"]]){
-            if($this->model->checkUserLogin($_POST["login"]) and $this->model->checkUserPassword($_POST["password"])){
-                $this->model->login = $_POST["login"];
-                $this->view->signIn_err = array($this->model->auth_site_user($_POST["password"]) =>  true);
+
+        if(isset($_GET['code'])){
+
+            //$RD_accounts = array("table" => "accounts_dt", "field_id" => "account_id");
+            if (isset($_GET['state']) and $_GET['state']=='ok') {
+                if($this->model->ok_auth()){
+                    if($this->model->copy_by_login_or_email()){
+                        $this->model->auth_user();
+                    }else{
+                        $this->model->record["user_id"]["curVal"] = $this->model->record["created_by"]["curVal"] = $this->model->createGUID();
+                        if($this->model->insertRecord()){
+                            $this->model->auth_user();
+                        }else{
+                            $this->view->view_data = $this->model->log_message;
+                        }
+                    }
+
+                }else{
+                    $this->view->view_data = $this->model->log_message;
+                }
+            }else{
+                echo "another network";
+
+                //
+                /*
+                if (strlen($_GET['code'])<300){
+                    $authResult = $this->vk_auth();
+                }else{
+                    $authResult = $this->fb_auth();
+                }
+                */
+            }
+        }
+        //site auth
+        elseif ($_POST["auth_signIn"] == $this->view->lang_map["site-signIn-form"]["submit_btn"][$_SESSION["lang"]]){
+            $this->model->record["accLogin"]["curVal"] = $_POST["login"];
+
+            if($this->model->checkUserLogin() and $this->model->checkUserPassword()){
+
+
+                if($this->model->copy_by_login_or_email()){
+                    $this->view->signIn_err=array($this->model->auth_site_user() => true);
+
+                }else{
+                    $this->view->signIn_err=array(
+                        "wrong_login_or_pass" => true,
+                    );
+                }
             }else{
                 $this->view->signIn_err=array(
                     "wrong_login_or_pass" => true,
                 );
             }
-
             $this->view->active_modal_menu = true;
-
+        }else{
+            $this->view->generate();
         }
         $this->view->generate();
     }
@@ -435,4 +479,6 @@ class Controller_User extends RecordsController
             throwErr("request", "validate null validate code");
         }
     }
+
+
 }
