@@ -716,16 +716,16 @@ class View
     {
         include JOINT_CONF_DIR."/social_auth.php";
 
-        echo /*"<a href='https://connect.ok.ru/oauth/authorize?client_id=".$auth_conf["ok"]["client_id"]."&scope=VALUABLE_ACCESS".
+        echo "<a href='https://connect.ok.ru/oauth/authorize?client_id=".$auth_conf["ok"]["client_id"]."&scope=VALUABLE_ACCESS".
         "&response_type=code&redirect_uri=".$auth_conf["ok"]["redirect_uri"]."&layout=w&state=ok' ".
         "title='Вход через Одноклассники' class='sb_auth'>".
         "<img src='/img/social_logo/ok-logo.png' alt='ok-кнопка'>".
-        "</a>".*/
+        "</a>"/*.
         "<a href='https://oauth.vk.com/authorize?client_id=".$auth_conf["vk"]["client_id"].
         "&display=page&redirect_uri=".$auth_conf["vk"]["redirect_uri"]."&scope=friends&response_type=code&v=5.62' ".
         "title='Вход через ВКонтакте' class='sb_auth'>".
         "<img src='/img/social_logo/vk-logo.png' alt='vk-кнопка'>".
-        "</a>";
+        "</a>"*/;
     }
 
     function print_signUp_form($add_form_class = null, $signUp_err=null)
