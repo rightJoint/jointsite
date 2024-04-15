@@ -396,13 +396,21 @@ class Controller_User extends RecordsController
                 if($this->model->ok_auth()){
                     if($this->model->copy_by_login_or_email()){
                         $this->model->updateRecord();
-                        $this->model->auth_user();
+                        if($this->model->auth_user()){
+                            header("Location: ".$_SERVER["HTTP_HOST"]);
+                        }else{
+                            $this->view->view_data = $this->model->log_message;
+                        }
                     }else{
                         $this->model->record["user_id"]["curVal"] = $this->model->record["created_by"]["curVal"] = $this->model->createGUID();
-                        $this->record["validDate"]["curVal"] = $this->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
-                        $this->record["blackList"]["curVal"] = false;
+                        $this->model->record["validDate"]["curVal"] = $this->model->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                        $this->model->record["blackList"]["curVal"] = false;
                         if($this->model->insertRecord()){
-                            $this->model->auth_user();
+                            if($this->model->auth_user()){
+                                header("Location: ".$_SERVER["HTTP_HOST"]);
+                            }else{
+                                $this->view->view_data = $this->model->log_message;
+                            }
                         }else{
                             $this->view->view_data = $this->model->log_message;
                         }

@@ -406,7 +406,7 @@ class Model_User extends RecordsModel
                         );
                     }
                 }
-                header("Location: ".$_SERVER["HTTP_REFERER"]);
+                return true;
             }else{
                 $this->log_message = "user_in_black_list";
             }

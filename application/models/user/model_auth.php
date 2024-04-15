@@ -52,7 +52,11 @@ class Model_Auth extends Model_User
     function auth_site_user()
     {
         if(password_verify($_POST['password'], $this->record["pw_hash"]["curVal"])) {
-            return $this->auth_user();
+            if($this->auth_user()){
+                header("Location: ".$_SERVER["HTTP_REFERER"]);
+            }else{
+                return $this->log_message;
+            }
         }else{
             return "wrong_login_or_pass";
         }
