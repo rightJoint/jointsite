@@ -395,9 +395,12 @@ class Controller_User extends RecordsController
             if (isset($_GET['state']) and $_GET['state']=='ok') {
                 if($this->model->ok_auth()){
                     if($this->model->copy_by_login_or_email()){
+                        $this->model->updateRecord();
                         $this->model->auth_user();
                     }else{
                         $this->model->record["user_id"]["curVal"] = $this->model->record["created_by"]["curVal"] = $this->model->createGUID();
+                        $this->record["validDate"]["curVal"] = $this->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                        $this->record["blackList"]["curVal"] = false;
                         if($this->model->insertRecord()){
                             $this->model->auth_user();
                         }else{

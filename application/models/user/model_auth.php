@@ -62,17 +62,6 @@ class Model_Auth extends Model_User
     {
         include JOINT_CONF_DIR."/social_auth.php";
         $ok_conf = $auth_conf["ok"];
-        $this->record["accLogin"]["curVal"] = "xerman3";
-        $this->record["netWork"]["curVal"] = "ok";
-        $this->record["accAlias"]["curVal"] = "XER-XER1";
-        //$this->record["photoLink"]["curVal"] = $usrArr['pic_2'];
-        //$this->record["birthDay"]["curVal"] = $usrArr['birthday'];
-        $this->record["socProf"]["curVal"] = "https://ok.ru/profile/xer-man";
-        $this->record["regDate"]["curVal"] = $this->record["validDate"]["curVal"] = date("Y-m-h H:i:s");
-        $this->record["blackList"]["curVal"] = false;
-
-        //$this->log_message = "test-ok-err";
-        return true;
 
         $postReq = http_build_query(
             array(
@@ -108,8 +97,6 @@ class Model_Auth extends Model_User
                 $this->record["photoLink"]["curVal"] = $usrArr['pic_2'];
                 $this->record["birthDay"]["curVal"] = $usrArr['birthday'];
                 $this->record["socProf"]["curVal"] = "https://ok.ru/profile/".$usrArr['uid'];
-                $this->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
-                $this->record["blackList"]["curVal"] = false;
                 return true;
             }else{
                 $this->log_message = "no-user-uid";

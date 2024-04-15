@@ -370,7 +370,9 @@ class Model_User extends RecordsModel
         if(isset($user_res) and count($user_res) == 1) {
             $user_row = $user_res[0];
             foreach ($this->record as $fieldName => $field_data){
-                $this->record[$fieldName]["curVal"] = $user_row[$fieldName];
+                if(!isset($this->record[$fieldName]["curVal"])){
+                    $this->record[$fieldName]["curVal"] = $user_row[$fieldName];
+                }
             }
             return true;
         }
