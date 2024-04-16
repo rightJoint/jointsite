@@ -425,7 +425,7 @@ class Controller_User extends RecordsController
                         if($this->model->copy_by_login_or_email()){
                             $this->model->updateRecord();
                             if($this->model->auth_user()){
-                                header("Location: ".$_SERVER["HTTP_REFERER"]);
+                                header("Location: /");
                             }else{
                                 $this->view->view_data = $this->model->log_message;
                             }
@@ -435,7 +435,7 @@ class Controller_User extends RecordsController
                             $this->model->record["blackList"]["curVal"] = false;
                             if($this->model->insertRecord()){
                                 if($this->model->auth_user()){
-                                    header("Location: ".$_SERVER["HTTP_REFERER"]);
+                                    header("Location: /");
                                 }else{
                                     $this->view->view_data = $this->model->log_message;
                                 }
@@ -447,14 +447,9 @@ class Controller_User extends RecordsController
                     }else{
                         $this->view->view_data = $this->model->log_message;
                     }
-
-
-
-                    $authResult = $this->vk_auth();
                 }else{
                     echo "another network";
                     exit;
-                    $authResult = $this->fb_auth();
                 }
             }
         }
