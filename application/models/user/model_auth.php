@@ -111,6 +111,34 @@ class Model_Auth extends Model_User
         return false;
     }
 
+    function vk_auth()
+    {
+        include JOINT_CONF_DIR."/social_auth.php";
+        $vk_conf = $auth_conf["vk"];
+        $tokenReq=file_get_contents("https://oauth.vk.com/access_token?client_id=".$vk_conf['client_id']
+            ."&client_secret=".$this->$vk_conf['client_secret']."&redirect_uri=".$vk_conf['redirect_uri']."&code=".$_GET['code']);
+        $tokenArr=json_decode($tokenReq, true);
+        if(isset($tokenArr['access_token']) and $tokenArr['access_token']!=null){
+            $usrReq = @file_get_contents('https://api.vk.com/method/users.get?user_ids='. $tokenArr['user_id'].
+                "&fields=photo_100,bdate&v=6.0&access_token=".$tokenArr['access_token']);
+            $usrArr = json_decode($usrReq, true);
+            if($usrArr!=null and isset($usrArr['response']['0']['id']) and $usrArr['response']['0']['id']!=null){
+                $this->record["netWork"]["curVal"] = "vk";
+                $this->record["accLogin"]["curVal"] = $usrArr['response']['0']['id'];
+                $this->record["accAlias"]["curVal"] = $usrArr['response']['0']['first_name']." ".$usrArr['response']['0']['last_name'];
+                $this->record["photoLink"]["curVal"] = $usrArr['response']['0']['photo_100'];
+                $this->record["birthDay"]["curVal"] = date_format(date_create($usrArr['response']['0']['bdate']), 'Y-m-d');
+                $this->record["socProf"]["curVal"] = 'https://vk.com/id'.$usrArr['response']['0']['id'];
+                return true;
+            }else{
+                $this->log_message = $usrReq;
+            }
+        }else{
+            $this->log_message = $tokenReq;
+        }
+        return false;
+    }
+
     function checkDoubleLogin($login)
     {
         $countLogin_qry = "select count(user_id) as cnt from users_dt where accLogin = '".$login."'";

@@ -397,7 +397,7 @@ class Controller_User extends RecordsController
                     if($this->model->copy_by_login_or_email()){
                         $this->model->updateRecord();
                         if($this->model->auth_user()){
-                            header("Location: ".$_SERVER["HTTP_HOST"]);
+                            header("Location: /");
                         }else{
                             $this->view->view_data = $this->model->log_message;
                         }
@@ -407,7 +407,7 @@ class Controller_User extends RecordsController
                         $this->model->record["blackList"]["curVal"] = false;
                         if($this->model->insertRecord()){
                             if($this->model->auth_user()){
-                                header("Location: ".$_SERVER["HTTP_HOST"]);
+                                header("Location: /");
                             }else{
                                 $this->view->view_data = $this->model->log_message;
                             }
@@ -420,16 +420,42 @@ class Controller_User extends RecordsController
                     $this->view->view_data = $this->model->log_message;
                 }
             }else{
-                echo "another network";
-
-                //
-                /*
                 if (strlen($_GET['code'])<300){
+                    if($this->model->vk_auth()){
+                        if($this->model->copy_by_login_or_email()){
+                            $this->model->updateRecord();
+                            if($this->model->auth_user()){
+                                header("Location: ".$_SERVER["HTTP_REFERER"]);
+                            }else{
+                                $this->view->view_data = $this->model->log_message;
+                            }
+                        }else{
+                            $this->model->record["user_id"]["curVal"] = $this->model->record["created_by"]["curVal"] = $this->model->createGUID();
+                            $this->model->record["validDate"]["curVal"] = $this->model->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                            $this->model->record["blackList"]["curVal"] = false;
+                            if($this->model->insertRecord()){
+                                if($this->model->auth_user()){
+                                    header("Location: ".$_SERVER["HTTP_REFERER"]);
+                                }else{
+                                    $this->view->view_data = $this->model->log_message;
+                                }
+                            }else{
+                                $this->view->view_data = $this->model->log_message;
+                            }
+                        }
+
+                    }else{
+                        $this->view->view_data = $this->model->log_message;
+                    }
+
+
+
                     $authResult = $this->vk_auth();
                 }else{
+                    echo "another network";
+                    exit;
                     $authResult = $this->fb_auth();
                 }
-                */
             }
         }
         //site auth
