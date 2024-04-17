@@ -1,0 +1,45 @@
+.note-panel
+{
+    width: 96%;
+    margin: 1em 2% 0 2%;
+    border-bottom: 2px solid silver;
+
+}
+
+form.note-form
+{
+    width: 96%;
+    margin: 1em 2% 0 2%;
+    border: 1px solid silver;
+}
+
+form.note-form .tags-block
+{
+    display: inline-block;
+    width: 70%;
+    border-right: 1px solid black;
+}
+form.note-form .note-date
+{
+    text-align: right;
+    display: inline-block;
+    width: 29%;
+}
+form.note-form .note-date input[type='text']
+{
+    text-align: right;
+    font-size: 0.7em;
+    border: none;
+    color: darkslateblue;
+    font-weight: bold;
+}
+form.note-form .submit-line
+{
+    width: 100%;
+    text-align: right;
+}
+form.note-form .note-date input[type='submit']
+{
+    font-size: 1.2em;
+    font-weight: bold;
+}
