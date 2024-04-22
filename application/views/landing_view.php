@@ -252,7 +252,7 @@ class landing_view extends view_jointpass
             }
             echo "</div><label>".$popServices_row['cardPrice_'.$_SESSION["lang"]]."</label> ".$popServices_row["cardCurr_".$_SESSION["lang"]]."/".
                 $popServices_row["unit_".$_SESSION["lang"]]."'>".
-                "<img src='/img/Services/images/thumbs/".$popServices_row['cardAlias'].".jpg' alt='pop-srv-icon'/>".
+                "<img src='/img/Services/images/thumbs/".$popServices_row['cardAlias'].".png' alt='pop-srv-icon'/>".
                 "</a>".
                 "</li>";
         }

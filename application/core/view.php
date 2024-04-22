@@ -929,8 +929,7 @@ class View
         if (count($this->basket_prod)) {
             foreach ($this->basket_prod as $num=> $findProd_row){
                 $return.= "<div class='mbl-line'><div class='mbl-line-img'><img src='" .
-                    "/img/Services/services/".$findProd_row['card_id']."/" .
-                    $findProd_row['cardImg'] . "'></div>" .
+                    "/img/Services/images/thumbs/".$findProd_row['cardAlias'].".png'></div>" .
                     "<div class='mbl-line-info'>";
                 $return.=$findProd_row['cardName_'.$_SESSION["lang"]];
                 $val = $_SESSION["basket"]["prod"][$findProd_row["cardAlias"]];

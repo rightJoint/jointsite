@@ -39,6 +39,8 @@ class controller_notes extends Controller
         $this->view->view_data["nex_id"] = $this->model->get_next_note();
         $this->view->view_data["record"] = $this->model->record;
         $this->view->view_data["count"] = $this->model->countRecords();
+        $this->view->view_data["count_next"] = $this->model->count_next_notes();
+        $this->view->view_data["count_pre"] = $this->model->count_pre_notes();
         $this->view->generate();
     }
 
@@ -61,12 +63,72 @@ class controller_notes extends Controller
                 $this->view->view_data["count"] = $this->model->countRecords();
                 $this->view->view_data["pre_id"] = $this->model->get_pre_note();
                 $this->view->view_data["next_id"] = $this->model->get_next_note();
+                $this->view->view_data["note_tags"] = $this->model->getNoteTags($this->model->record["note_id"]["curVal"]);
+                $this->view->view_data["tags_list"] = $this->model->getTagsList();
+                $this->view->view_data["count_next"] = $this->model->count_next_notes();
+                $this->view->view_data["count_pre"] = $this->model->count_pre_notes();
                 $this->view->generate();
             }else{
                 throwErr("404", "xxx-1");
             }
         }else{
             throwErr("404", "xxx-2");
+        }
+    }
+
+    function action_addTag()
+    {
+        if($this->model->addNoteTag($_POST["note_id_from_url"], $_POST["tag_text"])){
+            echo "Ok";
+        }else{
+            echo "Fail";
+        }
+    }
+
+    function action_delTag()
+    {
+        if($this->model->delNoteTag($_POST["note_id_from_url"], $_POST["tag_text"])){
+            echo "Ok";
+        }else{
+            echo "Fail";
+        }
+    }
+
+    function action_detail()
+    {
+        global $routes;
+        if($routes["3"]){
+            $this->model->record["note_id"]["curVal"] = $routes["3"];
+            if($this->model->copyRecord()){
+                $this->view->view_data["record"] = $this->model->record;
+                $this->view->view_data["count"] = $this->model->countRecords();
+                $this->view->view_data["pre_id"] = $this->model->get_pre_note();
+                $this->view->view_data["next_id"] = $this->model->get_next_note();
+                $this->view->view_data["note_tags"] = $this->model->getNoteTags($this->model->record["note_id"]["curVal"]);
+                $this->view->view_data["count_next"] = $this->model->count_next_notes();
+                $this->view->view_data["count_pre"] = $this->model->count_pre_notes();
+                $this->view->generate();
+            }else{
+                throwErr("404", "xxx-1");
+            }
+        }else{
+            throwErr("404", "xxx-2");
+        }
+    }
+    function action_delNote()
+    {
+        global $routes;
+        if($_POST["note_id_from_url"]) {
+            $this->model->record["note_id"]["curVal"] = $_POST["note_id_from_url"];
+            if ($this->model->copyRecord()) {
+                if($this->model->deleteRecord()){
+                    echo "Ok";
+                }else{
+                    echo "Fail";
+                }
+            }else{
+                echo "Fail";
+            }
         }
     }
 }
