@@ -233,7 +233,7 @@ class SiteView extends View
 
     function modalMenu()
     {
-        global $routes;
+        global $request;
 
         $active_modal_menu_style = null;
 
@@ -258,12 +258,16 @@ class SiteView extends View
         }
         echo "en' href='?lang=en' title='".$this->lang_map->langpaneltexten."'><span>En</span></a>".
             "</div>".
-            "<div class='mm-htl'>".
-            "<a href='".JOINT_SITE_EXEC_DIR."' title='";
-        if($routes[1]){
-            echo $this->lang_map->modalmenu["ref_home_title"];
-        }else{
+            "<div class='mm-htl'>";
+        $home_ref = "/";
+        if(JOINT_SITE_EXEC_DIR){
+            $home_ref = JOINT_SITE_EXEC_DIR;
+        }
+        echo  "<a href='".$home_ref."' title='";
+        if(!$request["routes"][$request["exec_dir_cnt"]]){
             echo $this->lang_map->modalmenu["ref_on_home_title"];
+        }else{
+            echo $this->lang_map->modalmenu["ref_home_title"];
         }
         echo "'>".
             "<img src='".JOINT_SITE_EXEC_DIR."/img/siteLogo/rightjoint-logo-150.png' alt='RJ-logo'>".
