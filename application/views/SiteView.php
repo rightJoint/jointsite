@@ -289,7 +289,7 @@ class SiteView extends View
             $folded_style = null;
         }
         echo "<div class='modal-line prod'>".
-            "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
+            "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite'>Web site</a><sup>php, js, mvc</sup>".
             "<span class='opnSubMenu ".$folded_style."'>product</span>".
             "<ul " . $menuStyle . ">";

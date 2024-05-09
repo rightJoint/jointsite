@@ -3,6 +3,7 @@ require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
     "/application/views/view_main.php";
 class View_Products_JointSite extends view_main
 {
+    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/internet.png";
     function __construct()
     {
         parent::__construct();
