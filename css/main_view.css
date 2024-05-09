@@ -1,0 +1,65 @@
+section.prod-about p{
+    text-align: center;
+    background-color: lightgray;
+    border: 1px solid darkgreen;
+    color: midnightblue;
+    padding: 1em;
+}
+
+.branches-block {
+    width: 97%;
+    margin: 0 1%;
+}
+.branches-block h2 {
+    font-size: 1em;
+}
+.branches-block .branch-block {
+    border: 2px solid midnightblue;
+    width: 100%;
+    margin-bottom: 1em;
+}
+.branches-block .branch-block .branch-img{
+    width: 20%;
+    display: inline-block;
+}
+.branches-block .branch-block .branch-img img{
+    height: 5em;
+    width: 5em;
+}
+.branches-block .branch-block .branch-main{
+    vertical-align: top;
+    display: inline-block;
+    width: 80%;
+}
+.branches-block .branch-block .branch-main .branch-title{
+    width: 100%;
+}
+.branches-block .branch-block .branch-main .branch-title a{
+    font-size: 1.2em;
+    margin: 0.5em;
+    color: midnightblue;
+}
+.branches-block .branch-block .branch-main p{
+
+}
+.branches-block .branch-block .branch-info {
+    font-size: 0.9em;
+    text-align: left;
+    width: 100%;
+    border-top: 1px solid gray;
+}
+.branches-block .branch-block .branch-info div:not(:last-child) {
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+.branches-block .branch-block .branch-info .branch-version,
+.branches-block .branch-block .branch-info .branch-get,
+.branches-block .branch-block .branch-info .learn-more,
+.branches-block .branch-block .branch-info .depend{
+    width: 100%;
+}
+.branches-block .branch-block .branch-info span{
+    font-weight: bold;
+    margin-right: 1em;
+    margin-left: 0.2em;
+}

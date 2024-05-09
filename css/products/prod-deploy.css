@@ -1,0 +1,75 @@
+section.prod-menu{
+
+}
+
+section{
+    margin-left: 1em;
+    margin-right: 1em;
+
+}
+
+section h2{
+    margin-top: 2em;
+    font-size: 1.2em;
+    border-bottom: 1px solid darkgray;
+}
+section.prod-menu ul,
+section.prod-deploy ul{
+    text-align: left;
+}
+section.prod-menu ul a{
+    color: midnightblue;
+}
+
+
+section h3{
+    margin-left: 1em;
+    text-align: left;
+    font-size: 1em;
+}
+section p{
+    text-align: left;
+    padding: 0.5em;
+}
+
+.example{
+    text-align: left;
+    border: 1px solid darkgray;
+}
+.example-code{
+    font-family: Arial;
+    padding: 0.1em;
+    background-color: midnightblue;
+    color: silver;
+    border-bottom: 1px dotted darkgray;
+    overflow: hidden;
+}
+.example-text{
+    padding: 0.1em;
+    font-size: 0.9em;
+    background-color: silver;
+    color: midnightblue;
+}
+.example.eximg{
+    margin-bottom: 1em;
+}
+.example-img{
+    text-align: center;
+    background-color: lightyellow;
+}
+.example-img img{
+    max-width:calc(100% - 1em);
+    padding: 0.5em;
+}
+
+span.ex-conf{
+    font-weight: bold;
+}
+
+a.dwl-img-link{
+
+}
+a.dwl-img-link img{
+    height: 1.5em;
+    width: 1.5em;
+}
