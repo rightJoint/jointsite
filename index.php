@@ -1,2 +1,3 @@
 <?php
-echo "test4";
+require_once "application/core/jointSite.php";
+new jointSite();
