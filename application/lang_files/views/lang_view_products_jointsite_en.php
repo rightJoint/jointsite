@@ -12,7 +12,7 @@ class lang_view_products_jointsite_en extends lang_view_main_en
         $this->head["description"] = "JointSite - product: web-application, branches, setup";
 
         $this->product_custom["p1"] = "Real site fetching from this repository and may track branch that is not described there, ".
-    "fully composed branched in the list bellow.";
+    "fully composed branches are in the list bellow..";
 
         $this->prodmenu = array(
             "h_content" => "Table of content",
