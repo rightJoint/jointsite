@@ -2,6 +2,7 @@
 class jointSite
 {
     public $lang_map;
+    public $app_log;
 
     function __construct($JOINT_SITE_EXEC_DIR=null)
     {
@@ -61,6 +62,9 @@ class jointSite
         $loaded_view = $this->loadViewFromRequest();
         $action_name = $this->getActionFromRequest();
 
+        $this->print_load_log();
+        //$this->print_load_log("controller");
+
         $this->run($loaded_controller, $loaded_model, $loaded_view, $action_name);
 
     }
@@ -106,21 +110,11 @@ class jointSite
 
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/controller.php");
 
-        if (!empty($request["routes"][$request["exec_dir_cnt"]])){
-            $try_name =  "Controller_".$request["routes"][$request["exec_dir_cnt"]];
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/controllers/".strtolower($try_name).'.php';
-        }else{
-            $try_name = "Controller_Main";
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/controllers/controller_main.php";
+        if($new_controller_name = self::load_instance("controller")){
+            $controller_name = $new_controller_name;
         }
 
-        if(file_exists($try_path)){
-            require_once ($try_path);
-            $controller_name = $try_name;
-        }
-        elseif(!USE_DEFAULT_CONTROLLER){
-            self::throwErr("request", $this->lang_map->app_err["request_controller"]);
-        }
+        $this->app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
 
         return $controller_name;
     }
@@ -129,49 +123,26 @@ class jointSite
     {
         global $request;
 
-        $default_model = "Model";
+        //$default_model = "Model";
+        $default_model = "Model_pdo";
 
         $model_name = $default_model;
 
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/".strtolower($default_model).".php");
 
-        $check_dir = null;
-        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
-
-            if (!empty($request["routes"][$deep])){
-                $try_name =  "Model_".$request["routes"][$deep];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".$check_dir.strtolower($try_name).'.php';
-                if(file_exists($try_path)){
-                    require_once ($try_path);
-                    $model_name = $try_name;
-                }
-                $check_dir.=$request["routes"][$deep]."/";
-                if (!empty($request["routes"][$deep+1])){
-                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".$check_dir)) {
-                        $try_name = "Model_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
-                        $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/models/" .
-                            $check_dir . strtolower($try_name) . '.php';
-                        if (file_exists($try_path)) {
-                            require_once($try_path);
-                            $model_name = $try_name;
-                        }
-                    }else{
-                        break;
-                    }
-                }else{
-                    break;
-                }
-            }else{
-                break;
-            }
+        if($new_model_name = self::load_instance("model")){
+            $model_name = $new_model_name;
         }
-        if($model_name == $default_model and !USE_DEFAULT_MODEL){
 
+        if($model_name == $default_model and !USE_DEFAULT_MODEL){
             self::throwErr("request", $this->lang_map->app_err["request_model"]);
         }
 
+        $this->app_log["load"]["model"][] = array("final_model_name" => $model_name);
+
         return $model_name;
     }
+
 
     function loadViewFromRequest()
     {
@@ -183,43 +154,100 @@ class jointSite
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/View.php");
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/SiteView.php");
 
-        $check_dir = null;
-        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
-
-            if (!empty($request["routes"][$deep])){
-                $try_name =  "View_".$request["routes"][$deep];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".$check_dir.strtolower($try_name).'.php';
-                if(file_exists($try_path)){
-                    require_once ($try_path);
-                    $view_name = $try_name;
-                }
-                $check_dir.=$request["routes"][$deep]."/";
-                if (!empty($request["routes"][$deep+1])){
-                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".$check_dir)) {
-                        $try_name = "View_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
-                        $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/views/" .
-                            $check_dir . strtolower($try_name) . '.php';
-                        if (file_exists($try_path)) {
-                            require_once($try_path);
-                            $view_name = $try_name;
-                        }
-                    }else{
-                        break;
-                    }
-                }else{
-                    break;
-                }
-            }else{
-                break;
-            }
+        if($new_view_name = self::load_instance("view")){
+            $view_name = $new_view_name;
         }
 
         if($view_name == $default_name and !USE_DEFAULT_VIEW){
 
             self::throwErr("request", $this->lang_map->app_err["request_view"]);
         }
-
+        $this->app_log["load"]["view"][] = array("final_view_name" => $view_name);
         return $view_name;
+    }
+
+
+    function load_instance($instance_type)
+    {
+        global $request;
+
+        if($instance_type == "controller"){
+            $instance_dir = "/controllers";
+            $instance_name = "Controller";
+        }elseif ($instance_type == "model"){
+            $instance_dir = "/models";
+            $instance_name = "Model";
+        }elseif ($instance_type == "view"){
+            $instance_dir = "/views";
+            $instance_name = "View";
+        }else{
+            self::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
+        }
+
+        $result_name = null;
+        $check_dir = null;
+        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
+
+            if (!empty($request["routes"][$deep])){
+                $try_name = $instance_name."_".$request["routes"][$deep];
+                $try_load = array(
+                    "try_name" => $try_name,
+                    "try_path" => $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir.
+                        strtolower($try_name).'.php',
+                    "loaded" => false,
+                );
+                if(file_exists($try_load["try_path"])){
+                    require_once ($try_load["try_path"]);
+                    $result_name = $try_load["try_name"];
+                    $try_load["loaded"] = true;
+                }
+                $this->app_log["load"][$instance_type][] = $try_load;
+
+                $check_dir.=$request["routes"][$deep]."/";
+                if (!empty($request["routes"][$deep+1])){
+                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir)) {
+                        $try_name = $instance_name."_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
+                        $try_load = array(
+                            "try_name" => $try_name,
+                            "try_path" => $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application".$instance_dir."/" .
+                                $check_dir . strtolower($try_name) . '.php',
+                            "loaded" => false,
+                        );
+                        if(file_exists($try_load["try_path"])){
+                            require_once ($try_load["try_path"]);
+                            $result_name = $try_load["try_name"];
+                            $try_load["loaded"] = true;
+                        }
+                        $this->app_log["load"][$instance_type][] = $try_load;
+                    }else{
+                        $this->app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
+                            $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir);
+                        break;
+                    }
+                }else{
+
+                    break;
+                }
+            }else{
+                $try_name = $instance_name."_main";
+                $try_load = array(
+                    "try_name" => $try_name,
+                    "try_path" => $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".
+                        strtolower($try_name).'.php',
+                    "loaded" => false,
+                );
+
+                if(file_exists($try_load["try_path"])){
+                    require_once ($try_load["try_path"]);
+                    $result_name = $try_load["try_name"];
+                    $try_load["loaded"] = true;
+                }
+                $this->app_log["load"][$instance_type][] = $try_load;
+                break;
+            }
+        }
+
+        return $result_name;
     }
 
     function getActionFromRequest()
@@ -244,5 +272,32 @@ class jointSite
         $controller = new Alerts_controller();
         $controller->generateErr($errType, $message);
         exit;
+    }
+
+    function print_load_log($type_of_log = null)
+    {
+        if($type_of_log){
+            if($type_of_log == "all"){
+                foreach ($this->app_log["load"] as $type_of_log => $block_log){
+                    self::print_load_log_type($type_of_log);
+                }
+            }else{
+                self::print_load_log_type($type_of_log);
+            }
+        }
+    }
+
+    function print_load_log_type($type_of_log)
+    {
+        echo "<div style='text-align: left; font-size: 16px;'>";
+        echo $type_of_log."-LOG<br>";
+        for($load_deep = 0; $load_deep< count($this->app_log["load"][$type_of_log]);$load_deep++){
+            foreach ($this->app_log["load"][$type_of_log][$load_deep] as $try_f => $try_v){
+                echo $load_deep.":> ".$try_f."=".$try_v."<br>";
+            }
+            echo "........................................................................................<br>";
+        }
+        echo "</div>";
+
     }
 }
