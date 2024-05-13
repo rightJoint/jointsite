@@ -1,0 +1,334 @@
+/*>>sitemanMainView>>*/
+.modules-list{
+    margin: 1.5em 0;
+}
+
+.modules-info{
+    width: 100%;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+
+}
+.modules-info-img{
+    display: inline-block;
+    width: 25%;
+    border-right: 1px solid gray;
+}
+.modules-info-img img{
+    height: 2em;
+    width: 2em;
+}
+.modules-info-name{
+    display: inline-block;
+    width: 74%;
+
+}
+/*<<sitemanMainView<<*/
+
+.list_frame{
+    /*margin: 2em 0;*/
+
+}
+
+.search_frame{
+    /*margin-top: 2em;*/
+}
+.search_frame .pagination span.listPages {
+    cursor: pointer;
+    padding: 0.2em;
+}
+.search_frame .pagination span.listPages.curPage {
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: silver;
+}
+.list_table{
+    margin-bottom: 2em;
+    width: 100%;
+    overflow-x: scroll;
+
+}
+.list_table table, .module-stat table{
+    width: 100%;
+}
+.list_table table tr.fCaption td, .module-stat table tr.fCaption td{
+    background-color: midnightblue;
+    color: silver;
+
+}
+.list_table table tr td, .module-stat table tr td{
+    background-color: whitesmoke;
+}
+.list_table table td, .module-stat table td{
+    border: 1px solid silver;
+}
+
+img.cell-img{
+    height: 2em;
+    width: 2em;
+}
+
+.edit-record-frame{
+    width: 100%;
+    margin-bottom: 2em;
+}
+.list_frame h2, .edit-record-frame h2, .module-stat h2, .modules-list h2{
+    background-color: silver;
+    color: midnightblue;
+    font-size: 1em;
+    margin: 0;
+    padding: 0.2em;
+}
+.list_frame a.list-btn{
+
+}
+.list_table a.list-btn img{
+    height: 1.2em;
+    width: 1.2em;
+}
+
+form.editForm, form.filterForm{
+    padding-top: 1em;
+    text-align: left;
+    background-color: LightCyan;
+    width: 100%;
+    /*border: 1px solid red;*/
+}
+.input-line{
+    vertical-align: top;
+    display: inline-block;
+    width: 48%;
+    margin: 0.2em 1%;
+    text-align: left;
+}
+.input-line label{
+    color: midnightblue;
+    text-align: right;
+    width: 19%;
+    display: inline-block;
+    padding-right: 1%;
+}
+.input-line label.ro{
+    color: darkgray;
+}
+.input-line label.idx{
+    text-decoration: underline;
+}
+.input-line input,
+.input-line textarea,
+.input-line select {
+    font-size: 0.8em;
+    width: 78%;
+    display: inline-block;
+}
+.input-line.wd100
+{
+    width: 98%;
+}
+.input-line.wd100 label
+{
+    width: 98%;
+    text-align: left;
+}
+.input-line.wd100 input
+{
+    width: 98%;
+}
+.apply-line{
+    width: 100%;
+    text-align: right;
+    /*border-top: 1px solid darkgreen;*/
+    /*margin-top: 1em;*/
+    padding-top: 0.2em;
+}
+.apply-line input[type='button'].applyFilterForm{
+
+   /* margin-right: 1em;*/
+    /*float: right;*/
+    margin: 1em;
+    font-size: 0.8em;
+}
+.submit-line {
+    width: 100%;
+    text-align: right;
+}
+.submit-line input[type='submit']{
+    margin: 1em;
+    font-size: 0.8em;
+}
+
+.submit-line .action-log,
+.apply-line .action-log {
+    display: inline-block;
+}
+.submit-line .action-log.well,
+.apply-line .action-log.well {
+    background-color: lightgreen;
+}
+.submit-line .action-log.fail,
+.apply-line .action-log.fail {
+    background-color: red;
+
+}
+
+.submit-line input[type='submit'].del-submit{
+    background-color: red;
+}
+.submit-line span.del-confirm{
+    color: firebrick;
+    font-weight: bold;
+}
+
+.list_frame .ctrl-line{
+    width: 100%;
+    margin: 0.2em 0;
+
+}
+
+
+
+
+
+
+
+
+
+/*
+.sm-pagination{
+    width: 100%;
+    border: 1px solid silver;
+    text-align: left;
+}
+.sm-pagination .sm-count,
+.sm-pagination .sm-by{
+    display: inline-block;
+    width: 20%;
+}
+.sm-pagination .sm-pages{
+    display: inline-block;
+    width: 60%;
+}
+
+ */
+.wd10{
+    width: 10%;
+}
+.wd10{
+    width: 20%;
+}
+.sm-simple-table{
+    display: table;
+    width: 100%;
+}
+.sst-caption{
+    display: table-row;
+    background-color: DarkSlateGray;
+    color: gray;
+}
+.sst-row{
+    display: table-row;
+}
+.sst-caption div, .sst-row div{
+    display: table-cell;
+}
+.sst-caption div:not(:first-child){
+    border-left: 1px solid darkgray;
+}
+.sst-caption div:last-child{
+
+}
+
+
+
+
+
+
+/*>>pagination>>*/
+.pagination {
+    text-align: left;
+    width: 40%;
+    display: inline-block;
+    font-size: 0.9em;
+}
+.pl_text {
+    text-align: right;
+    width: 50%;
+    margin-bottom: 1em;
+    display: inline-block;
+}
+.pagination span.p_btn {
+    color: darkorange;
+    cursor: pointer;
+    font-family: Serif;
+    text-decoration: none;
+}
+.pagination span.p_btn.prev::before {
+    content: "«";
+}
+.pagination span.p_btn.next::after {
+    content: "»";
+}
+.pagination span.p_btn.active {
+    color: darkgrey;
+    cursor: default;
+}
+span.p_num {
+    color: black;
+    padding: 0.2em;
+    font-size: 0.8em;
+    background-color: darkorange;
+    margin: 0.2em;
+    border-radius: 0.1em;
+    text-decoration: none;
+    cursor: pointer;
+}
+span.p_num.active {
+    font-size: 1em;
+    color: white;
+    background-color: darkgrey;
+    cursor: default;
+}
+.pl_text span {
+    color: gray;
+}
+span.found_label{
+    display: inline;
+    color: darkgreen;
+
+}
+span.found_label span{
+    font-weight: bold;
+    color: midnightblue;
+}
+/*<<pagination<<*/
+/*>>sort-block>>*/
+.list_frame .sort-block{
+    font-size: 0.9em;
+    display: inline-block;
+    width: 40%;
+}
+.list_frame .sort-block select{
+    font-size: 0.8em;
+    margin-right: 0.2em;
+}
+.list_frame .sort-block span.sortField{
+    margin-left: 0.5em;
+}
+/*>>sort-block>>*/
+/*>>apply-block>>*
+.search_frame .apply-block{
+    display: inline-block;
+    width: 19%;
+}*/
+.newRecLink{
+    font-style: italic;
+    color: firebrick;
+    font-weight: bold;
+}
+
+/*>>apply-block>>*/
+.list_frame .new-block{
+    display: inline-block;
+    width: 19%;
+}
