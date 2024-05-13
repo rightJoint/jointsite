@@ -123,8 +123,8 @@ class jointSite
     {
         global $request;
 
-        //$default_model = "Model";
-        $default_model = "Model_pdo";
+        $default_model = "Model";
+        //$default_model = "Model_pdo";
 
         $model_name = $default_model;
 

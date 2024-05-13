@@ -22,7 +22,7 @@ class Controller {
         $this->view = new $loaded_view();
     }
 
-    function LoadView_custom($params = array())
+    function LoadView_custom()
     {
 
     }
