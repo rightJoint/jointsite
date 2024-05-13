@@ -60,7 +60,7 @@ class jointSite
         $loaded_controller = $this->loadControllerFromRequest();
         $loaded_model = $this->loadModelFromRequest();
         $loaded_view = $this->loadViewFromRequest();
-        $action_name = $this->getActionFromRequest();
+        $this->app_log["action"] = $action_name = $this->getActionFromRequest();
 
         $this->print_load_log();
         //$this->print_load_log("controller");
@@ -192,7 +192,7 @@ class jointSite
         $result_name = null;
         $check_dir = null;
         for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
-
+            $this->app_log[$instance_type]["deep"] = $deep;
             if (!empty($request["routes"][$deep])){
                 $try_name = $instance_name."_".$request["routes"][$deep];
                 $try_load = array(
@@ -259,8 +259,8 @@ class jointSite
     {
         global $request;
         $action_name = "index";
-        if (!empty($request["routes"][$request["exec_dir_cnt"]+1])){
-            $action_name = $request["routes"][$request["exec_dir_cnt"]+1];
+        if (!empty($request["routes"][$this->app_log["controller"]["deep"]+1])){
+            $action_name = $request["routes"][$this->app_log["controller"]["deep"]+1];
         }
 
         return $action_name;
@@ -282,27 +282,28 @@ class jointSite
     function print_load_log($type_of_log = null)
     {
         if($type_of_log){
+            echo "<div style='text-align: left; font-size: 16px;'>";
             if($type_of_log == "all"){
+                echo "Controller_Action: ".$this->app_log["action"] ."<br>";
                 foreach ($this->app_log["load"] as $type_of_log => $block_log){
                     self::print_load_log_type($type_of_log);
                 }
             }else{
                 self::print_load_log_type($type_of_log);
             }
+            echo "</div>";
         }
     }
 
     function print_load_log_type($type_of_log)
     {
-        echo "<div style='text-align: left; font-size: 16px;'>";
         echo $type_of_log."-LOG<br>";
+        echo "LoadDeep: ".$this->app_log[$type_of_log]["deep"]."<br>";
         for($load_deep = 0; $load_deep< count($this->app_log["load"][$type_of_log]);$load_deep++){
             foreach ($this->app_log["load"][$type_of_log][$load_deep] as $try_f => $try_v){
                 echo $load_deep.":> ".$try_f."=".$try_v."<br>";
             }
             echo "........................................................................................<br>";
         }
-        echo "</div>";
-
     }
 }
