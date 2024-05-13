@@ -34,56 +34,61 @@ class SiteView extends View
 
     function __construct()
     {
-        $lang_class = $this->LoadViewLang();
+        global $request;
+        $lang_class = $this->LoadViewLang($request);
         $this->lang_map = new $lang_class;
     }
 
-    function LoadViewLang()
+    function LoadViewLang($request = null)
     {
         require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/lang_files/views/lang_view_".$_SESSION["lang"].".php");
-        $return_lang = "lang_view_".$_SESSION["lang"];
+            "/application/lang_files/views/lang_view_".$_SESSION[JS_SAIK]["lang"].".php");
+        $return_lang = "lang_view_".$_SESSION[JS_SAIK]["lang"];
 
-        global $request;
+        if(!$request){
+            global $request;
+        }
 
 
-        if($custom_lang = $this->LoadViewLang_custom($request)){
+        if (!empty($request["routes"][$request["exec_dir_cnt"]])){
+            $try_name = "lang_view_".$request["routes"][$request["exec_dir_cnt"]]."_".$_SESSION[JS_SAIK]["lang"];
+            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
+            if(file_exists($try_path)){
+                require_once ($try_path);
+                $return_lang = $try_name;
+            }
+            if (!empty($request["routes"][$request["exec_dir_cnt"]+1])){
+                $try_name = "lang_view_".$request["routes"][$request["exec_dir_cnt"]]."_".
+                    $request["routes"][$request["exec_dir_cnt"]+1]."_".$_SESSION[JS_SAIK]["lang"];
+                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
+
+                if(file_exists($try_path)){
+                    require_once ($try_path);
+                    $return_lang = $try_name;
+                }
+            }
+        }else{
+            $try_name = "lang_view_main_".$_SESSION[JS_SAIK]["lang"];
+
+            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
+            if(file_exists($try_path)){
+                require_once ($try_path);
+                $return_lang = $try_name;
+            }
+        }
+
+
+
+        if($custom_lang = $this->LoadViewLang_custom()){
             $return_lang = $custom_lang;
         }
 
         return $return_lang;
     }
 
-    function LoadViewLang_custom($ll_request)
+    function LoadViewLang_custom()
     {
-        $lang_name = null;
-        if (!empty($ll_request["routes"][$ll_request["exec_dir_cnt"]])){
-            $try_name = "lang_view_".$ll_request["routes"][$ll_request["exec_dir_cnt"]]."_".$_SESSION["lang"];
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$ll_request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $lang_name = $try_name;
-            }
-            if (!empty($ll_request["routes"][$ll_request["exec_dir_cnt"]+1])){
-                $try_name = "lang_view_".$ll_request["routes"][$ll_request["exec_dir_cnt"]]."_".
-                    $ll_request["routes"][$ll_request["exec_dir_cnt"]+1]."_".$_SESSION["lang"];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$ll_request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
-
-                if(file_exists($try_path)){
-                    require_once ($try_path);
-                    $lang_name = $try_name;
-                }
-            }
-        }else{
-            $try_name = "lang_view_main_".$_SESSION["lang"];
-
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$ll_request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $lang_name = $try_name;
-            }
-        }
-        return $lang_name;
+        return false;
     }
 
 
@@ -167,12 +172,12 @@ class SiteView extends View
         echo "<header><div class='headerCenter'>";
         echo "<div class='lang-panel'>".
             "<a class='lang-cntrl ";
-        if($_SESSION["lang"] == "rus"){
+        if($_SESSION[JS_SAIK]["lang"] == "rus"){
             echo "active ";
         }
         echo "rus' href='?lang=rus' title='".$this->lang_map->langpaneltextrus."'><span>Рус</span></a>".
             "<a class='lang-cntrl ";
-        if($_SESSION["lang"] == "en"){
+        if($_SESSION[JS_SAIK]["lang"] == "en"){
             echo "active ";
         }
         echo "en' href='?lang=en' title='".$this->lang_map->lang_panel_text_en."'><span>En</span></a>".
@@ -248,12 +253,12 @@ class SiteView extends View
             "<div class='modal-line' style='position: relative; min-height: 3.8em' >".
             "<div class='lang-panel mp'>".
             "<a class='lang-cntrl ";
-        if($_SESSION["lang"] == "rus"){
+        if($_SESSION[JS_SAIK]["lang"] == "rus"){
             echo "active ";
         }
         echo "rus' href='?lang=rus' title='".$this->lang_map->langpaneltextrus."'><span>Рус</span></a>".
             "<a class='lang-cntrl ";
-        if($_SESSION["lang"] == "en"){
+        if($_SESSION[JS_SAIK]["lang"] == "en"){
             echo "active ";
         }
         echo "en' href='?lang=en' title='".$this->lang_map->langpaneltexten."'><span>En</span></a>".

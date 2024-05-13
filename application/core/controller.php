@@ -22,7 +22,7 @@ class Controller {
         $this->view = new $loaded_view();
     }
 
-    function LoadView_custom()
+    function LoadView_custom($params = array())
     {
 
     }
@@ -36,8 +36,8 @@ class Controller {
     {
         global $request;
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"].
-            "/application/lang_files/controllers/lang_cntrl_".$_SESSION["lang"].".php");
-        $return_lang = "lang_cntrl_".$_SESSION["lang"];
+            "/application/lang_files/controllers/lang_cntrl_".$_SESSION[JS_SAIK]["lang"].".php");
+        $return_lang = "lang_cntrl_".$_SESSION[JS_SAIK]["lang"];
 
         if($custom_lang = $this->LoadCntrlLang_custom()){
             $return_lang = $custom_lang;

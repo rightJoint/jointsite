@@ -10,16 +10,16 @@ class Alerts_View extends SiteView
     {
         parent::__construct();
 
-        $lang_class ="lang_view_alerts_".$_SESSION["lang"];
+        $lang_class ="lang_view_alerts_".$_SESSION[JS_SAIK]["lang"];
         $this->lang_map = new $lang_class;
 
         $this->styles[]=JOINT_SITE_EXEC_DIR."/css/alerts.css";
     }
 
-    function LoadViewLang_custom($ll_request)
+    function LoadViewLang_custom()
     {
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/lang_files/views/lang_view_alerts_".$_SESSION["lang"].".php");
-        return "lang_view_alerts_".$_SESSION["lang"];
+        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/lang_files/views/lang_view_alerts_".$_SESSION[JS_SAIK]["lang"].".php");
+        return "lang_view_alerts_".$_SESSION[JS_SAIK]["lang"];
     }
 
     function print_page_content()

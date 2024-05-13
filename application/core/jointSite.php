@@ -8,16 +8,6 @@ class jointSite
         global $mct;
         $mct['start_time'] = microtime(true);
 
-        session_start();
-
-        if($_GET["lang"]=="en"){
-            $_SESSION["lang"] = "en";
-        }elseif($_GET["lang"]=="rus"){
-            $_SESSION["lang"] = "rus";
-        }elseif(!$_SESSION["lang"]){
-            $_SESSION["lang"]="rus";
-        }
-
         global $request;
         $request["routes_path"] = explode('?', $_SERVER['REQUEST_URI'])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
@@ -27,17 +17,38 @@ class jointSite
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
 
+        //session app instance key at host
+        if($JOINT_SITE_EXEC_DIR){
+            for ($c = 0; $c<$request["exec_dir_cnt"]; $c++){
+                $s_key .= $request["exec_dir"][$c];
+            }
+        }else{
+            $s_key = "main";
+        }
+        define("JS_SAIK", $s_key);
+
+        session_start();
+
+        if($_GET["lang"]=="en"){
+            $_SESSION[JS_SAIK]["lang"] = "en";
+        }elseif($_GET["lang"]=="rus"){
+            $_SESSION[JS_SAIK]["lang"] = "rus";
+        }elseif(!$_SESSION[JS_SAIK]["lang"]){
+            $_SESSION[JS_SAIK]["lang"]="rus";
+        }
+
+
         if(!$this->checkAppDir()) {
             $request_exec_dir = array(
                 "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
                 "rus" => "Ошибка приложения: Маршрут не соответствует конфигурации",
             );
-            echo $request_exec_dir[$_SESSION["lang"]]." (route: ".$request["routes_path"].", EXEC_DIR: ".$request["exec_path"].")";
+            echo $request_exec_dir[$_SESSION[JS_SAIK]["lang"]]." (route: ".$request["routes_path"].", EXEC_DIR: ".$request["exec_path"].")";
             exit;
         }
 
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/lang_app_".$_SESSION["lang"].".php");
-        $lang_app_name = "lang_app_".$_SESSION["lang"];
+        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/lang_app_".$_SESSION[JS_SAIK]["lang"].".php");
+        $lang_app_name = "lang_app_".$_SESSION[JS_SAIK]["lang"];
         $this->lang_map = new $lang_app_name();
 
         define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
@@ -124,33 +135,36 @@ class jointSite
 
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/".strtolower($default_model).".php");
 
-        if (!empty($request["routes"][$request["exec_dir_cnt"]])){
-            $try_name =  "Model_".$request["routes"][$request["exec_dir_cnt"]];
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $model_name = $try_name;
-            }
+        $check_dir = null;
+        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
 
-            if (!empty($request["routes"][$request["exec_dir_cnt"]+1])){
-                $try_name =  "Model_".$request["routes"][$request["exec_dir_cnt"]]."_".$request["routes"][$request["exec_dir_cnt"]+1];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".
-                    $request["routes"][$request["exec_dir_cnt"]]."/".strtolower($try_name).'.php';
+            if (!empty($request["routes"][$deep])){
+                $try_name =  "Model_".$request["routes"][$deep];
+                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".$check_dir.strtolower($try_name).'.php';
                 if(file_exists($try_path)){
                     require_once ($try_path);
                     $model_name = $try_name;
                 }
-            }
-
-        }else{
-            $try_name = "Model_Main";
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/controllers/model_main.php";
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $model_name = $try_name;
+                $check_dir.=$request["routes"][$deep]."/";
+                if (!empty($request["routes"][$deep+1])){
+                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/models/".$check_dir)) {
+                        $try_name = "Model_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
+                        $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/models/" .
+                            $check_dir . strtolower($try_name) . '.php';
+                        if (file_exists($try_path)) {
+                            require_once($try_path);
+                            $model_name = $try_name;
+                        }
+                    }else{
+                        break;
+                    }
+                }else{
+                    break;
+                }
+            }else{
+                break;
             }
         }
-
         if($model_name == $default_model and !USE_DEFAULT_MODEL){
 
             self::throwErr("request", $this->lang_map->app_err["request_model"]);
@@ -169,30 +183,34 @@ class jointSite
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/View.php");
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/SiteView.php");
 
-        if (!empty($request["routes"][$request["exec_dir_cnt"]])){
-            $try_name =  "View_".$request["routes"][$request["exec_dir_cnt"]];
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $view_name = $try_name;
-            }
+        $check_dir = null;
+        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
 
-            if (!empty($request["routes"][$request["exec_dir_cnt"]+1])){
-                $try_name =  "View_".$request["routes"][$request["exec_dir_cnt"]]."_".$request["routes"][$request["exec_dir_cnt"]+1];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".
-                    $request["routes"][$request["exec_dir_cnt"]]."/".strtolower($try_name).'.php';
+            if (!empty($request["routes"][$deep])){
+                $try_name =  "View_".$request["routes"][$deep];
+                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".$check_dir.strtolower($try_name).'.php';
                 if(file_exists($try_path)){
                     require_once ($try_path);
                     $view_name = $try_name;
                 }
-            }
-
-        }else{
-            $try_name = "View_Main";
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/view_main.php";
-            if(file_exists($try_path)){
-                require_once ($try_path);
-                $view_name = $try_name;
+                $check_dir.=$request["routes"][$deep]."/";
+                if (!empty($request["routes"][$deep+1])){
+                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/".$check_dir)) {
+                        $try_name = "View_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
+                        $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/views/" .
+                            $check_dir . strtolower($try_name) . '.php';
+                        if (file_exists($try_path)) {
+                            require_once($try_path);
+                            $view_name = $try_name;
+                        }
+                    }else{
+                        break;
+                    }
+                }else{
+                    break;
+                }
+            }else{
+                break;
             }
         }
 

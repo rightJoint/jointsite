@@ -16,8 +16,8 @@ class Alerts_model
     function __construct()
     {
         global $request;
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/models/lang_model_alerts_".$_SESSION["lang"].".php");
-        $lang_name = "lang_model_alerts_".$_SESSION["lang"];
+        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/models/lang_model_alerts_".$_SESSION[JS_SAIK]["lang"].".php");
+        $lang_name = "lang_model_alerts_".$_SESSION[JS_SAIK]["lang"];
         $this->lang_map = new $lang_name;
     }
 }
