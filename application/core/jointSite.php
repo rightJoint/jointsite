@@ -106,12 +106,17 @@ class jointSite
     {
         global $request;
 
-        $controller_name = 'Controller';
+        $default_name = $controller_name = 'Controller';
 
         require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/controller.php");
 
         if($new_controller_name = self::load_instance("controller")){
             $controller_name = $new_controller_name;
+        }
+
+        if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
+
+            self::throwErr("request", $this->lang_map->app_err["request_view"]);
         }
 
         $this->app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
