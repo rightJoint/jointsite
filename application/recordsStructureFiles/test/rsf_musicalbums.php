@@ -196,6 +196,9 @@ class rsf_musicalbums extends recordStructureFields
                     "rus" => "сео-индекс",
                 ),
             ),
+            "countRec" => array(
+                "format" => "int",
+            ),
         );
         $this->searchFields = array(
             "albumName" => array(
@@ -260,6 +263,12 @@ class rsf_musicalbums extends recordStructureFields
                     "en" => "seo-rob-index",
                     "rus" => "сео-индекс",
                 ),
+            ),
+            "countRec" => array(
+                "format" => "int",
+                "sort" => 1,
+                "search" => 1,
+                "group_by_field" =>1,
             ),
         );
         $this->viewFields = array(

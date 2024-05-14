@@ -108,7 +108,7 @@ class RecordsModel extends Model_pdo
         return $this->query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
     }
 
-    public function listRecords($where = null, $order = null, $limit = null)
+    public function listRecords($where = null, $order = null, $limit = null, $having = null)
     {
         $findList_qry = "select ";
         foreach ($this->recordStructureFields->listFields as $fieldName => $fieldOptions){
@@ -117,7 +117,7 @@ class RecordsModel extends Model_pdo
             }
         }
         $findList_qry = substr($findList_qry, 0, strlen($findList_qry)-2);
-        $findList_qry.= " from ".$this->tableName." ".$where.$order.$limit;
+        $findList_qry.= " from ".$this->tableName." ".$where.$having.$order.$limit;
 
         return $this->fetchToArray($findList_qry);
     }
@@ -301,16 +301,9 @@ class RecordsModel extends Model_pdo
         $return_where = null;
         $return_order = null;
         $return_limit = null;
-        $filed_in_arr_sort = null;
-        $filed_in_arr_sortOrder = null;
-        foreach ($this->recordStructureFields->searchFields as $fName=>$fData){
-            if($fData["sort"] && !$filed_in_arr_sort){
-                $filed_in_arr_sort = $fName;
-                if($fData["sortOrder"]){
-                    $filed_in_arr_sortOrder=$fData["sortOrder"];
-                }
-            }
+        $return_having = null;
 
+        foreach ($this->recordStructureFields->searchFields as $fName=>$fData){
             $useFieldName = $fName;
             if($fData["use_table_name"]){
                 $useTableName = $fData["use_table_name"];
@@ -321,17 +314,26 @@ class RecordsModel extends Model_pdo
                 $useTableName = $this->tableName;
             }
 
-
-
             if($REQ_ARR[$fName]){
-                if($fData["format"]=="checkbox" or $fData["format"]=="tinyint"){
+
+                if($fData["group_by_field"]){
+                    if($fData["format"]=="varchar" || $fData["format"] == "text"){
+                        $return_having .= $useFieldName." like '%".$REQ_ARR[$fName]."%' and ";
+                    }elseif($fData["format"]=="int"){
+                        $return_having .= $useFieldName." = ".$REQ_ARR[$fName]." and ";
+                    }else{
+                        $return_having .= $useFieldName." = '".$REQ_ARR[$fName]."' and ";
+                    }
+                }elseif($fData["format"]=="checkbox" or $fData["format"]=="tinyint"){
                     if($REQ_ARR[$fName] == "on"){
                         $return_where.=$useTableName.".".$useFieldName."=true and ";
-                        $this->recordStructureFields->record[$fName]["val"] = 1;
+                        $this->recordStructureFields->record[$fName]["curVal"] = 1;
                     }else{
                         $return_where.=$useTableName.".".$useFieldName."=false and ";
-                        $this->recordStructureFields->record[$fName]["val"] = 0;
+                        $this->recordStructureFields->record[$fName]["curVal"] = 0;
                     }
+                }elseif($fData["format"]=="int"){
+                    $return_where.=$useTableName.".".$useFieldName." = ".$REQ_ARR[$fName]." and ";
                 }elseif($fData["format"]=="varchar" || $fData["format"] == "text"){
                     $return_where.=$useTableName.".".$useFieldName." like '%".$REQ_ARR[$fName]."%' and ";
                 }else{
@@ -342,6 +344,9 @@ class RecordsModel extends Model_pdo
 
         if($return_where){
             $return_where=" where ".substr($return_where, 0 , strlen($return_where)-4);
+        }
+        if($return_having){
+            $return_having=" having ".substr($return_having, 0 , strlen($return_having)-4);
         }
 
         if($REQ_ARR["onPage"]){
@@ -355,30 +360,32 @@ class RecordsModel extends Model_pdo
         if($REQ_ARR["sortField"]){
 
             if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"]){
-                $sort_table_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"];
+                $sort_table_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"].".";
 
                 if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"]){
                     $sort_field_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"];
                 }else{
-                    $sort_field_name = $_POST["sortField"];
+                    $sort_field_name = $REQ_ARR["sortField"];
                 }
 
+            }elseif ($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["group_by_field"]){
+                $sort_field_name = $REQ_ARR["sortField"];
+                $sort_table_name = null;
             }else{
-                $sort_field_name = $_POST["sortField"];
-                $sort_table_name = $this->tableName;
+                $sort_field_name = $REQ_ARR["sortField"];
+                $sort_table_name = $this->tableName.".";
             }
-            $return_order.= " order by ".$sort_table_name.".".$sort_field_name;
+            $return_order.= " order by ".$sort_table_name.$sort_field_name;
             if($REQ_ARR["sortOrder"]){
                 $return_order.=" ".$REQ_ARR["sortOrder"];
             }
-        }elseif ($filed_in_arr_sort){
-            $return_order.= " order by ".$filed_in_arr_sort." ".$filed_in_arr_sortOrder;
         }
 
         return array(
             "where"=>$return_where,
             "limit"=>$return_limit,
             "order"=>$return_order,
+            "having"=>$return_having,
         );
     }
 

@@ -158,8 +158,8 @@ class RecordsController extends Controller
         $sup_cond = $this->model->filterWhere();
 
         $list_records = array(
-            "count" => $this->model->countRecords($sup_cond["where"]),
-            "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"]),
+            "count" => $this->model->countRecords($sup_cond["where"], $sup_cond["having"]),
+            "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"], $sup_cond["having"]),
         );
 
         if($json){
