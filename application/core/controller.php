@@ -8,7 +8,7 @@ class Controller {
     function __construct($loaded_model, $loaded_view)
     {
         $lang_class = $this->LoadCntrlLang();
-        $this->lang_map = $lang_class;
+        $this->lang_map = new $lang_class;
 
         if($custom_model = $this->LoadModel_custom()){
             $loaded_model = $custom_model;

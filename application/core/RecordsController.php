@@ -3,6 +3,13 @@ class RecordsController extends Controller
 {
     public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
 
+    function LoadCntrlLang_custom()
+    {
+        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/lang_files/".
+            "controllers/lang_RecordsController_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_RecordsController_".$_SESSION[JS_SAIK]["lang"];
+    }
+
     public function records_process($process_path=null,
                                     $default_table = null, //
                                     $view_data = null)
@@ -68,7 +75,10 @@ class RecordsController extends Controller
 
                 $this->view->generate();
             }else{
-                jointSite::throwErr("request", $this->model->log_message);
+                jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"].
+                    $this->lang_map->rc_errors["detail"].", ".
+                    $this->lang_map->rc_errors["model_err"].
+                    $this->model->log_message);
             }
         }
         elseif ($request["routes"][$pp_cnt] == "editview") {
@@ -267,5 +277,27 @@ class RecordsController extends Controller
             $this->view->h2 = $this->model->tableName;
         }
         $this->view->process_url = $process_path;
+    }
+
+    function action_filldatalist()
+    {
+        $req_where = json_decode($_GET["where"], true);
+        $fdl_where = $this->model->filterWhere("custom", $req_where);
+
+        $fdl_listRecords = $this->model->listRecords($fdl_where["where"]);
+
+        if($_GET["findField"] and $_GET["returnKey"]){
+            $list_return = array("" => "");
+            if($fdl_listRecords){
+                foreach ($fdl_listRecords as $list_num => $list_row){
+                    $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
+                }
+            }
+        }else{
+            $list_return = array(
+                "error" => "fields not set",
+            );
+        }
+        $this->view->generateJson($list_return);
     }
 }

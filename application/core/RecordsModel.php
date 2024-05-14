@@ -68,7 +68,7 @@ class RecordsModel extends Model_pdo
                         $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
                     }
                 }else{
-                    throwErr("XXX", "unknown key type in model->getRecordStructure");
+                    jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
                 }
 
                 $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
@@ -88,7 +88,8 @@ class RecordsModel extends Model_pdo
                 $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
             }
         }else{
-            throwErr("request", $this->lang_map->table_not_exist_err.": ".$this->tableName.", core/RecordsModel->getRecordStructure");
+            jointSite::throwErr("request", $this->lang_map->table_name_not_found.": table_name='".$this->tableName."', ".
+                "/core/RecordsModel->getRecordStructure");
         }
         if($count_keys){
             $this->recordStructureFields->listFields["btnDetail"]["format"] = "link";
@@ -138,6 +139,7 @@ class RecordsModel extends Model_pdo
     }
 
     public function copyRecord(){
+        $date_stamp = date("H:i:s");
         $query_text="select * from ".$this->tableName." where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
             if ($fieldInfo["indexes"]) {
@@ -155,7 +157,7 @@ class RecordsModel extends Model_pdo
             return $this->copyCustomFields();
         }
 
-        $this->log_message = "copyRecord fail";
+        $this->log_message = $this->lang_map->copyRecord["fail"]." ".$date_stamp;
         return false;
     }
 

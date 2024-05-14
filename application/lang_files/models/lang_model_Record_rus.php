@@ -10,6 +10,10 @@ class lang_model_Record_rus extends lang_model_rus
         "success" => "Добавление записи успешно",
         "fail" => "Добавление записи неудачно",
     );
-    public $table_name_rm_err = "Имя таблицы не задано в in RecordModel";
+    public $copyRecord = array(
+        "fail" => "Копирование записи неудачно",
+    );
+    public $table_name_rm_err = "Имя таблицы не задано в RecordModel";
+    public $table_name_not_found = "Имя таблицы не найдено в базе данных (МодельЗапись)";
 
 }

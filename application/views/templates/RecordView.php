@@ -111,7 +111,8 @@ class RecordView extends SiteView
             }
             $return_input .= "</select>";
 
-        }elseif($fieldOption["format"] == "find-select"){
+        }
+        elseif($fieldOption["format"] == "find-select"){
             $return_input = "<div class='find-select' id='".$fieldNname."'>".
                 "<input type='text' id='fst-".$fieldNname."' value='".$this->record[$fieldOption["fillName"]]["curVal"]."'>".
                 "<div class='fss'>".
@@ -121,7 +122,30 @@ class RecordView extends SiteView
                 "</select>".
                 "</div>".
                 "</div>";
-        }else{
+        }
+        elseif($fieldOption["format"] == "file"){
+            $return_input = "<input type='file' ".$name_print;
+            if($fieldOption["file_options"]["accept"]){
+                $return_input .= " accept='".$fieldOption["file_options"]["accept"]."'";
+            }
+
+            $return_input .=">".
+                "<span class='file_val'>".$value."</span>";
+            if($fieldOption["file_options"]["load_dir"] and $value){
+                if($fieldOption["file_options"]["file_type"] == "img"){
+                    if($fieldOption["replaces"]){
+                        $imgLink = $fieldOption["file_options"]["load_dir"];
+                        foreach ($fieldOption["replaces"] as $replace){
+                            $imgLink = str_replace($replace, $this->record[$replace]["curVal"], $imgLink);
+                        }
+                    }else{
+                        $imgLink = $fieldOption["file_options"]["load_dir"]."/".$value;
+                    }
+                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>";
+                }
+            }
+        }
+        else{
             $return_input = $fieldOption["format"];
         }
 
