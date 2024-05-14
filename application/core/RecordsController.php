@@ -133,7 +133,7 @@ class RecordsController extends Controller
                         header("Location: ".$process_path);
                     }
                 }
-                $this->view->editFields = $this->model->recordStructureFields->editFields;
+                $this->view->editFields = $this->model->recordStructureFields->viewFields;
                 $this->prepareViewFields($process_path);
                 $this->view->generate();
             }else {
