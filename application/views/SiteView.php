@@ -299,17 +299,19 @@ class SiteView extends View
             $menuStyle = null;
             $folded_style = null;
         }
-        echo "<div class='modal-line prod'>" .
-            "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/popimg/internet.png'></div>" .
-            "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite'>Web site</a><sup>php, js, mvc</sup>" .
-            "<span class='opnSubMenu " . $folded_style . "'>product</span>" .
+        echo "<div class='modal-line prod'>".
+            "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite' ".
+            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Web site</a><sup>php, js, mvc</sup>".
+            "<span class='opnSubMenu ".$folded_style."'>product</span>".
             "<ul " . $menuStyle . ">";
         foreach ($this->branches as $b_name => $b_info) {
             echo "<li><a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/" . $b_name . "' class='sub-lnk light ";
             if ($request["routes"][$request["exec_dir_cnt"] + 2] == $b_name) {
                 echo "active";
             }
-            echo "' title='" . $mod_opt["altText"] . "'>" . $this->lang_map->branchesList[$b_name]["title"] . "</a></li>";
+            echo "' title='".$this->lang_map->branchesList[$b_name]["title_about"]."'>" .
+                $this->lang_map->branchesList[$b_name]["title"] . "</a></li>";
         }
 
         echo "</ul>" .
