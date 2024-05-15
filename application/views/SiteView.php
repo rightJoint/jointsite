@@ -333,7 +333,7 @@ class SiteView extends View
         }
 
         foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
-            $return["text"] = "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
+            $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
             if (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"]) {
                 $return["text"] .= "active";
             }
