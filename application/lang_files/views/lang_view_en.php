@@ -20,7 +20,9 @@ class lang_view_en
     );
     public $langpaneltextrus = "смотреть на русском";
     public $langpaneltexten = "view in english";
-
+    public $prod_titles_in_menu = array(
+        "jointSite" => "About web-application joint site",
+    );
     public $branchesList = array(
         "main" => array(
             "title" => "Branch Application (Main)",
@@ -31,6 +33,7 @@ class lang_view_en
             "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>link to github</a>",
             "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='see detail info about app'>see details</a>",
             "depend" => "no dependencies",
+            "title_about" => "read about branch application",
         ),
     );
 }

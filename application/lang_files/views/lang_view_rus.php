@@ -21,17 +21,20 @@ class lang_view_rus
     public $langpaneltextrus = "смотреть на русском";
     public $langpaneltexten = "view in english";
 
-
+    public $prod_titles_in_menu = array(
+        "jointSite" => "Подробнее о web-приложении joint site",
+    );
     public $branchesList = array(
         "main" => array(
-            "title" => "Branch Application (Main)",
+            "title" => "Ветка Приложение (Main)",
             "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
-            "test_ref_title" => "Do test",
-            "descr" => "Set up application as website or use into site at specified url.",
+            "test_ref_title" => "Перейти к тесту",
+            "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ",
             "version" => "v1.0",
-            "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>link to github</a>",
-            "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='see detail info about app'>see details</a>",
-            "depend" => "no dependencies",
+            "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
+            "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
+            "depend" => "нет зависимостей",
+            "title_about" => "подробнее о ветке Приложение",
         ),
     );
 }
