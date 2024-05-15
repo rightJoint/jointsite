@@ -342,13 +342,13 @@ class SiteView extends View
         return $return;
     }
 
-    public function print_admin_menu()
+    public function print_admin_menu($admin_url = "/admin")
     {
-/*
-        if (!$_SESSION["admin_user"]["id"]) {
+        $admin_menu = $this->print_menu_items("admin", $admin_url);
+        if (!$_SESSION[JS_SAIK]["admin_user"]["id"] and $admin_menu["is_valid_path"]) {
             echo "<form class='auth-form admin' method='post'>" .
                 "<div class='modal-line'>" .
-                "<div class='modal-line-img'><img src='/img/popimg/admin-logo.png'></div>" .
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>" .
                 "<div class='modal-line-text'><a class='m-l-blue title decnone' href='#'>" . $this->lang_map->adminblock["form_title"] .
                 "</a></div>" .
                 "</div>" .
@@ -358,7 +358,7 @@ class SiteView extends View
                 echo $_POST["login"];
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
-                "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>" .
                 "</div>" .
                 "<div class='modal-line'>" .
                 "<div class='modal-line-text'>" .
@@ -368,33 +368,21 @@ class SiteView extends View
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
                 "</div>" .
-                "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
-            if ($_SESSION["admin_user"]["auth_err"]) {
-                echo "<div class='modal-line-err'>" . $_SESSION["admin_user"]["auth_err"] . "</div>";
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
+            if ($_SESSION[JS_SAIK]["admin_user"]["auth_err"]) {
+                echo "<div class='modal-line-err'>" . $_SESSION[JS_SAIK]["admin_user"]["auth_err"] . "</div>";
             }
             echo "</div>" .
                 "<div class='modal-line'>" .
-
                 "<div class='modal-line-text'>" .
                 "<input type='submit' name='auth_admin' value='" . $this->lang_map->adminblock["submit_btn"] . "'></div>" .
                 "<div class='modal-line-img'></div>" .
                 "</div>" .
                 "</form>";
         }
-*/
-        //if ($_SESSION["admin_user"]["id"]) {\
-        /*
-            echo "<div class='modal-line'>".
-                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
-                "<div class='modal-line-text'>Admin user: ".$_SESSION['admin_user']['id']."<sup><a href='".JOINT_SITE_EXEC_DIR."/admin"."?cmd=exit'>Exit</sup></div>".
-                "</div>";
-        */
-           // echo "<div class='modal-line'><div class='modal-line-img'>".
-          //      "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png' alt='admin-logo'></div>".
-           //     "<div class='modal-line-text'><a href='".JOINT_SITE_EXEC_DIR."/admin' ".
-           //     "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Admin</a> ".
 
-                $admin_menu = $this->print_menu_items("admin", "/admin");
+        if ($_SESSION[JS_SAIK]["admin_user"]["id"]) {
+            $admin_menu = $this->print_menu_items("admin", $admin_url);
 
             $menuStyle = "style='display: none'";
             $folded_style = "folded";
@@ -414,6 +402,6 @@ class SiteView extends View
                 "</ul>" .
                 "</div>" .
                 "</div>";
-        //}
+        }
     }
 }
