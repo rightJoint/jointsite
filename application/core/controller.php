@@ -5,16 +5,16 @@ class Controller {
 
     public $lang_map;
 
-    function __construct($loaded_model, $loaded_view)
+    function __construct($loaded_model, $loaded_view, $action_name)
     {
         $lang_class = $this->LoadCntrlLang();
         $this->lang_map = new $lang_class;
 
-        if($custom_model = $this->LoadModel_custom()){
+        if($custom_model = $this->LoadModel_custom($action_name)){
             $loaded_model = $custom_model;
         }
 
-        if($custom_view = $this->LoadView_custom()){
+        if($custom_view = $this->LoadView_custom($action_name)){
             $loaded_view = $custom_view;
         }
 
@@ -22,12 +22,12 @@ class Controller {
         $this->view = new $loaded_view();
     }
 
-    function LoadView_custom()
+    function LoadView_custom($action_name = null)
     {
 
     }
 
-    function LoadModel_custom()
+    function LoadModel_custom($action_name = null)
     {
 
     }

@@ -1,7 +1,7 @@
 <?php
 class Controller_Products extends Controller
 {
-    function LoadView_custom()
+    function LoadView_custom($action_name = null)
     {
         global $request;
         $custom_name = null;
