@@ -3,9 +3,18 @@ require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
     "/application/core/RecordsController.php";
 class controller_admin extends RecordsController
 {
-    function __construct($loaded_model, $loaded_view)
+    public $admin_process_url = JOINT_SITE_EXEC_DIR."/admin";
+
+    function __construct($loaded_model, $loaded_view, $action_name)
     {
-        parent::__construct($loaded_model, $loaded_view);
+        //redefine view if action index
+        $redefine_view =  $loaded_view;
+        if($action_name == "index"){
+            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                "/application/views/admin/view_admin_main.php";
+            $redefine_view = "view_admin_main";
+        }
+        parent::__construct($loaded_model, $redefine_view, $action_name);
 
         //load admin config
         require_once JOINT_SITE_CONF_DIR."/admin_conf.php";
@@ -14,15 +23,12 @@ class controller_admin extends RecordsController
             unset($_SESSION[JS_SAIK]["admin_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
-        //$this->model = new Model_Admin();
-        //$this->view = new View();
         if(!$this->hasAccessAdmin()){
             if(!$this->auth_user()){
                 jointSite::throwErr("access", $this->lang_map->auth_required_err);
             }
         }
-
-        //include "application/views/admin/adminView.php";
+        $this->view->admin_process_url = $this->admin_process_url;
     }
 
     function LoadCntrlLang_custom()
@@ -60,14 +66,14 @@ class controller_admin extends RecordsController
         }
         return false;
     }
-
+/*
     function action_index()
     {
         include "application/views/admin/adminMainView.php";
         $this->view = new adminMainView();
         parent::action_index();
     }
-
+*/
 }
 
 

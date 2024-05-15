@@ -1,8 +1,10 @@
 <?php
 class view_admin extends SiteView
 {
-    public $shortcut_icon = "/img/popimg/admin-logo.png";
-    public $logo = "/img/popimg/admin-logo.png";
+    public $admin_process_url;
+
+    public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
+    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
 
     public $img_for_modules = array(
         "server" => "/img/admin/server_logo.png",
@@ -23,7 +25,7 @@ class view_admin extends SiteView
         global $routes;
 
         if(!$routes[2]){
-            $this->logo = "/img/popimg/admin-logo.png";
+            $this->logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
         }else{
             $this->lang_map->head["h1"] = $this->lang_map->adminblock["modules_list"][$routes[2]]["aliasMenu"];
             $this->lang_map->head["title"] = $this->lang_map->adminblock["modules_list"][$routes[2]]["aliasMenu"];
