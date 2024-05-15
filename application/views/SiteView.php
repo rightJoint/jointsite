@@ -344,85 +344,76 @@ class SiteView extends View
 
     public function print_admin_menu()
     {
-
-        foreach ($this->admin_urls as $admin_url){
-            echo $admin_url."<br>";
-        }
-
-        return true;
-
-        global $routes;
-        $default_admin_url = "admin";
-        if (in_array($routes[1], $this->admin_urls)) {
-            $default_admin_url = $routes[1];
-            if (!$_SESSION["admin_user"]["id"]) {
-                echo "<form class='auth-form admin' method='post'>" .
-                    "<div class='modal-line'>" .
-                    "<div class='modal-line-img'><img src='/img/popimg/admin-logo.png'></div>" .
-                    "<div class='modal-line-text'><a class='m-l-blue title decnone' href='#'>" . $this->lang_map->adminblock["form_title"] .
-                    "</a></div>" .
-                    "</div>" .
-                    "<div class='modal-line'>" .
-                    "<div class='modal-line-text'><input type='text' name='login' value='";
-                if ($_POST["login"]) {
-                    echo $_POST["login"];
-                }
-                echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
-                    "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
-                    "</div>" .
-                    "<div class='modal-line'>" .
-                    "<div class='modal-line-text'>" .
-                    "<input type='password' name='password' value='";
-                if ($_POST["password"]) {
-                    echo $_POST["password"];
-                }
-                echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
-                    "</div>" .
-                    "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
-                if ($_SESSION["admin_user"]["auth_err"]) {
-                    echo "<div class='modal-line-err'>" . $_SESSION["admin_user"]["auth_err"] . "</div>";
-                }
-                echo "</div>" .
-                    "<div class='modal-line'>" .
-
-                    "<div class='modal-line-text'>" .
-                    "<input type='submit' name='auth_admin' value='" . $this->lang_map->adminblock["submit_btn"] . "'></div>" .
-                    "<div class='modal-line-img'></div>" .
-                    "</div>" .
-                    "</form>";
-            }
-        }
-        if ($_SESSION["admin_user"]["id"]) {
-            echo "<div class='modal-line'>" .
-                "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
-                "<div class='modal-line-text'>Admin user: " . $_SESSION['admin_user']['id'] . "<sup><a href='/" . $routes[1] . "?cmd=exit'>Exit</sup></div>" .
+/*
+        if (!$_SESSION["admin_user"]["id"]) {
+            echo "<form class='auth-form admin' method='post'>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-img'><img src='/img/popimg/admin-logo.png'></div>" .
+                "<div class='modal-line-text'><a class='m-l-blue title decnone' href='#'>" . $this->lang_map->adminblock["form_title"] .
+                "</a></div>" .
                 "</div>" .
-                "<div class='modal-line'><div class='modal-line-img'>" .
-                "<img src='/img/popimg/admin-logo.png' alt='admin-logo'></div>";
-
-            $menuSign = "+";
-            $menuStyle = "style='display: none'";
-
-            echo "<div class='modal-line-text'>";
-
-            global $routes;
-
-            if ($routes[1] == $default_admin_url) {
-                $menuSign = "-";
-                $menuStyle = null;
+                "<div class='modal-line'>" .
+                "<div class='modal-line-text'><input type='text' name='login' value='";
+            if ($_POST["login"]) {
+                echo $_POST["login"];
             }
-            echo "<a href='/" . $default_admin_url . "' title='php-mysql-admin'>Admin</a> " .
-                "<span class='opnSubMenu'>" . $menuSign . "</span> " . "<ul " . $menuStyle . ">";
-
-            foreach ($this->lang_map->adminblock["modules_list"] as $admin_mod => $mod_opt) {
-                echo "<li><a href='/" . $default_admin_url . "/" . $admin_mod . "' class='sub-lnk light ";
-                if ($routes[2] == $admin_mod) {
-                    echo "active";
-                }
-                echo "' title='" . $mod_opt["altText"] . "'>" . $mod_opt["aliasMenu"] . "</a></li>";
+            echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
+                "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
+                "</div>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-text'>" .
+                "<input type='password' name='password' value='";
+            if ($_POST["password"]) {
+                echo $_POST["password"];
             }
-            echo "</ul></div></div>";
+            echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
+                "</div>" .
+                "<div class='modal-line-img'><img src='/img/popimg/pass-img.png'></div>";
+            if ($_SESSION["admin_user"]["auth_err"]) {
+                echo "<div class='modal-line-err'>" . $_SESSION["admin_user"]["auth_err"] . "</div>";
+            }
+            echo "</div>" .
+                "<div class='modal-line'>" .
 
+                "<div class='modal-line-text'>" .
+                "<input type='submit' name='auth_admin' value='" . $this->lang_map->adminblock["submit_btn"] . "'></div>" .
+                "<div class='modal-line-img'></div>" .
+                "</div>" .
+                "</form>";
         }
+*/
+        //if ($_SESSION["admin_user"]["id"]) {\
+        /*
+            echo "<div class='modal-line'>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
+                "<div class='modal-line-text'>Admin user: ".$_SESSION['admin_user']['id']."<sup><a href='".JOINT_SITE_EXEC_DIR."/admin"."?cmd=exit'>Exit</sup></div>".
+                "</div>";
+        */
+           // echo "<div class='modal-line'><div class='modal-line-img'>".
+          //      "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png' alt='admin-logo'></div>".
+           //     "<div class='modal-line-text'><a href='".JOINT_SITE_EXEC_DIR."/admin' ".
+           //     "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Admin</a> ".
+
+                $admin_menu = $this->print_menu_items("admin", "/admin");
+
+            $menuStyle = "style='display: none'";
+            $folded_style = "folded";
+
+            if ($admin_menu["is_valid_path"]) {
+                $menuStyle = null;
+                $folded_style = null;
+            }
+
+            echo "<div class='modal-line prod'>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/admin' ".
+                "title='".$this->lang_map->prod_titles_in_menu["admin"]."'>Admin</a><sup>for mysql</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>menu</span>".
+                "<ul " . $menuStyle . ">".
+                $admin_menu["text"].
+                "</ul>" .
+                "</div>" .
+                "</div>";
+        //}
     }
 }

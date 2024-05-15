@@ -23,6 +23,7 @@ class lang_view_rus
 
     public $prod_titles_in_menu = array(
         "jointSite" => "Подробнее о web-приложении joint site",
+        "admin" => "Админка для mysql на php",
     );
     public $menu_blocks = array(
         "branches" => array(
@@ -40,5 +41,44 @@ class lang_view_rus
                 ),
             ),
         ),
+        "admin" => array(
+            "menu_items" => array(
+                "server" => array(
+                    "aliasMenu" => "SQL-Сервер",
+                    "altText" => "Настройка подключения к SQL-серверу и БД",
+                ),
+                "users" => array(
+                    "aliasMenu" => "Пользователи",
+                    "altText" => "Список пользователей, добавить или удалить пользователя",
+                ),
+                "sql" => array(
+                    "aliasMenu" => "SQL",
+                    "altText" => "Выполнить SQL-запрос",
+                ),
+                "printquery" => array(
+                    "aliasMenu" => "Печать запроса",
+                    "altText" => "Вывод в таблицу резулитата select",
+                ),
+                "tables" => array(
+                    "aliasMenu" => "Таблицы",
+                    "altText" => "Действия с таблицами: создать, удалить, очистить, выгрузить, загрузить",
+                ),
+                "records" => array(
+                    "aliasMenu" => "Редактирование записей",
+                    "altText" => "Редактировать, добавить, удалить запись в таблице",
+                ),
+                "migrations" => array(
+                    "aliasMenu" => "Миграции",
+                    "altText" => "Обновление базы данных, записей и структуры",
+                ),
+            ),
+        ),
     );
+    public $adminblock = array(
+        "form_title" => "Вход в Админ",
+        "placeholder_login" => "Ваш логин...",
+        "placeholder_password" => "введите пароль...",
+        "submit_btn" => "Войти",
+    );
+
 }
