@@ -30,7 +30,7 @@ class model_records_musictrackstoalb extends RecordsModel
         return true;
     }
 
-    public function listRecords($where = null, $order = null, $limit = null)
+    public function listRecords($where = null, $order = null, $limit = null, $having = null)
     {
         $findList_qry = "select musicTracksToAlb_dt.track_id, 
 musicTracksToAlb_dt.album_id, 

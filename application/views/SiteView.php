@@ -291,32 +291,55 @@ class SiteView extends View
 
     function print_products_menu()
     {
-        global $request;
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
-        if ($request["routes"][$request["exec_dir_cnt"]] == "products" and
-            $request["routes"][$request["exec_dir_cnt"] + 1] == "jointsite") {
+
+        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite");
+
+        if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
             $folded_style = null;
         }
+
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite' ".
             "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Web site</a><sup>php, js, mvc</sup>".
             "<span class='opnSubMenu ".$folded_style."'>product</span>".
-            "<ul " . $menuStyle . ">";
-        foreach ($this->branches as $b_name => $b_info) {
-            echo "<li><a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/" . $b_name . "' class='sub-lnk light ";
-            if ($request["routes"][$request["exec_dir_cnt"] + 2] == $b_name) {
-                echo "active";
-            }
-            echo "' title='".$this->lang_map->branchesList[$b_name]["title_about"]."'>" .
-                $this->lang_map->branchesList[$b_name]["title"] . "</a></li>";
-        }
-
-        echo "</ul>" .
+            "<ul " . $menuStyle . ">".
+            $jointsite_menu["text"].
+            "</ul>" .
             "</div>" .
             "</div>";
+    }
+
+    function print_menu_items($block_name, $disp_url = null)
+    {
+        global $request;
+        $disp_url = JOINT_SITE_EXEC_DIR.$disp_url;
+        $disp_url_exp = explode("/", $disp_url);
+        $disp_url_count = count($disp_url_exp);
+
+        $return = array(
+            "is_valid_path" => true,
+            "text" => null,
+        );
+
+        foreach ($disp_url_exp as $n => $disp_path ){
+            if($disp_path != $request["routes"][$n]){
+                $return["is_valid_path"] = false;
+                break;
+            }
+        }
+
+        foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
+            $return["text"] = "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
+            if (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"]) {
+                $return["text"] .= "active";
+            }
+            $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
+        }
+        return $return;
     }
 
     public function print_admin_menu()
