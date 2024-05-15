@@ -71,7 +71,7 @@ class jointSite
 
     function run($loaded_controller, $loaded_model, $loaded_view, $action_name)
     {
-        $controller = new $loaded_controller($loaded_model, $loaded_view);
+        $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
         $action = "action_".$action_name;
 
         if(method_exists($controller, $action)){
