@@ -43,27 +43,21 @@ class controller_admin extends RecordsController
 
     function auth_user()
     {
-        $_SESSION[JS_SAIK]["admin_user"]["auth_err"] = null;
-
         if($_POST["auth_admin"] and
             ($_POST["auth_admin"] == $this->view->lang_map->adminblock["submit_btn"])){
+
             $adminUsers = $this->model->get_admin_users();
 
-            if($adminUsers["status"]){
-                foreach ($adminUsers["list"] as $usr=>$pw){
-                    if($_POST['login']==$usr and hash_equals($pw, crypt($_POST['password'], $pw)))
-                    {
-                        $_SESSION[JS_SAIK]['admin_user']['id']=$_POST['login'];
-                        $_SESSION[JS_SAIK]["admin_user"]["auth_err"] = null;
-                        return true;
-                    }
+            foreach ($adminUsers as $usr=>$pw){
+                if($_POST['login']==$usr and hash_equals($pw, crypt($_POST['password'], $pw)))
+                {
+                    $_SESSION[JS_SAIK]['admin_user']['id']=$_POST['login'];
+                    return true;
                 }
-                $_SESSION[JS_SAIK]["admin_user"]["auth_err"] = $this->lang_map->auth_err_login;
-            }else{
-                $_SESSION[JS_SAIK]["admin_user"]["auth_err"] = $adminUsers["err"];
             }
-        }
+            jointSite::throwErr("access", $this->lang_map->auth_err_login);
 
+        }
         return false;
     }
 

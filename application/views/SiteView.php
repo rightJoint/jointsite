@@ -32,7 +32,7 @@ class SiteView extends View
         ),
     );
 
-    public $admin_urls = array("/admin", "/test/admin");
+    public $admin_auth_err = null;
 
     function __construct()
     {
@@ -369,8 +369,12 @@ class SiteView extends View
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
                 "</div>" .
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-            if ($_SESSION[JS_SAIK]["admin_user"]["auth_err"]) {
-                echo "<div class='modal-line-err'>" . $_SESSION[JS_SAIK]["admin_user"]["auth_err"] . "</div>";
+            if ($this->admin_auth_err) {
+                echo "<div class='modal-line-err'>" . $this->admin_auth_err . "</div>";
+            }
+            //if throwErr, thrown message
+            if ($this->alert_message) {
+                echo "<div class='modal-line-err'>" . $this->alert_message . "</div>";
             }
             echo "</div>" .
                 "<div class='modal-line'>" .

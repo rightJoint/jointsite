@@ -66,24 +66,15 @@ class Model_Admin extends Model_pdo
 */
           function get_admin_users()
           {
-              $result = array(
-                  "list" => null,
-                  "status" => false,
-                  "err" => null,
-              );
-              if(file_exists($_SERVER["DOCUMENT_ROOT"].PATH_TO_USR_LIST)) {
-                  if ($adminUsers = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"] . PATH_TO_USR_LIST), true)) {
-                      $result["list"] = $adminUsers;
-                      $result["status"] = true;
+              if(file_exists(PATH_TO_USR_LIST)) {
+                  if ($adminUsers = json_decode(file_get_contents(PATH_TO_USR_LIST), true)) {
+                      return $adminUsers;
                   }else{
-                      $result["status"] = true;
-                      $result["err"] = $this->lang_map->admin_mlm["auth_err_fnv"];
+                      jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnv"]);
                   }
               }else{
-                  $result["status"] = true;
-                  $result["err"] = $this->lang_map->admin_mlm["auth_err_fnf"];
+                  jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnf"]);
               }
-              return $result;
           }
 /*
           public function glob_create_tables()
