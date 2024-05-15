@@ -24,17 +24,21 @@ class lang_view_rus
     public $prod_titles_in_menu = array(
         "jointSite" => "Подробнее о web-приложении joint site",
     );
-    public $branchesList = array(
-        "main" => array(
-            "title" => "Ветка Приложение (Main)",
-            "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
-            "test_ref_title" => "Перейти к тесту",
-            "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ",
-            "version" => "v1.0",
-            "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
-            "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
-            "depend" => "нет зависимостей",
-            "title_about" => "подробнее о ветке Приложение",
+    public $menu_blocks = array(
+        "branches" => array(
+            "menu_items" => array(
+                "main" => array(
+                    "aliasMenu" => "Ветка Приложение (Main)",
+                    "altText" => "подробнее о ветке Приложение",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
+                    "depend" => "нет зависимостей",
+                ),
+            ),
         ),
     );
 }
