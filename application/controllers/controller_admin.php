@@ -154,6 +154,21 @@ class controller_admin extends RecordsController
         }
     }
 
+    function action_printquery()
+    {
+        if(isset($_POST['queryText'])){
+            if($this->view->query_result = @$this->model->query($_POST['queryText']." LIMIT ".$_POST['qp-limit']))
+            {
+                $log = $this->view->print_sql_results();
+            }else{
+                $log["result"] = false;
+                $log["log"] = $this->lang_map->admin_printquery["fail"];
+            }
+            $this->view->generateJson($log);
+        }else{
+            parent::action_index();
+        }
+    }
 }
 
 /*
