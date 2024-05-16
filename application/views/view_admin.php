@@ -33,11 +33,4 @@ class view_admin extends SiteView
             $this->logo = $this->img_for_modules[$routes[2]];
         }
     }
-
-    function load_lang_files()
-    {
-        parent::load_lang_files();
-        require_once "application/lang_files/views/admin/lang_view_admin_main_".$_SESSION["lang"].".php";
-        return "lang_view_admin_main_".$_SESSION["lang"];
-    }
 }
