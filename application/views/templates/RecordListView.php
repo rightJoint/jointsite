@@ -38,6 +38,7 @@ class RecordListView extends RecordView
 
     function print_page_content()
     {
+        parent::print_page_content();
         echo $this->filterView();
         $this->listView();
     }

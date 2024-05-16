@@ -28,6 +28,7 @@ class RecordsController extends Controller
         if (!$request["routes"][$pp_cnt] || $request["routes"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
             $this->view->process_url = $process_path;
+            $this->view->view_data = $view_data;
 
             if($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]){
                 $this->view->h2=$this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]];
@@ -66,6 +67,7 @@ class RecordsController extends Controller
         }
         elseif ($request["routes"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
+            $this->view->view_data = $view_data;
             $this->view->action_log = $this->action_detail(false);
             if($this->view->action_log["result"]){
 
@@ -83,6 +85,7 @@ class RecordsController extends Controller
         }
         elseif ($request["routes"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
+            $this->view->view_data = $view_data;
             if($_POST["submit"] == $this->view->lang_map->view_submit_val){
                 $this->view->action_log = $this->action_edit(false);
             }else{
@@ -100,6 +103,7 @@ class RecordsController extends Controller
         }
         elseif ($request["routes"][$pp_cnt] == "newview") {
             $this->checkTemplateView("new");
+            $this->view->view_data = $view_data;
             $this->view->type = "new";
             if($_POST["submit"] == $this->view->lang_map->view_submit_val_new){
                 $this->view->action_log = $this->action_new(false);
@@ -126,6 +130,7 @@ class RecordsController extends Controller
             $this->model->copyValFromRequest(null, "GET");
             if ($this->model->copyRecord()){
                 $this->checkTemplateView("delete");
+                $this->view->view_data = $view_data;
                 $this->view->type = "delete";
                 if($_POST["submit"] == $this->view->lang_map->view_submit_val_del){
                     $this->view->action_log = $this->action_delete(false);
