@@ -8,13 +8,9 @@ class controller_admin extends RecordsController
     function __construct($loaded_model, $loaded_view, $action_name)
     {
         //redefine view if action index
-        $redefine_view =  $loaded_view;
-        if($action_name == "index"){
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/admin/view_admin_main.php";
-            $redefine_view = "view_admin_main";
-        }
-        parent::__construct($loaded_model, $redefine_view, $action_name);
+        //$redefine_view =  $loaded_view;
+
+        parent::__construct($loaded_model, $loaded_view, $action_name);
 
         //load admin config
         require_once JOINT_SITE_CONF_DIR."/admin_conf.php";
@@ -29,6 +25,15 @@ class controller_admin extends RecordsController
             }
         }
         $this->view->admin_process_url = $this->admin_process_url;
+    }
+
+    function LoadView_custom($action_name = null)
+    {
+        if($action_name == "index"){
+            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                "/application/views/admin/view_admin_main.php";
+            return "view_admin_main";
+        }
     }
 
     function LoadCntrlLang_custom()
@@ -232,22 +237,17 @@ class controller_admin extends RecordsController
 
     function action_records()
     {
+
         $view_data = $this->model->query("SHOW TABLES");
 
-        /*
         $tableName = null;
 
-        global $routes;
-        if($routes[3]){
-            $tableName = $routes[3];
-        }elseif($_GET["table"]){
+        if($_GET["table"]){
             $tableName = $_GET["table"];
-        }elseif ($view_data){
-            $table_row = $this->model->query("SHOW TABLES")->fetch();
+        }elseif ($table_row = $view_data->fetch()){
             $tableName =  $table_row[0];
         }
 
-        $this->records_process("admin/records", $tableName, $view_data);
-        */
+        $this->records_process($this->admin_process_url."/records/".$tableName, $tableName, $view_data);
     }
 }
