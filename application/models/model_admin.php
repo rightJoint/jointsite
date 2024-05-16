@@ -76,189 +76,188 @@ class Model_Admin extends Model_pdo
             jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnf"]);
         }
     }
-    /*
-              public function glob_create_tables()
-              {
-                  $this->tables["result"]['log'] = null;
-                  $this->tables["result"]['err'] = false;
-                  foreach (glob($_SERVER["DOCUMENT_ROOT"].PATH_TO_TABLES_LIST."*".TABLE_EXT_FILE) as $filename){
-                      $trimTableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
-                      if(LOWER_CASE_TABLE_NAMES){
-                          $this->tables["tables"][strtolower($trimTableName)]['list']=true;
-                      }else{
-                          $this->tables["tables"][$trimTableName]['list']=true;
-                      }
-                  }
-              }
 
-          public function dbCompare($table_name = null)
-          {
-              $query_text = "SELECT TABLE_NAME, TABLE_ROWS FROM `information_schema`.`tables` WHERE
+    public function glob_create_tables()
+    {
+        $this->tables["result"]['log'] = null;
+        $this->tables["result"]['err'] = false;
+        foreach (glob(PATH_TO_TABLES_LIST."/*".TABLE_EXT_FILE) as $filename){
+            $tableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
+            if(LOWER_CASE_TABLE_NAMES){
+                $this->tables["tables"][strtolower($tableName)]['list']=true;
+            }else{
+                $this->tables["tables"][$tableName]['list']=true;
+            }
+        }
+    }
+
+    public function get_tables_from_db($table_name = null)
+    {
+        $query_text = "SELECT TABLE_NAME, TABLE_ROWS FROM `information_schema`.`tables` WHERE
           `table_schema` = '".$this->sql_connection["settings"]['CONN_DB']."'";
-              if($table_name){
-                  $query_text .= " and TABLE_NAME='".$table_name."'";
-              }
-              if($query_res = @$this->query($query_text)){
-                  while ($query_row = $query_res->fetch(PDO::FETCH_ASSOC)) {
-                      $trimTableName = $query_row['TABLE_NAME'];
-                      if(LOWER_CASE_TABLE_NAMES){
-                          $trimTableName = strtolower($trimTableName);
-                      }
-                      if($this->tables["tables"][$trimTableName]["list"]){
-                          $this->tables["tables"][$trimTableName]['exist'] = true;
-                          $this->tables["tables"][$trimTableName]['qty'] = $query_row['TABLE_ROWS'];
-                      }else{
-                          $this->tables["tables"][$query_row['TABLE_NAME']]["list"] = false;
-                          $this->tables["tables"][$query_row['TABLE_NAME']]['exist'] = true;
-                          $this->tables["tables"][$query_row['TABLE_NAME']]['qty'] = $query_row['TABLE_ROWS'];
-                      }
-                  }
-              }
+        if($table_name){
+            $query_text .= " and TABLE_NAME='".$table_name."'";
+        }
+        if($query_res = @$this->query($query_text)){
+            while ($query_row = $query_res->fetch(PDO::FETCH_ASSOC)) {
+                $trimTableName = $query_row['TABLE_NAME'];
+                if(LOWER_CASE_TABLE_NAMES){
+                    $trimTableName = strtolower($trimTableName);
+                }
+                $this->tables["tables"][$trimTableName]["list"] = false;
+                $this->tables["tables"][$trimTableName]['exist'] = true;
+                $this->tables["tables"][$trimTableName]['qty'] = $query_row['TABLE_ROWS'];
+            }
+        }
+    }
+
+    public function glob_load_tables()
+    {
+        if($this->tables["tables"]){
+            foreach ($this->tables["tables"] as $tbl_name => $tbl_opt){
+                foreach (glob( PATH_TO_DB_UPLOAD . "/*" . $tbl_name .
+                    "*" . TABLE_EXT_FILE) as $tableToInsert) {
+                    $this->tables["tables"][$tbl_name]["load"][] = basename($tableToInsert);
+                }
+            }
+        }
+    }
+
+    public function dropTable($tableName)
+    {
+        return $this->query("drop table ".$tableName);
+    }
+
+    public function clearTable($tableName)
+    {
+        return $this->query("delete from ".$tableName);
+    }
+
+    public function createTable($tableName){
+        require_once (PATH_TO_TABLES_LIST."/".$tableName.TABLE_EXT_FILE);
+        return $this->query("create table ".$tableName." ".$query_text);
+    }
+
+    public function downloadTable($tableName)
+    {
+        if($queryToInsert=@file_get_contents( PATH_TO_DB_UPLOAD."/".$tableName)){
+            if($stmt = $this->prepare($queryToInsert)){
+                if($stmt->execute()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function uploadTable($tableName, $prefixTag, $dateTag, $extension = ".php"){
+
+        $orderBy=null;
+
+        $return=array(
+            "log" => null,
+            "err" => 0,
+        );
+
+        $query_text = "select * from ".$tableName." ".$orderBy;
+        $query_res = $this->query($query_text);
+        if ($query_res->rowCount() == 0){
+            $return['log'].= $this->lang_map->admin_mlm["upload_table"]["noting"]."<br>";
+        }else
+        {
+            $queryToInsert = null;
+            $queryToInsert_temp = "(";
+            $queryToInsert .= "insert into ".$tableName." (\r";
+            $query_row = $query_res->fetch(PDO::FETCH_ASSOC);
+            foreach ($query_row as $key => $value) {
+                if ($value == null) {
+                    $queryToInsert_temp .= "null, ";
+                } else {
+                    $queryToInsert_temp .= "'" . $value . "', ";
+                }
+                $queryToInsert .= $key . ", ";
+            }
+            $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 2) . ")\r values \r";
+            $queryToInsert_temp = substr($queryToInsert_temp, 0, strlen($queryToInsert_temp) - 2) . "), \r";
+            $queryToInsert .= $queryToInsert_temp;
+            while ($query_row = $query_res->fetch(PDO::FETCH_ASSOC)) {
+                $queryToInsert .= "(";
+                foreach ($query_row as $key => $value) {
+                    if ($value == null) {
+                        $queryToInsert .= "null, ";
+                    } else {
+                        $queryToInsert .= "'" . $value  . "', ";
+                    }
+                }
+                $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 2) . "), \r";
+            }
+            $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 3);
+            if($prefixTag){
+                $file = htmlspecialchars($prefixTag)."-".$tableName;
+            }else{
+                $file = $tableName;
+            }
+            if($dateTag=='true'){
+                $file .="_".date( 'Ymd_His');
+            }
+            $file.=$extension;
 
 
-          }
 
-          public function glob_load_tables()
-          {
-              if($this->tables["tables"]){
-                  foreach ($this->tables["tables"] as $tbl_name => $tbl_opt){
-                      foreach (glob($_SERVER['DOCUMENT_ROOT'] . PATH_TO_DB_UPLOAD . "*" . $tbl_name .
-                          "*" . TABLE_EXT_FILE) as $tableToInsert) {
-                          $this->tables["tables"][$tbl_name]["load"][] = basename($tableToInsert);
-                      }
-                  }
-              }
-          }
+            if(!is_dir(PATH_TO_DB_UPLOAD)){
+                mkdir(PATH_TO_DB_UPLOAD, 0777, true);
+            }
+            if(!file_put_contents(PATH_TO_DB_UPLOAD."/".$file, $queryToInsert)){
+                $return['err'].= $tableName."--> ".$this->lang_map->admin_mlm["upload_table"]["write"];
+            }else{
+                $return['log'].= $tableName."--> ".$this->lang_map->admin_mlm["upload_table"]["success"]."<br>";
+            }
+        }
+        return $return;
+    }
 
-          public function dropTable($tableName)
-          {
-              return $this->query("drop table ".$tableName);
-          }
+    public function uploadAllTables()
+    {
+        $return = array(
+            "log" => null,
+            "err" => false,
+        );
+        $return['log'].=$this->lang_map->admin_mlm["upload_table"]["upload_all"]."<br>";
+        $orderBy=null;
+        $return['log'].=$this->lang_map->admin_mlm["upload_table"]["pt"]."=".$_GET['prefixTag']."<br>".
+            $this->lang_map->admin_mlm["upload_table"]["dt"]."=".$_GET["dateTag"]."<br>";
+        foreach ($this->tables["tables"] as $table => $value) {
+            if ($this->tables["tables"][$table]['exist'] === true) {
+                $query_text = "select * from " . $table . " " . $orderBy;
+                $query_res = $this->query($query_text);
+                if ($query_res->rowCount() == 0) {
+                    $return['log'].= $table . "-->> ".$this->lang_map->admin_mlm["upload_table"]["noting"]."<br>";
+                } else {
 
-          public function clearTable($tableName)
-          {
-              return $this->query("delete from ".$tableName);
-          }
+                    $result = $this->uploadTable($table, $_GET['prefixTag'], $_GET["dateTag"], TABLE_EXT_FILE);
+                    $return['log'].=$result["log"];
+                }
+            }
+        }
+        return $return;
+    }
 
-          public function createTable($tableName){
-              require_once ($_SERVER["DOCUMENT_ROOT"].PATH_TO_TABLES_LIST.$tableName.TABLE_EXT_FILE);
-              return $this->query("create table ".$tableName." ".$query_text);
-          }
+    function checkAdminPassword($user_password)
+    {
+        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $user_password) == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
-          public function downloadTable($tableName)
-          {
-              if($queryToInsert=@file_get_contents( $_SERVER["DOCUMENT_ROOT"].PATH_TO_DB_UPLOAD.$tableName)){
-                  if($stmt = $this->prepare($queryToInsert)){
-                      if($stmt->execute()){
-                          return true;
-                      }
-                  }
-              }
-              return false;
-          }
+    function checkAdminLogin($user_login)
+    {
+        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $user_login) == 0){
+            return false;
+        }
+        return true;
 
-          public function uploadTable($tableName, $prefixTag, $dateTag, $extension = ".php"){
-
-              $orderBy=null;
-
-              $return=array(
-                  "log" => null,
-                  "err" => 0,
-              );
-
-              $query_text = "select * from ".$tableName." ".$orderBy;
-              $query_res = $this->query($query_text);
-              if ($query_res->rowCount() == 0){
-                  $return['log'].= $this->lang_map->admin_mlm["upload_table"]["noting"]."<br>";
-              }else
-              {
-                  $queryToInsert = null;
-                  $queryToInsert_temp = "(";
-                  $queryToInsert .= "insert into ".$tableName." (\r";
-                  $query_row = $query_res->fetch(PDO::FETCH_ASSOC);
-                  foreach ($query_row as $key => $value) {
-                      if ($value == null) {
-                          $queryToInsert_temp .= "null, ";
-                      } else {
-                          $queryToInsert_temp .= "'" . $value . "', ";
-                      }
-                      $queryToInsert .= $key . ", ";
-                  }
-                  $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 2) . ")\r values \r";
-                  $queryToInsert_temp = substr($queryToInsert_temp, 0, strlen($queryToInsert_temp) - 2) . "), \r";
-                  $queryToInsert .= $queryToInsert_temp;
-                  while ($query_row = $query_res->fetch(PDO::FETCH_ASSOC)) {
-                      $queryToInsert .= "(";
-                      foreach ($query_row as $key => $value) {
-                          if ($value == null) {
-                              $queryToInsert .= "null, ";
-                          } else {
-                              $queryToInsert .= "'" . $value  . "', ";
-                          }
-                      }
-                      $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 2) . "), \r";
-                  }
-                  $queryToInsert = substr($queryToInsert, 0, strlen($queryToInsert) - 3);
-                  if($prefixTag){
-                      $file = htmlspecialchars($prefixTag)."-".$tableName;
-                  }else{
-                      $file = $tableName;
-                  }
-                  if($dateTag=='true'){
-                      $file .="_".date( 'Ymd_His');
-                  }
-                  $file.=$extension;
-                  if(!file_put_contents($_SERVER["DOCUMENT_ROOT"]."/".PATH_TO_DB_UPLOAD.$file, $queryToInsert)){
-                      $return['err'].= $tableName."--> ".$this->lang_map->admin_mlm["upload_table"]["write"];
-                  }else{
-                      $return['log'].= $tableName."--> ".$this->lang_map->admin_mlm["upload_table"]["success"]."<br>";
-                  }
-              }
-              return $return;
-          }
-
-          public function uploadAllTables()
-          {
-              $return = array(
-                  "log" => null,
-                  "err" => false,
-              );
-              $return['log'].=$this->lang_map->admin_mlm["upload_table"]["upload_all"]."<br>";
-              $orderBy=null;
-              $return['log'].=$this->lang_map->admin_mlm["upload_table"]["pt"]."=".$_GET['prefixTag']."<br>".
-                  $this->lang_map->admin_mlm["upload_table"]["dt"]."=".$_GET["dateTag"]."<br>";
-              foreach ($this->tables["tables"] as $table => $value) {
-                  if ($this->tables["tables"][$table]['exist'] === true) {
-                      $query_text = "select * from " . $table . " " . $orderBy;
-                      $query_res = $this->query($query_text);
-                      if ($query_res->rowCount() == 0) {
-                          $return['log'].= $table . "-->> ".$this->lang_map->admin_mlm["upload_table"]["noting"]."<br>";
-                      } else {
-
-                          $result = $this->uploadTable($table, $_GET['prefixTag'], $_GET["dateTag"], TABLE_EXT_FILE);
-                          $return['log'].=$result["log"];
-                      }
-                  }
-              }
-              return $return;
-          }
-*/
-          function checkAdminPassword($user_password)
-          {
-              if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $user_password) == 0){
-                  return false;
-              }else{
-                  return true;
-              }
-          }
-
-          function checkAdminLogin($user_login)
-          {
-              if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $user_login) == 0){
-                  return false;
-              }
-              return true;
-
-          }
+    }
 
 }

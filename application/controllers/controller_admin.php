@@ -169,30 +169,69 @@ class controller_admin extends RecordsController
             parent::action_index();
         }
     }
-}
 
-/*
-
-
-
-    function action_printquery()
+    function action_tables()
     {
-        include "application/views/admin/adminPrintqueryView.php";
-        $this->view = new adminPrintqueryView();
+        if($_GET['action']==="refreshTables"){
+            $this->model->get_tables_from_db();
+            $this->model->glob_create_tables();
+            $this->model->glob_load_tables();
+            $this->view->tables = $this->model->tables["tables"];
+            $this->view->tables_list();
+        }
+        elseif($_GET['action']==="upLoadAll"){
+            $this->model->get_tables_from_db();
+            $data = $this->model->uploadAllTables();
+            $data['log'].=view_admin_tables::print_date_stamp();
+            $this->view->generateJson($data);
+        }elseif ( in_array($_GET['action'],
+            array("clear", "download", "drop", "create", "upLoad"))){
 
-        if(isset($_POST['queryText'])){
-            if($this->view->query_result = @$this->model->query($_POST['queryText']." LIMIT ".$_POST['qp-limit']))
-            {
-                $log = $this->view->print_sql_results();
+            $action = $_GET['action']."Table";
+
+            if($_GET["action"] == "download"){
+                $argum = $_GET['dwlTable'];
             }else{
-                $log["result"] = false;
-                $log["log"] = $this->lang_map->admin_printquery["fail"];
+                $argum = $_GET['tableName'];
             }
-            $this->view->generateJson($log);
-        }else{
+
+            if($_GET['action'] != "upLoad") {
+                if ($this->model->$action($argum)) {
+                    $data["err"] = 0;
+                } else {
+                    $data["err"] = $this->lang_map->table_actions[$_GET["action"]] . " " .
+                        $this->lang_map->table_actions["table"] . " " .
+                        $this->lang_map->table_actions["fail"];
+                }
+            }else{
+                $data = $this->model->uploadTable($_GET['tableName'], $_GET['prefixTag'], $_GET["dateTag"], TABLE_EXT_FILE);
+            }
+
+
+            $this->model->get_tables_from_db($_GET['tableName']);
+            $this->model->glob_create_tables();
+            $this->model->glob_load_tables();
+
+            $data["row"] = view_admin_tables::table_cell($_GET['tableName'], $this->model->tables["tables"][$_GET['tableName']]);
+
+            $data['log'].=$this->lang_map->table_actions["action"].": ".
+                $this->lang_map->table_actions[$_GET["action"]]."<br>".
+                "<ul>".$this->lang_map->table_actions["options"].":<li>".
+                $this->lang_map->table_actions["tableName"]."--> ".$_GET['tableName']."</li></ul>".
+                view_admin_tables::print_date_stamp();
+            $this->view->generateJson($data);
+        }
+        else{
+            $this->model->get_tables_from_db();
+            $this->model->glob_create_tables();
+            $this->model->glob_load_tables();
+            $this->view->tables = $this->model->tables["tables"];
             parent::action_index();
         }
     }
+}
+
+/*
 
     function action_tables()
     {
