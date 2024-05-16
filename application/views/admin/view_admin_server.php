@@ -13,6 +13,14 @@ class view_admin_server extends view_admin
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/admin/server.css";
     }
 
+    function LoadViewLang_custom()
+    {
+        parent::LoadViewLang_custom();
+        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+            "/application/lang_files/views/lang_view_admin_server_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_view_admin_server_".$_SESSION[JS_SAIK]["lang"];
+    }
+
     function print_page_content()
     {
         echo "<div class='contentBlock-frame admin'><div class='contentBlock-center'><div class='contentBlock-wrap'>".

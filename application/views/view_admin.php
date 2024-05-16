@@ -23,6 +23,13 @@ class view_admin extends SiteView
         parent::__construct();
     }
 
+    function LoadViewLang_custom()
+    {
+        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+            "/application/lang_files/views/lang_view_admin_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_view_admin_".$_SESSION[JS_SAIK]["lang"];
+    }
+
     function set_head_array()
     {
         $apurl_expl = explode("/", $this->admin_process_url);

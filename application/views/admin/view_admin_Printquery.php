@@ -15,6 +15,14 @@ class view_admin_Printquery extends view_admin
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/admin/queryPrint.js";
     }
 
+    function LoadViewLang_custom()
+    {
+        parent::LoadViewLang_custom();
+        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+            "/application/lang_files/views/lang_view_admin_Printquery_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_view_admin_Printquery_".$_SESSION[JS_SAIK]["lang"];
+    }
+
     function print_page_content()
     {
         echo "<div class='contentBlock-frame admin'><div class='contentBlock-center'>".
