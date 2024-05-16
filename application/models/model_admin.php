@@ -242,7 +242,7 @@ class Model_Admin extends Model_pdo
               }
               return $return;
           }
-
+*/
           function checkAdminPassword($user_password)
           {
               if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $user_password) == 0){
@@ -260,5 +260,5 @@ class Model_Admin extends Model_pdo
               return true;
 
           }
-          */
+
 }

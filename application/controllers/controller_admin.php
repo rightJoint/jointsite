@@ -78,16 +78,8 @@ class controller_admin extends RecordsController
         parent::action_index();
     }
 
-}
-
-
-/*
     function action_users()
     {
-        include "application/views/admin/adminUsersView.php";
-
-        $this->view = new adminUsersView();
-
         if($_POST['addAdmUsrFlag']==='y'){
             $addUsrRes['result']=false;
             $addUsrRes['log']=null;
@@ -95,22 +87,19 @@ class controller_admin extends RecordsController
                 if($this->model->checkAdminPassword($_POST['newUsrPass'])){
                     $adminUsers = $this->model->get_admin_users();
                     $findDoubleUsr=false;
-
-                    if($adminUsers["status"]){
-                        foreach ($adminUsers["list"] as $usr=>$pw){
-                            if($usr==$_POST['newUsrName'])
-                            {
-                                $findDoubleUsr=true;
-                                break;
-                            }
+                    foreach ($adminUsers as $usr=>$pw){
+                        if($usr==$_POST['newUsrName'])
+                        {
+                            $findDoubleUsr=true;
+                            break;
                         }
                     }
                     if($findDoubleUsr){
                         $addUsrRes['log'] = $this->lang_map->admin_users["login_reserved"]." - ".$_POST['newUsrName'];
                     }else{
-                        $adminUsers["list"][$_POST['newUsrName']] = crypt($_POST['newUsrPass']);
-                        if(file_put_contents($_SERVER["DOCUMENT_ROOT"].PATH_TO_USR_LIST,
-                            json_encode($adminUsers["list"], true))){
+                        $adminUsers[$_POST['newUsrName']] = crypt($_POST['newUsrPass']);
+                        if(file_put_contents(PATH_TO_USR_LIST,
+                            json_encode($adminUsers, true))){
                             $addUsrRes['result']=true;
                             $addUsrRes['log'] = $this->lang_map->admin_users["Success"];
                         }else{
@@ -129,9 +118,9 @@ class controller_admin extends RecordsController
             $this->view->print_users_list();
         }elseif (isset($_GET["dropUser"]) and $_GET["dropUser"]!=null){
             $adminUsers = $this->model->get_admin_users();
-            unset($adminUsers["list"][$_GET["dropUser"]]);
-            if(file_put_contents($_SERVER["DOCUMENT_ROOT"].PATH_TO_USR_LIST,
-                json_encode($adminUsers["list"], true))){
+            unset($adminUsers[$_GET["dropUser"]]);
+            if(file_put_contents(PATH_TO_USR_LIST,
+                json_encode($adminUsers, true))){
             }
             $this->view->adminUsers = $this->model->get_admin_users();
             $this->view->print_users_list();
@@ -140,6 +129,10 @@ class controller_admin extends RecordsController
             parent::action_index();
         }
     }
+
+}
+
+/*
 
     function action_sql()
     {
