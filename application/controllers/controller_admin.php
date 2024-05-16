@@ -130,15 +130,8 @@ class controller_admin extends RecordsController
         }
     }
 
-}
-
-/*
-
     function action_sql()
     {
-        include "application/views/admin/adminSqlView.php";
-        $this->view = new adminSqlView();
-
         if(isset($_POST['queryText'])){
             $queryPosting_text = $_POST['queryText'];
             $queryPosting['result']=false;
@@ -160,6 +153,12 @@ class controller_admin extends RecordsController
             parent::action_index();
         }
     }
+
+}
+
+/*
+
+
 
     function action_printquery()
     {
