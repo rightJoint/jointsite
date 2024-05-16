@@ -21,7 +21,8 @@ class Alerts_controller extends Controller
         $this->view->view_data = $this->model->lang_map->stack_err[$errType]["description"];
         $this->view->response_code = $this->model->response_codes[$errType];
 
-        if($this->view->response_code = 400){
+        //view modal menu active to display sign in forms
+        if($this->view->response_code == 403){
             $this->view->active_modal_menu = true;
         }
 
