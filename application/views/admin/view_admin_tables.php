@@ -65,11 +65,11 @@ class view_admin_tables extends view_admin
         }
     }
 
-    static function table_cell($table_name, $table_data)
+    function table_cell($table_name, $table_data)
     {
         $return = "<div class='table-cell tblName'><a href='";
         if ($table_data['exist']) {
-            $return .= "/admin/records?table=".$table_name;
+            $return .= $this->admin_process_url."/records?table=".$table_name;
         }else{
             $return .= "#";
         }
@@ -103,8 +103,8 @@ class view_admin_tables extends view_admin
             $td_exist .= "checked";
             $td_drop .= "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png' action='drop' onclick='tables(this)'>";
             if ($table_data['qty'] > 0) {
-                $td_clear.="<img src='".JOINT_SITE_EXEC_DIR."/img/admin/clear-icon.png' action='drop' onclick='tables(this)'>";
-                $td_clear .= "<span action='clear' onclick='tables(this)'>" .
+                $td_clear.="<img src='".JOINT_SITE_EXEC_DIR."/img/admin/clear-icon.png' action='clear' onclick='tables(this)'>";
+                $td_clear .= "<span>" .
                     " (" . $table_data['qty'] . ")</span>";
                 $td_upload .= "<img src='".JOINT_SITE_EXEC_DIR."/img/admin/upLoad-icon.png' action='upLoad' onclick='tables(this)'>";
             } else {

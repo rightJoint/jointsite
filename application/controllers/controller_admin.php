@@ -212,7 +212,7 @@ class controller_admin extends RecordsController
             $this->model->glob_create_tables();
             $this->model->glob_load_tables();
 
-            $data["row"] = view_admin_tables::table_cell($_GET['tableName'], $this->model->tables["tables"][$_GET['tableName']]);
+            $data["row"] = $this->view->table_cell($_GET['tableName'], $this->model->tables["tables"][$_GET['tableName']]);
 
             $data['log'].=$this->lang_map->table_actions["action"].": ".
                 $this->lang_map->table_actions[$_GET["action"]]."<br>".
@@ -229,81 +229,12 @@ class controller_admin extends RecordsController
             parent::action_index();
         }
     }
-}
-
-/*
-
-    function action_tables()
-    {
-        include "application/views/admin/adminTablesView.php";
-        $this->view = new AdminTablesView();
-
-        if($_GET['action']==="refreshTables"){
-            $this->model->glob_create_tables();
-            $this->model->dbCompare();
-            $this->model->glob_load_tables();
-            $this->view->tables = $this->model->tables["tables"];
-            $this->view->tables_list();
-        }
-        elseif($_GET['action']==="upLoadAll"){
-            $this->model->dbCompare();
-            $data = $this->model->uploadAllTables();
-            $data['log'].=AdminTables_View::print_date_stamp();
-            $this->view->generateJson($data);
-        }elseif ( in_array($_GET['action'],
-            array("clear", "download", "drop", "create", "upLoad"))){
-
-            $action = $_GET['action']."Table";
-
-            if($_GET["action"] == "download"){
-                $argum = $_GET['dwlTable'];
-            }else{
-                $argum = $_GET['tableName'];
-            }
-
-            if($_GET['action'] != "upLoad") {
-                if ($this->model->$action($argum)) {
-                    $data["err"] = 0;
-                } else {
-                    $data["err"] = $this->lang_map->table_actions[$_GET["action"]] . " " .
-                        $this->lang_map->table_actions["table"] . " " .
-                        $this->lang_map->table_actions["fail"];
-                }
-            }else{
-                $data = $this->model->uploadTable($_GET['tableName'], $_GET['prefixTag'], $_GET["dateTag"], TABLE_EXT_FILE);
-            }
-
-            $this->model->glob_create_tables();
-            $this->model->dbCompare($_GET['tableName']);
-            $this->model->glob_load_tables();
-
-            $data["row"] = AdminTablesView::table_cell($_GET['tableName'], $this->model->tables["tables"][$_GET['tableName']]);
-
-            $data['log'].=$this->lang_map->table_actions["action"].": ".
-                $this->lang_map->table_actions[$_GET["action"]]."<br>".
-                "<ul>".$this->lang_map->table_actions["options"].":<li>".
-                $this->lang_map->table_actions["tableName"]."--> ".$_GET['tableName']."</li></ul>".
-                AdminTablesView::print_date_stamp();
-            $this->view->generateJson($data);
-        }
-        else{
-            $this->model->glob_create_tables();
-            $this->model->dbCompare();
-            $this->model->glob_load_tables();
-            $this->view->tables = $this->model->tables["tables"];
-
-            parent::action_index();
-        }
-    }
 
     function action_records()
     {
-        include "application/core/Records/RecordsModel.php";
-
-        $this->model = new Model();
-
         $view_data = $this->model->query("SHOW TABLES");
 
+        /*
         $tableName = null;
 
         global $routes;
@@ -317,6 +248,6 @@ class controller_admin extends RecordsController
         }
 
         $this->records_process("admin/records", $tableName, $view_data);
+        */
     }
-
-}*/
+}
