@@ -66,100 +66,22 @@ class controller_admin extends RecordsController
         }
         return false;
     }
-/*
-    function action_index()
-    {
-        include "application/views/admin/adminMainView.php";
-        $this->view = new adminMainView();
-        parent::action_index();
-    }
-*/
-}
-
-
-/*
-require_once JOINT_CONF_DIR."/admin/admin_conf.php";
-require_once "application/core/Records/RecordsController.php";
-require_once "application/lang_files/controllers/lang_cntrl_admin_".$_SESSION["lang"].".php";
-class Controller_Admin extends RecordsController
-{
-    function __construct()
-    {
-        $lang_name = "lang_cntrl_admin_".$_SESSION["lang"];
-        $this->lang_map = new $lang_name;
-
-        if($_GET["cmd"] == "exit"){
-            unset($_SESSION["admin_user"]);
-            header("Location: ".$_SERVER["HTTP_REFERER"]);
-        }
-        $this->model = new Model_Admin();
-        $this->view = new View();
-        if(!$this->controllerAccess()){
-            if(!$this->auth_user()){
-                throwErr("access", $this->lang_map->auth_required_err);
-            }
-        }
-
-        include "application/views/admin/adminView.php";
-    }
-
-    function controllerAccess()
-    {
-        if(!$_SESSION["admin_user"]["id"]){
-            return false;
-        }
-        return true;
-    }
-
-    function auth_user()
-    {
-        $_SESSION["admin_user"]["auth_err"] = null;
-
-        if($_POST["auth_admin"] == $this->view->lang_map->adminblock["submit_btn"]){
-            $adminUsers = $this->model->get_admin_users();
-
-            if($adminUsers["status"]){
-                foreach ($adminUsers["list"] as $usr=>$pw){
-                    if($_POST['login']==$usr and hash_equals($pw, crypt($_POST['password'], $pw)))
-                    {
-                        $_SESSION['admin_user']['id']=$_POST['login'];
-                        $_SESSION["admin_user"]["auth_err"] = null;
-                        return true;
-                    }
-                }
-                $_SESSION["admin_user"]["auth_err"] = $this->lang_map->auth_err_login;
-            }else{
-                $_SESSION["admin_user"]["auth_err"] = $adminUsers["err"];
-            }
-        }
-
-        return false;
-    }
-
-    function action_index()
-    {
-        include "application/views/admin/adminMainView.php";
-        $this->view = new adminMainView();
-        parent::action_index();
-    }
-
     function action_server()
     {
-
         if($_POST['saveFlag']=='y'){
             $this->model->save_conn_settings();
             $this->model = new Model_Admin();
         }
-
-        include "application/views/admin/adminServerView.php";
-
-        $this->view = new AdminServerView();
-
         $this->view->sql_connection = $this->model->sql_connection;
         $this->view->list_databases = @$this->model->query("SHOW DATABASES;");
+
         parent::action_index();
     }
 
+}
+
+
+/*
     function action_users()
     {
         include "application/views/admin/adminUsersView.php";
