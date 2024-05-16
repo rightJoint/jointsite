@@ -35,6 +35,7 @@ class RecordDetailView extends RecordView
 
     function print_page_content()
     {
+        parent::print_page_content();
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>";
 

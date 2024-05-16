@@ -28,6 +28,7 @@ class RecordEditView extends RecordView
 
     function print_page_content()
     {
+        parent::print_page_content();
         $this->printEditView();
     }
 
