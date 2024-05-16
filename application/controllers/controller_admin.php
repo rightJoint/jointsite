@@ -254,18 +254,23 @@ class controller_admin extends RecordsController
 
         $view_data = $this->model->query("SHOW TABLES");
 
-        $tableName = null;
-
-        if($_GET["table"]){
-            $tableName = $_GET["table"];
+        $admin_url_expl = explode("/", $this->admin_process_url);
+        $admin_url_cnt = count($admin_url_expl);
+        global $request;
+        if($request["routes"][$admin_url_cnt+1]){
+            $tableName = $request["routes"][$admin_url_cnt+1];
         }elseif ($table_row = $view_data->fetch()){
             $tableName =  $table_row[0];
             //one more query cause fetch
             $view_data = $this->model->query("SHOW TABLES");
+        }else{
+            jointSite::throwErr("request", "no table in database");
         }
 
+        $this->view->admin_process_url = $this->admin_process_url;
         $this->view->view_data = $view_data;
-        $select_tbl_pannel = $this->view->print_selet_tbl_panel();
+        $this->view->tableName = $tableName;
+        $select_tbl_pannel = $this->view->print_select_tbl_panel();
 
         $this->records_process($this->admin_process_url."/records/".$tableName, $tableName, $select_tbl_pannel);
     }
