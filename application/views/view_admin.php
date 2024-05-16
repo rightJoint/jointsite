@@ -7,12 +7,12 @@ class view_admin extends SiteView
     public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
 
     public $img_for_modules = array(
-        "server" => "/img/admin/server_logo.png",
-        "users" => "/img/admin/user_logo.png",
-        "sql" => "/img/admin/sql_logo.png",
-        "printquery" => "/img/admin/queryPrint_logo.png",
-        "tables" => "/img/admin/tables_logo.png",
-        "records" => "/img/admin/editRecords.png",
+        "server" => JOINT_SITE_EXEC_DIR."/img/admin/server_logo.png",
+        "users" => JOINT_SITE_EXEC_DIR."/img/admin/user_logo.png",
+        "sql" => JOINT_SITE_EXEC_DIR."/img/admin/sql_logo.png",
+        "printquery" => JOINT_SITE_EXEC_DIR."/img/admin/queryPrint_logo.png",
+        "tables" => JOINT_SITE_EXEC_DIR."/img/admin/tables_logo.png",
+        "records" => JOINT_SITE_EXEC_DIR."/img/admin/editRecords.png",
         );
 
     public $robot_no_index = true;
@@ -21,16 +21,22 @@ class view_admin extends SiteView
     function __construct()
     {
         parent::__construct();
+    }
 
-        global $routes;
+    function set_head_array()
+    {
+        $apurl_expl = explode("/", $this->admin_process_url);
+        $apurl_cnt = count($apurl_expl);
 
-        if(!$routes[2]){
+        global $request;
+
+        if(!$request["routes"][$apurl_cnt]){
             $this->logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
         }else{
-            $this->lang_map->head["h1"] = $this->lang_map->adminblock["modules_list"][$routes[2]]["aliasMenu"];
-            $this->lang_map->head["title"] = $this->lang_map->adminblock["modules_list"][$routes[2]]["aliasMenu"];
-            $this->lang_map->head["description"] = $this->lang_map->adminblock["modules_list"][$routes[2]]["altText"];
-            $this->logo = $this->img_for_modules[$routes[2]];
+            $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["admin"]["menu_items"][$request["routes"][$apurl_cnt]]["aliasMenu"];
+            $this->lang_map->head["title"] = $this->lang_map->menu_blocks["admin"]["menu_items"][$request["routes"][$apurl_cnt]]["aliasMenu"];
+            $this->lang_map->head["description"] = $this->lang_map->menu_blocks["admin"]["menu_items"][$request["routes"][$apurl_cnt]]["altText"];
+            $this->logo = $this->img_for_modules[$request["routes"][$apurl_cnt]];
         }
     }
 }
