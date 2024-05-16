@@ -388,7 +388,7 @@ class SiteView extends View
         if ($_SESSION[JS_SAIK]["admin_user"]["id"]) {
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
-                "<div class='modal-line-text'>Admin user: ".$_SESSION['admin_user']['id']."<sup>".
+                "<div class='modal-line-text'>Admin user: ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
                 "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>Exit</sup></div>".
                 "</div>";
 

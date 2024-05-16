@@ -23,23 +23,23 @@ class Model_Admin extends Model_pdo
 
 
     function __construct($sql_db_connect_json = SQL_CONN_DEFAULT)
-     {
+    {
 
-         if(file_exists($sql_db_connect_json)){
-             if($connSettings=json_decode(@file_get_contents($sql_db_connect_json), true)){
-                 foreach ($this->sql_connection["settings"] as $conn_opt => $conn_val) {
-                     if ($connSettings[$conn_opt]) {
-                         $this->sql_connection["settings"][$conn_opt] = $connSettings[$conn_opt];
-                     }
-                 }
-             }
-         }
+        if(file_exists($sql_db_connect_json)){
+            if($connSettings=json_decode(@file_get_contents($sql_db_connect_json), true)){
+                foreach ($this->sql_connection["settings"] as $conn_opt => $conn_val) {
+                    if ($connSettings[$conn_opt]) {
+                        $this->sql_connection["settings"][$conn_opt] = $connSettings[$conn_opt];
+                    }
+                }
+            }
+        }
 
-         if(parent::__construct()){
-             $this->sql_connection["connRes"] = true;
-         }
+        if(parent::__construct()){
+            $this->sql_connection["connRes"] = true;
+        }
 
-         $this->sql_connection["connErr"] = $this->log_message;
+        $this->sql_connection["connErr"] = $this->log_message;
 
     }
     function load_lang_files()
@@ -50,46 +50,46 @@ class Model_Admin extends Model_pdo
         return "lang_model_admin_".$_SESSION[JS_SAIK]["lang"];
     }
 
-        function throwErrNoConn()
-        {
-            return true;
+    function throwErrNoConn()
+    {
+        return true;
+    }
+
+    function save_conn_settings()
+    {
+        foreach($this->sql_connection["settings"] as $key =>$value){
+            $this->sql_connection["settings"][$key]=$_POST[$key];
         }
+        file_put_contents(SQL_CONN_DEFAULT,
+            json_encode($this->sql_connection["settings"]));
+    }
+
+    function get_admin_users()
+    {
+        if(file_exists(PATH_TO_USR_LIST)) {
+            if ($adminUsers = json_decode(file_get_contents(PATH_TO_USR_LIST), true)) {
+                return $adminUsers;
+            }else{
+                jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnv"]);
+            }
+        }else{
+            jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnf"]);
+        }
+    }
     /*
-          function save_conn_settings()
-          {
-              foreach($this->sql_connection["settings"] as $key =>$value){
-                  $this->sql_connection["settings"][$key]=$_POST[$key];
-              }
-              file_put_contents($_SERVER["DOCUMENT_ROOT"].SQL_CONN_DEFAULT,
-                  json_encode($this->sql_connection["settings"]));
-          }
-*/
-          function get_admin_users()
-          {
-              if(file_exists(PATH_TO_USR_LIST)) {
-                  if ($adminUsers = json_decode(file_get_contents(PATH_TO_USR_LIST), true)) {
-                      return $adminUsers;
-                  }else{
-                      jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnv"]);
-                  }
-              }else{
-                  jointSite::throwErr("access", $this->lang_map->admin_mlm["auth_err_fnf"]);
-              }
-          }
-/*
-          public function glob_create_tables()
-          {
-              $this->tables["result"]['log'] = null;
-              $this->tables["result"]['err'] = false;
-              foreach (glob($_SERVER["DOCUMENT_ROOT"].PATH_TO_TABLES_LIST."*".TABLE_EXT_FILE) as $filename){
-                  $trimTableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
-                  if(LOWER_CASE_TABLE_NAMES){
-                      $this->tables["tables"][strtolower($trimTableName)]['list']=true;
-                  }else{
-                      $this->tables["tables"][$trimTableName]['list']=true;
+              public function glob_create_tables()
+              {
+                  $this->tables["result"]['log'] = null;
+                  $this->tables["result"]['err'] = false;
+                  foreach (glob($_SERVER["DOCUMENT_ROOT"].PATH_TO_TABLES_LIST."*".TABLE_EXT_FILE) as $filename){
+                      $trimTableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
+                      if(LOWER_CASE_TABLE_NAMES){
+                          $this->tables["tables"][strtolower($trimTableName)]['list']=true;
+                      }else{
+                          $this->tables["tables"][$trimTableName]['list']=true;
+                      }
                   }
               }
-          }
 
           public function dbCompare($table_name = null)
           {
