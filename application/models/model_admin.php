@@ -77,16 +77,18 @@ class Model_Admin extends Model_pdo
         }
     }
 
-    public function glob_create_tables()
+    public function glob_create_tables($table_name = null)
     {
         $this->tables["result"]['log'] = null;
         $this->tables["result"]['err'] = false;
-        foreach (glob(PATH_TO_TABLES_LIST."/*".TABLE_EXT_FILE) as $filename){
+        foreach (glob(PATH_TO_TABLES_LIST."/".$table_name."*".TABLE_EXT_FILE) as $filename){
             $tableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
             if(LOWER_CASE_TABLE_NAMES){
                 $this->tables["tables"][strtolower($tableName)]['list']=true;
+                $this->tables["tables"][strtolower($tableName)]['glob_name']=$tableName;
             }else{
                 $this->tables["tables"][$tableName]['list']=true;
+                $this->tables["tables"][$tableName]["glob_name"] = $tableName;
             }
         }
     }
@@ -104,7 +106,9 @@ class Model_Admin extends Model_pdo
                 if(LOWER_CASE_TABLE_NAMES){
                     $trimTableName = strtolower($trimTableName);
                 }
-                $this->tables["tables"][$trimTableName]["list"] = false;
+                if(!$this->tables["tables"][$trimTableName]["list"]){
+                    $this->tables["tables"][$trimTableName]["glob_name"] = $trimTableName;
+                }
                 $this->tables["tables"][$trimTableName]['exist'] = true;
                 $this->tables["tables"][$trimTableName]['qty'] = $query_row['TABLE_ROWS'];
             }
@@ -115,7 +119,7 @@ class Model_Admin extends Model_pdo
     {
         if($this->tables["tables"]){
             foreach ($this->tables["tables"] as $tbl_name => $tbl_opt){
-                foreach (glob( PATH_TO_DB_UPLOAD . "/*" . $tbl_name .
+                foreach (glob( PATH_TO_DB_UPLOAD . "/*" . $tbl_opt["glob_name"] .
                     "*" . TABLE_EXT_FILE) as $tableToInsert) {
                     $this->tables["tables"][$tbl_name]["load"][] = basename($tableToInsert);
                 }
@@ -260,4 +264,104 @@ class Model_Admin extends Model_pdo
 
     }
 
+    function glob_migration_files()
+    {
+        foreach (glob($_SERVER['DOCUMENT_ROOT'] . PATH_TO_MIGRATIONS . "/*". TABLE_EXT_FILE) as $mirgation_file) {
+            $trimTableName = substr(basename($mirgation_file),0, strlen(basename($mirgation_file))-strlen(TABLE_EXT_FILE));
+            //echo $trimTableName."<br>";
+            $this->migrations["list"][basename($trimTableName)] = array();
+        }
+    }
+
+    function exec_migration($migr_file)
+    {
+        $return=array(
+            "log" => null,
+            "err" => 0,
+        );
+
+        $commands = $this->parse_sql_file($_SERVER["DOCUMENT_ROOT"]."/migrations/".$migr_file);
+        $return["log"].= "Exec file ".$migr_file."<br>";
+        $commands_count = count($commands);
+        if($commands_count){
+            $return["log"].="count(".$commands_count.")<br>";
+            $count_q = 0;
+            $count_suss = 0;
+            $count_fail = 0;
+            foreach ($commands as $q_num => $q_info){
+                $return["log"].= "exec No: ".$q_num."<br>";
+                $return["log"].= "<p style='font-size: 16px'>".$q_info["query"]."</p>";
+                if($this->query($q_info["query"])){
+                    $count_suss++;
+                    $return["log"].= $q_info["type"]."--->SUSSES<br>";
+
+                }else{
+                    $return["err"] = true;
+                    $count_fail++;
+                    $return["log"].= "--->FAIL<br>";
+                }
+                $count_q++;
+            }
+
+            if($return["err"]){
+                $return["err"] = "cant exec all migrations";
+            }
+            $return["log"].= "Results: total(".$count_q."), susses(".$count_suss."), fail(".$count_fail.")";
+
+        }else{
+            $return["err"] = "no queries in ".$migr_file;
+            $return["log"] = "no queries in ".$migr_file;
+
+        }
+
+        return $return;
+
+    }
+
+    function parse_sql_file($file_name)
+    {
+        $acceptable_queries = array(
+            "insert ",
+            "update ",
+            "delete ",
+            "replace ",
+            "create table ",
+        );
+
+        $commands = file_get_contents($file_name);
+
+        $cmd_lines = explode(";",$commands);
+
+        $new_cmd_lines = array();
+
+        $lines_cnt = count($cmd_lines);
+        $lines_counter = 0;
+        foreach ($cmd_lines as $cmd_line){
+
+            $lines_counter++;
+            $glue_flag= true;
+            foreach ($acceptable_queries as $q_type){
+                if(strpos("-".$cmd_line, $q_type)){
+                    $new_cmd_lines[$lines_counter]["type"] = $q_type;
+                    $glue_flag = false;
+                    break;
+                }
+            }
+            $new_lines_cnt = count($new_cmd_lines);
+            if($glue_flag){
+                if($new_lines_cnt){
+                    if($lines_counter < $lines_cnt){
+                        $new_cmd_lines[$new_lines_cnt-1]["query"] .= ";".$cmd_line;
+                    }
+                }
+            }else {
+                $new_cmd_lines[$new_lines_cnt]["query"] = $cmd_line;
+                if ($lines_counter < $lines_cnt) {
+                    $new_cmd_lines[$new_lines_cnt]["query"] .= ";";
+                }
+            }
+        }
+
+        return $new_cmd_lines;
+    }
 }

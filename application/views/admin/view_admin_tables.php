@@ -67,7 +67,7 @@ class view_admin_tables extends view_admin
         if(is_array($this->tables)){
             foreach ($this->tables as $table_name=>$table_data) {
                 echo "<div class='table-line'>";
-                echo $this->table_cell($table_name, $table_data);
+                echo $this->table_cell($table_data["glob_name"], $table_data);
                 echo "</div>";
             }
         }

@@ -225,13 +225,14 @@ class controller_admin extends RecordsController
             }else{
                 $data = $this->model->uploadTable($_GET['tableName'], $_GET['prefixTag'], $_GET["dateTag"], TABLE_EXT_FILE);
             }
-
-
+            $this->model->glob_create_tables($_GET['tableName']);
             $this->model->get_tables_from_db($_GET['tableName']);
-            $this->model->glob_create_tables();
-            $this->model->glob_load_tables();
-
-            $data["row"] = $this->view->table_cell($_GET['tableName'], $this->model->tables["tables"][$_GET['tableName']]);
+            $this->model->glob_load_tables($_GET['tableName']);
+            $trimTableName = $_GET['tableName'];
+            if(LOWER_CASE_TABLE_NAMES){
+                $trimTableName = strtolower($_GET['tableName']);
+            }
+            $data["row"] = $this->view->table_cell($_GET['tableName'], $this->model->tables["tables"][$trimTableName]);
 
             $data['log'].=$this->lang_map->table_actions["action"].": ".
                 $this->lang_map->table_actions[$_GET["action"]]."<br>".
@@ -241,8 +242,8 @@ class controller_admin extends RecordsController
             $this->view->generateJson($data);
         }
         else{
-            $this->model->get_tables_from_db();
             $this->model->glob_create_tables();
+            $this->model->get_tables_from_db();
             $this->model->glob_load_tables();
             $this->view->tables = $this->model->tables["tables"];
             parent::action_index();
@@ -273,5 +274,18 @@ class controller_admin extends RecordsController
         $select_tbl_pannel = $this->view->print_select_tbl_panel();
 
         $this->records_process($this->admin_process_url."/records/".$tableName, $tableName, $select_tbl_pannel);
+    }
+
+    function action_migrations()
+    {
+        $this->model->glob_migration_files();
+        if($_GET["execMigration"]){
+            $this->view->generateJson(
+                $this->model->exec_migration("024-02-06-musicalb_dt_20240206_142513.sql")
+            );
+        }else{
+            $this->view->migrations = $this->model->migrations;
+            $this->view->generate();
+        }
     }
 }
