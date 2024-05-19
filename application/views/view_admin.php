@@ -13,6 +13,7 @@ class view_admin extends SiteView
         "printquery" => JOINT_SITE_EXEC_DIR."/img/admin/queryPrint_logo.png",
         "tables" => JOINT_SITE_EXEC_DIR."/img/admin/tables_logo.png",
         "records" => JOINT_SITE_EXEC_DIR."/img/admin/editRecords.png",
+        "migrations" => JOINT_SITE_EXEC_DIR."/img/admin/migrations.png",
         );
 
     public $robot_no_index = true;
