@@ -143,41 +143,43 @@ class model_migrations extends RecordsModel
 
     function copyCustomFields()
     {
-        if(file_exists(PATH_TO_MIGRATIONS . "/".
-            $this->recordStructureFields->record["migration_name"]["curVal"])){
-            $commands = $this->parse_sql_file(PATH_TO_MIGRATIONS . "/".
-                $this->recordStructureFields->record["migration_name"]["curVal"]);
+        if($this->recordStructureFields->record["migration_name"]["curVal"] ){
+            if(file_exists(PATH_TO_MIGRATIONS . "/".
+                $this->recordStructureFields->record["migration_name"]["curVal"])){
+                $commands = $this->parse_sql_file(PATH_TO_MIGRATIONS . "/".
+                    $this->recordStructureFields->record["migration_name"]["curVal"]);
+                foreach ($commands as $c_num => $c_data){
 
-            foreach ($commands as $c_num => $c_data){
+                    $cmd_field_name = "cmd_".$c_num."_".$c_data["type"];
+                    $fieldAliases = array(
+                        "en" => "command No: ".$c_num.", type: ".$c_data["type"],
+                        "rus" => "комманда No: ".$c_num.", Тип: ".$c_data["type"],
+                    );
 
-                $cmd_field_name = "cmd_".$c_num."_".$c_data["type"];
-                $fieldAliases = array(
-                    "en" => "command No: ".$c_num.", type: ".$c_data["type"],
-                    "rus" => "комманда No: ".$c_num.", Тип: ".$c_data["type"],
-                );
+                    $this->recordStructureFields->record[$cmd_field_name] = array(
+                        "curVal" => $c_data["query"],
+                        "use_table_name" => "non-db",
+                        "format" => "text",
+                        "fieldAliases" => $fieldAliases,
+                    );
 
-                $this->recordStructureFields->record[$cmd_field_name] = array(
-                    "curVal" => $c_data["query"],
-                    "use_table_name" => "non-db",
-                    "format" => "text",
-                    "fieldAliases" => $fieldAliases,
-                );
+                    $this->recordStructureFields->viewFields[$cmd_field_name] = array(
+                        "format" => "text",
+                        "readonly" => true,
+                        'style'=> array(
+                            "class" => "wd100",
+                        ),
+                        "fieldAliases" => $fieldAliases,
+                    );
 
-                $this->recordStructureFields->viewFields[$cmd_field_name] = array(
-                    "format" => "text",
-                    'style'=> array(
-                        "class" => "wd100",
-                    ),
-                    "fieldAliases" => $fieldAliases,
-                );
-
-                $this->recordStructureFields->editFields[$cmd_field_name] = array(
-                    "format" => "text",
-                    'style'=> array(
-                        "class" => "wd100",
-                    ),
-                    "fieldAliases" => $fieldAliases,
-                );
+                    $this->recordStructureFields->editFields[$cmd_field_name] = array(
+                        "format" => "text",
+                        'style'=> array(
+                            "class" => "wd100",
+                        ),
+                        "fieldAliases" => $fieldAliases,
+                    );
+                }
             }
         }
 
@@ -185,7 +187,7 @@ class model_migrations extends RecordsModel
         //add command line to edit commands
 
         if($commands){
-            $c_num = count($commands)+1;
+           $c_num = count($commands)+1;
         }else{
             $c_num = 1;
         }

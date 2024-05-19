@@ -158,6 +158,7 @@ class rsf_migrations extends recordStructureFields
         (
             "indexes" => 1,
             "format" => "varchar",
+            "readonly" => 1,
         ),
         "status" => Array
         (
@@ -176,21 +177,5 @@ class rsf_migrations extends recordStructureFields
             "format" => "datetime",
             "readonly" => 1,
         ),
-/*
-        "migr_file" => Array
-        (
-            "format" => "tinyint",
-            "readonly" => 1,
-        ),*/
-        /*
-        "content" => Array
-        (
-            "style" => array(
-                "class" => "wd100",
-            ),
-            "format" => "text",
-            "readonly" => 1,
-        ),
-        */
     );
 }
