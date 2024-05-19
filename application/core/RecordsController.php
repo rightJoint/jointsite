@@ -88,6 +88,7 @@ class RecordsController extends Controller
             $this->view->view_data = $view_data;
             if($_POST["submit"] == $this->view->lang_map->view_submit_val){
                 $this->view->action_log = $this->action_edit(false);
+                $this->model->copyCustomFields();
             }else{
                 $this->model->copyValFromRequest(null, "GET");
                 if (!$this->model->copyRecord()) {
