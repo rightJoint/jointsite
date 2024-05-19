@@ -10,8 +10,6 @@ class RecordsModel extends Model_pdo
 
     public $recordStructureFields;
 
-    public $allow_edit_indexes = true;
-
     function __construct($tableName = null)
     {
         parent::__construct();
@@ -60,9 +58,7 @@ class RecordsModel extends Model_pdo
                     $this->recordStructureFields->listFields["btnDetail"]["replaces"][] = $datatype_row["COLUMN_NAME"];
                     $this->recordStructureFields->listFields["btnEdit"]["replaces"][] = $datatype_row["COLUMN_NAME"];
                     $this->recordStructureFields->listFields["btnDelete"]["replaces"][] = $datatype_row["COLUMN_NAME"];
-                    if(!$this->allow_edit_indexes){
-                        $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
-                    }elseif($datatype_row["EXTRA"] == "auto_increment"){
+                    if($datatype_row["EXTRA"] == "auto_increment"){
                         $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
                         $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
                         $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
@@ -235,9 +231,7 @@ class RecordsModel extends Model_pdo
                 }
 
                 if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
-                    if (!$fieldInfo["indexes"] or
-                        ($fieldInfo["indexes"] and $this->allow_edit_indexes)
-                    ) {
+                    if(!$this->recordStructureFields->editFields[$fieldName]["readonly"]){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {
                             $q_fields .= "null, ";
@@ -400,20 +394,17 @@ class RecordsModel extends Model_pdo
         }
         foreach ($this->recordStructureFields->record as $fName=>$fData){
             if($this->recordStructureFields->editFields[$fName]){
-                //skip (dont rewrite) readonly fields
-                if(!$this->recordStructureFields->editFields[$fName]["readonly"]){
-                    if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
-                        if($REQ_ARR[$fName] == "on"){
-                            $this->recordStructureFields->record[$fName]["curVal"] = 1;
-                        }else{
-                            $this->recordStructureFields->record[$fName]["curVal"] = 0;
-                        }
+                if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
+                    if($REQ_ARR[$fName] == "on"){
+                        $this->recordStructureFields->record[$fName]["curVal"] = 1;
                     }else{
-                        if(isset($REQ_ARR[$fName])){
-                            $this->recordStructureFields->record[$fName]["curVal"] = $REQ_ARR[$fName];
-                        }else{
-                            $this->recordStructureFields->record[$fName]["curVal"]=null;
-                        }
+                        $this->recordStructureFields->record[$fName]["curVal"] = 0;
+                    }
+                }else{
+                    if(isset($REQ_ARR[$fName])){
+                        $this->recordStructureFields->record[$fName]["curVal"] = $REQ_ARR[$fName];
+                    }else{
+                        $this->recordStructureFields->record[$fName]["curVal"]=null;
                     }
                 }
             }

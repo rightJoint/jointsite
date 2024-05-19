@@ -47,16 +47,15 @@ class RecordView extends SiteView
         $label_class = null;
 
         if($fieldOption["readonly"]){
-            $readonly_print = " readonly";
-            $label_class = "ro";
+            if(!(!$this->record[$fieldNname]["fetchVal"] and
+                $this->record[$fieldNname]["indexes"])){
+                $readonly_print = " readonly";
+                $label_class = "ro";
+            }
         }
 
         if($fieldOption["indexes"]){
-            if($fieldOption["readonly"]){
-                $label_class = "ro idx";
-            }else{
-                $label_class ="idx";
-            }
+            $label_class .= " idx";
         }
 
         if($label_class){
