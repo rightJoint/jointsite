@@ -298,10 +298,14 @@ class RecordListView extends RecordView
                             if($fieldInfo["replaces"]){
                                 $urlLink = $fieldInfo["url"];
                                 foreach ($fieldInfo["replaces"] as $replace){
-                                    $urlLink = str_replace($replace, $row[$replace], $urlLink);
+                                    $repl_pos = strpos($urlLink, $replace);
+                                    $urlLink_1 = substr($urlLink, 0, $repl_pos+strlen($replace)+1);
+                                    $urlLink_2 = substr($urlLink, $repl_pos+strlen($replace)+1, strlen($urlLink));
+                                    $urlLink_3 = str_replace($replace, $row[$replace], $urlLink_2);
+                                    $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $return_ajax.= "<a href='".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                            $return_ajax.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
                         if(isset($fieldInfo["maxLength"]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){

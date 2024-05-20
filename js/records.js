@@ -38,9 +38,9 @@ $.fn["mvcListViewCrtlPannel"] = function (url, slave_req) {
                         formSerialized =$("form.filterForm").serialize()+"&";
                     }else{
                         formSerialized = "applyFilterRec=1&";
-                        if(slave_req){
-                            formSerialized += slave_req+"&";
-                        }
+                    }
+                    if(slave_req){
+                        formSerialized += slave_req+"&";
                     }
                     var filterSerialazed = formSerialized + "curPage=" + $(this).attr("page") + "&return=json" +
                         "&onPage=" + onPage.val() + "&sortField=" + sortField.val() +
