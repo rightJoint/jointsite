@@ -82,11 +82,6 @@ class rsf_migrations_log extends recordStructureFields
         (
             "format" => "datetime",
         ),
-
-        "migration_log" => Array
-        (
-            "format" => "text",
-        ),
     );
     public $searchFields = Array
     (
@@ -130,11 +125,9 @@ class rsf_migrations_log extends recordStructureFields
             "format" => "datetime",
             "readonly" => 1,
         ),
-
-        "migration_log" => Array
+        "migration_log_html" => Array
         (
-            "format" => "text",
-            "readonly" => 1,
+            "format" => "log_html",
         ),
     );
 }

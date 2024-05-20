@@ -117,10 +117,14 @@ class model_migrations extends RecordsModel
                 $count_fail = 0;
                 foreach ($commands as $q_num => $q_info){
                     $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
-                    $return["err"] = true;
-                    $count_fail++;
-                    $return["log"][] = "result: FAIL";
-                    //}
+                    if($this->query($q_info["query"])){
+                        $count_suss++;
+                        $return["log"][] = "result: SUSSES";
+                    }else{
+                        $return["err"] = true;
+                        $count_fail++;
+                        $return["log"][] = "result: FAIL: ".$this->log_message;
+                    }
                     $count_q++;
                 }
 
@@ -134,7 +138,7 @@ class model_migrations extends RecordsModel
                 $return["log"][] = "no queries in ".$migr_file;
             }
         }else{
-            $return["err"] = "migration status is not new";
+            $return["log"][] = "migration status is not new";
         }
 
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -142,7 +146,6 @@ class model_migrations extends RecordsModel
 
         $migration_log = new model_migrations_log();
 
-        $migration_log->recordStructureFields->record["migration_log_id"]["curVal"] = $this->createGUID();
         $migration_log->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         $migration_log->recordStructureFields->record["add_date"]["curVal"] = date("Y-m-d H:i:s");
         $migration_log->recordStructureFields->record["migration_log"]["curVal"] = json_encode($return, true);

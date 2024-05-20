@@ -13,5 +13,17 @@ class model_migrations_log extends RecordsModel
         $this->recordStructureFields = new  rsf_migrations_log();
     }
 
+    function filterWhere($method = "POST", $REQ_ARR = null)
+    {
+        $return_where = parent::filterWhere($method, $REQ_ARR);
+        if($_GET["migration_name"]){
+            if($return_where["where"]){
+                $return_where["where"].=" and migrations_log.migration_name='".$_GET["migration_name"]."'";
+            }else{
+                $return_where["where"].="where migrations_log.migration_name='".$_GET["migration_name"]."'";
+            }
+        }
+        return $return_where;
+    }
 
 }

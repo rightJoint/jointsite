@@ -27,17 +27,6 @@ class rsf_migrations extends recordStructureFields
         (
             "format" => "tinyint",
         ),
-        "content" => Array
-        (
-            "format" => "text",
-            "use_table_name" => "non-db",
-        ),
-        /*
-        "show_name" => Array
-        (
-            "format" => "varchar",
-            "use_table_name" => "non-db",
-        ),*/
     );
     public $editFields = Array
     (
@@ -92,7 +81,9 @@ class rsf_migrations extends recordStructureFields
         "migration_name" => Array
         (
             "indexes" => 1,
-            "format" => "varchar",
+            "format" => "link",
+            "replaces" => Array("migration_name", ),
+            "url" => "log?migration_name=migration_name",
         ),
         "status" => Array
         (
@@ -150,6 +141,11 @@ class rsf_migrations extends recordStructureFields
             "format" => "tinyint",
             "sort" => 1,
             "search" => 1,
+        ),
+        "glob_migration_files" => Array
+        (
+            "search" => 1,
+            "format" => "tinyint",
         ),
     );
     public $viewFields = Array
