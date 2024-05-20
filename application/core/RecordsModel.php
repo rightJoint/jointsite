@@ -168,6 +168,13 @@ class RecordsModel extends Model_pdo
         $queryToInsert_temp = "(";
         $queryToInsert .= "insert into ".$this->tableName." (\r";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
+
+            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+                if($this->uploadRecordFile($fieldName, false, true)){
+                    $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
+                }
+            }
+
             if(!$fieldInfo["use_table_name"] or
                 ($fieldInfo["use_table_name"] == $this->tableName)
             ){
@@ -218,6 +225,13 @@ class RecordsModel extends Model_pdo
         $q_where = " where ";
         $q_fields = null;
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
+
+            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+                if($this->uploadRecordFile($fieldName, false, true)){
+                    $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
+                }
+            }
+
             if(!$fieldInfo["use_table_name"] or
                 ($fieldInfo["use_table_name"] == $this->tableName)) {
                 if ($fieldInfo["indexes"]) {
@@ -260,6 +274,13 @@ class RecordsModel extends Model_pdo
     }
 
     function deleteRecord(){
+
+        foreach ($this->recordStructureFields->editFields as $fieldName => $fieldOptions){
+            if($fieldOptions["format"] == "file" and $fieldOptions["file_options"]["load_dir"]){
+                $this->deleteRecordFetchFile($fieldName);
+            }
+        }
+
         $date_stamp = date("H:i:s");
         $q_where = null;
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
@@ -409,5 +430,95 @@ class RecordsModel extends Model_pdo
                 }
             }
         }
+    }
+
+    function uploadRecordFile($field_name, $use_file_name = false, $del_fetch_file = true){
+        if(!$_FILES[$field_name]["error"]){
+            $path_parts = pathinfo($_FILES[$field_name]["name"]);
+            $file_extension = $path_parts["extension"];
+            if(strpos(" ".$this->recordStructureFields->editFields[$field_name]["file_options"]["accept"], $file_extension)){
+                if($del_fetch_file){
+                    $this->deleteRecordFetchFile($field_name);
+                }
+                if($use_file_name){
+                    $file_name = $path_parts["filename"];
+                }else{
+                    $file_name = $this->createGUID();
+                }
+
+                //mk upload folder when replaces
+                $this->recordStructureFields->record[$field_name]["curVal"] = $file_name.".".$file_extension;
+                $imgLink = $this->extract_ef_from_replaces($field_name);
+                $upload_dir = null;
+                $f_expd = explode("/", $imgLink);
+                for($i = 0; $i < count($f_expd)-1; $i++){
+                    $upload_dir.= $f_expd[$i]."/";
+                }
+
+                if(!is_dir($_SERVER["DOCUMENT_ROOT"].$upload_dir)){
+                    mkdir($_SERVER["DOCUMENT_ROOT"].$upload_dir, 0777, true);
+                }
+
+                $moved = @move_uploaded_file($_FILES[$field_name]['tmp_name'], $_SERVER["DOCUMENT_ROOT"].
+                    $imgLink);
+                if($moved) {
+                    return true;
+                } else {
+                    $this->log_message .= $this->lang_map->file_err["mvf_err_load"];
+                    return false;
+                }
+            }else{
+                $this->log_message .= $this->lang_map->file_err["mvf_err_extension"].": ".$file_extension."; ";
+                return false;
+            }
+        }else{
+
+            if($_FILES[$field_name]["error"] == 4){
+                $this->recordStructureFields->record[$field_name]["curVal"] = $this->recordStructureFields->record[$field_name]["fetchVal"];
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    function deleteRecordFetchFile($field_name)
+    {
+        if($this->recordStructureFields->record[$field_name]["fetchVal"]){
+            $fileLink = $this->extract_ef_from_replaces($field_name);
+            $upload_dir = null;
+            $f_expd = explode("/", $fileLink);
+            for($i = 0; $i < count($f_expd)-1; $i++){
+                $upload_dir.= $f_expd[$i]."/";
+            }
+            if(@unlink($_SERVER["DOCUMENT_ROOT"].
+                $upload_dir."/".$this->recordStructureFields->record[$field_name]["fetchVal"])){
+                $this->record[$field_name]["curVal"] = null;
+                return true;
+            }else{
+                $this->log_message .= $this->lang_map->file_err["unlink_err"];
+                return false;
+            }
+        }
+    }
+
+    function extract_ef_from_replaces($field_name)
+    {
+        if($this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"] and $this->recordStructureFields->record[$field_name]["curVal"]){
+            //if($this->editFields[$field_name]["file_options"]["file_type"] == "img"){
+            if($this->recordStructureFields->editFields[$field_name]["replaces"]){
+                $imgLink = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"];
+                foreach ($this->recordStructureFields->editFields[$field_name]["replaces"] as $replace){
+                    $imgLink = str_replace($replace, $this->recordStructureFields->record[$replace]["curVal"], $imgLink);
+                }
+            }else{
+                $imgLink = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"]."/".
+                    $this->recordStructureFields->record[$field_name]["curVal"];
+            }
+
+        }else{
+            //echo "nnn";
+        }
+        return $imgLink;
     }
 }
