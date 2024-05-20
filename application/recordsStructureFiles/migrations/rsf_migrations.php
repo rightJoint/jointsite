@@ -142,11 +142,6 @@ class rsf_migrations extends recordStructureFields
             "sort" => 1,
             "search" => 1,
         ),
-        "glob_migration_files" => Array
-        (
-            "search" => 1,
-            "format" => "tinyint",
-        ),
     );
     public $viewFields = Array
     (

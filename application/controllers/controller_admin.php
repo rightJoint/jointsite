@@ -44,6 +44,16 @@ class controller_admin extends RecordsController
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/admin/migrations/view_editview.php";
                 return "view_editview";
+            }elseif (!$request["routes"][$apurl_cnt+1]){
+                require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                    "/application/views/admin/view_migrations.php";
+                return "view_migrations";
+            }elseif ($request["routes"][$apurl_cnt+1] == "log"){
+                if($request["routes"][$apurl_cnt+2] == "detailview"){
+                    require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                        "/application/views/admin/migrations/log/view_log_detailview.php";
+                    return "view_log_detailview";
+                }
             }
         }elseif (method_exists($this, "action_".$action_name)){
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -312,7 +322,7 @@ class controller_admin extends RecordsController
 
             }
         }
-        $this->records_process("/mirror/admin/migrations");
+        $this->records_process($this->admin_process_url."/migrations");
     }
 
     function doAction_custom($action_name)
@@ -321,7 +331,7 @@ class controller_admin extends RecordsController
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/models/admin/model_migrations_log.php";
             $this->model = new model_migrations_log();
-            $this->records_process("/mirror/admin/migrations/log");
+            $this->records_process($this->admin_process_url."/migrations/log");
         }
         return true;
     }

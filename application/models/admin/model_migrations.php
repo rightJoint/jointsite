@@ -104,6 +104,9 @@ class model_migrations extends RecordsModel
             "log" => null,
             "err" => 0,
         );
+        $count_q = 0;
+        $count_suss = 0;
+        $count_fail = 0;
         if($this->recordStructureFields->record["status"]["curVal"] == "new"){
             $commands = $this->parse_sql_file(PATH_TO_MIGRATIONS."/".$migr_file);
 
@@ -112,9 +115,6 @@ class model_migrations extends RecordsModel
             $commands_count = count($commands);
             if($commands_count){
                 $return["log"][] = "count(".$commands_count.")";
-                $count_q = 0;
-                $count_suss = 0;
-                $count_fail = 0;
                 foreach ($commands as $q_num => $q_info){
                     $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
                     if($this->query($q_info["query"])){
@@ -153,7 +153,7 @@ class model_migrations extends RecordsModel
 
         if($return["err"]){
             $this->recordStructureFields->record["status"]["curVal"] = "fail";
-        }else{
+        }elseif($count_suss){
             $this->recordStructureFields->record["status"]["curVal"] = "susses";
         }
         $this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
