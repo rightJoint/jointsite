@@ -4,6 +4,7 @@ require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
 class View_Products_JointSite extends view_main
 {
     public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/internet.png";
+    public $current_branch = "main";
     function __construct()
     {
         parent::__construct();
@@ -63,8 +64,14 @@ class View_Products_JointSite extends view_main
             $this->lang_map->product_custom["p1"].
             "</p>";
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
-        $this->print_branch("main", $this->lang_map->branchesList["main"]);
+        $this->print_prod_branches();
         echo "</div>";
+    }
+
+    function print_prod_branches()
+    {
+        $this->print_branch("main");
+        $this->print_branch("record");
     }
 
     function prod_deploy()
