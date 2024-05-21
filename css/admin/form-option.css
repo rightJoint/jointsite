@@ -45,7 +45,7 @@ form.form-option input[type='text'], form.form-option select, form.form-option i
     padding: 0.1em 0;
 
     display: inline-block;
-    width: calc(50% - 2px);
+    width: calc(50% - 3px);
     text-align: left;
     font-size: 1em;
     border: 1px solid silver;
