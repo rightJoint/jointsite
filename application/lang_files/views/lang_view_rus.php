@@ -38,6 +38,18 @@ class lang_view_rus
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
                     "depend" => "нет зависимостей",
                 ),
+                "record" => array(
+                    "aliasMenu" => "Ветка Запись (Record)",
+                    "altText" => "подробнее о ветке Запись",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/record",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "Структуру записи можно получить из базы данных или описать в файле в виде массива. ".
+                        "Добавлены кастомные поля типа list и файл для загрузки данных, и другие.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
+                    "depend" => "ветка main",
+                ),
             ),
         ),
     );
