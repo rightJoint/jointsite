@@ -310,9 +310,17 @@ class controller_admin extends RecordsController
             $this->model = new model_migrations();
         }
         if($_POST["exec_all_migrations"] == "exec-all-migrations") {
-            $this->model->exec_migration("xxx.sql");
-            echo "exec-all-migrations";
-            exit;
+
+            $list_where = "where status = 'new'";
+            $list_migr = $this->model->listRecords($list_where, "order by migration_name");
+
+            foreach ($list_migr as $migr_num => $migr_data){
+
+                $this->model->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
+                if($this->model->copyRecord()){
+                    $this->model->exec_migration($migr_data["migration_name"]);
+                }
+            }
         }
         if($_POST["exec_migration"] == "exec-migration"){
             if($_POST["exec_migr_file"]){
