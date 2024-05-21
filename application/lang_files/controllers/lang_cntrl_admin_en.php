@@ -12,9 +12,9 @@ class lang_cntrl_admin_en extends lang_cntrl_en
         "Success" => "Success",
     );
     public $admin_sql = array(
-        "susses" => "SUSSES",
+        "success" => "success",
         "row" => "row(s)",
-        "susses_no_rows" => "SUSSES: no row(s)",
+        "success_no_rows" => "success: no row(s)",
         "fail" => "QUERY FAIL",
     );
     public $admin_printquery = array(

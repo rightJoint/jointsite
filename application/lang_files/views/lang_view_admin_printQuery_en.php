@@ -5,8 +5,8 @@ class lang_view_admin_printQuery_en extends lang_view_admin_en
         "label" => "Enter query",
         "btn" => "print",
         "h2" => "Result",
-        "susses" => "SUSSES",
+        "success" => "success",
         "row" => "row(s)",
-        "susses_no_rows" => "SUSSES: no row(s)",
+        "success_no_rows" => "success: no row(s)",
     );
 }

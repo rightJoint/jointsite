@@ -119,7 +119,7 @@ class model_migrations extends RecordsModel
                     $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
                     if($this->query($q_info["query"])){
                         $count_suss++;
-                        $return["log"][] = "result: SUSSES";
+                        $return["log"][] = "result: SUCCESS";
                     }else{
                         $return["err"] = true;
                         $count_fail++;
@@ -131,7 +131,7 @@ class model_migrations extends RecordsModel
                 if($return["err"]){
                     $return["err"] = "cant exec all migrations";
                 }
-                $return["log"][] = "Results: total(".$count_q."), susses(".$count_suss."), fail(".$count_fail.")";
+                $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
 
             }else{
                 $return["err"] = "no queries in ".$migr_file;
@@ -154,7 +154,7 @@ class model_migrations extends RecordsModel
         if($return["err"]){
             $this->recordStructureFields->record["status"]["curVal"] = "fail";
         }elseif($count_suss){
-            $this->recordStructureFields->record["status"]["curVal"] = "susses";
+            $this->recordStructureFields->record["status"]["curVal"] = "SUCCESS";
         }
         $this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
 

@@ -179,10 +179,10 @@ class controller_admin extends RecordsController
             if($queryPosting_res = @$this->model->query($queryPosting_text)){
                 $queryPosting['result']=true;
                 if($queryPosting_res->rowCount() > 0){
-                    $queryPosting['log']= $this->lang_map->admin_sql["susses"].": (".$queryPosting_res->rowCount().") ".
+                    $queryPosting['log']= $this->lang_map->admin_sql["success"].": (".$queryPosting_res->rowCount().") ".
                         $this->lang_map->admin_sql["row"];
                 }else{
-                    $queryPosting['log']= $this->lang_map->admin_sql["susses_no_rows"];
+                    $queryPosting['log']= $this->lang_map->admin_sql["success_no_rows"];
                 }
             }else{
                 $queryPosting['log'] = $this->lang_map->admin_sql["fail"];

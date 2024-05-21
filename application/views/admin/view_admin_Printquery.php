@@ -61,7 +61,7 @@ class view_admin_Printquery extends view_admin
             "result" => true,
         );
         if($this->query_result->rowCount() > 0){
-            $return['log']= $this->lang_map->admin_prq["susses"].": (".$this->query_result->rowCount().") ".
+            $return['log']= $this->lang_map->admin_prq["success"].": (".$this->query_result->rowCount().") ".
                 $this->lang_map->admin_prq["row"];
             $return['table'].= "<table>";
             $queryPosting_row = $this->query_result->fetch(PDO::FETCH_ASSOC);
@@ -85,7 +85,7 @@ class view_admin_Printquery extends view_admin
             }
             $return['table'].= "</table>";
         }else{
-            $return['log']= $this->lang_map->admin_prq["susses_no_rows"];
+            $return['log']= $this->lang_map->admin_prq["success_no_rows"];
         }
         return $return;
     }

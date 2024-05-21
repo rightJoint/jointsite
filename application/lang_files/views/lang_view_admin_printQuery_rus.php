@@ -5,8 +5,8 @@ class lang_view_admin_printQuery_rus extends lang_view_admin_rus
         "label" => "Введите запрос",
         "btn" => "Печать",
         "h2" => "Результаты",
-        "susses" => "Успенно",
+        "success" => "Успенно",
         "row" => "запись(ей)",
-        "susses_no_rows" => "Успенно: нет записей",
+        "success_no_rows" => "Успенно: нет записей",
     );
 }
