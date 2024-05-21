@@ -39,7 +39,7 @@ class model_migrations extends RecordsModel
         }
 
 
-        $list_migr = $this->listRecords("where ".$list_where);
+        $list_migr = $this->listRecords($list_where);
 
         if($list_migr){
             foreach ($list_migr as $m_num => $m_data){
@@ -61,36 +61,40 @@ class model_migrations extends RecordsModel
             "create_table " => "create table ",
         );
 
-        $this->recordStructureFields->record["commands"]["curVal"] = file_get_contents($file_name);
-        $this->recordStructureFields->record["commands"]["use_table_name"] = "non-db";
+        $new_cmd_lines = null;
 
-        $cmd_lines = explode(";",$this->recordStructureFields->record["commands"]["curVal"]);
+        if(file_exists($file_name)){
+            $this->recordStructureFields->record["commands"]["curVal"] = file_get_contents($file_name);
+            $this->recordStructureFields->record["commands"]["use_table_name"] = "non-db";
 
-        $new_cmd_lines = array();
+            $cmd_lines = explode(";",$this->recordStructureFields->record["commands"]["curVal"]);
 
-        $lines_cnt = count($cmd_lines);
-        $lines_counter = 0;
-        foreach ($cmd_lines as $cmd_line){
-            $lines_counter++;
-            $glue_flag= true;
-            foreach ($acceptable_queries as $q_type => $q_tag){
-                if(strpos("-".$cmd_line, $q_tag)){
-                    $new_cmd_lines[$lines_counter]["type"] = $q_type;
-                    $glue_flag = false;
-                    break;
-                }
-            }
-            $new_lines_cnt = count($new_cmd_lines);
-            if($glue_flag){
-                if($new_lines_cnt){
-                    if($lines_counter < $lines_cnt){
-                        $new_cmd_lines[$new_lines_cnt-1]["query"] .= ";".$cmd_line;
+            $new_cmd_lines = array();
+
+            $lines_cnt = count($cmd_lines);
+            $lines_counter = 0;
+            foreach ($cmd_lines as $cmd_line){
+                $lines_counter++;
+                $glue_flag= true;
+                foreach ($acceptable_queries as $q_type => $q_tag){
+                    if(strpos("-".$cmd_line, $q_tag)){
+                        $new_cmd_lines[$lines_counter]["type"] = $q_type;
+                        $glue_flag = false;
+                        break;
                     }
                 }
-            }else {
-                $new_cmd_lines[$new_lines_cnt]["query"] = $cmd_line;
-                if ($lines_counter < $lines_cnt) {
-                    $new_cmd_lines[$new_lines_cnt]["query"] .= ";";
+                $new_lines_cnt = count($new_cmd_lines);
+                if($glue_flag){
+                    if($new_lines_cnt){
+                        if($lines_counter < $lines_cnt){
+                            $new_cmd_lines[$new_lines_cnt-1]["query"] .= ";".$cmd_line;
+                        }
+                    }
+                }else {
+                    $new_cmd_lines[$new_lines_cnt]["query"] = $cmd_line;
+                    if ($lines_counter < $lines_cnt) {
+                        $new_cmd_lines[$new_lines_cnt]["query"] .= ";";
+                    }
                 }
             }
         }
@@ -108,34 +112,39 @@ class model_migrations extends RecordsModel
         $count_suss = 0;
         $count_fail = 0;
         if($this->recordStructureFields->record["status"]["curVal"] == "new"){
-            $commands = $this->parse_sql_file(PATH_TO_MIGRATIONS."/".$migr_file);
-
-
-            $return["log"][] = "Exec file ".$migr_file;
-            $commands_count = count($commands);
-            if($commands_count){
-                $return["log"][] = "count(".$commands_count.")";
-                foreach ($commands as $q_num => $q_info){
-                    $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
-                    if($this->query($q_info["query"])){
-                        $count_suss++;
-                        $return["log"][] = "result: SUCCESS";
-                    }else{
-                        $return["err"] = true;
-                        $count_fail++;
-                        $return["log"][] = "result: FAIL: ".$this->log_message;
+            if($commands = $this->parse_sql_file(PATH_TO_MIGRATIONS."/".$migr_file)){
+                $return["log"][] = "Exec file ".$migr_file;
+                $commands_count = count($commands);
+                if($commands_count){
+                    $return["log"][] = "count(".$commands_count.")";
+                    foreach ($commands as $q_num => $q_info){
+                        $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
+                        if($this->query($q_info["query"])){
+                            $count_suss++;
+                            $return["log"][] = "result: SUCCESS";
+                        }else{
+                            $return["log"][] = "result: FAIL: ";
+                            foreach ($this->errorInfo() as $err_num => $err_info){
+                                $return["log"][] = str_replace("'", "", $err_info);
+                            }
+                            $return["err"] = true;
+                            $count_fail++;
+                        }
+                        $count_q++;
                     }
-                    $count_q++;
-                }
 
-                if($return["err"]){
-                    $return["err"] = "cant exec all migrations";
-                }
-                $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
+                    if($return["err"]){
+                        $return["err"] = "cant exec all migrations";
+                    }
+                    $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
 
+                }else{
+                    $return["err"] = "no queries in ".$migr_file;
+                    $return["log"][] = "no queries in ".$migr_file;
+                }
             }else{
-                $return["err"] = "no queries in ".$migr_file;
-                $return["log"][] = "no queries in ".$migr_file;
+                $return["err"] = "no sql file for migration ".$migr_file;
+                $return["log"][] = "no sql file for migration ".$migr_file;
             }
         }else{
             $return["log"][] = "migration status is not new";
