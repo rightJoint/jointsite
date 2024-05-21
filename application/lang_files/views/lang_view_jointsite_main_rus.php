@@ -5,9 +5,6 @@ class lang_view_jointsite_main_rus extends lang_view_products_jointsite_rus
     {
         parent::__construct();
 
-        $this->head["h1"] = "Web-приложение ДжойнтСайт";
-        $this->head["title"] = "Ветка main";
-
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
         $this->product_custom["p1"] = "Приложение написано на php и потддерживает MVC шаблон. ".

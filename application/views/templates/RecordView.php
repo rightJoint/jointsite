@@ -129,8 +129,8 @@ class RecordView extends SiteView
             }
 
             $return_input .=">".
-                "<span class='file_val'>".$value."</span>";
-            if($fieldOption["file_options"]["load_dir"] and $value){
+                "<span class='file_val'>".$this->record[$fieldNname]["curVal"]."</span>";
+            if($fieldOption["file_options"]["load_dir"] and $this->record[$fieldNname]["curVal"]){
                 if($fieldOption["file_options"]["file_type"] == "img"){
                     if($fieldOption["replaces"]){
                         $imgLink = $fieldOption["file_options"]["load_dir"];
@@ -143,6 +143,18 @@ class RecordView extends SiteView
                     $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>";
                 }
             }
+        }
+        elseif($fieldOption["format"] == "list"){
+            $return_input = "<input type='text' ".$name_print." ".$id_print." ".$value_print." ".$readonly_print." list='".$fieldNname."-list'>";
+
+            $return_input .= "<datalist id='".$fieldNname."-list'>";
+            foreach ($fieldOption["filling"] as $opt_id=>$optVal){
+                //$radio_cnt++;
+                $return_input .= " <option value='".$opt_id."'>".$optVal."</option>";
+
+            }
+            $return_input .="</datalist>";
+
         }
         else{
             $return_input = $fieldOption["format"];

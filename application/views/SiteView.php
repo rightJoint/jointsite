@@ -30,6 +30,10 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-400.png",
         ),
+        "record" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/record.png",
+        ),
     );
 
     public $admin_auth_err = null;

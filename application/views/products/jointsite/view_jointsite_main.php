@@ -20,6 +20,12 @@ class view_jointsite_main extends View_Products_JointSite
     {
 
     }
+
+    function print_prod_branches()
+    {
+        $this->print_branch("main");
+    }
+
     function prod_deploy_config()
     {
         echo "<h3>".$this->lang_map->product_config["h3"]."</h3>".
