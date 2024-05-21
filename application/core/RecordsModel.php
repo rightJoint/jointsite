@@ -210,7 +210,7 @@ class RecordsModel extends Model_pdo
                     }
                 }
             }
-            $this->log_message =  $this->log_message = $this->lang_map->insertRecord["success"].$date_stamp;
+            $this->log_message = $this->lang_map->insertRecord["success"].$date_stamp;
             return true;
         }
 
