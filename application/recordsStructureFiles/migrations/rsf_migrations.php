@@ -1,6 +1,12 @@
 <?php
 class rsf_migrations extends recordStructureFields
 {
+
+    function __construct()
+    {
+        $this->record["add_date"]["curVal"] = date("Y-m-d H:i:s");
+    }
+
     public $record = Array
     (
         "migration_name" => Array
@@ -11,6 +17,7 @@ class rsf_migrations extends recordStructureFields
         "status" => Array
         (
             "format" => "varchar",
+            "curVal" => "new",
         ),
 
         "try_date" => Array

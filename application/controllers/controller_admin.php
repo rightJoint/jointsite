@@ -42,8 +42,8 @@ class controller_admin extends RecordsController
                 return "View_migrations_detailview";
             }elseif ($request["routes"][$apurl_cnt+1] == "editview"){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                    "/application/views/admin/migrations/view_editview.php";
-                return "view_editview";
+                    "/application/views/admin/migrations/View_migrations_editview.php";
+                return "View_migrations_editview";
             }elseif (!$request["routes"][$apurl_cnt+1]){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/admin/view_migrations.php";
@@ -53,6 +53,10 @@ class controller_admin extends RecordsController
                     require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                         "/application/views/admin/migrations/log/view_log_detailview.php";
                     return "view_log_detailview";
+                }elseif (!$request["routes"][$apurl_cnt+2]){
+                    require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                        "/application/views/admin/migrations/view_migrations_log.php";
+                    return "view_migrations_log";
                 }
             }
         }elseif (method_exists($this, "action_".$action_name)){
