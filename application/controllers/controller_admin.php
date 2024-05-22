@@ -253,9 +253,7 @@ class controller_admin extends RecordsController
             $this->model->get_tables_from_db($_GET['tableName']);
             $this->model->glob_load_tables($_GET['tableName']);
             $trimTableName = $_GET['tableName'];
-            if(LOWER_CASE_TABLE_NAMES){
-                $trimTableName = strtolower($_GET['tableName']);
-            }
+
             $data["row"] = $this->view->table_cell($_GET['tableName'], $this->model->tables["tables"][$trimTableName]);
 
             $data['log'].=$this->lang_map->table_actions["action"].": ".

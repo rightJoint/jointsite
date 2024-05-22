@@ -83,13 +83,7 @@ class Model_Admin extends Model_pdo
         $this->tables["result"]['err'] = false;
         foreach (glob(PATH_TO_TABLES_LIST."/".$table_name."*".TABLE_EXT_FILE) as $filename){
             $tableName = substr(basename($filename),0, strlen(basename($filename))-strlen(TABLE_EXT_FILE));
-            if(LOWER_CASE_TABLE_NAMES){
-                $this->tables["tables"][strtolower($tableName)]['list']=true;
-                $this->tables["tables"][strtolower($tableName)]['glob_name']=$tableName;
-            }else{
-                $this->tables["tables"][$tableName]['list']=true;
-                $this->tables["tables"][$tableName]["glob_name"] = $tableName;
-            }
+            $this->tables["tables"][$tableName]['list']=true;
         }
     }
 
@@ -101,13 +95,12 @@ class Model_Admin extends Model_pdo
             $query_text .= " and TABLE_NAME='".$table_name."'";
         }
         if($query_res = @$this->query($query_text)){
+            $row_count = $query_res->rowCount();
             while ($query_row = $query_res->fetch(PDO::FETCH_ASSOC)) {
-                $trimTableName = $query_row['TABLE_NAME'];
-                if(LOWER_CASE_TABLE_NAMES){
-                    $trimTableName = strtolower($trimTableName);
-                }
-                if(!$this->tables["tables"][$trimTableName]["list"]){
-                    $this->tables["tables"][$trimTableName]["glob_name"] = $trimTableName;
+                if($row_count == 1){
+                    $trimTableName = $table_name;
+                }else{
+                    $trimTableName = $query_row['TABLE_NAME'];
                 }
                 $this->tables["tables"][$trimTableName]['exist'] = true;
                 $this->tables["tables"][$trimTableName]['qty'] = $query_row['TABLE_ROWS'];
@@ -119,7 +112,7 @@ class Model_Admin extends Model_pdo
     {
         if($this->tables["tables"]){
             foreach ($this->tables["tables"] as $tbl_name => $tbl_opt){
-                foreach (glob( PATH_TO_DB_UPLOAD . "/*" . $tbl_opt["glob_name"] .
+                foreach (glob( PATH_TO_DB_UPLOAD . "/*" . $tbl_name .
                     "*" . TABLE_EXT_FILE) as $tableToInsert) {
                     $this->tables["tables"][$tbl_name]["load"][] = basename($tableToInsert);
                 }
