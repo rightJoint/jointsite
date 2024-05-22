@@ -216,8 +216,8 @@ class controller_admin extends RecordsController
     function action_tables()
     {
         if($_GET['action']==="refreshTables"){
-            $this->model->get_tables_from_db();
             $this->model->glob_create_tables();
+            $this->model->get_tables_from_db();
             $this->model->glob_load_tables();
             $this->view->tables = $this->model->tables["tables"];
             $this->view->tables_list();
@@ -314,11 +314,13 @@ class controller_admin extends RecordsController
             $list_where = "where status = 'new'";
             $list_migr = $this->model->listRecords($list_where, "order by migration_name");
 
-            foreach ($list_migr as $migr_num => $migr_data){
+            if($list_migr){
+                foreach ($list_migr as $migr_num => $migr_data){
 
-                $this->model->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
-                if($this->model->copyRecord()){
-                    $this->model->exec_migration($migr_data["migration_name"]);
+                    $this->model->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
+                    if($this->model->copyRecord()){
+                        $this->model->exec_migration($migr_data["migration_name"]);
+                    }
                 }
             }
         }
