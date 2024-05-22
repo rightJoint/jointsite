@@ -394,6 +394,34 @@ class RecordsModel extends Model_pdo
             if($REQ_ARR["sortOrder"]){
                 $return_order.=" ".$REQ_ARR["sortOrder"];
             }
+        }else{
+            $field_sort_default = null;
+            foreach ($this->recordStructureFields->searchFields as $search_field => $sf_opt){
+                if($sf_opt["sort"]){
+                    $field_sort_default = $search_field;
+                    break;
+                }
+            }
+            if($field_sort_default){
+                if($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"]){
+                    $sort_table_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"].".";
+
+                    if($this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"]){
+                        $sort_field_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"];
+                    }else{
+                        $sort_field_name = $field_sort_default;
+                    }
+
+                }else{
+                    $sort_field_name = $field_sort_default;
+                    $sort_table_name = $this->tableName.".";
+                }
+
+                $return_order.= " order by ".$sort_table_name.$sort_field_name;
+                if($this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"]){
+                    $return_order.=" ".$this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"];
+                }
+            }
         }
 
         return array(
