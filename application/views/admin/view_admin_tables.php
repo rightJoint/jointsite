@@ -77,7 +77,7 @@ class view_admin_tables extends view_admin
     {
         $return = "<div class='table-cell tblName'><a href='";
         if ($table_data['exist']) {
-            $return .= $this->admin_process_url."/records?table=".$table_name;
+            $return .= $this->admin_process_url."/records/".$table_name;
         }else{
             $return .= "#";
         }
