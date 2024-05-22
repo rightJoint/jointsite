@@ -14,7 +14,7 @@ class lang_cntrl_admin_rus extends lang_cntrl_rus
     public $admin_sql = array(
         "susses" => "Успенно",
         "row" => "запись(ей)",
-        "susses_no_rows" => "Успенно: нет записей",
+        "success_no_rows" => "Успешно: нет записей",
         "fail" => "Невыполнимый запрос",
     );
     public $admin_printquery = array(
