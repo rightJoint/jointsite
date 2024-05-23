@@ -513,15 +513,13 @@ class RecordsModel extends Model_pdo
     function deleteRecordFetchFile($field_name)
     {
         if($this->recordStructureFields->record[$field_name]["fetchVal"]){
-            $fileLink = $this->extract_ef_from_replaces($field_name);
+            $fileLink = $this->extract_ef_from_replaces($field_name, "fetchVal");
             $upload_dir = null;
             $f_expd = explode("/", $fileLink);
             for($i = 0; $i < count($f_expd)-1; $i++){
                 $upload_dir.= $f_expd[$i]."/";
             }
-            if(@unlink($_SERVER["DOCUMENT_ROOT"].
-                $upload_dir."/".$this->recordStructureFields->record[$field_name]["fetchVal"])){
-                $this->record[$field_name]["curVal"] = null;
+            if(@unlink(               $_SERVER["DOCUMENT_ROOT"].$fileLink)){
                 return true;
             }else{
                 $this->log_message .= $this->lang_map->file_err["unlink_err"];
@@ -530,23 +528,24 @@ class RecordsModel extends Model_pdo
         }
     }
 
-    function extract_ef_from_replaces($field_name)
+    function extract_ef_from_replaces($field_name, $state_val = "curVal")
     {
-        if($this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"] and $this->recordStructureFields->record[$field_name]["curVal"]){
-            //if($this->editFields[$field_name]["file_options"]["file_type"] == "img"){
+        if($this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"] and $this->recordStructureFields->record[$field_name][$state_val]){
             if($this->recordStructureFields->editFields[$field_name]["replaces"]){
-                $imgLink = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"];
+                $file_link = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"];
+
                 foreach ($this->recordStructureFields->editFields[$field_name]["replaces"] as $replace){
-                    $imgLink = str_replace($replace, $this->recordStructureFields->record[$replace]["curVal"], $imgLink);
+                    $file_link = str_replace($replace, $this->recordStructureFields->record[$replace][$state_val], $file_link);
                 }
             }else{
-                $imgLink = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"]."/".
-                    $this->recordStructureFields->record[$field_name]["curVal"];
+
+                $file_link = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"]."/".
+                    $this->recordStructureFields->record[$field_name][$state_val];
             }
 
         }else{
             //echo "nnn";
         }
-        return $imgLink;
+        return $file_link;
     }
 }
