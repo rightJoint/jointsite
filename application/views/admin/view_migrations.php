@@ -26,7 +26,7 @@ class view_migrations extends RecordListView
             "<div class='contentBlock-wrap'>".
             "<form class='migration-form' method='post'>".
             "<div class='apply-line'>".
-            "<input type='submit' class='exec' name='exec_all_migrations' value='exec-all-migrations'>".
+            "<input type='submit' class='exec' name='exec_all_migrations' value='exec-new-migrations'>".
             "<input type='submit' class='glob' name='glob_migr_files' value='glob-migr-files'>".
             "</div>".
             "</form>".

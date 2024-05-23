@@ -142,8 +142,8 @@ class model_migrations extends RecordsModel
                     $return["log"][] = "no queries in ".$migr_file;
                 }
             }else{
-                $return["err"] = "no sql file for migration ".$migr_file;
-                $return["log"][] = "no sql file for migration ".$migr_file;
+                $return["err"] = "no sql file or no commands (empty migration sql file) ".$migr_file;
+                $return["log"][] = "no sql file or no commands (empty migration sql file) ".$migr_file;
             }
         }else{
             $return["log"][] = "migration status is not new";
