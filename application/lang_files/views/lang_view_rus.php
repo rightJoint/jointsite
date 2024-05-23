@@ -51,6 +51,18 @@ class lang_view_rus
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
                 ),
+                "admin" => array(
+                    "aliasMenu" => "Админка на php для mysql",
+                    "altText" => "подробнее о ветке Admin",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin",
+                    "test_ref_title" => "Перейти к тесту Admin",
+                    "descr" => "Админка позволяет настроить подключение к mysql-серверу и базе данных, работать с таблицами и записями в них. ".
+                        "Добавлена возможность контролировать миграции.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Запись'>подробнее</a>",
+                    "depend" => "ветка record",
+                ),
             ),
         ),
         "admin" => array(
