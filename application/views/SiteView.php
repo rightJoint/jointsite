@@ -34,6 +34,10 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR."/img/popimg/record.png",
         ),
+        "admin" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png",
+        ),
     );
 
     public $admin_auth_err = null;
@@ -288,7 +292,7 @@ class SiteView extends View
 
         $this->print_products_menu();
 
-        $this->print_admin_menu();
+        $this->print_admin_menu("/test/phpmysqladmin");
 
         echo "</div></div></div></div>";
     }
