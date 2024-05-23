@@ -91,6 +91,7 @@ class RecordListView extends RecordView
 
             "</div>".
             $this->scriptListViewCrtlPannel().
+            "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>".
             "</div>".
             "</div>".
             "</div>".
@@ -99,7 +100,7 @@ class RecordListView extends RecordView
 
     function scriptListViewCrtlPannel($slave_req = "")
     {
-        return "<script>$('#".$this->list_frame_id."').mvcListViewCrtlPannel('".$this->process_url."', '".$slave_req."');</script>";
+        return "<script>$('#".$this->list_frame_id."').recordsPgBlock('".$this->process_url."', '".$slave_req."');</script>";
     }
 
     function listPgView()
