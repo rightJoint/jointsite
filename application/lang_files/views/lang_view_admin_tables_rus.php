@@ -9,7 +9,7 @@ class lang_view_admin_tables_rus extends lang_view_admin_rus
         "btn_log" => "Лог",
         "t_cap" => array(
             "table" => "Название таблицы",
-            "Lst" => "возмСозд",
+            "Lst" => "файл",
             "Ext" => "Создана",
             "action" => "Действие",
             "tgt" => "Загрузить",
