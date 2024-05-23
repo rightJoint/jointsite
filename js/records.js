@@ -1,7 +1,5 @@
-$.fn["mvcListViewCrtlPannel"] = function (url, slave_req) {
+$.fn["recordsSortBlock"] = function () {
     var pagination = $(this).find(".pagination");
-    var list_table = $(this).find(".list_table");
-
     var onPage = $(this).find("select[name=onPage]");
     var sortField = $(this).find("select[name=sortField]");
     var sortOrder = $(this).find("select[name=sortOrder]");
@@ -15,7 +13,6 @@ $.fn["mvcListViewCrtlPannel"] = function (url, slave_req) {
     $(sortOrder).on("change", function () {
         changeOptions()
     });
-
     function changeOptions()
     {
         var activePage = $(pagination).find("span.p_num:eq(0)");
@@ -23,6 +20,15 @@ $.fn["mvcListViewCrtlPannel"] = function (url, slave_req) {
         activePage.attr("page", 1);
         activePage.trigger("click");
     }
+
+};
+$.fn["recordsPgBlock"] = function (url, slave_req) {
+    var pagination = $(this).find(".pagination");
+    var list_table = $(this).find(".list_table");
+
+    var onPage = $(this).find("select[name=onPage]");
+    var sortField = $(this).find("select[name=sortField]");
+    var sortOrder = $(this).find("select[name=sortOrder]");
 
     pg(pagination);
 

@@ -205,6 +205,8 @@ class jointSite
                     require_once ($try_load["try_path"]);
                     $result_name = $try_load["try_name"];
                     $try_load["loaded"] = true;
+                }else{
+                    $this->app_log[$instance_type]["deep"] = $deep-1;
                 }
                 $this->app_log["load"][$instance_type][] = $try_load;
 
@@ -222,6 +224,8 @@ class jointSite
                             require_once ($try_load["try_path"]);
                             $result_name = $try_load["try_name"];
                             $try_load["loaded"] = true;
+                        }else{
+                            $this->app_log[$instance_type]["deep"] = $deep-1;
                         }
                         $this->app_log["load"][$instance_type][] = $try_load;
                     }else{
