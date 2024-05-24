@@ -20,9 +20,8 @@ class model_migrations extends RecordsModel
 
         foreach (glob(PATH_TO_MIGRATIONS . "/*.sql") as $mirgation_file) {
             $this->recordStructureFields->record["migration_name"]["curVal"] = basename($mirgation_file);
-            if(!$this->copyRecord()){
+            if(!parent::copyRecord()){
                 $this->recordStructureFields->record["status"]["curVal"] = "new";
-                //$this->recordStructureFields->record["try_date"]["curVal"] = null;
                 $this->recordStructureFields->record["add_date"]["curVal"] = $add_date;
                 $this->recordStructureFields->record["migr_file"]["curVal"] = 1;
                 $this->insertRecord();
@@ -43,7 +42,7 @@ class model_migrations extends RecordsModel
         if($list_migr){
             foreach ($list_migr as $m_num => $m_data){
                 $this->recordStructureFields->record["migration_name"]["curVal"] = basename($m_data["migration_name"]);
-                $this->copyRecord();
+                parent::copyRecord();
                 $this->recordStructureFields->record["migr_file"]["curVal"] = false;
                 $this->updateRecord();
             }
