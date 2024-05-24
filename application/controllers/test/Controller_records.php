@@ -35,4 +35,13 @@ class Controller_records extends RecordsController
             "/application/lang_files/controllers/test/lang_cntrl_testrec_".$_SESSION[JS_SAIK]["lang"].".php";
         return "lang_cntrl_testrec_".$_SESSION[JS_SAIK]["lang"];
     }
+    function doAction_custom($action_name)
+    {
+        $call_name = "action_".$action_name;
+        if(method_exists("Controller_records", $call_name)){
+            $this->$call_name();
+            return true;
+        }
+        return false;
+    }
 }
