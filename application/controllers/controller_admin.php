@@ -307,7 +307,7 @@ class controller_admin extends RecordsController
             $this->model->glob_migration_files();
             $this->model = new model_migrations();
         }
-        if($_POST["exec_all_migrations"] == "exec-all-migrations") {
+        if($_POST["exec_all_migrations"] == "exec-new-migrations") {
 
             $list_where = "where status = 'new'";
             $list_migr = $this->model->listRecords($list_where, "order by migration_name");
