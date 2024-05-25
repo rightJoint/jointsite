@@ -1,5 +1,5 @@
 <?php
-class view_admin_Printquery extends view_admin
+class view_admin_printquery extends view_admin
 {
     public $query_result = null;
 

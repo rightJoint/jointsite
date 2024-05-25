@@ -1,5 +1,5 @@
 <?php
-class lang_view_admin_printQuery_en extends lang_view_admin_en
+class lang_view_admin_Printquery_en extends lang_view_admin_en
 {
     public $admin_prq = array(
         "label" => "Enter query",
