@@ -121,6 +121,26 @@ class View_Products_JointSite extends view_main
             "<div class='example-text'>".
             $this->lang_map->product_deploy["install"]["example-text"].
             "</div>".
+            "</div>".
+            "<p>".
+            $this->lang_map->product_deploy["install"]["p3"].
+            "</p>".
+            "<div class='example'>".
+            "<div class='example-code'>".
+            "git init".
+            "</div>".
+            "<div class='example-code'>".
+            "git remote add origin https://github.com/rightJoint/jointsite".
+            "</div>".
+            "<div class='example-code'>".
+            "git checkout -b ".$this->lang_map->product_deploy["install"]["checkout-branch"].
+            "</div>".
+            "<div class='example-code'>".
+            "git pull origin ".$this->lang_map->product_deploy["install"]["checkout-branch"].
+            "</div>".
+            "<div class='example-text'>".
+            $this->lang_map->product_deploy["install"]["example-text2"]." ".$this->lang_map->product_deploy["install"]["checkout-branch"].
+            "</div>".
             "</div>";
     }
 

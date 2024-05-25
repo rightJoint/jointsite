@@ -2,9 +2,9 @@
 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
 class model_records_musicalb extends RecordsModel
 {
-    public $tableName = "rjt_musicalb";
+    public $tableName = "rjt_musicAlb";
 
-    public $tracksToAlb = "rjt_musictrackstoalb";
+    public $tracksToAlb = "rjt_musicTracksToAlb";
 
     public $modelAliases = array(
         "en" => "music albums",
