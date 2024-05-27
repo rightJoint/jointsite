@@ -52,7 +52,7 @@ class lang_view_en
                     "altText" => "detail about Admin",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin",
                     "test_ref_title" => "Do test Admin",
-                    "descr" => "Simple php admin provide web-interface to set up connection to mysql-серверу adn database, ".
+                    "descr" => "Simple php admin provide web-interface to set up connection to mysql-server and database, ".
                         "work with tables and records. ".
                         "Implemented facility to control migrations.",
                     "version" => "v1.0",
