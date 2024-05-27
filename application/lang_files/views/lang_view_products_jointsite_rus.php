@@ -29,7 +29,7 @@ class lang_view_products_jointsite_rus extends lang_view_main_rus
                     "выполните в текущем каталоге <span class='ex-conf'>/current_dir</span> команду git clone",
                 'checkout-branch' => "theme-branch",
                 "download_text" => "",
-                "download_link" => "(или скачать архив с файлами если выложен для загрузки)",
+                "download_link" => "",
                 "example-text" => "клонирование репозитория и переключение на ветку ".
                     "(<strong>вместо theme-branch вам надо указать название одной из веток сайта</strong>)",
                 'p3' => "Чтоб использовать репозиторий в текущем пустом каталоге <span class='ex-conf'>/current_dir</span>, ".
@@ -56,7 +56,9 @@ class lang_view_products_jointsite_rus extends lang_view_main_rus
             "example-text-1" => "настройка точки входа в приложение ",
             "p2" => "Так же для запуска из отдельной директории, необходимо указать приложению, откуда оно запускается ".
                 " в <span class='ex-conf'>index.php</span>",
-            "example-text-2" => "Устанока директории ",
+            "example-text-2" => "Устанока директории <span class='ex-conf'>/mirror</span> для запуска внутри другого приложения",
+            "mirror_dir" => "/mirror",
+            "mirror_base" => "mirror"
         );
         $this->prod_test = array(
             "p1" => "Для теста внутри этого приложения используется отдельный url <span class='ex-conf'>/test</span>."
