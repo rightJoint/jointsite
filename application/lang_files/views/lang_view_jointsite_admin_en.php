@@ -7,7 +7,7 @@ class lang_view_jointsite_admin_en extends lang_view_products_jointsite_en
 
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
-        $this->product_custom["p1"] = "Controller handle required models and view to possibility run admin at another url ".
+        $this->product_custom["p1"] = "Controller handle required models and views to possibility run admin at another url ".
             ", see <a href='#product-test'>test example.</a>";
         $this->product_custom["h3-2"] = $this->product_custom["h3-1"];
         $this->product_deploy["install"]["checkout-branch"] = "admin";
