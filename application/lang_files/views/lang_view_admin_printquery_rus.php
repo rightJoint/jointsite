@@ -1,5 +1,5 @@
 <?php
-class lang_view_admin_Printquery_rus extends lang_view_admin_rus
+class lang_view_admin_printquery_rus extends lang_view_admin_rus
 {
     public $admin_prq = array(
         "label" => "Введите запрос",
