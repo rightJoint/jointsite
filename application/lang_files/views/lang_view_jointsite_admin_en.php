@@ -33,11 +33,11 @@ class lang_view_jointsite_admin_en extends lang_view_products_jointsite_en
         $this->product_config["p5"] = "By default admin set up at address <span class='ex-conf'>/test/phpmysqladmin</span>. ";
         $this->product_config["p6"] = "Admin users data store in dir <span class='ex-conf'>/__config/adminUsers.txt</span>, ".
             "Use login annd password to get in <span class='ex-conf'>admin</span>, ";
-        $this->product_migration["p1"] = "To able use migrations in admin, first migration ".
+        $this->product_migration["p1"] = "To be able use migrations in admin, first migration ".
             "<span class='ex-conf'>/migrations/2024-05-20-migrations_tables.sql</span> to create table, needs to make ".
             "by hand. Its able at address <span class='ex-conf'>/admin/tables</span> or <span class='ex-conf'>/admin/sql</span>";
         $this->product_migration["p2"] = "Implemented functionality to edit and add queries to sql files, ".
-            " control migrations byy logs.";
+            " monitoring migrations by logs.";
         $this->prod_test = array(
             "p1" => "Admin available at address <a href='".JOINT_SITE_EXEC_DIR."/admin'>".JOINT_SITE_EXEC_DIR."/admin</a>".
                 " and test <a href='".JOINT_SITE_EXEC_DIR."/test/phpmysqladmin' title='check Admin at test'>".
