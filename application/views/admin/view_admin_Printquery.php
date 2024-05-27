@@ -19,8 +19,8 @@ class view_admin_printquery extends view_admin
     {
         parent::LoadViewLang_custom();
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/lang_files/views/lang_view_admin_Printquery_".$_SESSION[JS_SAIK]["lang"].".php";
-        return "lang_view_admin_Printquery_".$_SESSION[JS_SAIK]["lang"];
+            "/application/lang_files/views/lang_view_admin_printquery_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_view_admin_printquery_".$_SESSION[JS_SAIK]["lang"];
     }
 
     function print_page_content()
