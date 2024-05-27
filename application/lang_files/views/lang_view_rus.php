@@ -8,10 +8,6 @@ class lang_view_rus
         "header_text" => "РАЙТ ДЖОЙНt",
         "menu-btn-text" => "МЕНЮ",
     );
-    public $view_err = array(
-        "generate_cv" => "Путь к content view неправильный",
-        "generate_tv" => "Путь к template view неправильный",
-    );
     public $modalmenu = array(
         "ref_home" => "Главная",
         "ref_home_title" => "на главную",

@@ -149,28 +149,32 @@ class View_Products_JointSite extends view_main
         echo "<h3>".$this->lang_map->product_config["h3"]."</h3>".
             "<p>".
             $this->lang_map->product_config["p1"].
-            //"<span class='ex-conf'>core/application.php</span></p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "RewriteBase /mirror".
-            "</div>".
-            "<div class='example-text'>".
-            $this->lang_map->product_config["example-text-1"].
-            "<span class='ex-conf'>/mirror</span> в <span class='ex-conf'>.htacceess</span>".
-            "</div>".
-            "</div>".
-            "<p>".
-            $this->lang_map->product_config["p2"].
-            "</p>".
-            "<div class='example'>".
-            "<div class='example-code'>".
-            "new jointSite('/mirror');".
-            "</div>".
-            "<div class='example-text'>".
-            $this->lang_map->product_config["example-text-2"].
-            "<span class='ex-conf'>/mirror</span> для запуска внутри другого приложения".
-            "</div>".
-            "</div>";
+            "</p>";
+        echo $this->prod_deploy_config_ex();
+    }
+
+    function prod_deploy_config_ex()
+    {
+        echo "<div class='example'>".
+        "<div class='example-code'>".
+        "RewriteBase /".$this->lang_map->product_config["mirror_base"].
+        "</div>".
+        "<div class='example-text'>".
+        $this->lang_map->product_config["example-text-1"].
+        "<span class='ex-conf'>/".$this->lang_map->product_config["mirror_base"]."</span> в <span class='ex-conf'>.htacceess</span>".
+        "</div>".
+        "</div>".
+        "<p>".
+        $this->lang_map->product_config["p2"].
+        "</p>".
+        "<div class='example'>".
+        "<div class='example-code'>".
+        "new jointSite(".$this->lang_map->product_config["mirror_dir"].");".
+        "</div>".
+        "<div class='example-text'>".
+        $this->lang_map->product_config["example-text-2"].
+        "</div>".
+        "</div>";
     }
 
     function prod_deploy_migrations()
