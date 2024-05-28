@@ -3,7 +3,7 @@ define("MUSIC_COVERS_DIR", JOINT_SITE_EXEC_DIR."/userdata_test/music/covers");
 define("MUSIC_TRACKS_DIR", JOINT_SITE_EXEC_DIR."/userdata_test/music/tracks");
 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
     "/application/core/RecordsController.php";
-class Controller_records extends RecordsController
+class controller_records extends RecordsController
 {
     function action_musicalb()
     {

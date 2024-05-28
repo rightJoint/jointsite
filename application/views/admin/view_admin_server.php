@@ -55,6 +55,8 @@ class view_admin_server extends view_admin
                         echo ">";
                     }
                 }
+            }elseif ($opt == "CONN_PW"){
+                echo "<input type='password' name='" . $opt . "' value='" . $oVal . "'>";
             }else{
                 echo "<input type='text' name='" . $opt . "' value='" . $oVal . "'>";
             }

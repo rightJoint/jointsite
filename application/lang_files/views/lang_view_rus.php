@@ -8,10 +8,6 @@ class lang_view_rus
         "header_text" => "РАЙТ ДЖОЙНt",
         "menu-btn-text" => "МЕНЮ",
     );
-    public $view_err = array(
-        "generate_cv" => "Путь к content view неправильный",
-        "generate_tv" => "Путь к template view неправильный",
-    );
     public $modalmenu = array(
         "ref_home" => "Главная",
         "ref_home_title" => "на главную",
@@ -60,7 +56,7 @@ class lang_view_rus
                         "Добавлена возможность контролировать миграции.",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Запись'>подробнее</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Админку'>подробнее</a>",
                     "depend" => "ветка record",
                 ),
             ),
@@ -81,7 +77,7 @@ class lang_view_rus
                 ),
                 "printquery" => array(
                     "aliasMenu" => "Печать запроса",
-                    "altText" => "Вывод в таблицу резулитата select",
+                    "altText" => "Вывод в таблицу результата select",
                 ),
                 "tables" => array(
                     "aliasMenu" => "Таблицы",

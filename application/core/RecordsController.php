@@ -129,7 +129,8 @@ class RecordsController extends Controller
                 $this->checkTemplateView("delete");
                 $this->view->view_data = $view_data;
                 $this->view->type = "delete";
-                if ($_POST["submit"] == $this->view->lang_map->view_submit_val_del) {
+                if (($_POST["submit"]) and
+                    ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
                     $this->view->action_log = $this->action_delete(false);
                     if ($this->view->action_log["result"]) {
                         header("Location: " . $process_path);

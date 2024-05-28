@@ -19,12 +19,13 @@ class Model_Admin extends Model_pdo
         "connRes" => false,
         "connErr" => false,
         "err_no_conn" => true,
+        "pathToSettings" => true,
     );
 
 
     function __construct($sql_db_connect_json = SQL_CONN_DEFAULT)
     {
-
+        $this->sql_connection["pathToSettings"] = $sql_db_connect_json;
         if(file_exists($sql_db_connect_json)){
             if($connSettings=json_decode(@file_get_contents($sql_db_connect_json), true)){
                 foreach ($this->sql_connection["settings"] as $conn_opt => $conn_val) {

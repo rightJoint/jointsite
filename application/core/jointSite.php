@@ -116,7 +116,7 @@ class jointSite
 
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
 
-            self::throwErr("request", $this->lang_map->app_err["request_view"]);
+            self::throwErr("request", $this->lang_map->app_err["request_controller"]);
         }
 
         $this->app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
