@@ -32,6 +32,7 @@ class RecordListView extends RecordView
 
     function set_head_array()
     {
+        parent::set_head_array();
         $this->lang_map->set_head_array(array("h2" => $this->h2));
     }
 
@@ -91,11 +92,16 @@ class RecordListView extends RecordView
 
             "</div>".
             $this->scriptListViewCrtlPannel().
-            "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>".
+            $this->scriptSortBlock().
             "</div>".
             "</div>".
             "</div>".
             "</div>";
+    }
+
+    function scriptSortBlock()
+    {
+        return "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>";
     }
 
     function scriptListViewCrtlPannel($slave_req = "")
