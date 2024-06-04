@@ -1,19 +1,19 @@
 <?php
 class SiteView extends View
 {
-    public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/siteLogo/favicon.png";
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/menu-icon.png";
+    public $shortcut_icon = JOINT_SITE_EXEC_DIR . "/img/siteLogo/favicon.png";
+    public $logo = JOINT_SITE_EXEC_DIR . "/img/popimg/menu-icon.png";
 
     public $view_data = null;
 
     public $styles = array(
-        JOINT_SITE_EXEC_DIR."/css/default.css",
-        JOINT_SITE_EXEC_DIR."/css/header.css",
+        JOINT_SITE_EXEC_DIR . "/css/default.css",
+        JOINT_SITE_EXEC_DIR . "/css/header.css",
     );
 
     public $scripts = array(
-        JOINT_SITE_EXEC_DIR."/lib/js/googleapis.js",
-        JOINT_SITE_EXEC_DIR."/js/header.js",
+        JOINT_SITE_EXEC_DIR . "/lib/js/googleapis.js",
+        JOINT_SITE_EXEC_DIR . "/js/header.js",
     );
 
     public $metrika = null;
@@ -28,7 +28,7 @@ class SiteView extends View
     public $branches = array(
         "main" => array(
             "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR."/img/siteLogo/rightjoint-logo-400.png",
+            "img" => JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-400.png",
         ),
         "record" => array(
             "href" => "#",
@@ -45,45 +45,44 @@ class SiteView extends View
 
     function LoadViewLang($request = null)
     {
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/lang_files/views/lang_view_".$_SESSION[JS_SAIK]["lang"].".php");
-        $return_lang = "lang_view_".$_SESSION[JS_SAIK]["lang"];
+        require_once($_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+            "/application/lang_files/views/lang_view_" . $_SESSION[JS_SAIK]["lang"] . ".php");
+        $return_lang = "lang_view_" . $_SESSION[JS_SAIK]["lang"];
 
-        if(!$request){
+        if (!$request) {
             global $request;
         }
 
 
-        if (!empty($request["routes"][$request["exec_dir_cnt"]])){
-            $try_name = "lang_view_".$request["routes"][$request["exec_dir_cnt"]]."_".$_SESSION[JS_SAIK]["lang"];
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
+        if (!empty($request["routes"][$request["exec_dir_cnt"]])) {
+            $try_name = "lang_view_" . $request["routes"][$request["exec_dir_cnt"]] . "_" . $_SESSION[JS_SAIK]["lang"];
+            $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
+            if (file_exists($try_path)) {
+                require_once($try_path);
                 $return_lang = $try_name;
             }
-            if (!empty($request["routes"][$request["exec_dir_cnt"]+1])){
-                $try_name = "lang_view_".$request["routes"][$request["exec_dir_cnt"]]."_".
-                    $request["routes"][$request["exec_dir_cnt"]+1]."_".$_SESSION[JS_SAIK]["lang"];
-                $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
+            if (!empty($request["routes"][$request["exec_dir_cnt"] + 1])) {
+                $try_name = "lang_view_" . $request["routes"][$request["exec_dir_cnt"]] . "_" .
+                    $request["routes"][$request["exec_dir_cnt"] + 1] . "_" . $_SESSION[JS_SAIK]["lang"];
+                $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
 
-                if(file_exists($try_path)){
-                    require_once ($try_path);
+                if (file_exists($try_path)) {
+                    require_once($try_path);
                     $return_lang = $try_name;
                 }
             }
-        }else{
-            $try_name = "lang_view_main_".$_SESSION[JS_SAIK]["lang"];
+        } else {
+            $try_name = "lang_view_main_" . $_SESSION[JS_SAIK]["lang"];
 
-            $try_path = $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/views/".strtolower($try_name).'.php';
-            if(file_exists($try_path)){
-                require_once ($try_path);
+            $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
+            if (file_exists($try_path)) {
+                require_once($try_path);
                 $return_lang = $try_name;
             }
         }
 
 
-
-        if($custom_lang = $this->LoadViewLang_custom()){
+        if ($custom_lang = $this->LoadViewLang_custom()) {
             $return_lang = $custom_lang;
         }
 
@@ -95,19 +94,18 @@ class SiteView extends View
         return false;
     }
 
-
     function generate()
     {
         $this->set_head_array();
-        if($this->metrik_block){
-            if(file_exists(JOINT_SITE_CONF_DIR."/yandexmetrika.php")){
-                require_once JOINT_SITE_CONF_DIR."/yandexmetrika.php";
+        if ($this->metrik_block) {
+            if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {
+                require_once JOINT_SITE_CONF_DIR . "/yandexmetrika.php";
                 $this->metrika = $yandex_metrika;
                 $this->yandex_verification = $yandex_verification;
             }
         }
 
-        echo "<!DOCTYPE html>".
+        echo "<!DOCTYPE html>" .
             "<html lang='en-Us'>";
         $this->print_head();
         $this->print_body();
@@ -122,28 +120,28 @@ class SiteView extends View
 
     function print_head()
     {
-        echo "<head>".
-            "<meta http-equiv='content-type' content='text/html; charset=utf-8'/>".
+        echo "<head>" .
+            "<meta http-equiv='content-type' content='text/html; charset=utf-8'/>" .
             "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
-        if($this->lang_map->head["description"]){
-            echo "<meta name='description' content='".$this->lang_map->head["description"]."'/>";
+        if ($this->lang_map->head["description"]) {
+            echo "<meta name='description' content='" . $this->lang_map->head["description"] . "'/>";
         }
-        if($this->metrik_block){
+        if ($this->metrik_block) {
             echo $this->yandex_verification;
-        }else{
-            if($this->robot_no_index){
+        } else {
+            if ($this->robot_no_index) {
                 echo "<meta name='robots' content='noindex'>";
             }
         }
-        echo "<title>".$this->lang_map->head["title"]."</title>".
-            "<link rel='SHORTCUT ICON' href='".$this->shortcut_icon."' type='image/png'>";
-        foreach ($this->styles as $style => $stLink){
-            echo "<link rel='stylesheet' href='".$stLink."' type='text/css' media='screen, projection'/>";
+        echo "<title>" . $this->lang_map->head["title"] . "</title>" .
+            "<link rel='SHORTCUT ICON' href='" . $this->shortcut_icon . "' type='image/png'>";
+        foreach ($this->styles as $style => $stLink) {
+            echo "<link rel='stylesheet' href='" . $stLink . "' type='text/css' media='screen, projection'/>";
         }
-        foreach ($this->scripts as $script => $scrSrc){
-            echo "<script src='".$scrSrc."'></script>";
+        foreach ($this->scripts as $script => $scrSrc) {
+            echo "<script src='" . $scrSrc . "'></script>";
         }
-        echo "<script>var exec_dir='".JOINT_SITE_EXEC_DIR."';</script>";
+        echo "<script>var exec_dir='" . JOINT_SITE_EXEC_DIR . "';</script>";
         echo "</head>";
     }
 
@@ -151,15 +149,15 @@ class SiteView extends View
     {
         global $mct;
         $mct["end_time"] = microtime(true);
-        echo "<script>$('body').after('<span style=".'"'.
-            " color: silver; position: relative; bottom: 1.2em; left: 0,5em; ".
-            " display: block; height:0; width:0; font-size:0.7em;".'"'.">".
-            strval($mct['end_time']-$mct['start_time'])."</span>')</script>";
+        echo "<script>$('body').after('<span style=" . '"' .
+            " color: silver; position: relative; bottom: 1.2em; left: 0,5em; " .
+            " display: block; height:0; width:0; font-size:0.7em;" . '"' . ">" .
+            strval($mct['end_time'] - $mct['start_time']) . "</span>')</script>";
     }
 
     public function print_body()
     {
-        echo "<body>".
+        echo "<body>" .
             "<div class='page-wrap'>";
         $this->print_header();
         $this->print_page_content();
@@ -174,40 +172,42 @@ class SiteView extends View
     public function print_header()
     {
         echo "<header><div class='headerCenter'>";
-        echo "<div class='lang-panel'>".
+        echo "<div class='lang-panel'>" .
             "<a class='lang-cntrl ";
-        if($_SESSION[JS_SAIK]["lang"] == "rus"){
+        if ($_SESSION[JS_SAIK]["lang"] == "rus") {
             echo "active ";
         }
-        echo "rus' href='?lang=rus' title='".$this->lang_map->langpaneltextrus."'><span>Рус</span></a>".
+        echo "rus' href='?lang=rus' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if($_SESSION[JS_SAIK]["lang"] == "en"){
+        if ($_SESSION[JS_SAIK]["lang"] == "en") {
             echo "active ";
         }
-        echo "en' href='?lang=en' title='".$this->lang_map->lang_panel_text_en."'><span>En</span></a>".
+        echo "en' href='?lang=en' title='" . $this->lang_map->lang_panel_text_en . "'><span>En</span></a>" .
             "</div>";
-        echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>".
-            "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>".
-            $this->lang_map->head["menu-btn-text"].
-            "</span></span></div>".
-            "<div class='h-caption'>".
+        echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
+            "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
+            $this->lang_map->head["menu-btn-text"] .
+            "</span></span></div>" .
+            "<div class='h-caption'>" .
             "<div class='textBlock ";
+
+        /*rj-todo text block style on vertical screen, main branch*/
         global $routes;
-        if(!$routes[1]){
+        if (!$routes[1]) {
             echo "landing";
         }
-        echo "'><span class='firmName'>".$this->lang_map->head["header_text"]."</span>".
-            "<h1>".$this->lang_map->head["h1"]."</h1></div></div>".
+        echo "'><span class='firmName'>" . $this->lang_map->head["header_text"] . "</span>" .
+            "<h1>" . $this->lang_map->head["h1"] . "</h1></div></div>" .
             "</div></header>";
 
-        $header_add_styles ="<style>
-        .hi-icon-mobile.menu:before {background-image: url(".$this->logo.");}
+        $header_add_styles = "<style>
+        .hi-icon-mobile.menu:before {background-image: url(" . $this->logo . ");}
         .modal-right .modal-close{
-                background-image: url('".JOINT_SITE_EXEC_DIR."/img/popimg/closeModal.png');
+                background-image: url('" . JOINT_SITE_EXEC_DIR . "/img/popimg/closeModal.png');
             }
             @media only screen and (max-width : 1024px) and (orientation : portrait){
             .modal-right:not(.signIn) .modal-close:not(.signIn){
-                    background-image: url('".JOINT_SITE_EXEC_DIR."/img/popimg/closeModal-white.png');
+                    background-image: url('" . JOINT_SITE_EXEC_DIR . "/img/popimg/closeModal-white.png');
             }
             }                      
             </style>";
@@ -216,17 +216,17 @@ class SiteView extends View
 
     public function print_footer()
     {
-        echo "<div class='contentBlock-frame dark ft'><div class='contentBlock-center'>".
-            "<div class='contentBlock-wrap'>".
-            "<footer>".
+        echo "<div class='contentBlock-frame dark ft'><div class='contentBlock-center'>" .
+            "<div class='contentBlock-wrap'>" .
+            "<footer>" .
             "<div class='ft-service'>";
-        if($this->metrik_block) {
+        if ($this->metrik_block) {
             echo $this->metrika;
         }
-        echo "</div><div class='ft-center'><hr><span>by Right Joint</span></div>".
-            "<div class='ft-right'>".
-            "</div>".
-            "</footer>".
+        echo "</div><div class='ft-center'><hr><span>by Right Joint</span></div>" .
+            "<div class='ft-right'>" .
+            "</div>" .
+            "</footer>" .
             "</div></div></div>";
     }
 
@@ -246,44 +246,44 @@ class SiteView extends View
 
         $active_modal_menu_style = null;
 
-        if($this->active_modal_menu){
+        if ($this->active_modal_menu) {
             $active_modal_menu_style = "style='opacity: 1; visibility: visible'";
         }
 
-        echo "<div class='modal menu' ".$active_modal_menu_style.">".
-            "<div class='overlay' ".$active_modal_menu_style."></div><div class='contentBlock-frame'>".
-            "<div class='contentBlock-center'><div class='modal-right'><div class='modal-close'></div>".
-            "</div><div class='modal-left'>".
-            "<div class='modal-line' style='position: relative; min-height: 3.8em' >".
-            "<div class='lang-panel mp'>".
+        echo "<div class='modal menu' " . $active_modal_menu_style . ">" .
+            "<div class='overlay' " . $active_modal_menu_style . "></div><div class='contentBlock-frame'>" .
+            "<div class='contentBlock-center'><div class='modal-right'><div class='modal-close'></div>" .
+            "</div><div class='modal-left'>" .
+            "<div class='modal-line' style='position: relative; min-height: 3.8em' >" .
+            "<div class='lang-panel mp'>" .
             "<a class='lang-cntrl ";
-        if($_SESSION[JS_SAIK]["lang"] == "rus"){
+        if ($_SESSION[JS_SAIK]["lang"] == "rus") {
             echo "active ";
         }
-        echo "rus' href='?lang=rus' title='".$this->lang_map->langpaneltextrus."'><span>Рус</span></a>".
+        echo "rus' href='?lang=rus' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if($_SESSION[JS_SAIK]["lang"] == "en"){
+        if ($_SESSION[JS_SAIK]["lang"] == "en") {
             echo "active ";
         }
-        echo "en' href='?lang=en' title='".$this->lang_map->langpaneltexten."'><span>En</span></a>".
-            "</div>".
+        echo "en' href='?lang=en' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+            "</div>" .
             "<div class='mm-htl'>";
         $home_ref = "/";
-        if(JOINT_SITE_EXEC_DIR){
+        if (JOINT_SITE_EXEC_DIR) {
             $home_ref = JOINT_SITE_EXEC_DIR;
         }
-        echo  "<a href='".$home_ref."' title='";
-        if(!$request["routes"][$request["exec_dir_cnt"]]){
+        echo "<a href='" . $home_ref . "' title='";
+        if (!$request["routes"][$request["exec_dir_cnt"]]) {
             echo $this->lang_map->modalmenu["ref_on_home_title"];
-        }else{
+        } else {
             echo $this->lang_map->modalmenu["ref_home_title"];
         }
-        echo "'>".
-            "<img src='".JOINT_SITE_EXEC_DIR."/img/siteLogo/rightjoint-logo-150.png' alt='RJ-logo'>".
-            $this->lang_map->modalmenu["ref_home"].
-            "</a>".
-            "<p>".$this->lang_map->modalmenu["home_descr"]."</p>".
-            "</div>".
+        echo "'>" .
+            "<img src='" . JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-150.png' alt='RJ-logo'>" .
+            $this->lang_map->modalmenu["ref_home"] .
+            "</a>" .
+            "<p>" . $this->lang_map->modalmenu["home_descr"] . "</p>" .
+            "</div>" .
             "</div>";
 
         $this->print_products_menu();
@@ -306,8 +306,10 @@ class SiteView extends View
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite' ".
-            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Web site</a><sup>php, js, mvc</sup>".
-            "<span class='opnSubMenu ".$folded_style."'>product</span>".
+            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["sup"]."</sup>".
+            "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["jointSite"]["ddm_text"]."</span>".
             "<ul " . $menuStyle . ">".
             $jointsite_menu["text"].
             "</ul>" .
