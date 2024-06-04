@@ -24,6 +24,19 @@ class lang_view_rus
             "sup" => "php, js, mvc",
             "ddm_text" => "продукт",
         ),
+        "siteman" => array(
+            "title" => "Управление сайтом",
+            "text" => "Управление",
+            "sup" => "сайтом",
+            "ddm_text" => "меню",
+        ),
+    );
+    public $auth_menu_text = array(
+        "site" => array(
+            "siteUser" => "на Сайте",
+            "exit" => "выход",
+            "title" => "кабинет",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(
@@ -54,4 +67,27 @@ class lang_view_rus
             ),
         ),
     );
+
+    public $sitesignInform = array(
+        "form_title" => "Вход на сайт",
+        "placeholder_login" => "Ваш логин...",
+        "placeholder_password" => "введите пароль...",
+        "submit_btn" => "Войти",
+    );
+    public $sitesignUpform = array(
+        "form_title" => "Регистрация на сайте",
+        "placeholder_login" => "Придумайте логин...",
+        "placeholder_password" => "пароль...",
+        "placeholder_repeat" => "повторите пароль...",
+        "placeholder_mail" => "Ваш email...",
+        "submit_btn" => "Зарегистрировать",
+        "errors" => array(
+            "login_unacceptable" => "недопустимый логин",
+            "login_reserved" => "логин зарезервирован",
+            "pass_unacceptable" => "недопустимый пароль",
+            "pass_dont_match" => "пароли не совпадают",
+            "email_unacceptable" => "недопустимый email",
+        ),
+    );
+
 }

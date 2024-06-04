@@ -26,6 +26,15 @@ class lang_view_en
             "ddm_text" => "product",
         ),
     );
+
+    public $auth_menu_text = array(
+        "site" => array(
+            "siteUser" => "on Site",
+            "exit" => "exit",
+            "title" => "personal page",
+        ),
+    );
+
     public $menu_blocks = array(
         "branches" => array(
             "menu_items" => array(
@@ -53,6 +62,28 @@ class lang_view_en
                     "depend" => "branch main",
                 ),
             ),
+        ),
+    );
+
+    public $sitesignInform = array(
+        "form_title" => "Sign in",
+        "placeholder_login" => "Your login...",
+        "placeholder_password" => "Enter Your password...",
+        "submit_btn" => "Submit",
+    );
+    public $sitesignUpform = array(
+        "form_title" => "Sign up",
+        "placeholder_login" => "Make up login...",
+        "placeholder_password" => "password...",
+        "placeholder_repeat" => "repeat password...",
+        "placeholder_mail" => "your email...",
+        "submit_btn" => "Register now",
+        "errors" => array(
+            "login_unacceptable" => "login unacceptable",
+            "login_reserved" => "login reserved",
+            "pass_unacceptable" => "password unacceptable",
+            "pass_dont_match" => "passwords dont match",
+            "email_unacceptable" => "email unacceptable",
         ),
     );
 }
