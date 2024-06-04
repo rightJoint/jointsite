@@ -291,16 +291,12 @@ class RecordsModel extends Model_pdo
         $q_where = substr($q_where, 0, strlen($q_where)-4);
 
         if($this->query("delete from ".$this->tableName." where ".$q_where)){
-            return array(
-                "result"=>1,
-                "log"=>"deleteRecord success: ".$date_stamp,
-            );
-        }else{
-            return array(
-                "result"=>0,
-                "log"=>"deleteRecord fail: ".$date_stamp,
-            );
+            $this->log_message = "deleteRecord success: ".$date_stamp;
+            return true;
         }
+
+        $this->log_message = "deleteRecord fail: ".$date_stamp;
+        return false;
     }
 
     function filterWhere($method = "POST", $REQ_ARR = null)
