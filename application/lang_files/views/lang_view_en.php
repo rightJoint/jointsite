@@ -25,6 +25,18 @@ class lang_view_en
             "sup" => "php, js, mvc",
             "ddm_text" => "product",
         ),
+        "admin" => array(
+            "title" => "php admin for mysql",
+            "text" => "Admin DB",
+            "sup" => "for mysql",
+            "ddm_text" => "menu",
+        ),
+    );
+    public $auth_menu_text = array(
+        "admin" => array(
+            "adminUser" => "in Admin",
+            "exit" => "exit",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(

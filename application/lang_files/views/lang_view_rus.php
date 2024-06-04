@@ -24,6 +24,18 @@ class lang_view_rus
             "sup" => "php, js, mvc",
             "ddm_text" => "продукт",
         ),
+        "admin" => array(
+            "title" => "Админка для mysql на php",
+            "text" => "Админка БД",
+            "sup" => "для mysql",
+            "ddm_text" => "меню",
+        ),
+    );
+    public $auth_menu_text = array(
+        "admin" => array(
+            "adminUser" => "в Админке",
+            "exit" => "выход",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(
