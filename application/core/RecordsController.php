@@ -30,57 +30,22 @@ class RecordsController extends Controller
             $this->view->process_url = $process_path;
             $this->view->view_data = $view_data;
 
-            if ($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]) {
-                $this->view->h2 = $this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]];
-            } else {
-                $this->view->h2 = $this->model->tableName;
-            }
+            $this->process_list();
 
-            $this->view->list_frame_id = $this->model->tableName;
-
-            if ($_POST["curPage"]) {
-                $this->view->curPage = $_POST["curPage"];
-            }
-
-            if ($_POST["onPage"]) {
-                $this->view->onPage = $_POST["onPage"];
-            }
-
-            $list_records = $this->action_list(false);
-
-            $this->view->listCount = $list_records["count"];
-            $this->view->listFields = $this->model->recordStructureFields->listFields;
-            $this->view->listRecords = $list_records["list"];
-
-            if ($_POST["applyFilterRec"]) {
-                $listJson = array(
-                    "listView" => $this->view->listViewTable(),
-                    "pgView" => $this->view->listPgView(),
-                    "jsCtrlPanel" => $this->view->scriptListViewCrtlPannel(),
-                );
-                $this->view->generateJson($listJson);
-            } else {
-
-                $this->view->searchFields = $this->model->recordStructureFields->searchFields;
-                $this->view->generate();
-            }
         } elseif ($request["routes"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
             $this->view->view_data = $view_data;
             $this->view->action_log = $this->action_detail(false);
             if ($this->view->action_log["result"]) {
+                $this->process_detail($process_path);
 
-                $this->view->viewFields = $this->model->recordStructureFields->viewFields;
-
-                $this->prepareViewFields($process_path);
-
-                $this->view->generate();
             } else {
                 jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"] .
                     $this->lang_map->rc_errors["detail"] . ", " .
                     $this->lang_map->rc_errors["model_err"] .
                     $this->model->log_message);
             }
+
         } elseif ($request["routes"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
             $this->view->view_data = $view_data;
@@ -136,7 +101,7 @@ class RecordsController extends Controller
                         header("Location: " . $process_path);
                     }
                 }
-                $this->view->editFields = $this->model->recordStructureFields->viewFields;
+                $this->view->editFields = $this->model->recordStructureFields->editFields;
                 $this->prepareViewFields($process_path);
                 $this->view->generate();
             } else {
@@ -144,6 +109,53 @@ class RecordsController extends Controller
             }
         } elseif (!$this->doAction_custom($request["routes"][$pp_cnt])) {
             jointSite::throwErr("stab", "no custom actions in RecordsController");
+        }
+    }
+
+    function process_detail($process_path)
+    {
+        $this->view->viewFields = $this->model->recordStructureFields->viewFields;
+
+        $this->prepareViewFields($process_path);
+
+        $this->view->generate();
+    }
+
+    function process_list()
+    {
+        if ($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]) {
+            $this->view->h2 = $this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]];
+        } else {
+            $this->view->h2 = $this->model->tableName;
+        }
+
+        $this->view->list_frame_id = $this->model->tableName;
+
+        if ($_POST["curPage"]) {
+            $this->view->curPage = $_POST["curPage"];
+        }
+
+        if ($_POST["onPage"]) {
+            $this->view->onPage = $_POST["onPage"];
+        }
+
+        $list_records = $this->action_list(false);
+
+        $this->view->listCount = $list_records["count"];
+        $this->view->listFields = $this->model->recordStructureFields->listFields;
+        $this->view->listRecords = $list_records["list"];
+
+        if ($_POST["applyFilterRec"]) {
+            $listJson = array(
+                "listView" => $this->view->listViewTable(),
+                "pgView" => $this->view->listPgView(),
+                "jsCtrlPanel" => $this->view->scriptListViewCrtlPannel(),
+            );
+            $this->view->generateJson($listJson);
+        } else {
+
+            $this->view->searchFields = $this->model->recordStructureFields->searchFields;
+            $this->view->generate();
         }
     }
 
@@ -223,7 +235,7 @@ class RecordsController extends Controller
         }
     }
 
-    private function action_delete($json = true)
+    protected function action_delete($json = true)
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest();
