@@ -18,7 +18,12 @@ class lang_view_rus
     public $langpaneltexten = "view in english";
 
     public $prod_titles_in_menu = array(
-        "jointSite" => "Подробнее о web-приложении joint site",
+        "jointSite" => array(
+            "title" => "Подробнее о web-приложении joint site",
+            "text" => "Web-Сайт",
+            "sup" => "php, js, mvc",
+            "ddm_text" => "продукт",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(
