@@ -400,8 +400,8 @@ class SiteView extends View
         if ($_SESSION[JS_SAIK]["admin_user"]["id"]) {
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
-                "<div class='modal-line-text'>Admin user: ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
-                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>Exit</sup></div>".
+                "<div class='modal-line-text'>".$this->lang_map->auth_menu_text["admin"]["adminUser"].": ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
+                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>".$this->lang_map->auth_menu_text["admin"]["exit"]."</sup></div>".
                 "</div>";
 
             $admin_menu = $this->print_menu_items("admin", $admin_url);
@@ -416,9 +416,11 @@ class SiteView extends View
 
             echo "<div class='modal-line prod'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
-                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/admin' ".
-                "title='".$this->lang_map->prod_titles_in_menu["admin"]."'>Admin</a><sup>for mysql</sup>".
-                "<span class='opnSubMenu ".$folded_style."'>menu</span>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$admin_url."' ".
+                "title='".$this->lang_map->prod_titles_in_menu["admin"]["title"]."'>".
+                $this->lang_map->prod_titles_in_menu["admin"]["text"]."</a><sup>".
+                $this->lang_map->prod_titles_in_menu["admin"]["sup"]."</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["admin"]["ddm_text"]."</span>".
                 "<ul " . $menuStyle . ">".
                 $admin_menu["text"].
                 "</ul>" .
