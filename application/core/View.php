@@ -2,6 +2,7 @@
 class View
 {
     public $view_data;
+    public $controller_action;
 
     function generate()
     {
