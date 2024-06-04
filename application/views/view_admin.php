@@ -33,6 +33,7 @@ class view_admin extends SiteView
 
     function set_head_array()
     {
+        parent::set_head_array();
         $apurl_expl = explode("/", $this->admin_process_url);
         $apurl_cnt = count($apurl_expl);
 
