@@ -9,9 +9,6 @@ class lang_view_RecordEdit_rus extends lang_view_rus
     {
         if($options["type"] == "edit"){
             $txt_rus = "Редактирование";
-
-            $this->view_submit_val = "Обновить";
-
         }elseif ($options["type"] == "new"){
             $txt_rus = "Создание";
             $this->view_submit_val = $this->view_submit_val_new;

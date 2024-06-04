@@ -20,6 +20,7 @@ class Controller {
 
         $this->model = new $loaded_model();
         $this->view = new $loaded_view();
+        $this->view->controller_action = $action_name;
     }
 
     function LoadView_custom($action_name = null)

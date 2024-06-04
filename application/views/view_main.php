@@ -11,6 +11,7 @@ class view_main extends SiteView
 
     function set_head_array()
     {
+        parent::set_head_array();
         $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
         $this->lang_map->head["title"] .= " - ".$this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
     }

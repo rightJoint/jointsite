@@ -196,6 +196,8 @@ class SiteView extends View
             "</span></span></div>" .
             "<div class='h-caption'>" .
             "<div class='textBlock ";
+
+        /*rj-todo text block style on vertical screen, main branch*/
         global $routes;
         if (!$routes[1]) {
             echo "landing";
@@ -312,8 +314,10 @@ class SiteView extends View
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite' ".
-            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Web site</a><sup>php, js, mvc</sup>".
-            "<span class='opnSubMenu ".$folded_style."'>product</span>".
+            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["sup"]."</sup>".
+            "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["jointSite"]["ddm_text"]."</span>".
             "<ul " . $menuStyle . ">".
             $jointsite_menu["text"].
             "</ul>" .
