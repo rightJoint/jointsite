@@ -57,6 +57,8 @@ class jointSite
         require_once JOINT_SITE_CONF_DIR."/dir_const.php";
         require_once JOINT_SITE_APP_CONFIG;
 
+        require_once JOINT_SITE_CONF_DIR."/users_dir.php";
+
         $loaded_controller = $this->loadControllerFromRequest();
         $loaded_model = $this->loadModelFromRequest();
         $loaded_view = $this->loadViewFromRequest();
