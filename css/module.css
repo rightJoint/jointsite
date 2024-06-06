@@ -1,0 +1,45 @@
+/*>>sub-menu>>*/
+.sub-menu{
+    margin-top: 1.5em;
+    padding: 0.2em 1%;
+    background-color: LightBlue;
+    width: 98%;
+    text-align: left;
+    border-bottom: 1px solid darkgreen;
+}
+.sub-menu a{
+    background-color: midnightblue;
+    color: white;
+    border-radius: 0.2em;
+    margin-right: 0.5em;
+    text-decoration: none;
+}
+.sub-menu a.home-module{
+    background-color: darkslategray;
+    text-decoration: underline;
+}
+.sub-menu a.module-table{
+    background-color: darkcyan;
+}
+.sub-menu a.active{
+    background-color: firebrick;
+    font-weight: bold;
+}
+.sub-menu a.newRecord{
+    background-color: limegreen;
+    color: midnightblue;
+    float: right;
+}
+
+/*<<sub-menu<<*/
+.tbl-sub-panel{
+
+}
+
+.tbl-sub-panel h3{
+    color: midnightblue;
+    font-size: 1em;
+    text-align: left;
+    border-bottom: 1px solid silver;
+    margin-bottom: 0;
+}
