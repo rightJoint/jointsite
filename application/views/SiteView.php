@@ -336,6 +336,7 @@ class SiteView extends View
             $this->print_auth_forms();
         }
 
+        $this->print_siteman_menu();
 
         echo "</div></div></div></div>";
     }
@@ -524,5 +525,33 @@ class SiteView extends View
             $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
         }
         return $return;
+    }
+
+    function print_siteman_menu($siteman_url = "/siteman")
+    {
+        if($this->lang_map->menu_blocks["modules_menu"]["menu_items"]){
+            $menuStyle = "style='display: none'";
+            $folded_style = "folded";
+
+            $siteman_menu_items = $this->print_menu_items("modules_menu", $siteman_url);
+
+            if ($siteman_menu_items["is_valid_path"]) {
+                $menuStyle = null;
+                $folded_style = null;
+            }
+
+            echo "<div class='modal-line prod'>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/leverage.png'></div>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$siteman_url."' ".
+                "title='".$this->lang_map->prod_titles_in_menu["siteman"]["title"]."'>".
+                $this->lang_map->prod_titles_in_menu["siteman"]["text"]."</a><sup>".
+                $this->lang_map->prod_titles_in_menu["siteman"]["sup"]."</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["siteman"]["ddm_text"]."</span>".
+                "<ul " . $menuStyle . ">".
+                $siteman_menu_items["text"].
+                "</ul>" .
+                "</div>" .
+                "</div>";
+        }
     }
 }

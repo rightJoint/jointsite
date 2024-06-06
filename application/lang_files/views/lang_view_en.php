@@ -25,6 +25,12 @@ class lang_view_en
             "sup" => "php, js, mvc",
             "ddm_text" => "product",
         ),
+        "siteman" => array(
+            "title" => "Mange site",
+            "text" => "Mange",
+            "sup" => "site",
+            "ddm_text" => "menu",
+        ),
     );
 
     public $auth_menu_text = array(
