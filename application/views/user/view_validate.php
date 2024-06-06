@@ -7,6 +7,14 @@ class view_validate extends SiteView
     public $robot_no_index = true;
     public $metrik_block = false;
 
+    function LoadViewLang_custom()
+    {
+        parent::LoadViewLang_custom();
+        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+            "/application/lang_files/views/user/lang_view_user_validate_".$_SESSION[JS_SAIK]["lang"].".php";
+        return "lang_view_user_validate_".$_SESSION[JS_SAIK]["lang"];
+    }
+
     function print_page_content()
     {
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
