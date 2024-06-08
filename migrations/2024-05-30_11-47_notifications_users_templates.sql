@@ -1,0 +1,8 @@
+insert into ntfTemplates_dt (
+template_id, tName, tHeader_en, tHeader_rus, tBody_en, tBody_rus, date_created, created_by)
+ values 
+('A944C068-D109-44FD-B4BA-11258C2DB407', 'changePassForUser', 'password changed', 'Пароль изменен', '<p>Password of account $accLogin ($^accAlias) has been changed. New password: $^newPassword</p>', '<p>Пароль от аккаунта $accLogin ($^accAlias) был изменен. Новый пароль: $^newPassword</p>', '2024-01-02 20:51:29', '36332131-C26E-4B63-A22D-11A3076074ED'), 
+('A39A0281-C4F8-4C79-9857-CF848F38FE08', 'welcomeFromSiteForUser', 'welcon on site', 'Спасибо за регистрацию', '<p>Thanks for sign up on site. Your login: $accLogin (Alias: $^accAlias) password: $^accPass email: $^userEmail</p>
+<p>To complite registration, please validate your email folowing <a title="link for email validate" href="../../../user/validate?code=$^validCode">link to validate</a></p>', '<p>Спасибо за регистрацию на сайте. Ваш логин: $^accLogin (Псевдоним: $^accAlias) пароль: $^accPass email: $^userEmail</p>
+<p>Для окончания регистрации пожалуйста подтвердите ваш email по ссылке <a title="link for email validate" href="../../../user/validate?code=$^validCode">link to validate</a></p>', '2024-01-13 23:07:59', '36332131-C26E-4B63-A22D-11A3076074ED'), 
+('8ED2AC47-8F84-4C01-92BB-81FBCA278D8C', 'newUserOnSite-site', 'newUserOnSite', 'newUserOnSite', '<p>New user login: $^accLogin ($^accAlias) sign up on site, method: site</p>', '<p>Новый пользователь логин: $^accLogin ($^accAlias) зарегистрировался на сайте, метод: сайт</p>', '2024-01-13 23:14:29', '36332131-C26E-4B63-A22D-11A3076074ED');
