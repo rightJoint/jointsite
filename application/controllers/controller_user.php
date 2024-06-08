@@ -410,12 +410,6 @@ class Controller_User extends RecordsController
 
     public function action_signUp()
     {
-        //7C3B7D9B-A59C-4772-AB31-0898DD2BDB2A - siteman
-        //826604F6-5D17-4504-BF3F-A748E006F9C0 - userman
-        //B4366FAF-EDDD-46E1-A50A-30ED5AE49D70 - groupman
-        //DE00211A-0718-41E7-B3FC-C9C0A37BEC5E - musicfan
-
-
         $signUp_message = $this->lang_map->signUn_message["use_menu"];
         $this->view->active_modal_menu = true;
 
@@ -467,7 +461,7 @@ class Controller_User extends RecordsController
                         )
                     ), true, "default");
                 $UserNtf_model->AddNtf("newUserOnSite-site", "group",
-                    "A8357ED4-D2FD-45B3-9ACD-950950BE3535", json_encode(
+                    "67A5CC8E-5EBF-46FD-9A37-4BE80DA17681", json_encode(
                         array(
                             "accLogin" => $this->model->recordStructureFields->record["accLogin"]["curVal"],
                             "accAlias" => $this->model->recordStructureFields->record["accAlias"]["curVal"],
