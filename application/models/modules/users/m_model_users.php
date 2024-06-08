@@ -50,19 +50,16 @@ class m_model_users extends ModuleModel
         return $this->fetchToArray($findList_qry);
     }
 
-    public function copyRecord()
+    function copyCustomFields()
     {
-        if(parent::copyRecord()){
-            $createdLogin_qry = "select accLogin from users_dt where user_id='".$this->recordStructureFields->record["created_by"]["curVal"]."'";
-            $createdLogin_res = $this->query($createdLogin_qry);
-            if($createdLogin_res->rowCount()===1){
-                $createdLogin_row = $createdLogin_res->fetch(PDO::FETCH_ASSOC);
-                $this->recordStructureFields->record["createdLogin"]["curVal"] = $createdLogin_row["accLogin"];
-                return true;
-            }
-        }else{
-            return false;
+        $createdLogin_qry = "select accLogin from users_dt where user_id='".$this->recordStructureFields->record["created_by"]["curVal"]."'";
+        $createdLogin_res = $this->query($createdLogin_qry);
+        if($createdLogin_res->rowCount()===1){
+            $createdLogin_row = $createdLogin_res->fetch(PDO::FETCH_ASSOC);
+            $this->recordStructureFields->record["createdLogin"]["curVal"] = $createdLogin_row["accLogin"];
+            return true;
         }
+        return true;
     }
 
     function fillNetworkSelect()
