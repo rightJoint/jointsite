@@ -24,6 +24,12 @@ class lang_view_rus
             "sup" => "php, js, mvc",
             "ddm_text" => "продукт",
         ),
+        "admin" => array(
+            "title" => "Админка для mysql на php",
+            "text" => "Админка БД",
+            "sup" => "для mysql",
+            "ddm_text" => "меню",
+        ),
         "siteman" => array(
             "title" => "Управление сайтом",
             "text" => "Управление",
@@ -32,6 +38,10 @@ class lang_view_rus
         ),
     );
     public $auth_menu_text = array(
+        "admin" => array(
+            "adminUser" => "в Админке",
+            "exit" => "выход",
+        ),
         "site" => array(
             "siteUser" => "на Сайте",
             "exit" => "выход",
@@ -64,8 +74,58 @@ class lang_view_rus
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
                 ),
+                "admin" => array(
+                    "aliasMenu" => "Админка на php для mysql",
+                    "altText" => "подробнее о ветке Admin",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin",
+                    "test_ref_title" => "Перейти к тесту Admin",
+                    "descr" => "Админка позволяет настроить подключение к mysql-серверу и базе данных, работать с таблицами и записями в них. ".
+                        "Добавлена возможность контролировать миграции.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Админку'>подробнее</a>",
+                    "depend" => "ветка record",
+                ),
             ),
         ),
+        "admin" => array(
+            "menu_items" => array(
+                "server" => array(
+                    "aliasMenu" => "SQL-Сервер",
+                    "altText" => "Настройка подключения к SQL-серверу и БД",
+                ),
+                "users" => array(
+                    "aliasMenu" => "Пользователи",
+                    "altText" => "Список пользователей, добавить или удалить пользователя",
+                ),
+                "sql" => array(
+                    "aliasMenu" => "SQL",
+                    "altText" => "Выполнить SQL-запрос",
+                ),
+                "printquery" => array(
+                    "aliasMenu" => "Печать запроса",
+                    "altText" => "Вывод в таблицу результата select",
+                ),
+                "tables" => array(
+                    "aliasMenu" => "Таблицы",
+                    "altText" => "Действия с таблицами: создать, удалить, очистить, выгрузить, загрузить",
+                ),
+                "records" => array(
+                    "aliasMenu" => "Редактирование записей",
+                    "altText" => "Редактировать, добавить, удалить запись в таблице",
+                ),
+                "migrations" => array(
+                    "aliasMenu" => "Миграции",
+                    "altText" => "Обновление базы данных, записей и структуры",
+                ),
+            ),
+        ),
+    );
+    public $adminblock = array(
+        "form_title" => "Вход в Админ",
+        "placeholder_login" => "Ваш логин...",
+        "placeholder_password" => "введите пароль...",
+        "submit_btn" => "Войти",
     );
 
     public $sitesignInform = array(

@@ -1,7 +1,7 @@
 <?php
 class view_main extends SiteView
 {
-    public $current_branch = "record";
+    public $current_branch = "admin";
 
     function __construct()
     {
@@ -33,6 +33,10 @@ class view_main extends SiteView
     function print_branches_block()
     {
         echo "<div class='branches-block'>";
+        echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
+
+        $this->print_branch("admin");
+
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
 
         $this->print_branch("main");
