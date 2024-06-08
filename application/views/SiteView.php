@@ -345,7 +345,7 @@ class SiteView extends View
 
         $this->print_siteman_menu();
 
-        $this->print_admin_menu("/test/phpmysqladmin");
+        $this->print_admin_menu("/admin");
 
 
         echo "</div></div></div></div>";
