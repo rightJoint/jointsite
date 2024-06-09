@@ -53,7 +53,7 @@ class jointSite
         $this->lang_map = new $lang_app_name();
 
         define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
-        define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__j_config");
+        define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
         require_once JOINT_SITE_CONF_DIR."/dir_const.php";
         require_once JOINT_SITE_APP_CONFIG;
 
