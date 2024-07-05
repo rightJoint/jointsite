@@ -8,9 +8,9 @@ class Alerts_controller extends Controller
     }
     function generateErr($errType, $message)
     {
-        if($_GET["errType"]){
+        if(isset($_GET["errType"])){
             $errType = $_GET["errType"];
-            if($_GET["message"]){
+            if(isset($_GET["message"])){
                 $message = $_GET["message"];
             }
         }
