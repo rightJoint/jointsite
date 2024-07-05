@@ -25,7 +25,8 @@ class RecordsController extends Controller
         $pp_exp = explode("/", $process_path);
         $pp_cnt = count($pp_exp);
 
-        if (!$request["routes"][$pp_cnt] || $request["routes"][$pp_cnt] == "listview") {
+        if (!isset($request["routes"][$pp_cnt]) or
+            $request["routes"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
             $this->view->process_url = $process_path;
             $this->view->view_data = $view_data;
@@ -68,7 +69,8 @@ class RecordsController extends Controller
             $this->checkTemplateView("new");
             $this->view->view_data = $view_data;
             $this->view->type = "new";
-            if ($_POST["submit"] == $this->view->lang_map->view_submit_val_new) {
+            if (isset($_POST["submit"]) and
+                $_POST["submit"] == $this->view->lang_map->view_submit_val_new) {
                 $this->view->action_log = $this->action_new(false);
                 if ($this->view->action_log["result"]) {
                     $get_str = null;
@@ -131,11 +133,11 @@ class RecordsController extends Controller
 
         $this->view->list_frame_id = $this->model->tableName;
 
-        if ($_POST["curPage"]) {
+        if (isset($_POST["curPage"])) {
             $this->view->curPage = $_POST["curPage"];
         }
 
-        if ($_POST["onPage"]) {
+        if (isset($_POST["onPage"])) {
             $this->view->onPage = $_POST["onPage"];
         }
 
@@ -145,7 +147,7 @@ class RecordsController extends Controller
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $list_records["list"];
 
-        if ($_POST["applyFilterRec"]) {
+        if (isset($_POST["applyFilterRec"])) {
             $listJson = array(
                 "listView" => $this->view->listViewTable(),
                 "pgView" => $this->view->listPgView(),

@@ -52,7 +52,11 @@ class RecordListView extends RecordView
             "<form class='filterForm' method='post'>";
         foreach ($this->searchFields as $fieldName=>$fieldData){
             if($fieldData["search"]){
-                $return_text.= $this->getTnputType($fieldName, $fieldData, $this->record[$fieldName]["curVal"])["html"];
+                $field_cur_val = null;
+                if(isset($this->record[$fieldName]["curVal"])){
+                    $field_cur_val = $this->record[$fieldName]["curVal"];
+                }
+                $return_text.= $this->getTnputType($fieldName, $fieldData, $field_cur_val)["html"];
             }
 
         }
@@ -155,17 +159,18 @@ class RecordListView extends RecordView
         $sortOrder_asc = "selected";
         $sortOrder_desc = null;
         $count_of = 0;
+        $sortFields_options = null;
         foreach ($this->searchFields as $fieldName=>$fieldData){
             if($fieldData["sort"]){
                 $count_of++;
                 if($count_of == 1){
-                    if($fieldData["sortOrder"] == "DESC"){
+                    if(isset($fieldData["sortOrder"]) and $fieldData["sortOrder"] == "DESC"){
                         $sortOrder_desc = "selected";
                         $sortOrder_asc = null;
                     }
                 }
 
-                if($fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
+                if(isset($fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
                     $option_text = $fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
                 }else{
                     $option_text = $fieldName;
@@ -217,7 +222,7 @@ class RecordListView extends RecordView
                     $return_ajax.= $this->lang_map->list_table["cell_del"];
                 }elseif ($fieldName == "btnDetail"){
                     $return_ajax.= $this->lang_map->list_table["cell_view"];
-                }elseif($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
+                }elseif(isset($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
                     $return_ajax.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
                 }else{
                     $return_ajax.= $fieldName;
@@ -231,7 +236,7 @@ class RecordListView extends RecordView
                 $return_ajax.= "<tr>";
                 foreach ($this->listFields as $fieldName => $fieldInfo){
                     $name_print = null;
-                    if($fieldInfo["useName"]){
+                    if(isset($fieldInfo["useName"])){
                         $name_print = " name='".$row[$fieldInfo["useName"]]."' ";
                     }
 
@@ -288,13 +293,13 @@ class RecordListView extends RecordView
                                     $urlLink."' class='list-btn'>".
                                     "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
-                                if($row["btnEdit"]!="disabled"){
+                                if(isset($row["btnEdit"]) and $row["btnEdit"]!="disabled"){
                                     $return_ajax.= "<a href='".$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
-                                if($row["btnDelete"]!="disabled"){
+                                if(isset($row["btnDelete"]) and $row["btnDelete"]!="disabled"){
                                     $return_ajax.= "<a href='".$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png'></a>";
@@ -315,7 +320,7 @@ class RecordListView extends RecordView
                             $return_ajax.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
-                        if(isset($fieldInfo["maxLength"]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
+                        if(isset($fieldInfo["maxLength"]) and isset($row[$fieldName]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
                             $return_ajax.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
                         }else {
                             $return_ajax.=  $row[$fieldName];

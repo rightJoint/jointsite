@@ -23,22 +23,22 @@ class RecordView extends SiteView
                            $value = null)
     {
         $line_class = null;
-        if($fieldOption["style"]["class"] == "wd100"){
+        if(isset($fieldOption["style"]["class"]) and $fieldOption["style"]["class"] == "wd100"){
             $line_class = "wd100";
         }
         $id_print = null;
-        if($fieldOption["id"]){
+        if(isset($fieldOption["id"])){
             $id_print = "id='".$fieldOption["id"]."'";
         }
 
-        if($fieldOption["nameSpace"]){
+        if(isset($fieldOption["nameSpace"])){
             $name_print =$fieldOption["nameSpace"]."[".$fieldNname."]'";
         }else{
             $name_print ="'".$fieldNname."'";
         }
 
         $label_print ="<label";
-        if($fieldOption["id"]){
+        if(isset($fieldOption["id"])){
             $label_print .= " for='".$fieldOption["id"]."' ";
         }
 
@@ -46,7 +46,7 @@ class RecordView extends SiteView
         $readonly_print = null;
         $label_class = null;
 
-        if($fieldOption["readonly"]){
+        if(isset($fieldOption["readonly"])){
             if(!(!$this->record[$fieldNname]["fetchVal"] and
                 $this->record[$fieldNname]["indexes"])){
                 $readonly_print = " readonly";
@@ -54,7 +54,7 @@ class RecordView extends SiteView
             }
         }
 
-        if($fieldOption["indexes"]){
+        if(isset($fieldOption["indexes"])){
             $label_class .= " idx";
         }
 
@@ -63,7 +63,7 @@ class RecordView extends SiteView
         }
         $label_print .= $label_class.">";
 
-        if($fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
+        if(isset($fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
             $label_print .= $fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
         }else{
             $label_print .= $fieldNname;
@@ -78,7 +78,7 @@ class RecordView extends SiteView
             }else{
                 $value_print = null;
             }
-            if($fieldOption["readonly"]){
+            if(isset($fieldOption["readonly"])){
                 $readonly_print = "onclick='return false;'";
             }
         }
@@ -128,9 +128,13 @@ class RecordView extends SiteView
                 $return_input .= " accept='".$fieldOption["file_options"]["accept"]."'";
             }
 
-            $return_input .=">".
-                "<span class='file_val'>".$this->record[$fieldNname]["curVal"]."</span>";
-            if($fieldOption["file_options"]["load_dir"] and $this->record[$fieldNname]["curVal"]){
+            $return_input .=">";
+            $cur_val_file = null;
+            if(isset($this->record[$fieldNname]["curVal"])){
+                $cur_val_file = $this->record[$fieldNname]["curVal"];
+            }
+                "<span class='file_val'>".$cur_val_file."</span>";
+            if(isset($fieldOption["file_options"]["load_dir"]) and isset($this->record[$fieldNname]["curVal"])){
                 if($fieldOption["file_options"]["file_type"] == "img"){
                     if($fieldOption["replaces"]){
                         $imgLink = $fieldOption["file_options"]["load_dir"];

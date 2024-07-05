@@ -175,11 +175,12 @@ class RecordsModel extends Model_pdo
                 }
             }
 
-            if(!$fieldInfo["use_table_name"] or
-                ($fieldInfo["use_table_name"] == $this->tableName)
+            if(
+                !isset($fieldInfo["use_table_name"]) or
+                (isset($fieldInfo["use_table_name"]) and $fieldInfo["use_table_name"] == $this->tableName)
             ){
-                if($fieldInfo["indexes"]) {
-                    if (!$fieldInfo["auto_increment"]) {
+                if(isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
+                    if (!isset($fieldInfo["auto_increment"])) {
                         if (!$this->recordStructureFields->record[$fieldName]["curVal"]) {
                             $fieldInfo["curVal"] = $this->createGUID();
                             $this->recordStructureFields->record[$fieldName]["curVal"] = $fieldInfo["curVal"];
@@ -316,16 +317,16 @@ class RecordsModel extends Model_pdo
 
         foreach ($this->recordStructureFields->searchFields as $fName=>$fData){
             $useFieldName = $fName;
-            if($fData["use_table_name"]){
+            if(isset($fData["use_table_name"])){
                 $useTableName = $fData["use_table_name"];
-                if($fData["use_field_name"]){
+                if(isset($fData["use_field_name"])){
                     $useFieldName = $fData["use_field_name"];
                 }
             }else{
                 $useTableName = $this->tableName;
             }
 
-            if($REQ_ARR[$fName]){
+            if(isset($REQ_ARR[$fName])){
 
                 if($fData["group_by_field"]){
                     if($fData["format"]=="varchar" || $fData["format"] == "text"){
@@ -360,7 +361,7 @@ class RecordsModel extends Model_pdo
             $return_having=" having ".substr($return_having, 0 , strlen($return_having)-4);
         }
 
-        if($REQ_ARR["onPage"]){
+        if(isset($REQ_ARR["onPage"])){
             if($REQ_ARR["curPage"]){
                 $return_limit.=" limit ".(($REQ_ARR["curPage"]-1)*$REQ_ARR["onPage"]).", ".$REQ_ARR["onPage"];
             }
@@ -368,7 +369,7 @@ class RecordsModel extends Model_pdo
             $return_limit.=" limit 10";
         }
 
-        if($REQ_ARR["sortField"]){
+        if(isset($REQ_ARR["sortField"])){
 
             if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"]){
                 $sort_table_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"].".";
@@ -399,7 +400,7 @@ class RecordsModel extends Model_pdo
                 }
             }
             if($field_sort_default){
-                if($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"]){
+                if(isset($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"])){
                     $sort_table_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"].".";
 
                     if($this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"]){
@@ -414,7 +415,7 @@ class RecordsModel extends Model_pdo
                 }
 
                 $return_order.= " order by ".$sort_table_name.$sort_field_name;
-                if($this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"]){
+                if(isset($this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"])){
                     $return_order.=" ".$this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"];
                 }
             }
@@ -438,9 +439,9 @@ class RecordsModel extends Model_pdo
             }
         }
         foreach ($this->recordStructureFields->record as $fName=>$fData){
-            if($this->recordStructureFields->editFields[$fName]){
+            if(isset($this->recordStructureFields->editFields[$fName])){
                 if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
-                    if($REQ_ARR[$fName] == "on"){
+                    if(isset($REQ_ARR[$fName]) and $REQ_ARR[$fName] == "on"){
                         $this->recordStructureFields->record[$fName]["curVal"] = 1;
                     }else{
                         $this->recordStructureFields->record[$fName]["curVal"] = 0;
