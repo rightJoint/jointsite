@@ -51,7 +51,7 @@ class RecordListView extends RecordView
             "<div class='search_frame'>".
             "<form class='filterForm' method='post'>";
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if($fieldData["search"]){
+            if(isset($fieldData["search"])){
                 $field_cur_val = null;
                 if(isset($this->record[$fieldName]["curVal"])){
                     $field_cur_val = $this->record[$fieldName]["curVal"];
@@ -206,45 +206,47 @@ class RecordListView extends RecordView
             $req_uri.=$path."/";
         }
 
+        $return_text = null;
+
         if($this->listRecords){
-            $return_ajax = "<table>".
+            $return_text .= "<table>".
                 "<tr class='fCaption'>";
             foreach ($this->listFields as $fieldName => $fieldInfo){
 
-                $return_ajax.= "<td";
+                $return_text.= "<td";
                 if($fieldInfo["format"] == "hidden"){
-                    $return_ajax.= " style='display:none;'";
+                    $return_text.= " style='display:none;'";
                 }
-                $return_ajax.=">";
+                $return_text.=">";
                 if ($fieldName == "btnEdit"){
-                    $return_ajax.= $this->lang_map->list_table["cell_edit"];
+                    $return_text.= $this->lang_map->list_table["cell_edit"];
                 }elseif ($fieldName == "btnDelete"){
-                    $return_ajax.= $this->lang_map->list_table["cell_del"];
+                    $return_text.= $this->lang_map->list_table["cell_del"];
                 }elseif ($fieldName == "btnDetail"){
-                    $return_ajax.= $this->lang_map->list_table["cell_view"];
+                    $return_text.= $this->lang_map->list_table["cell_view"];
                 }elseif(isset($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
-                    $return_ajax.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
+                    $return_text.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
                 }else{
-                    $return_ajax.= $fieldName;
+                    $return_text.= $fieldName;
                 }
-                $return_ajax.= "</td>";
+                $return_text.= "</td>";
             }
-            $return_ajax.= "</tr>";
+            $return_text.= "</tr>";
 
 
             foreach($this->listRecords as $row_num => $row){
-                $return_ajax.= "<tr>";
+                $return_text.= "<tr>";
                 foreach ($this->listFields as $fieldName => $fieldInfo){
                     $name_print = null;
                     if(isset($fieldInfo["useName"])){
                         $name_print = " name='".$row[$fieldInfo["useName"]]."' ";
                     }
 
-                    $return_ajax.= "<td";
+                    $return_text.= "<td";
                     if($fieldInfo["format"] == "hidden"){
-                        $return_ajax.= " style='display:none;'";
+                        $return_text.= " style='display:none;'";
                     }
-                    $return_ajax.= ">";
+                    $return_text.= ">";
 
                     if ($fieldInfo["format"] == "file"){
                         if($row[$fieldName]){
@@ -265,13 +267,13 @@ class RecordListView extends RecordView
                                 }
 
                                 if($imgLink){
-                                    $return_ajax.="<img class='cell-img' src='".$imgLink."'>";
+                                    $return_text.="<img class='cell-img' src='".$imgLink."'>";
                                 }else{
-                                    $return_ajax.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
+                                    $return_text.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
                                         $row[$fieldName];
                                 }
                             }else{
-                                $return_ajax.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
+                                $return_text.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
                                     $row[$fieldName];
                             }
                         }
@@ -289,18 +291,18 @@ class RecordListView extends RecordView
                                 }
                             }
                             if ($fieldName == "btnDetail"){
-                                $return_ajax.= "<a href='".$this->process_url."/detailview?".
+                                $return_text.= "<a href='".$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".
                                     "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
                                 if(isset($row["btnEdit"]) and $row["btnEdit"]!="disabled"){
-                                    $return_ajax.= "<a href='".$this->process_url."/editview?".
+                                    $return_text.= "<a href='".$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
                                 if(isset($row["btnDelete"]) and $row["btnDelete"]!="disabled"){
-                                    $return_ajax.= "<a href='".$this->process_url."/deleteview?".
+                                    $return_text.= "<a href='".$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png'></a>";
                                 }
@@ -317,37 +319,37 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $return_ajax.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                            $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
                         if(isset($fieldInfo["maxLength"]) and isset($row[$fieldName]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
-                            $return_ajax.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
+                            $return_text.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
                         }else {
-                            $return_ajax.=  $row[$fieldName];
+                            $return_text.=  $row[$fieldName];
                         }
                     }elseif (($fieldInfo["format"] == "int") or ($fieldInfo["format"] =="float")
                         or ($fieldInfo["format"] =="datetime")or ($fieldInfo["format"] =="date")){
-                        $return_ajax.=  $row[$fieldName];
+                        $return_text.=  $row[$fieldName];
                     }elseif (($fieldInfo["format"] == "tinyint") or ($fieldInfo["format"] == "checkbox")){
-                        $return_ajax.= "<input type='checkbox' ".$name_print;
+                        $return_text.= "<input type='checkbox' ".$name_print;
                         if($row[$fieldName]){
-                            $return_ajax.= "checked";
+                            $return_text.= "checked";
                         }
-                        $return_ajax.=">";
+                        $return_text.=">";
                     }elseif ($fieldInfo["format"] == "select"){
-                        $return_ajax.= $fieldInfo["filling"][$row[$fieldName]];
+                        $return_text.= $fieldInfo["filling"][$row[$fieldName]];
                     }
                     else{
-                        $return_ajax.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
+                        $return_text.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
 
                     }
-                    $return_ajax.= "</td>";
+                    $return_text.= "</td>";
                 }
-                $return_ajax.= "</tr>";
+                $return_text.= "</tr>";
             }
-            $return_ajax.= "</table>";
+            $return_text.= "</table>";
         }
-        return $return_ajax;
+        return $return_text;
     }
 
     function pagination_print($recordsCount, $curPage, $onPage, $length=2, $pag_length=2)

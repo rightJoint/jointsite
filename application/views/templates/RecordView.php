@@ -47,8 +47,8 @@ class RecordView extends SiteView
         $label_class = null;
 
         if(isset($fieldOption["readonly"])){
-            if(!(!$this->record[$fieldNname]["fetchVal"] and
-                $this->record[$fieldNname]["indexes"])){
+            if(!(!isset($this->record[$fieldNname]["fetchVal"]) and
+                isset($this->record[$fieldNname]["indexes"]))){
                 $readonly_print = " readonly";
                 $label_class = "ro";
             }
@@ -112,12 +112,16 @@ class RecordView extends SiteView
 
         }
         elseif($fieldOption["format"] == "find-select"){
+            $fill_name_curVal = null;
+            if(isset($this->record[$fieldOption["fillName"]]["curVal"])){
+                $fill_name_curVal = $this->record[$fieldOption["fillName"]]["curVal"];
+            }
             $return_input = "<div class='find-select' id='".$fieldNname."'>".
-                "<input type='text' id='fst-".$fieldNname."' value='".$this->record[$fieldOption["fillName"]]["curVal"]."'>".
+                "<input type='text' id='fst-".$fieldNname."' value='".$fill_name_curVal."'>".
                 "<div class='fss'>".
 
                 "<select size='5' id='fs-".$fieldNname."' name='".$fieldNname."'>".
-                "<option value='".$value."' selected>".$this->record[$fieldOption["fillName"]]["curVal"]."</option>".
+                "<option value='".$value."' selected>".$fill_name_curVal."</option>".
                 "</select>".
                 "</div>".
                 "</div>";

@@ -138,7 +138,7 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $query_text="select * from ".$this->tableName." where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"])) {
                 $query_text.=$fieldName."='".$fieldInfo["curVal"]."' and " ;
             }
         }
@@ -147,8 +147,10 @@ class RecordsModel extends Model_pdo
         if($query_res->rowCount()==1){
             $result=$query_res->fetch(PDO::FETCH_ASSOC);
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-                $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
-                $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                if(isset($result[$fieldName])){
+                    $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
+                    $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                }
             }
             return $this->copyCustomFields();
         }
@@ -326,9 +328,9 @@ class RecordsModel extends Model_pdo
                 $useTableName = $this->tableName;
             }
 
-            if(isset($REQ_ARR[$fName])){
+            if(isset($REQ_ARR[$fName]) and $REQ_ARR[$fName]!= null){
 
-                if($fData["group_by_field"]){
+                if(isset($fData["group_by_field"])){
                     if($fData["format"]=="varchar" || $fData["format"] == "text"){
                         $return_having .= $useFieldName." like '%".$REQ_ARR[$fName]."%' and ";
                     }elseif($fData["format"]=="int"){
@@ -371,16 +373,16 @@ class RecordsModel extends Model_pdo
 
         if(isset($REQ_ARR["sortField"])){
 
-            if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"]){
+            if(isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"])){
                 $sort_table_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"].".";
 
-                if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"]){
+                if(isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"])){
                     $sort_field_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"];
                 }else{
                     $sort_field_name = $REQ_ARR["sortField"];
                 }
 
-            }elseif ($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["group_by_field"]){
+            }elseif (isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["group_by_field"])){
                 $sort_field_name = $REQ_ARR["sortField"];
                 $sort_table_name = null;
             }else{
