@@ -119,7 +119,7 @@ class SiteView extends View
 
     function set_head_array()
     {
-        if($_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             include JOINT_SITE_CONF_DIR.
                 "/modules/access_groups.php";
             require_once JOINT_SITE_CONF_DIR.
@@ -314,7 +314,7 @@ class SiteView extends View
 
         $this->print_products_menu();
 
-        if($_SESSION[JS_SAIK]["site_user"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"])){
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='";
             if($_SESSION[JS_SAIK]["site_user"]["avatar"]){
@@ -364,7 +364,7 @@ class SiteView extends View
             "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'><input type='text' name='login' value='";
-        if($_POST["login"]){
+        if(isset($_POST["login"])){
             echo $_POST["login"];
         }
         echo "' placeholder='".$this->lang_map->sitesignInform["placeholder_login"]."'>"."</div>".
@@ -373,13 +373,13 @@ class SiteView extends View
             "<div class='modal-line'>".
             "<div class='modal-line-text'>".
             "<input type='password' name='password' value='";
-        if($_POST["password"]){
+        if(isset($_POST["password"])){
             echo $_POST["password"];
         }
         echo "' placeholder='".$this->lang_map->sitesignInform["placeholder_password"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if ($this->alert_message) {
+        if (isset($this->alert_message) and $this->alert_message != null) {
             echo "<div class='modal-line-err'>" . $this->alert_message . "</div>";
         }
         echo "</div>";

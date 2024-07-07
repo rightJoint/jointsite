@@ -41,14 +41,14 @@ class Controller_User extends RecordsController
 
     function __construct($loaded_model, $loaded_view, $action_name)
     {
-        if($_GET["cmd"] == "exit"){
+        if(isset($_GET["cmd"]) and $_GET["cmd"] == "exit"){
             unset($_SESSION[JS_SAIK]["site_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
 
         parent::__construct($loaded_model, $loaded_view, $action_name);
 
-        if (!$_SESSION[JS_SAIK]["site_user"]["user_id"] and $action_name!="signUp"){
+        if (!isset($_SESSION[JS_SAIK]["site_user"]["user_id"]) and $action_name!="signUp"){
             $this->action_signIn();
         }
     }
@@ -301,7 +301,7 @@ class Controller_User extends RecordsController
                 $this->model->recordStructureFields->record["user_id"]["curVal"] = $_SESSION[JS_SAIK]["site_user"]["user_id"];
                 $this->model->recordStructureFields->record["group_id"]["curVal"] = $group;
                 $this->model->copyRecord();
-                if($_POST[$group]){
+                if(isset($_POST[$group])){
                     $this->model->recordStructureFields->record["send_ntf"]["curVal"] = true;
                 }else{
                     $this->model->recordStructureFields->record["send_ntf"]["curVal"] = false;
@@ -312,11 +312,10 @@ class Controller_User extends RecordsController
                 $this->view->action_log["log"]=$this->model->log_message;
             }
         }
-        $sup_cond = null;
 
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $this->model->listRecords("where usersToGroups_dt.user_id='".$_SESSION[JS_SAIK]["site_user"]["user_id"]."'",
-            $sup_cond["order"], $sup_cond["limit"]);
+            null, null);
         $this->view->generate();
     }
 
@@ -379,7 +378,7 @@ class Controller_User extends RecordsController
     {
         $singIn_err = $this->lang_map->home_page_access_error." on action signIn";
 
-        if ($_POST["auth_signIn"] == $this->view->lang_map->sitesignInform["submit_btn"]){
+        if (isset($_POST["auth_signIn"]) and $_POST["auth_signIn"] == $this->view->lang_map->sitesignInform["submit_btn"]){
             $this->model->recordStructureFields->record["accLogin"]["curVal"] = $_POST["login"];
 
             if($this->model->checkUserLogin() and $this->model->checkUserPassword($_POST["password"])){
@@ -400,7 +399,7 @@ class Controller_User extends RecordsController
             }
         }
 
-        if($_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             $this->view->generate();
         }else{
 

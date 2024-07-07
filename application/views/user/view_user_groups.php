@@ -56,7 +56,11 @@ class view_user_groups extends ModuleListView
             }else{
                 $sub_class = "fail";
             }
-            echo "<div class='action-log ".$sub_class."'>".$this->action_log["log"]."</div>";
+            echo "<div class='action-log ".$sub_class."'>";
+            if(isset($this->action_log["log"])){
+                echo $this->action_log["log"];
+            }
+            echo "</div>";
         }
         echo "<input name='userGroupSubmit' type='submit' value='".$this->lang_map->view_submit_val."'> </div>".
             "</form>".
