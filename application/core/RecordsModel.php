@@ -171,7 +171,8 @@ class RecordsModel extends Model_pdo
         $queryToInsert .= "insert into ".$this->tableName." (\r";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
 
-            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+            if(isset($_FILES[$fieldName]) and isset($this->recordStructureFields->editFields[$fieldName]["format"])
+            and $this->recordStructureFields->editFields[$fieldName]["format"] == "file"){
                 if($this->uploadRecordFile($fieldName, false, true)){
                     $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
                 }
