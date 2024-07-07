@@ -12,7 +12,7 @@ class controller_admin extends RecordsController
         //load admin config
         require_once JOINT_SITE_CONF_DIR."/admin_conf.php";
 
-        if($_GET["cmd"] == "exit"){
+        if(isset($_GET["cmd"]) and $_GET["cmd"] == "exit"){
             unset($_SESSION[JS_SAIK]["admin_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
@@ -84,7 +84,7 @@ class controller_admin extends RecordsController
 
     function hasAccessAdmin()
     {
-        if(!$_SESSION[JS_SAIK]["admin_user"]["id"]){
+        if(!isset($_SESSION[JS_SAIK]["admin_user"]["id"])){
             return false;
         }
         return true;
@@ -92,7 +92,7 @@ class controller_admin extends RecordsController
 
     function auth_user()
     {
-        if($_POST["auth_admin"] and
+        if(isset($_POST["auth_admin"]) and
             ($_POST["auth_admin"] == $this->view->lang_map->adminblock["submit_btn"])){
 
             $adminUsers = $this->model->get_admin_users();
@@ -111,19 +111,23 @@ class controller_admin extends RecordsController
     }
     function action_server()
     {
-        if($_POST['saveFlag']=='y'){
+        if(isset($_POST['saveFlag']) and $_POST['saveFlag']=='y'){
             $this->model->save_conn_settings();
             $this->model = new Model_Admin();
         }
+
+        if($this->model->sql_connection["connRes"]){
+            $this->view->list_databases = @$this->model->query("SHOW DATABASES;");
+        }
+
         $this->view->sql_connection = $this->model->sql_connection;
-        $this->view->list_databases = @$this->model->query("SHOW DATABASES;");
 
         parent::action_index();
     }
 
     function action_users()
     {
-        if($_POST['addAdmUsrFlag']==='y'){
+        if(isset($_POST['addAdmUsrFlag']) and $_POST['addAdmUsrFlag']==='y'){
             $addUsrRes['result']=false;
             $addUsrRes['log']=null;
             if($this->model->checkAdminLogin($_POST['newUsrName'])){
@@ -140,7 +144,7 @@ class controller_admin extends RecordsController
                     if($findDoubleUsr){
                         $addUsrRes['log'] = $this->lang_map->admin_users["login_reserved"]." - ".$_POST['newUsrName'];
                     }else{
-                        $adminUsers[$_POST['newUsrName']] = crypt($_POST['newUsrPass']);
+                        $adminUsers[$_POST['newUsrName']] = password_hash($_POST['newUsrPass'], PASSWORD_DEFAULT);
                         if(file_put_contents(PATH_TO_USR_LIST,
                             json_encode($adminUsers, true))){
                             $addUsrRes['result']=true;
@@ -180,7 +184,7 @@ class controller_admin extends RecordsController
             $queryPosting['result']=false;
             $queryPosting['log']=null;
 
-            if($queryPosting_res = @$this->model->query($queryPosting_text)){
+            if($queryPosting_res = $this->model->pdo_query($queryPosting_text)){
                 $queryPosting['result']=true;
                 if($queryPosting_res->rowCount() > 0){
                     $queryPosting['log']= $this->lang_map->admin_sql["success"].": (".$queryPosting_res->rowCount().") ".
@@ -200,7 +204,7 @@ class controller_admin extends RecordsController
     function action_printquery()
     {
         if(isset($_POST['queryText'])){
-            if($this->view->query_result = @$this->model->query($_POST['queryText']." LIMIT ".$_POST['qp-limit']))
+            if($this->view->query_result = @$this->model->pdo_query($_POST['queryText']." LIMIT ".$_POST['qp-limit']))
             {
                 $log = $this->view->print_sql_results();
             }else{
@@ -215,19 +219,20 @@ class controller_admin extends RecordsController
 
     function action_tables()
     {
-        if($_GET['action']==="refreshTables"){
+        $data['log'] = null;
+        if(isset($_GET['action']) and $_GET['action']==="refreshTables"){
             $this->model->glob_create_tables();
             $this->model->get_tables_from_db();
             $this->model->glob_load_tables();
             $this->view->tables = $this->model->tables["tables"];
             $this->view->tables_list();
         }
-        elseif($_GET['action']==="upLoadAll"){
+        elseif(isset($_GET['action']) and $_GET['action']==="upLoadAll"){
             $this->model->get_tables_from_db();
             $data = $this->model->uploadAllTables();
             $data['log'].=view_admin_tables::print_date_stamp();
             $this->view->generateJson($data);
-        }elseif ( in_array($_GET['action'],
+        }elseif (isset($_GET['action']) and  in_array($_GET['action'],
             array("clear", "download", "drop", "create", "upLoad"))){
 
             $action = $_GET['action']."Table";

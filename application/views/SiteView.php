@@ -362,7 +362,7 @@ class SiteView extends View
     public function print_admin_menu($admin_url = "/admin")
     {
         $admin_menu = $this->print_menu_items("admin", $admin_url);
-        if (!$_SESSION[JS_SAIK]["admin_user"]["id"] and $admin_menu["is_valid_path"]) {
+        if (!isset($_SESSION[JS_SAIK]["admin_user"]["id"]) and $admin_menu["is_valid_path"]) {
             echo "<form class='auth-form admin' method='post'>" .
                 "<div class='modal-line'>" .
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>" .
@@ -371,7 +371,7 @@ class SiteView extends View
                 "</div>" .
                 "<div class='modal-line'>" .
                 "<div class='modal-line-text'><input type='text' name='login' value='";
-            if ($_POST["login"]) {
+            if (isset($_POST["login"])) {
                 echo $_POST["login"];
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
@@ -380,7 +380,7 @@ class SiteView extends View
                 "<div class='modal-line'>" .
                 "<div class='modal-line-text'>" .
                 "<input type='password' name='password' value='";
-            if ($_POST["password"]) {
+            if (isset($_POST["password"])) {
                 echo $_POST["password"];
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
@@ -402,7 +402,7 @@ class SiteView extends View
                 "</form>";
         }
 
-        if ($_SESSION[JS_SAIK]["admin_user"]["id"]) {
+        if (isset($_SESSION[JS_SAIK]["admin_user"]["id"])) {
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
                 "<div class='modal-line-text'>".$this->lang_map->auth_menu_text["admin"]["adminUser"].": ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
