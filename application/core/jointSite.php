@@ -14,7 +14,12 @@ class jointSite
         $request["routes"] = explode('/', $request["routes_path"]);
         $request["routes_cnt"] = count($request["routes"]);
         $request["exec_path"] = $JOINT_SITE_EXEC_DIR;
-        $request["exec_dir"] = explode('/', $JOINT_SITE_EXEC_DIR);
+        if(isset($JOINT_SITE_EXEC_DIR) and $JOINT_SITE_EXEC_DIR != null and $JOINT_SITE_EXEC_DIR != ""){
+            $request["exec_dir"] = explode('/', $JOINT_SITE_EXEC_DIR);
+        }else{
+            $request["exec_dir"] = array(0 => "");
+        }
+
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
 
@@ -30,11 +35,11 @@ class jointSite
 
         session_start();
 
-        if($_GET["lang"]=="en"){
+        if(isset($_GET["lang"]) and $_GET["lang"] =="en"){
             $_SESSION[JS_SAIK]["lang"] = "en";
-        }elseif($_GET["lang"]=="rus"){
+        }elseif(isset($_GET["lang"]) and $_GET["lang"]=="rus"){
             $_SESSION[JS_SAIK]["lang"] = "rus";
-        }elseif(!$_SESSION[JS_SAIK]["lang"]){
+        }elseif(!isset($_SESSION[JS_SAIK]["lang"])){
             $_SESSION[JS_SAIK]["lang"]="rus";
         }
 
@@ -81,7 +86,8 @@ class jointSite
         }
         else{
             if(!USE_DEFAULT_ACTION){
-                self::throwErr("request", $this->lang_map->app_err["request_action"]);
+                self::throwErr("request", $this->lang_map->app_err["request_action"].
+                    "<br>".$loaded_controller."->".$action);
             }else{
                 $controller->action_index();
             }
