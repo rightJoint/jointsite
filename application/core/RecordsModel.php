@@ -226,7 +226,7 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $query_text="update ".$this->tableName." set ";
         $q_where = " where ";
-        $q_fields = null;
+        $q_fields = "";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
 
             if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
@@ -235,9 +235,9 @@ class RecordsModel extends Model_pdo
                 }
             }
 
-            if(!$fieldInfo["use_table_name"] or
+            if(!isset($fieldInfo["use_table_name"]) or
                 ($fieldInfo["use_table_name"] == $this->tableName)) {
-                if ($fieldInfo["indexes"]) {
+                if (isset($fieldInfo["indexes"])) {
                     $q_where .= $fieldName . "='";
                     if ($fieldInfo["fetchVal"]) {
                         $q_where .= $fieldInfo["fetchVal"];
@@ -247,8 +247,11 @@ class RecordsModel extends Model_pdo
                     $q_where .= "' and ";
                 }
 
-                if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
-                    if(!$this->recordStructureFields->editFields[$fieldName]["readonly"]){
+                if ((isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"])) and
+                    ($fieldInfo["fetchVal"] != $fieldInfo["curVal"])
+                or (!isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"]))
+                ) {
+                    if(!isset($this->recordStructureFields->editFields[$fieldName]["readonly"])){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {
                             $q_fields .= "null, ";
@@ -261,8 +264,8 @@ class RecordsModel extends Model_pdo
         }
 
         $q_where = substr($q_where, 0, strlen($q_where)-4);
-        $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
-        if($q_fields){
+        if(strlen($q_fields) > 2){
+            $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
             if($this->query($query_text.$q_fields.$q_where)){
                 $this->log_message .= $this->lang_map->updateRecord["success"].": ".$date_stamp;
                 return true;
@@ -501,7 +504,10 @@ class RecordsModel extends Model_pdo
         }else{
 
             if($_FILES[$field_name]["error"] == 4){
-                $this->recordStructureFields->record[$field_name]["curVal"] = $this->recordStructureFields->record[$field_name]["fetchVal"];
+                if(isset($this->recordStructureFields->record[$field_name]["fetchVal"]) and
+                    $this->recordStructureFields->record[$field_name]["fetchVal"]!= null){
+                    $this->recordStructureFields->record[$field_name]["curVal"] = $this->recordStructureFields->record[$field_name]["fetchVal"];
+                }
                 return true;
             }else{
                 return false;
@@ -511,7 +517,7 @@ class RecordsModel extends Model_pdo
 
     function deleteRecordFetchFile($field_name)
     {
-        if($this->recordStructureFields->record[$field_name]["fetchVal"]){
+        if(isset($this->recordStructureFields->record[$field_name]["fetchVal"])){
             $fileLink = $this->extract_ef_from_replaces($field_name, "fetchVal");
             $upload_dir = null;
             $f_expd = explode("/", $fileLink);
@@ -530,7 +536,7 @@ class RecordsModel extends Model_pdo
     function extract_ef_from_replaces($field_name, $state_val = "curVal")
     {
         if($this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"] and $this->recordStructureFields->record[$field_name][$state_val]){
-            if($this->recordStructureFields->editFields[$field_name]["replaces"]){
+            if(isset($this->recordStructureFields->editFields[$field_name]["replaces"])){
                 $file_link = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"];
 
                 foreach ($this->recordStructureFields->editFields[$field_name]["replaces"] as $replace){

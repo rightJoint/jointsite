@@ -139,8 +139,9 @@ class RecordView extends SiteView
             }
                 "<span class='file_val'>".$cur_val_file."</span>";
             if(isset($fieldOption["file_options"]["load_dir"]) and isset($this->record[$fieldNname]["curVal"])){
-                if($fieldOption["file_options"]["file_type"] == "img"){
-                    if($fieldOption["replaces"]){
+                if(isset($fieldOption["file_options"]["file_type"]) and
+                    $fieldOption["file_options"]["file_type"] == "img"){
+                    if(isset($fieldOption["replaces"])){
                         $imgLink = $fieldOption["file_options"]["load_dir"];
                         foreach ($fieldOption["replaces"] as $replace){
                             $imgLink = str_replace($replace, $this->record[$replace]["curVal"], $imgLink);
@@ -148,7 +149,7 @@ class RecordView extends SiteView
                     }else{
                         $imgLink = $fieldOption["file_options"]["load_dir"]."/".$value;
                     }
-                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>";
+                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>".$this->record[$fieldNname]["curVal"];
                 }
             }
         }

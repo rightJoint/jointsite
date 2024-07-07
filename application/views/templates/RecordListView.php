@@ -254,7 +254,7 @@ class RecordListView extends RecordView
                                 $imgLink = null;
                                 if($fieldInfo["file_options"]["load_dir"]){
 
-                                    if($fieldInfo["replaces"]){
+                                    if(isset($fieldInfo["replaces"])){
                                         $imgLink = $fieldInfo["file_options"]["load_dir"];
                                         if($fieldInfo["replaces"]){
                                             foreach ($fieldInfo["replaces"] as $replace){
@@ -295,13 +295,13 @@ class RecordListView extends RecordView
                                     $urlLink."' class='list-btn'>".
                                     "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
-                                if(isset($row["btnEdit"]) and $row["btnEdit"]!="disabled"){
+                                if(!isset($row["btnEdit"]) or $row["btnEdit"]!="disabled"){
                                     $return_text.= "<a href='".$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
-                                if(isset($row["btnDelete"]) and $row["btnDelete"]!="disabled"){
+                                if(!isset($row["btnDelete"]) or $row["btnDelete"]!="disabled"){
                                     $return_text.= "<a href='".$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png'></a>";
