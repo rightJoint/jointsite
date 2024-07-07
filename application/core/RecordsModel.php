@@ -184,15 +184,16 @@ class RecordsModel extends Model_pdo
             ){
                 if(isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
                     if (!isset($fieldInfo["auto_increment"])) {
-                        if (!$this->recordStructureFields->record[$fieldName]["curVal"]) {
+                        if (!isset($this->recordStructureFields->record[$fieldName]["curVal"]) or
+                            $this->recordStructureFields->record[$fieldName]["curVal"] == null) {
                             $fieldInfo["curVal"] = $this->createGUID();
                             $this->recordStructureFields->record[$fieldName]["curVal"] = $fieldInfo["curVal"];
                         }
                     }
                 }
 
-                if ($fieldInfo["curVal"] === null or
-                    ($fieldInfo["format"] == "datetime" and !$fieldInfo["curVal"])) {
+                if (isset($fieldInfo["curVal"]) and ($fieldInfo["curVal"] === null or
+                    ($fieldInfo["format"] == "datetime" and !$fieldInfo["curVal"]))) {
                     $queryToInsert_temp .= "null, ";
                 } else {
                     $queryToInsert_temp .= "'" . $fieldInfo["curVal"]. "', ";
@@ -208,8 +209,8 @@ class RecordsModel extends Model_pdo
         if($this->query($queryToInsert)){
 
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-                if ($fieldInfo["indexes"]) {
-                    if($fieldInfo["auto_increment"]){
+                if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
+                    if(isset($fieldInfo["auto_increment"]) and $fieldInfo["auto_increment"] == true){
                         $this->recordStructureFields->record[$fieldName]["curVal"]=$this->lastInsertId($fieldName);
                     }
                 }
@@ -230,7 +231,8 @@ class RecordsModel extends Model_pdo
         $q_fields = "";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
 
-            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+            if((isset($_FILES[$fieldName]) and isset($this->recordStructureFields->editFields[$fieldName]["format"])) and
+                ($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName])){
                 if($this->uploadRecordFile($fieldName, false, true)){
                     $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
                 }
