@@ -106,8 +106,12 @@ class SiteView extends View
         if ($this->metrik_block) {
             if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {
                 require_once JOINT_SITE_CONF_DIR . "/yandexmetrika.php";
-                $this->metrika = $yandex_metrika;
-                $this->yandex_verification = $yandex_verification;
+                if(isset($yandex_metrika)){
+                    $this->metrika = $yandex_metrika;
+                }
+                if(isset($yandex_verification)){
+                    $this->yandex_verification = $yandex_verification;
+                }
             }
         }
 
@@ -346,7 +350,8 @@ class SiteView extends View
 
         foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
             $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
-            if (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"]) {
+            if (isset($request["routes"][$disp_url_count]) and
+                (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
                 $return["text"] .= "active";
             }
             $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
