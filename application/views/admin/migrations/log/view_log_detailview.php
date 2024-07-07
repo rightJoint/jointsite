@@ -20,12 +20,12 @@ class view_log_detailview extends RecordDetailView
         if($fieldOption["format"] == "log_html"){
 
             $label_print ="<label";
-            if($fieldOption["id"]){
+            if(isset($fieldOption["id"])){
                 $label_print .= " for='".$fieldOption["id"]."' ";
             }
             $label_print .= ">";
 
-            if($fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
+            if(isset($fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
                 $label_print .= $fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
             }else{
                 $label_print .= $fieldNname;

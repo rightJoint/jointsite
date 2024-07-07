@@ -36,24 +36,24 @@ class controller_admin extends RecordsController
 
             global $request;
             $apurl_cnt = count(explode("/", $this->admin_process_url));
-            if($request["routes"][$apurl_cnt+1] == "detailview"){
+            if(isset($request["routes"][$apurl_cnt+1]) and $request["routes"][$apurl_cnt+1] == "detailview"){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/admin/migrations/View_migrations_detailview.php";
                 return "View_migrations_detailview";
-            }elseif ($request["routes"][$apurl_cnt+1] == "editview"){
+            }elseif (isset($request["routes"][$apurl_cnt+1]) and $request["routes"][$apurl_cnt+1] == "editview"){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/admin/migrations/View_migrations_editview.php";
                 return "View_migrations_editview";
-            }elseif (!$request["routes"][$apurl_cnt+1]){
+            }elseif (!isset($request["routes"][$apurl_cnt+1])){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/admin/view_migrations.php";
                 return "view_migrations";
-            }elseif ($request["routes"][$apurl_cnt+1] == "log"){
-                if($request["routes"][$apurl_cnt+2] == "detailview"){
+            }elseif (isset($request["routes"][$apurl_cnt+1]) and $request["routes"][$apurl_cnt+1] == "log"){
+                if(isset($request["routes"][$apurl_cnt+2]) and $request["routes"][$apurl_cnt+2] == "detailview"){
                     require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                         "/application/views/admin/migrations/log/view_log_detailview.php";
                     return "view_log_detailview";
-                }elseif (!$request["routes"][$apurl_cnt+2]){
+                }elseif (!isset($request["routes"][$apurl_cnt+2])){
                     require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                         "/application/views/admin/migrations/view_migrations_log.php";
                     return "view_migrations_log";
@@ -285,7 +285,7 @@ class controller_admin extends RecordsController
         $admin_url_expl = explode("/", $this->admin_process_url);
         $admin_url_cnt = count($admin_url_expl);
         global $request;
-        if($request["routes"][$admin_url_cnt+1]){
+        if(isset($request["routes"][$admin_url_cnt+1])){
             $tableName = $request["routes"][$admin_url_cnt+1];
         }elseif ($table_row = $view_data->fetch()){
             $tableName =  $table_row[0];
@@ -308,11 +308,11 @@ class controller_admin extends RecordsController
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
             "/application/models/admin/model_migrations.php";
         $this->model = new model_migrations();
-        if($_POST["glob_migr_files"] == "glob-migr-files"){
+        if(isset($_POST["glob_migr_files"]) and $_POST["glob_migr_files"] == "glob-migr-files"){
             $this->model->glob_migration_files();
             $this->model = new model_migrations();
         }
-        if($_POST["exec_all_migrations"] == "exec-new-migrations") {
+        if(isset($_POST["exec_all_migrations"]) and $_POST["exec_all_migrations"] == "exec-new-migrations") {
 
             $list_where = "where status = 'new'";
             $list_migr = $this->model->listRecords($list_where, "order by migration_name");
@@ -327,7 +327,7 @@ class controller_admin extends RecordsController
                 }
             }
         }
-        if($_POST["exec_migration"] == "exec-migration"){
+        if(isset($_POST["exec_migration"]) and $_POST["exec_migration"] == "exec-migration"){
             if($_POST["exec_migr_file"]){
                 $this->model->recordStructureFields->record["migration_name"]["curVal"] = $_POST["exec_migr_file"];
                 if($this->model->copyRecord()){

@@ -117,7 +117,7 @@ class model_migrations extends RecordsModel
                     $return["log"][] = "count(".$commands_count.")";
                     foreach ($commands as $q_num => $q_info){
                         $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
-                        if($this->query($q_info["query"])){
+                        if($this->pdo_query($q_info["query"])){
                             $count_suss++;
                             $return["log"][] = "result: SUCCESS";
                         }else{
