@@ -87,7 +87,7 @@ class controller_applications extends Controller
                 $ntSend_model = new ntSendModel();
 
                 $ntSend_model->AddNtf("new-app-siteman", "user",
-                    "36332131-C26E-4B63-A22D-11A3076074ED", json_encode(
+                    "F42F81F8-1300-41CA-89BB-36BD7417BE1E", json_encode(
                         array(
                             "server_host" => $_SERVER["HTTP_HOST"],
                             "appl_id" => $this->model->recordStructureFields->record["appl_id"]["curVal"],

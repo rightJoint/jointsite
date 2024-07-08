@@ -707,7 +707,11 @@ class SiteView extends View
         }
         echo "><div class='modal-line-img'>" .
             "<img src='/img/Services/handsShake-color.png'></div><div class='modal-line-text basket'>" .
-            "<div>".$this->lang_map->modalorder["order-form"]["basket-txt"].": <span>" . $_SESSION[JS_SAIK]["basket"]["total"] . "</span> ".$p_curr.".".
+            "<div>".$this->lang_map->modalorder["order-form"]["basket-txt"].": <span>";
+        if(isset($_SESSION[JS_SAIK]["basket"]["total"]) and $_SESSION[JS_SAIK]["basket"]["total"]>0){
+            echo $_SESSION[JS_SAIK]["basket"]["total"];
+        }
+        echo "</span> ".$p_curr.".".
             "<a href='/?basket-clear=1' onclick='event.preventDefault(); basketDrop();' class='basket-clear' ".
             "title='".$this->lang_map->modalorder["order-form"]["cancel-order"]."'><img src='/img/popimg/drop-icon.png'></a></div>".
             "</div></div>" .
