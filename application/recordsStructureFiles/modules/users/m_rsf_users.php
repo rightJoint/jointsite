@@ -1,6 +1,20 @@
 <?php
 class m_rsf_users extends recordStructureFields
 {
+    function s_site_user($param){
+        if($param == "readonly"){
+            if(isset($_SESSION["site_user"]["is_admin"]) and $_SESSION["site_user"]["is_admin"] == true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if(isset($_SESSION["site_user"][$param])){
+            return $_SESSION["site_user"][$param];
+        }else{
+            return null;
+        }
+    }
     function __construct()
     {
         $this->record = array(
@@ -47,12 +61,12 @@ class m_rsf_users extends recordStructureFields
             ),
             "created_by" => array(
                 "format" => "varchar",
-                "curVal" => $_SESSION["site_user"]["user_id"],
+                "curVal" => $this->s_site_user("user_id"),
             ),
             "createdLogin" => array(
                 "format" => "varchar",
                 "use_table_name" => "udtcreated",
-                "curVal" => $_SESSION["site_user"]["accLogin"],
+                "curVal" => $this->s_site_user("accLogin"),
             ),
             "send_ntf" => array(
                 "format" => "tinyint",
@@ -173,7 +187,7 @@ class m_rsf_users extends recordStructureFields
             ),
             "is_admin" => array(
                 "format" => "tinyint",
-                "readonly" => !$_SESSION["site_user"]["is_admin"],
+                "readonly" => $this->s_site_user("readonly"),
                 "fieldAliases" => array(
                     "en" => "admin",
                     "rus" => "админ",

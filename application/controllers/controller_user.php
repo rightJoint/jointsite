@@ -41,14 +41,14 @@ class Controller_User extends RecordsController
 
     function __construct($loaded_model, $loaded_view, $action_name)
     {
-        if($_GET["cmd"] == "exit"){
+        if(isset($_GET["cmd"]) and $_GET["cmd"] == "exit"){
             unset($_SESSION[JS_SAIK]["site_user"]);
             header("Location: ".$_SERVER["HTTP_REFERER"]);
         }
 
         parent::__construct($loaded_model, $loaded_view, $action_name);
 
-        if (!$_SESSION[JS_SAIK]["site_user"]["user_id"] and $action_name!="signUp"){
+        if (!isset($_SESSION[JS_SAIK]["site_user"]["user_id"]) and $action_name!="signUp"){
             $this->action_signIn();
         }
     }
@@ -67,7 +67,7 @@ class Controller_User extends RecordsController
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/models/user/model_signin.php";
             return "model_signin";
-        }elseif ($action_name == "index" and $_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        }elseif ($action_name == "index" and isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/core/ModuleModel.php";
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -92,7 +92,7 @@ class Controller_User extends RecordsController
     {
         global $request;
 
-        if ($action_name == "index" and $_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if ($action_name == "index" and isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/views/templates/RecordView.php";
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -103,7 +103,7 @@ class Controller_User extends RecordsController
                 "/application/views/user/userHomeView.php";
             return "userHomeView";
         }elseif ($action_name == "notifications"){
-            if($request["routes"][$request["exec_dir_cnt"]+2] == "detailview"){
+            if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2] == "detailview"){
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                     "/application/views/templates/RecordDetailView.php";
                 require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -119,7 +119,7 @@ class Controller_User extends RecordsController
     {
         global $request;
 
-        if(!$request["routes"][$request["exec_dir_cnt"] + 2]){
+        if(!isset($request["routes"][$request["exec_dir_cnt"] + 2])){
             $this->view->lang_map->head["description"] = $this->view->lang_map->head["title"] = $this->view->lang_map->head["h1"] =
                 $this->user_modules["bindTables"]["notifications"]["aliases"][$_SESSION[JS_SAIK]["lang"]];
             $this->view->module_info = $this->user_modules;
@@ -301,7 +301,7 @@ class Controller_User extends RecordsController
                 $this->model->recordStructureFields->record["user_id"]["curVal"] = $_SESSION[JS_SAIK]["site_user"]["user_id"];
                 $this->model->recordStructureFields->record["group_id"]["curVal"] = $group;
                 $this->model->copyRecord();
-                if($_POST[$group]){
+                if(isset($_POST[$group])){
                     $this->model->recordStructureFields->record["send_ntf"]["curVal"] = true;
                 }else{
                     $this->model->recordStructureFields->record["send_ntf"]["curVal"] = false;
@@ -312,11 +312,10 @@ class Controller_User extends RecordsController
                 $this->view->action_log["log"]=$this->model->log_message;
             }
         }
-        $sup_cond = null;
 
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $this->model->listRecords("where usersToGroups_dt.user_id='".$_SESSION[JS_SAIK]["site_user"]["user_id"]."'",
-            $sup_cond["order"], $sup_cond["limit"]);
+            null, null);
         $this->view->generate();
     }
 
@@ -379,7 +378,7 @@ class Controller_User extends RecordsController
     {
         $singIn_err = $this->lang_map->home_page_access_error." on action signIn";
 
-        if ($_POST["auth_signIn"] == $this->view->lang_map->sitesignInform["submit_btn"]){
+        if (isset($_POST["auth_signIn"]) and $_POST["auth_signIn"] == $this->view->lang_map->sitesignInform["submit_btn"]){
             $this->model->recordStructureFields->record["accLogin"]["curVal"] = $_POST["login"];
 
             if($this->model->checkUserLogin() and $this->model->checkUserPassword($_POST["password"])){
@@ -400,7 +399,7 @@ class Controller_User extends RecordsController
             }
         }
 
-        if($_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             $this->view->generate();
         }else{
 
@@ -413,8 +412,15 @@ class Controller_User extends RecordsController
         $signUp_message = $this->lang_map->signUn_message["use_menu"];
         $this->view->active_modal_menu = true;
 
-        if($_POST["auth_signUp"] == $this->view->lang_map->sitesignUpform["submit_btn"]){
+        if(isset($_POST["auth_signUp"]) and $_POST["auth_signUp"] == $this->view->lang_map->sitesignUpform["submit_btn"]){
             $occur_err = false;
+            $this->view->signUp_err = array(
+                "login_unacceptable" => false,
+                "login_reserved" => false,
+                "pass_unacceptable" => false,
+                "pass_dont_match" => false,
+                "email_unacceptable" => false,
+            );
             if(!$this->model->checkUserLogin()){
                 $this->view->signUp_err["login_unacceptable"] = true;
                 $occur_err = true;

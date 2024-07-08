@@ -42,7 +42,7 @@ class ModuleStatView extends SiteView
             "<div class='contentBlock-wrap'>".
             "<div class='module-stat'>";
 
-        if($this->module_info["mAliases"][$_SESSION[JS_SAIK]["lang"]]){
+        if(isset($this->module_info["mAliases"][$_SESSION[JS_SAIK]["lang"]])){
             echo "<h2>".$this->lang_map["mAliases"][$_SESSION[JS_SAIK]["lang"]]."</h2>";
         }
 
@@ -66,7 +66,7 @@ class ModuleStatView extends SiteView
                     "<td>".$tOptions["aliases"][$_SESSION[JS_SAIK]["lang"]]."</td>".
                     "<td>".$tName."</td>".
                     "<td>";
-                if($tOptions["relationships"]){
+                if(isset($tOptions["relationships"])){
                     foreach ($tOptions["relationships"] as $fieldMain => $fieldSlave){
                         echo "<p>".$fieldMain." => ".$fieldSlave."</p>";
                     }

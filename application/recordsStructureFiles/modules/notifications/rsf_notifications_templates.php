@@ -1,6 +1,13 @@
 <?php
 class rsf_notifications_templates extends recordStructureFields
 {
+    function s_site_user($param){
+        if(isset($_SESSION["site_user"][$param])){
+            return $_SESSION["site_user"][$param];
+        }else{
+            return null;
+        }
+    }
     function __construct()
     {
         $this->record = array(
@@ -29,12 +36,12 @@ class rsf_notifications_templates extends recordStructureFields
             ),
             "created_by" => array(
                 "format" => "varchar",
-                "curVal" => $_SESSION["site_user"]["user_id"],
+                "curVal" => $this->s_site_user("user_id"),
             ),
             "createdLogin" => array(
                 "format" => "varchar",
                 "use_table_name" => "udtcreated",
-                "curVal" => $_SESSION["site_user"]["accLogin"],
+                "curVal" => $this->s_site_user("accLogin"),
             ),
         );
         $this->editFields = array(
