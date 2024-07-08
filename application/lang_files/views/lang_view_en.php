@@ -61,6 +61,18 @@ class lang_view_en
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
                     "depend" => "branch main",
                 ),
+                "module" => array(
+                    "aliasMenu" => "Ветка Модуль (Module)",
+                    "altText" => "подробнее о ветке Модуль",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/module",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "Описание ветки модуль. ".
+                        "Добавлены кастомные поля типа list и файл для загрузки данных, и другие.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/module' title='узнать подробнее про Модуль'>подробнее</a>",
+                    "depend" => "ветка main",
+                ),
             ),
         ),
     );
