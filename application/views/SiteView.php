@@ -34,6 +34,10 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR."/img/popimg/record.png",
         ),
+        "siteman" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR . "/img/popimg/leverage.png",
+        ),
     );
 
     function __construct()

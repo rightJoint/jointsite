@@ -64,6 +64,17 @@ class lang_view_rus
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
                 ),
+                "siteman" => array(
+                    "aliasMenu" => "Управление сайтом (Siteman)",
+                    "altText" => "подробнее о ветке Siteman",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "про управление сайтом.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/siteman' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/siteman' title='узнать подробнее про Управление сайтом'>подробнее</a>",
+                    "depend" => "ветка main",
+                ),
             ),
         ),
     );
