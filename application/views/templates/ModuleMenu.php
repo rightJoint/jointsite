@@ -15,7 +15,7 @@ class moduleMenu
 
                 $return_text .= "<a href='" . $m_process_url . "' class='home-module";
                 if (($request["routes"][$mUri_expLength-1] == $mUri_exp[$mUri_expLength - 1])
-                    and !$request["routes"][$mUri_expLength]) {
+                    and !isset($request["routes"][$mUri_expLength])) {
                     $return_text .= " active";
                 }
                 $return_text .= "'>" . $module_alias . "</a>";
