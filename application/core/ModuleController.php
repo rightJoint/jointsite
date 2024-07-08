@@ -180,8 +180,8 @@ class ModuleController extends RecordsController
                         $bind_list_view->searchFields = $bindModel->recordStructureFields->searchFields;
                         $bind_list_view->listRecords = $bindModel->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"]);
 
-                        if($this->model->modelAliases[$_SESSION["lang"]]){
-                            $bind_list_view->h2 =$bindModel->modelAliases[$_SESSION["lang"]];
+                        if($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]){
+                            $bind_list_view->h2 =$bindModel->modelAliases[$_SESSION[JS_SAIK]["lang"]];
                         }else{
                             $bind_list_view->h2 = $tName;
                         }

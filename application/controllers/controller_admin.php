@@ -76,7 +76,6 @@ class controller_admin extends RecordsController
 
     function LoadCntrlLang_custom()
     {
-        parent::LoadModel_custom();
         require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/lang_files".
             "/controllers/lang_cntrl_admin_".$_SESSION[JS_SAIK]["lang"].".php";
         return "lang_cntrl_admin_".$_SESSION[JS_SAIK]["lang"];
