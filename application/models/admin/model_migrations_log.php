@@ -16,7 +16,7 @@ class model_migrations_log extends RecordsModel
     function filterWhere($method = "POST", $REQ_ARR = null)
     {
         $return_where = parent::filterWhere($method, $REQ_ARR);
-        if($_GET["migration_name"]){
+        if(isset($_GET["migration_name"])){
             if($return_where["where"]){
                 $return_where["where"].=" and migrations_log.migration_name='".$_GET["migration_name"]."'";
             }else{

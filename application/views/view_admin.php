@@ -39,7 +39,7 @@ class view_admin extends SiteView
 
         global $request;
 
-        if(!$request["routes"][$apurl_cnt]){
+        if(!isset($request["routes"][$apurl_cnt])){
             $this->logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
         }else{
             $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["admin"]["menu_items"][$request["routes"][$apurl_cnt]]["aliasMenu"];
