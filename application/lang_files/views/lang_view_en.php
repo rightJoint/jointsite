@@ -153,4 +153,20 @@ class lang_view_en
             "email_unacceptable" => "email unacceptable",
         ),
     );
+    public $modalorder = array(
+        "btn-hire" => "HIRE",
+        "hire-txt" => "Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreement.",
+        "telega-t" => "contact by telegram",
+        "order-form" => array(
+            "basket-txt" => "Your order",
+            "leave-app" => "New application",
+            "cancel-order" => "cancel order",
+            "app-txt" => "Next you will be redirected to the page, where you can watch status of your application, add details or attachments",
+            "name-ps" => "Your name",
+            "mail-ps" => "Your email",
+            "phone-ps" => "Phone number",
+            "message-ps" => "Subject",
+            "submit" => "Send",
+        ),
+    );
 }

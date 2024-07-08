@@ -231,7 +231,14 @@ class SiteView extends View
             echo "landing";
         }
         echo "'><span class='firmName'>" . $this->lang_map->head["header_text"] . "</span>" .
-            "<h1>" . $this->lang_map->head["h1"] . "</h1></div></div>" .
+            "<h1>" . $this->lang_map->head["h1"] . "</h1></div></div>".
+        "<div class='orderBtn hi-icon-effect-1 hi-icon-effect-1a'>".
+        "<span class='hi-icon hi-icon-mobile order ";
+        if(isset($_SESSION[JS_SAIK]['basket']['total']) and $_SESSION[JS_SAIK]['basket']['total']>0){
+            echo "buy";
+        }
+        echo "'><span class='hi-text'>ЗАКАЗ</span></span>".
+            "</div>".
             "</div></header>";
 
         $header_add_styles = "<style>
@@ -243,7 +250,15 @@ class SiteView extends View
             .modal-right:not(.signIn) .modal-close:not(.signIn){
                     background-image: url('" . JOINT_SITE_EXEC_DIR . "/img/popimg/closeModal-white.png');
             }
-            }                      
+            }      
+            .hi-icon-mobile.order:before {
+    background-image: url('". JOINT_SITE_EXEC_DIR. "/img/Services/order.png');
+    z-index: 3;
+    position: relative;
+}
+.hi-icon-mobile.order.buy:before {
+    background-image: url('".JOINT_SITE_EXEC_DIR."/img/Services/money.png');
+}                
             </style>";
         echo $header_add_styles;
     }
@@ -272,6 +287,7 @@ class SiteView extends View
     public function print_modals()
     {
         $this->modalMenu();
+        $this->modalOrder();
     }
 
     function modalMenu()
@@ -650,5 +666,107 @@ class SiteView extends View
                 "</div>" .
                 "</div>";
         }
+    }
+
+    function modalOrder()
+    {
+        echo "<div class='modal order'><div class='overlay'></div><div class='contentBlock-frame'>" .
+            "<div class='contentBlock-center'><div class='modal-right'><div class='modal-close'></div></div>" .
+            "<div class='modal-left'>" .
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/Services/logo-free.png'></div>" .
+            "<div class='modal-line-text free'><a href='tel:+7(903)8887772' class='phone' target='_blank'>+7 (903) 888-7772</a>" .
+            "<p>".$this->lang_map->modalorder["hire-txt"]."</p><div>" .
+            "</div></div></div>" .
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/popimg/eMailLogo.png'></div><div class='modal-line-text mail'>" .
+            "<a href='mailto:rightjoint@yandex.ru' class='mailto' target='_blank'>rightjoint@yandex.ru</a></div></div>" .
+            "<div class='modal-line'><div class='modal-line-img'>" .
+            "<img src='/img/Services/telegram.png'></div><div class='modal-line-text'>" .
+            "<a href='https://t.me/rightjoint' class='mailto' target='_blank' title='".$this->lang_map->modalorder["telega-t"]."'>".
+            "t.me/rightjoint</a></div></div>" .
+            "<form class='auth-form order'>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text fbm-title ta-right'>" .
+            $this->lang_map->modalorder["order-form"]["leave-app"].
+            "<p>".$this->lang_map->modalorder["order-form"]["app-txt"]."</p>" .
+            "</div>" .
+            "<div class='modal-line-img'><img src='/img/Services/application-logo.png'></div>" .
+            "</div>" .
+            "<div class='modal-line' ";
+        if (isset($_SESSION[JS_SAIK]["basket"]["total"]) and $_SESSION[JS_SAIK]["basket"]["total"] > 0) {
+            echo "style='position: relative' ";
+        } else {
+            echo "style='display: none' ";
+        }
+        $data_basket = $this->print_basket();
+        if($_SESSION[JS_SAIK]["basket"]["lang"] == "en"){
+            $p_curr = "$";
+        }else{
+            $p_curr = "руб";
+        }
+        echo "><div class='modal-line-img'>" .
+            "<img src='/img/Services/handsShake-color.png'></div><div class='modal-line-text basket'>" .
+            "<div>".$this->lang_map->modalorder["order-form"]["basket-txt"].": <span>" . $_SESSION[JS_SAIK]["basket"]["total"] . "</span> ".$p_curr.".".
+            "<a href='/?basket-clear=1' onclick='event.preventDefault(); basketDrop();' class='basket-clear' ".
+            "title='".$this->lang_map->modalorder["order-form"]["cancel-order"]."'><img src='/img/popimg/drop-icon.png'></a></div>".
+            "</div></div>" .
+            "<div class='modal-basket-list'>".$data_basket["basket"]."</div>".
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'>" .
+            "<input type='text' name='clientName' placeholder='".$this->lang_map->modalorder["order-form"]["name-ps"]."..' required></div>" .
+            "<div class='modal-line-img'><img src='/img/popimg/avatar-default.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'>" .
+            "<input type='email' name='clientMail' placeholder='".$this->lang_map->modalorder["order-form"]["mail-ps"]."..' required></div>" .
+            "<div class='modal-line-img'><img src='/img/popimg/eMailLogo-2.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'><input type='text' name='clientPhone' placeholder='".$this->lang_map->modalorder["order-form"]["phone-ps"]."..'></div>" .
+            "<div class='modal-line-img'><img src='/img/Services/typeNum.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-text'><textarea name='clientSubject' placeholder='".$this->lang_map->modalorder["order-form"]["message-ps"]."..'></textarea></div>" .
+            "<div class='modal-line-img'><img src='/img/Services/appQuestion.png'></div>" .
+            "<div class='modal-line-err'></div>" .
+            "</div>" .
+            "<div class='modal-line'>" .
+            "<div class='modal-line-err'></div>" .
+            "<div class='modal-line-text ta-right'><input type='submit' name='mo-submit' value='".$this->lang_map->modalorder["order-form"]["submit"]."' onclick='event.preventDefault(); mkApplication()'></div>" .
+            "<div class='modal-line-img'></div>" .
+
+            "<input type='hidden' name='feedBack-form-modal' value='newAppl'>" .
+            "</div>" .
+            "</form>";
+        echo "</div></div></div></div>";
+    }
+
+    function print_basket()
+    {
+        $_SESSION[JS_SAIK]["basket"]["lang"] = $_SESSION[JS_SAIK]["lang"];
+        $return = null;
+
+        if (isset($this->basket_prod) and is_array($this->basket_prod)) {
+            foreach ($this->basket_prod as $num=> $findProd_row){
+                $return.= "<div class='mbl-line'><div class='mbl-line-img'><img src='" .
+                    "/img/Services/images/thumbs/".$findProd_row['cardAlias'].".png'></div>" .
+                    "<div class='mbl-line-info'>";
+                $return.=$findProd_row['cardName_'.$_SESSION[JS_SAIK]["lang"]];
+                $val = $_SESSION[JS_SAIK]["basket"]["prod"][$findProd_row["cardAlias"]];
+                $return.= " ".$val;
+                $return.=" (".$findProd_row['unit_'.$_SESSION[JS_SAIK]["lang"]].")";
+                $return.=" * " .$findProd_row['cardPrice_'.$_SESSION[JS_SAIK]["lang"]]." = ".($val * $findProd_row['cardPrice_'.$_SESSION[JS_SAIK]["lang"]]) .
+                    " (".$findProd_row['cardCurr_'.$_SESSION[JS_SAIK]["lang"]].")";
+                $return.="</div></div>";
+            }
+        }
+
+        return array(
+            "basket" => $return,
+        );
     }
 }
