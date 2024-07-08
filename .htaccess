@@ -1,5 +1,6 @@
 RewriteEngine on
 RewriteBase /
+RewriteRule ^__site_conf(.*)$ ?errType=access&message=denied-in-htaccess
 RewriteCond %{REQUEST_FILENAME} !-f
 DirectoryIndex index.php
 RewriteRule . index.php [L]
