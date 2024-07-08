@@ -215,7 +215,7 @@ class ntSendModel extends Model_pdo
                         $template_params = json_decode($template_row["template_params"], true);
                         $replaced_text = $template_row["tBody_en"];
 
-                        if($template_params){
+                        if(isset($template_params) and is_array($template_params)){
                             foreach ($template_params as $tp_key => $tp_val){
                                 $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
                             }

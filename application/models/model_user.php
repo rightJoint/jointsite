@@ -79,7 +79,7 @@ class Model_User extends RecordsModel
                 $groupsModel = new RecordsModel("usersToGroups_dt");
                 $userToGroups_res = $groupsModel->listRecords("where usersToGroups_dt.user_id='".$this->recordStructureFields->record["user_id"]["curVal"]."' ");
 
-                if(count($userToGroups_res)){
+                if(is_array($userToGroups_res) and count($userToGroups_res) > 0){
                     foreach ($userToGroups_res as $row_num => $userToGroups_row){
                         $_SESSION[JS_SAIK]["site_user"]["groups"][$userToGroups_row["group_id"]] = array(
                             "read_rule" => $userToGroups_row["read_rule"],

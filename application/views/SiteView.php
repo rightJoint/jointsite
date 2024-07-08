@@ -130,14 +130,16 @@ class SiteView extends View
                     $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
                 }else{
                     $match_group = false;
-                    foreach ($_SESSION[JS_SAIK]["site_user"]["groups"] as $group_id => $gr_access_riles){
-                        if(in_array($group_id, $access_groups)){
-                            $match_group = true;
-                            break;
+                    if(isset($_SESSION[JS_SAIK]["site_user"]["groups"])){
+                        foreach ($_SESSION[JS_SAIK]["site_user"]["groups"] as $group_id => $gr_access_riles){
+                            if(in_array($group_id, $access_groups)){
+                                $match_group = true;
+                                break;
+                            }
                         }
-                    }
-                    if($match_group){
-                        $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
+                        if($match_group){
+                            $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
+                        }
                     }
                 }
             }
@@ -398,7 +400,13 @@ class SiteView extends View
     }
 
 
-    function print_signUp_form($add_form_class = null, $signUp_err=null)
+    function print_signUp_form($add_form_class = null, $signUp_err=array(
+        "login_unacceptable" => false,
+        "login_reserved" => false,
+        "pass_unacceptable" => false,
+        "pass_dont_match" => false,
+        "email_unacceptable" => false,
+    ))
     {
         echo "<form class='auth-form signUp ".$add_form_class."' method='post' action='".JOINT_SITE_EXEC_DIR."/user/signUp'>".
             "<div class='modal-line'>".
@@ -412,54 +420,54 @@ class SiteView extends View
             "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'><input type='text' name='login' value='";
-        if($_POST["login"]){
+        if(isset($_POST["login"])){
             echo $_POST["login"];
         }
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_login"]."'>"."</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>";
-        if($signUp_err["login_unacceptable"]){
+        if($signUp_err["login_unacceptable"] == true){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["login_unacceptable"]."</div>";
         }
-        if($signUp_err["login_reserved"]){
+        if($signUp_err["login_reserved"] == true){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["login_reserved"]."</div>";
         }
         echo    "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'>".
             "<input type='password' name='password' value='";
-        if($_POST["password"]){
+        if(isset($_POST["password"])){
             echo $_POST["password"];
         }
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_password"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if($signUp_err["pass_unacceptable"]){
+        if(isset($signUp_err["pass_unacceptable"])){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["pass_unacceptable"]."</div>";
         }
         echo "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'>".
             "<input type='password' name='repeat_password' value='";
-        if($_POST["repeat_password"]){
+        if(isset($_POST["repeat_password"])){
             echo $_POST["repeat_password"];
         }
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_repeat"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if($signUp_err["pass_dont_match"]){
+        if(isset($signUp_err["pass_dont_match"])){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["pass_dont_match"]."</div>";
         }
         echo "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'>".
             "<input type='email' name='email' value='";
-        if($_POST["email"]){
+        if(isset($_POST["email"])){
             echo $_POST["email"];
         }
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_mail"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eMailLogo.png'></div>";
-        if($signUp_err["email_unacceptable"]){
+        if($signUp_err["email_unacceptable"] == true){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["email_unacceptable"]."</div>";
         }
         echo "</div>".
