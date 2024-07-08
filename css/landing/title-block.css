@@ -1,0 +1,282 @@
+.services-title-wrap{
+    display: inline-block;
+    width: 100%;
+    padding: 2em 0;
+}
+.services-title-wrap .services-title-left, .services-title-right{
+    vertical-align: middle;
+    display: inline-block;
+    width: 42%;
+    margin: 1.5em 0;
+    max-width: 20em;
+}
+.services-title-wrap .service-title-photo{
+    vertical-align: middle;
+    display: inline-block;
+    width: 20%;
+    margin: 1.5em 0;
+    z-index: 1;
+    position: relative;
+    opacity: 1;
+}
+.services-title-wrap .service-title-photo #rain-canvas{
+    height: 7em;
+    width: 7em;
+    /*border-radius: 3.5em;
+    border: 1px solid #555;*/
+
+}
+.services-title-wrap .services-title-left b{
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    margin: 1.5em 0;
+    color: rgba(25,25,50,1);
+}
+
+.services-title-wrap .services-title-left .stl-line{
+    transform: skew(5deg);
+    position: relative;
+    margin: 1em 0;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+.services-title-wrap .services-title-left .stl-line span{
+    box-shadow: 5px 5px 5px darkgray;
+    background-color: steelblue;
+    visibility: hidden;
+    padding: 0.1em 0.2em;
+    color: white;
+    position: absolute;
+    animation: center-animate5 1s ease infinite alternate;
+    -webkit-animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+.services-title-wrap .services-title-left .stl-line span.st-txt2{
+    margin-left: 5%;
+    background-color: midnightblue;
+    -webkit-animation-delay: 500ms;
+    -moz-animation-delay: 500ms;
+    -o-animation-delay: 500ms;
+}
+
+.services-title-wrap .services-title-left .stl-line span.st-txt3{
+    background-color: DarkSlateGrey;
+    margin-left: 10%;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-delay: 1s; ;
+}
+
+@keyframes center-animate5 {
+    0% { left: 100%;visibility: hidden; width: 0;}
+    100%{ left: 0;visibility: visible; width: 90%}
+}
+
+
+.services-title-wrap .thought {
+    display:inline-block;
+    color: white;
+    font-style: italic;
+    background-color:rgba(25,25,50,1);
+    padding:20px;
+    border-radius:30px;
+    min-width:40px;
+    /*max-width:40%;*/
+    min-height:40px;
+    margin:20px;
+    position:relative;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+.services-title-wrap .thought:before,
+.services-title-wrap .thought:after {
+    content:"";
+    background-color:rgba(25,25,50,1);
+    border-radius:50%;
+    display:block;
+    position:absolute;
+    z-index:-1;
+}
+.services-title-wrap .thought:before {
+    width:44px;
+    height:44px;
+    top:-12px;
+    left:28px;
+    box-shadow:-50px 30px 0 -12px rgba(25,25,50,1);
+}
+.services-title-wrap .thought:after {
+    bottom:-10px;
+    right:26px;
+    width:30px;
+    height:30px;
+    box-shadow:40px -34px 0 0 rgba(25,25,50,1),
+    -28px -6px 0 -2px rgba(25,25,50,1),
+    -24px 17px 0 -6px rgba(25,25,50,1),
+    -5px 25px 0 -10px rgba(25,25,50,1);
+}
+
+.langing-invoke{
+    font-size: 1.5em;
+    text-shadow: 2px 1px 1px midnightblue;
+    color: darkgray;
+    font-family: Tahoma;
+}
+.langing-comment{
+    font-weight: bold;
+    color: silver;
+    margin: 1em 0;
+    font-family: Tahoma;
+
+}
+.call-btn{
+    width: 100%;
+
+}
+.call-btn a:hover{
+    box-shadow: 3px 3px 3px green;
+}
+.call-btn a{
+    box-shadow: 2px 2px 2px darkgray;
+    display: inline-block;
+    border-radius: 1em;
+    /*position: relative;
+    display: block;
+
+     */
+}
+
+.call-btn a .cb-content-wrap{
+    display: inline-block;
+    vertical-align: middle;
+}
+.call-btn a .cb-content-wrap span{
+
+    display: block;
+}
+.call-btn a .cb-content-wrap span.cb-num{
+    color: darkgreen;
+    font-weight: bold;
+}
+.call-btn a .cb-content-wrap span.cb-txt{
+    color: green;
+    font-weight: bold;
+}
+.call-btn a .cb-img{
+    vertical-align: middle;
+    display: inline-block;
+}
+.call-btn a .cb-img img{
+    height: 3em;
+    width: 3em;
+    transform: rotateY(180deg);
+}
+.advantages-list{
+    width: 80%;
+    margin: 1em 10%;
+
+}
+.advantages-list .advantages-line{
+    margin: 0.3em 0;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    font-family:Garamond;
+}
+.advantages-list .advantages-line .advantages-line-img{
+    vertical-align: middle;
+    display: inline-block;
+    width: 20%;
+
+}
+.advantages-list .advantages-line .advantages-line-img img{
+    height: 2em;
+    width: 2em;
+    border-radius: 1em;
+}
+.advantages-list .advantages-line .advantages-line-txt{
+    color: #555;
+    text-align: left;
+    vertical-align: middle;
+    display: inline-block;
+    width: 80%;
+    font-size: 1.2em;
+}
+.ask-questions-line{
+    margin: 1em 1em  2em 1em;
+    color: rgb(25,25,50)
+}
+.ask-questions-line a{
+    text-decoration: underline;
+
+}
+.ask-questions-line a img, .ask-questions-line span img{
+    vertical-align: middle;
+    height: 2em;
+    width: 2em;
+}
+.ask-questions-line span{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media only screen and (max-width : 960px) {
+    .services-title-wrap .services-title-left{
+        width: 50%;
+    }
+    .services-title-wrap .services-title-right{
+        width: 70%;
+    }
+    .services-title-wrap .service-title-photo{
+        margin: 1.5em 0 0 0;
+    }
+}
+@media only screen and (orientation : portrait){
+    .services-title-wrap .services-title-left{
+        width: 70%;
+        color: green;
+    }
+    .services-title-wrap .service-title-photo #rain-canvas{
+        height: 5em;
+        width: 5em;
+        border-radius: 2.5em;
+    }
+    .services-title-wrap .services-title-right{
+        width: 70%;
+    }
+}
+@media only screen and (max-width : 640px) {
+    .services-title-wrap  .service-title-photo{
+        display: inline-block;
+        width: 100%;
+    }
+    .services-title-wrap .services-title-left{
+        display: inline-block;
+        width: 90%;
+        margin: 0 5%;
+    }
+}
+@media only screen and (max-width : 360px){
+    .services-title-wrap  .service-title-photo{
+        display: inline-block;
+        width: 100%;
+    }
+    .services-title-wrap .services-title-left{
+        display: inline-block;
+        width: 90%;
+        margin: 0 5%;
+    }
+}
+
+
+
+.services-title-wrap .langing-invoke *,
+.services-title-wrap .langing-invoke *:after,
+.services-title-wrap  *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
