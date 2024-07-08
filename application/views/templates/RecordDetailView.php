@@ -71,7 +71,12 @@ class RecordDetailView extends RecordView
         }
 
         foreach ($this->viewFields as $fieldName => $fieldData) {
-            echo $this->getTnputType($fieldName, $fieldData, $this->record[$fieldName]["curVal"])["html"];
+            $fieldName_curVal = null;
+            if(isset($this->record[$fieldName]["curVal"])){
+                $fieldName_curVal = $this->record[$fieldName]["curVal"];
+            }
+
+            echo $this->getTnputType($fieldName, $fieldData, $fieldName_curVal)["html"];
         }
         echo "</form>" .
             "</div>";

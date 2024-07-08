@@ -138,7 +138,7 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $query_text="select * from ".$this->tableName." where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"])) {
                 $query_text.=$fieldName."='".$fieldInfo["curVal"]."' and " ;
             }
         }
@@ -147,8 +147,10 @@ class RecordsModel extends Model_pdo
         if($query_res->rowCount()==1){
             $result=$query_res->fetch(PDO::FETCH_ASSOC);
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-                $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
-                $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                if(isset($result[$fieldName])){
+                    $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
+                    $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                }
             }
             return $this->copyCustomFields();
         }
@@ -169,26 +171,29 @@ class RecordsModel extends Model_pdo
         $queryToInsert .= "insert into ".$this->tableName." (\r";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
 
-            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+            if(isset($_FILES[$fieldName]) and isset($this->recordStructureFields->editFields[$fieldName]["format"])
+            and $this->recordStructureFields->editFields[$fieldName]["format"] == "file"){
                 if($this->uploadRecordFile($fieldName, false, true)){
                     $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
                 }
             }
 
-            if(!$fieldInfo["use_table_name"] or
-                ($fieldInfo["use_table_name"] == $this->tableName)
+            if(
+                !isset($fieldInfo["use_table_name"]) or
+                (isset($fieldInfo["use_table_name"]) and $fieldInfo["use_table_name"] == $this->tableName)
             ){
-                if($fieldInfo["indexes"]) {
-                    if (!$fieldInfo["auto_increment"]) {
-                        if (!$this->recordStructureFields->record[$fieldName]["curVal"]) {
+                if(isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
+                    if (!isset($fieldInfo["auto_increment"])) {
+                        if (!isset($this->recordStructureFields->record[$fieldName]["curVal"]) or
+                            $this->recordStructureFields->record[$fieldName]["curVal"] == null) {
                             $fieldInfo["curVal"] = $this->createGUID();
                             $this->recordStructureFields->record[$fieldName]["curVal"] = $fieldInfo["curVal"];
                         }
                     }
                 }
 
-                if ($fieldInfo["curVal"] === null or
-                    ($fieldInfo["format"] == "datetime" and !$fieldInfo["curVal"])) {
+                if (isset($fieldInfo["curVal"]) and ($fieldInfo["curVal"] === null or
+                    ($fieldInfo["format"] == "datetime" and !$fieldInfo["curVal"]))) {
                     $queryToInsert_temp .= "null, ";
                 } else {
                     $queryToInsert_temp .= "'" . $fieldInfo["curVal"]. "', ";
@@ -204,8 +209,8 @@ class RecordsModel extends Model_pdo
         if($this->query($queryToInsert)){
 
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-                if ($fieldInfo["indexes"]) {
-                    if($fieldInfo["auto_increment"]){
+                if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
+                    if(isset($fieldInfo["auto_increment"]) and $fieldInfo["auto_increment"] == true){
                         $this->recordStructureFields->record[$fieldName]["curVal"]=$this->lastInsertId($fieldName);
                     }
                 }
@@ -223,18 +228,19 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $query_text="update ".$this->tableName." set ";
         $q_where = " where ";
-        $q_fields = null;
+        $q_fields = "";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
 
-            if($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName]){
+            if((isset($_FILES[$fieldName]) and isset($this->recordStructureFields->editFields[$fieldName]["format"])) and
+                ($this->recordStructureFields->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName])){
                 if($this->uploadRecordFile($fieldName, false, true)){
                     $fieldInfo["curVal"] = $this->recordStructureFields->record[$fieldName]["curVal"];
                 }
             }
 
-            if(!$fieldInfo["use_table_name"] or
+            if(!isset($fieldInfo["use_table_name"]) or
                 ($fieldInfo["use_table_name"] == $this->tableName)) {
-                if ($fieldInfo["indexes"]) {
+                if (isset($fieldInfo["indexes"])) {
                     $q_where .= $fieldName . "='";
                     if ($fieldInfo["fetchVal"]) {
                         $q_where .= $fieldInfo["fetchVal"];
@@ -244,8 +250,11 @@ class RecordsModel extends Model_pdo
                     $q_where .= "' and ";
                 }
 
-                if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
-                    if(!$this->recordStructureFields->editFields[$fieldName]["readonly"]){
+                if ((isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"])) and
+                    ($fieldInfo["fetchVal"] != $fieldInfo["curVal"])
+                or (!isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"]))
+                ) {
+                    if(!isset($this->recordStructureFields->editFields[$fieldName]["readonly"])){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {
                             $q_fields .= "null, ";
@@ -258,8 +267,8 @@ class RecordsModel extends Model_pdo
         }
 
         $q_where = substr($q_where, 0, strlen($q_where)-4);
-        $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
-        if($q_fields){
+        if(strlen($q_fields) > 2){
+            $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
             if($this->query($query_text.$q_fields.$q_where)){
                 $this->log_message .= $this->lang_map->updateRecord["success"].": ".$date_stamp;
                 return true;
@@ -284,7 +293,7 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $q_where = null;
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
                 $q_where.=$fieldName."='".$fieldInfo["curVal"]."' and ";
             }
         }
@@ -316,18 +325,18 @@ class RecordsModel extends Model_pdo
 
         foreach ($this->recordStructureFields->searchFields as $fName=>$fData){
             $useFieldName = $fName;
-            if($fData["use_table_name"]){
+            if(isset($fData["use_table_name"])){
                 $useTableName = $fData["use_table_name"];
-                if($fData["use_field_name"]){
+                if(isset($fData["use_field_name"])){
                     $useFieldName = $fData["use_field_name"];
                 }
             }else{
                 $useTableName = $this->tableName;
             }
 
-            if($REQ_ARR[$fName]){
+            if(isset($REQ_ARR[$fName]) and $REQ_ARR[$fName]!= null){
 
-                if($fData["group_by_field"]){
+                if(isset($fData["group_by_field"])){
                     if($fData["format"]=="varchar" || $fData["format"] == "text"){
                         $return_having .= $useFieldName." like '%".$REQ_ARR[$fName]."%' and ";
                     }elseif($fData["format"]=="int"){
@@ -360,7 +369,7 @@ class RecordsModel extends Model_pdo
             $return_having=" having ".substr($return_having, 0 , strlen($return_having)-4);
         }
 
-        if($REQ_ARR["onPage"]){
+        if(isset($REQ_ARR["onPage"])){
             if($REQ_ARR["curPage"]){
                 $return_limit.=" limit ".(($REQ_ARR["curPage"]-1)*$REQ_ARR["onPage"]).", ".$REQ_ARR["onPage"];
             }
@@ -368,18 +377,18 @@ class RecordsModel extends Model_pdo
             $return_limit.=" limit 10";
         }
 
-        if($REQ_ARR["sortField"]){
+        if(isset($REQ_ARR["sortField"])){
 
-            if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"]){
+            if(isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"])){
                 $sort_table_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_table_name"].".";
 
-                if($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"]){
+                if(isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"])){
                     $sort_field_name = $this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["use_field_name"];
                 }else{
                     $sort_field_name = $REQ_ARR["sortField"];
                 }
 
-            }elseif ($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["group_by_field"]){
+            }elseif (isset($this->recordStructureFields->searchFields[$REQ_ARR["sortField"]]["group_by_field"])){
                 $sort_field_name = $REQ_ARR["sortField"];
                 $sort_table_name = null;
             }else{
@@ -399,7 +408,7 @@ class RecordsModel extends Model_pdo
                 }
             }
             if($field_sort_default){
-                if($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"]){
+                if(isset($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"])){
                     $sort_table_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"].".";
 
                     if($this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"]){
@@ -414,7 +423,7 @@ class RecordsModel extends Model_pdo
                 }
 
                 $return_order.= " order by ".$sort_table_name.$sort_field_name;
-                if($this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"]){
+                if(isset($this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"])){
                     $return_order.=" ".$this->recordStructureFields->searchFields[$field_sort_default]["sortOrder"];
                 }
             }
@@ -438,9 +447,9 @@ class RecordsModel extends Model_pdo
             }
         }
         foreach ($this->recordStructureFields->record as $fName=>$fData){
-            if($this->recordStructureFields->editFields[$fName]){
+            if(isset($this->recordStructureFields->editFields[$fName])){
                 if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){
-                    if($REQ_ARR[$fName] == "on"){
+                    if(isset($REQ_ARR[$fName]) and $REQ_ARR[$fName] == "on"){
                         $this->recordStructureFields->record[$fName]["curVal"] = 1;
                     }else{
                         $this->recordStructureFields->record[$fName]["curVal"] = 0;
@@ -498,7 +507,10 @@ class RecordsModel extends Model_pdo
         }else{
 
             if($_FILES[$field_name]["error"] == 4){
-                $this->recordStructureFields->record[$field_name]["curVal"] = $this->recordStructureFields->record[$field_name]["fetchVal"];
+                if(isset($this->recordStructureFields->record[$field_name]["fetchVal"]) and
+                    $this->recordStructureFields->record[$field_name]["fetchVal"]!= null){
+                    $this->recordStructureFields->record[$field_name]["curVal"] = $this->recordStructureFields->record[$field_name]["fetchVal"];
+                }
                 return true;
             }else{
                 return false;
@@ -508,7 +520,7 @@ class RecordsModel extends Model_pdo
 
     function deleteRecordFetchFile($field_name)
     {
-        if($this->recordStructureFields->record[$field_name]["fetchVal"]){
+        if(isset($this->recordStructureFields->record[$field_name]["fetchVal"])){
             $fileLink = $this->extract_ef_from_replaces($field_name, "fetchVal");
             $upload_dir = null;
             $f_expd = explode("/", $fileLink);
@@ -527,7 +539,7 @@ class RecordsModel extends Model_pdo
     function extract_ef_from_replaces($field_name, $state_val = "curVal")
     {
         if($this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"] and $this->recordStructureFields->record[$field_name][$state_val]){
-            if($this->recordStructureFields->editFields[$field_name]["replaces"]){
+            if(isset($this->recordStructureFields->editFields[$field_name]["replaces"])){
                 $file_link = $this->recordStructureFields->editFields[$field_name]["file_options"]["load_dir"];
 
                 foreach ($this->recordStructureFields->editFields[$field_name]["replaces"] as $replace){

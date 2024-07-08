@@ -34,9 +34,24 @@ class Model_User extends RecordsModel
 
     function copy_by_login_or_email()
     {
-        $user_res = $this->listRecords("where users_dt.accLogin='".
-            $this->recordStructureFields->record["accLogin"]["curVal"]."' or users_dt.eMail='".
-            $this->recordStructureFields->record["eMail"]["curVal"]."'");
+        $curVal_where = null;
+        if(isset($this->recordStructureFields->record["accLogin"]["curVal"])){
+            $curVal_where = "where users_dt.accLogin='".
+                $this->recordStructureFields->record["accLogin"]["curVal"]."'";
+            if(isset($this->recordStructureFields->record["eMail"]["curVal"])){
+
+                $curVal_where .= " or users_dt.eMail='".
+                    $this->recordStructureFields->record["eMail"]["curVal"]."'";
+            }
+
+        }elseif(isset($this->recordStructureFields->record["eMail"]["curVal"])){
+
+            $curVal_where = " where users_dt.eMail='".
+                $this->recordStructureFields->record["eMail"]["curVal"]."'";
+        }
+        if($curVal_where != null){
+            $user_res = $this->listRecords($curVal_where);
+        }
         if(isset($user_res) and count($user_res) == 1) {
             $user_row = $user_res[0];
             foreach ($this->recordStructureFields->record as $fieldName => $field_data){

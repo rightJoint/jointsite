@@ -100,8 +100,12 @@ class SiteView extends View
         if ($this->metrik_block) {
             if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {
                 require_once JOINT_SITE_CONF_DIR . "/yandexmetrika.php";
-                $this->metrika = $yandex_metrika;
-                $this->yandex_verification = $yandex_verification;
+                if(isset($yandex_metrika)){
+                    $this->metrika = $yandex_metrika;
+                }
+                if(isset($yandex_verification)){
+                    $this->yandex_verification = $yandex_verification;
+                }
             }
         }
 
@@ -115,7 +119,7 @@ class SiteView extends View
 
     function set_head_array()
     {
-        if($_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             include JOINT_SITE_CONF_DIR.
                 "/modules/access_groups.php";
             require_once JOINT_SITE_CONF_DIR.
@@ -310,7 +314,7 @@ class SiteView extends View
 
         $this->print_products_menu();
 
-        if($_SESSION[JS_SAIK]["site_user"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"])){
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='";
             if($_SESSION[JS_SAIK]["site_user"]["avatar"]){
@@ -361,7 +365,7 @@ class SiteView extends View
             "</div>".
             "<div class='modal-line'>".
             "<div class='modal-line-text'><input type='text' name='login' value='";
-        if($_POST["login"]){
+        if(isset($_POST["login"])){
             echo $_POST["login"];
         }
         echo "' placeholder='".$this->lang_map->sitesignInform["placeholder_login"]."'>"."</div>".
@@ -370,13 +374,13 @@ class SiteView extends View
             "<div class='modal-line'>".
             "<div class='modal-line-text'>".
             "<input type='password' name='password' value='";
-        if($_POST["password"]){
+        if(isset($_POST["password"])){
             echo $_POST["password"];
         }
         echo "' placeholder='".$this->lang_map->sitesignInform["placeholder_password"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if ($this->alert_message) {
+        if (isset($this->alert_message) and $this->alert_message != null) {
             echo "<div class='modal-line-err'>" . $this->alert_message . "</div>";
         }
         echo "</div>";
@@ -519,7 +523,8 @@ class SiteView extends View
 
         foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
             $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
-            if (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"]) {
+            if (isset($request["routes"][$disp_url_count]) and
+                (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
                 $return["text"] .= "active";
             }
             $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";

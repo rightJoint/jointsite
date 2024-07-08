@@ -11,7 +11,7 @@ class moduleMenu
             $return_text = "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
                 "<div class='contentBlock-wrap'>" .
                 "<div class='sub-menu'>";
-            if($module_alias){
+            if($module_alias!=null){
 
                 $return_text .= "<a href='" . $m_process_url . "' class='home-module";
                 if (($request["routes"][$mUri_expLength-1] == $mUri_exp[$mUri_expLength - 1])
@@ -23,7 +23,7 @@ class moduleMenu
             }
 
             $return_text .= "<a href='" . $m_process_url;
-            if ($module_info["moduleTable"]["tUrl"]) {
+            if (isset($module_info["moduleTable"]["tUrl"])) {
                 $custom_dir = $module_info["moduleTable"]["tUrl"];
             } else {
                 $custom_dir = $module_info["moduleTable"]["tableName"];
@@ -37,7 +37,7 @@ class moduleMenu
             if ($module_info["bindTables"]) {
                 foreach ($module_info["bindTables"] as $tableName => $tOption) {
                     $return_text .= "<a href='" . $m_process_url . "/";
-                    if ($tOption["tUrl"]) {
+                    if (isset($tOption["tUrl"])) {
                         $custom_dir = $tOption["tUrl"];
                     } else {
                         $custom_dir = $tableName;

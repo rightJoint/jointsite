@@ -44,7 +44,11 @@ class RecordEditView extends RecordView
         echo "<form class='editForm' method='post' enctype='multipart/form-data'>";
 
         foreach ($this->editFields as $fieldName => $fieldData) {
-            echo $this->getTnputType($fieldName, $fieldData, $this->record[$fieldName]["curVal"])["html"];
+            $field_data_val = null;
+            if(isset($this->record[$fieldName]["curVal"])){
+                $field_data_val = $this->record[$fieldName]["curVal"];
+            }
+            echo $this->getTnputType($fieldName, $fieldData, $field_data_val)["html"];
         }
         echo "<div class='submit-line'>";
         if($this->action_log){
