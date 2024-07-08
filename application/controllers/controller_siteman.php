@@ -9,7 +9,7 @@ class controller_siteman extends ModuleController
 
     function __construct($loaded_model, $loaded_view, $action_name)
     {
-        if(!$_SESSION[JS_SAIK]["site_user"]["user_id"]){
+        if(!isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             jointSite::throwErr("access", "auth in siteman required");
         }
         parent::__construct($loaded_model, $loaded_view, $action_name);
