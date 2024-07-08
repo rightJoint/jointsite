@@ -26,6 +26,10 @@ class SiteView extends View
     public $lang_map;
 
     public $branches = array(
+        "siteman" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR . "/img/popimg/leverage.png",
+        ),
         "main" => array(
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-400.png",
@@ -37,6 +41,10 @@ class SiteView extends View
         "admin" => array(
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR . "/img/popimg/admin-logo.png",
+        ),
+        "module" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/module.png",
         ),
     );
 
