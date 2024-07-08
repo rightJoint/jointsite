@@ -21,7 +21,7 @@ class ModuleController extends RecordsController
         if($request["routes"][$mpu_cnt-1] == $mpu_expld[$mpu_cnt-1]){
 
 
-            if(!$request["routes"][$mpu_cnt]){
+            if(!isset($request["routes"][$mpu_cnt])){
                 $mainModel_name = $this->load_module_model($this->module_name, $this->module_config["moduleTable"]["tableName"]);
 
                 $mainModel = new $mainModel_name();
@@ -58,7 +58,7 @@ class ModuleController extends RecordsController
                 }else{
                     jointSite::throwErr("request", "module process table ".$request["routes"][$mpu_cnt]." not found");
                 }
-                if(!$request["routes"][$mpu_cnt+1] or $request["routes"][$mpu_cnt+1] == "listview"){
+                if(!isset($request["routes"][$mpu_cnt+1]) or $request["routes"][$mpu_cnt+1] == "listview"){
                     $type_of_view = "list";
                 }elseif($request["routes"][$mpu_cnt+1] == "detailview"){
                     $type_of_view = "detail";
@@ -77,7 +77,7 @@ class ModuleController extends RecordsController
 
                 $this->view->hasAccessCreate = false;
 
-                if($this->model->access_rules["create_rule"] == 7){
+                if(isset($this->model->access_rules["create_rule"]) and $this->model->access_rules["create_rule"] == 7){
                     $this->view->hasAccessCreate = true;
                 }
 

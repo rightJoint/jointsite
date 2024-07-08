@@ -31,7 +31,9 @@ class m_model_ntfusers extends RecordsModel
 
                 if($template_params){
                     foreach ($template_params as $tp_key => $tp_val){
-                        $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
+                        if(isset($tp_val)){
+                            $replaced_text = str_replace("$^".$tp_key, $tp_val, $replaced_text);
+                        }
                     }
                 }
 
