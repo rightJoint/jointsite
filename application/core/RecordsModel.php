@@ -293,7 +293,7 @@ class RecordsModel extends Model_pdo
         $date_stamp = date("H:i:s");
         $q_where = null;
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
                 $q_where.=$fieldName."='".$fieldInfo["curVal"]."' and ";
             }
         }
