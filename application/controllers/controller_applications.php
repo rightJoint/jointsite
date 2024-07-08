@@ -56,7 +56,7 @@ class controller_applications extends Controller
                 $this->lang_map->mkApp["err-2"];
         }
         $_SESSION[JS_SAIK]["basket"]["lang"] = $_SESSION[JS_SAIK]["lang"];
-        if($_SESSION[JS_SAIK]["basket"]["total"]){
+        if(isset($_SESSION[JS_SAIK]["basket"]["total"])){
             $this->model->recordStructureFields->record["basket"]["curVal"] = json_encode($_SESSION[JS_SAIK]["basket"]);
             $fbfmResponse["clientSubject"]["err"] = 0;
         }else{
