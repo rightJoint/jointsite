@@ -71,7 +71,7 @@ header .h-caption span.firmName{
     font-family: Calibri;
 }
 /*<--header*/
-.menuBtn {
+.menuBtn, .orderBtn {
     display: inline-block;
     text-align: center;
     padding: 0;
@@ -168,6 +168,14 @@ span.hi-text{
     /*color: lime;*/
     display: inline-block;
     animation: center-animate2 1s ease infinite alternate;
+    -webkit-animation-fill-mode: forwards;
+    animation-iteration-count: 1
+
+}
+.hi-icon-effect-1a .hi-icon.order:hover span.hi-text{
+    /*color: lime;*/
+    display: inline-block;
+    animation: center-animate 1s ease infinite alternate;
     -webkit-animation-fill-mode: forwards;
     animation-iteration-count: 1
 
@@ -596,7 +604,7 @@ form.auth-form .modal-line .modal-line-err{
     span.hi-text{
         font-size: 1em;
     }
-    .menuBtn{
+    .menuBtn, .orderBtn{
         width: 12%;
         margin: 0.2em 4%;
     }
@@ -611,4 +619,21 @@ form.auth-form .modal-line .modal-line-err{
     header .h-caption .textBlock.landing h1, header .h-caption .textBlock.landing span.firmName {
         text-align: center;
     }
+}
+
+form.order .modal-line .modal-line-text.fbm-title{
+    color: turquoise;
+    font-weight: bold;
+
+}
+form.order .modal-line-text.fbm-title p{
+    font-size: 0.8em;
+    color: PowderBlue;
+    font-weight: normal;
+}
+.modal-basket-list .mbl-line .mbl-line-info {
+    text-align: left;
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
 }
