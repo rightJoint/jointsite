@@ -534,7 +534,7 @@ class SiteView extends View
 
     function print_siteman_menu($siteman_url = "/siteman")
     {
-        if($this->lang_map->menu_blocks["modules_menu"]["menu_items"]){
+        if(isset($this->lang_map->menu_blocks["modules_menu"]["menu_items"])){
             $menuStyle = "style='display: none'";
             $folded_style = "folded";
 
