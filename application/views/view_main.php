@@ -39,6 +39,7 @@ class view_main extends SiteView
 
         $this->print_branch("main");
         $this->print_branch("record");
+        $this->print_branch("module");
 
         echo "</div>";
     }
