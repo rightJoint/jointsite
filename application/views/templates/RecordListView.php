@@ -161,7 +161,7 @@ class RecordListView extends RecordView
         $count_of = 0;
         $sortFields_options = null;
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if($fieldData["sort"]){
+            if(isset($fieldData["sort"]) and $fieldData["sort"] == true){
                 $count_of++;
                 if($count_of == 1){
                     if(isset($fieldData["sortOrder"]) and $fieldData["sortOrder"] == "DESC"){

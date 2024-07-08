@@ -192,8 +192,7 @@ class RecordsModel extends Model_pdo
                     }
                 }
 
-                if (isset($fieldInfo["curVal"]) and ($fieldInfo["curVal"] === null or
-                    ($fieldInfo["format"] == "datetime" and !$fieldInfo["curVal"]))) {
+                if (!isset($fieldInfo["curVal"]) or $fieldInfo["curVal"] == "") {
                     $queryToInsert_temp .= "null, ";
                 } else {
                     $queryToInsert_temp .= "'" . $fieldInfo["curVal"]. "', ";
@@ -411,7 +410,7 @@ class RecordsModel extends Model_pdo
                 if(isset($this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"])){
                     $sort_table_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_table_name"].".";
 
-                    if($this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"]){
+                    if(isset($this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"])){
                         $sort_field_name = $this->recordStructureFields->searchFields[$field_sort_default]["use_field_name"];
                     }else{
                         $sort_field_name = $field_sort_default;
