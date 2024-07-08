@@ -76,7 +76,7 @@ class view_admin_tables extends view_admin
     function table_cell($table_name, $table_data)
     {
         $return = "<div class='table-cell tblName'><a href='";
-        if ($table_data['exist']) {
+        if (isset($table_data['exist'])) {
             $return .= $this->admin_process_url."/records/".$table_name;
         }else{
             $return .= "#";
@@ -92,7 +92,7 @@ class view_admin_tables extends view_admin
         $td_select = "<div class='table-cell tblDwlTag'>";
         $option_text = null;
         $countArchives = 0;
-        if(is_array($table_data["load"])){
+        if(isset($table_data["load"])){
             foreach ($table_data["load"] as $tableToLoad) {
                 $option_text .= "<option value='" . $tableToLoad . "'>" .
                     basename($tableToLoad);
@@ -107,7 +107,7 @@ class view_admin_tables extends view_admin
         }
         $td_list .= "<input type='checkbox' ";
         $td_exist .= "<input type='checkbox' ";
-        if ($table_data['exist']) {
+        if (isset($table_data['exist'])) {
             $td_exist .= "checked";
             $td_drop .= "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png' action='drop' onclick='tables(this)'>";
             if ($table_data['qty'] > 0) {
@@ -124,7 +124,7 @@ class view_admin_tables extends view_admin
             } else {
                 $td_download .= " - ";
             }
-            if ($table_data['list']) {
+            if (isset($table_data['list'])) {
                 $td_list .= "checked";
             }
             $td_create .= " - ";

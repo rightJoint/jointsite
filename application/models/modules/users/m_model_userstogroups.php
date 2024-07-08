@@ -54,11 +54,13 @@ class m_model_userstogroups extends ModuleModel
     }
 
     public function copyRecord(){
-        $query_text="select ".$this->tableName.".*, users_dt.accLogin as createdLogin from ".$this->tableName.
+        $query_text="select ".$this->tableName.".*, users_dt.accLogin as createdLogin, ".
+            "usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"]." as groupAlias from ".$this->tableName.
             " left join users_dt on usersToGroups_dt.created_by = users_dt.user_id ".
+            " left join usersGroups_dt on usersGroups_dt.group_id = usersToGroups_dt.group_id ".
             " where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
                 if($fieldInfo["use_table_name"]){
                     $query_text.=$fieldInfo["use_table_name"].".";
                 }
@@ -118,18 +120,18 @@ class m_model_userstogroups extends ModuleModel
 
     function fillUser_id()
     {
-        if($_GET["user_id"] and !$_GET["group_id"]){
+        if(isset($_GET["user_id"]) and !isset($_GET["group_id"])){
             $fillUsers_qry = "select users_dt.user_id, accLogin from users_dt where user_id='".$_GET["user_id"]."'";
-        }elseif ($_GET["group_id"] and !$_GET["user_id"]){
+        }elseif (isset($_GET["group_id"]) and !isset($_GET["user_id"])){
             $fillUsers_qry = "select users_dt.user_id, accLogin, ".$this->tableName.".group_id from users_dt ".
                 "left join ".$this->tableName." on ".$this->tableName.".user_id = users_dt.user_id ".
                 " and ".$this->tableName.".group_id = '".$_GET["group_id"]."' ".
                 "where group_id is null ".
                 "order by accLogin";
-        }elseif ($_GET["group_id"] and $_GET["user_id"]){
+        }elseif (isset($_GET["group_id"]) and isset($_GET["user_id"])){
             $fillUsers_qry = "select users_dt.user_id, accLogin from users_dt where users_dt.user_id='".$_GET["user_id"]."'";
         }
-        elseif (!$_GET["group_id"] and !$_GET["user_id"]){
+        elseif (!isset($_GET["group_id"]) and !isset($_GET["user_id"])){
             $fillUsers_qry = "select users_dt.user_id, accLogin from users_dt";
         }
 
@@ -147,9 +149,9 @@ class m_model_userstogroups extends ModuleModel
 
     function fillGroups_name()
     {
-        if($_GET["group_id"] and !$_GET["user_id"]){
+        if(isset($_GET["group_id"]) and !isset($_GET["user_id"])){
             $fillGroups_qry = "select usersGroups_dt.group_id, usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"]." as groupAlias from usersGroups_dt where group_id='".$_GET["group_id"]."'";
-        }elseif ($_GET["user_id"] and !$_GET["group_id"]) {
+        }elseif (isset($_GET["user_id"]) and !isset($_GET["group_id"])) {
 
             $fillGroups_qry = "select usersGroups_dt.group_id, usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"]." as groupAlias, ".
                 $this->tableName.".user_id from usersGroups_dt ".
@@ -157,11 +159,11 @@ class m_model_userstogroups extends ModuleModel
                 " and ".$this->tableName.".user_id = '".$_GET["user_id"]."' ".
                 "where user_id is null ".
                 "order by usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"];
-        }elseif($_GET["group_id"] and $_GET["user_id"]){
+        }elseif(isset($_GET["group_id"]) and isset($_GET["user_id"])){
 
             $fillGroups_qry = "select usersGroups_dt.group_id, usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"]." as groupAlias from usersGroups_dt where group_id='".$_GET["group_id"]."'";
 
-        }elseif(!$_GET["group_id"] and !$_GET["user_id"]){
+        }elseif(!isset($_GET["group_id"]) and !isset($_GET["user_id"])){
             $fillGroups_qry = "select usersGroups_dt.group_id, usersGroups_dt.groupAlias_".$_SESSION[JS_SAIK]["lang"]." as groupAlias from usersGroups_dt";
         }
 

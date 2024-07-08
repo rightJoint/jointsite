@@ -31,9 +31,11 @@ class ModuleModel extends RecordsModel
 
     function get_access_groups()
     {
-        include JOINT_SITE_CONF_DIR.
-            "/modules/access_groups.php";
-        $this->access_groups = $module_access_groups[$this->module_name];
+        if(isset($this->module_name)){
+            include JOINT_SITE_CONF_DIR.
+                "/modules/access_groups.php";
+            $this->access_groups = $module_access_groups[$this->module_name];
+        }
     }
 
     function checkAccessModel()

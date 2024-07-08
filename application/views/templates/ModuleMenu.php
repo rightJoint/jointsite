@@ -11,11 +11,11 @@ class moduleMenu
             $return_text = "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
                 "<div class='contentBlock-wrap'>" .
                 "<div class='sub-menu'>";
-            if($module_alias){
+            if($module_alias!=null){
 
                 $return_text .= "<a href='" . $m_process_url . "' class='home-module";
                 if (($request["routes"][$mUri_expLength-1] == $mUri_exp[$mUri_expLength - 1])
-                    and !$request["routes"][$mUri_expLength]) {
+                    and !isset($request["routes"][$mUri_expLength])) {
                     $return_text .= " active";
                 }
                 $return_text .= "'>" . $module_alias . "</a>";
@@ -23,13 +23,13 @@ class moduleMenu
             }
 
             $return_text .= "<a href='" . $m_process_url;
-            if ($module_info["moduleTable"]["tUrl"]) {
+            if (isset($module_info["moduleTable"]["tUrl"])) {
                 $custom_dir = $module_info["moduleTable"]["tUrl"];
             } else {
                 $custom_dir = $module_info["moduleTable"]["tableName"];
             }
             $return_text .= "/" . $custom_dir . "' class='module-table";
-            if ($request["routes"][$mUri_expLength] == $custom_dir) {
+            if (isset($request["routes"][$mUri_expLength]) and $request["routes"][$mUri_expLength] == $custom_dir) {
                 $return_text .= " active";
             }
             $return_text .= "'> " . $module_info["moduleTable"]["aliases"][$_SESSION[JS_SAIK]["lang"]] . "</a>";
@@ -37,13 +37,13 @@ class moduleMenu
             if ($module_info["bindTables"]) {
                 foreach ($module_info["bindTables"] as $tableName => $tOption) {
                     $return_text .= "<a href='" . $m_process_url . "/";
-                    if ($tOption["tUrl"]) {
+                    if (isset($tOption["tUrl"])) {
                         $custom_dir = $tOption["tUrl"];
                     } else {
                         $custom_dir = $tableName;
                     }
                     $return_text .= $custom_dir . "' ";
-                    if ($request["routes"][$mUri_expLength] == $custom_dir) {
+                    if (isset($request["routes"][$mUri_expLength]) and $request["routes"][$mUri_expLength] == $custom_dir) {
                         $return_text .= "class='active' ";
                     }
                     $return_text .= "> " . $tOption["aliases"][$_SESSION[JS_SAIK]["lang"]]."</a>";

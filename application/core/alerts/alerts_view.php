@@ -32,7 +32,11 @@ class Alerts_View extends SiteView
             "</div>".
             "<span class='ew-txt'>".$this->lang_map->ew_txt."</span>".
             "<span class='ew-code'>".$this->response_code."</span>".
-            "<span class='ew-h'>".$this->h1."</span>".
+            "<span class='ew-h'>";
+        if($this->alert_message){
+            echo $this->alert_message;
+        }
+            echo "</span>".
             "<div class='ew-detail'>";
         if($this->view_data){
             echo $this->view_data;

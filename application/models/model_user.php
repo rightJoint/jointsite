@@ -34,9 +34,24 @@ class Model_User extends RecordsModel
 
     function copy_by_login_or_email()
     {
-        $user_res = $this->listRecords("where users_dt.accLogin='".
-            $this->recordStructureFields->record["accLogin"]["curVal"]."' or users_dt.eMail='".
-            $this->recordStructureFields->record["eMail"]["curVal"]."'");
+        $curVal_where = null;
+        if(isset($this->recordStructureFields->record["accLogin"]["curVal"])){
+            $curVal_where = "where users_dt.accLogin='".
+                $this->recordStructureFields->record["accLogin"]["curVal"]."'";
+            if(isset($this->recordStructureFields->record["eMail"]["curVal"])){
+
+                $curVal_where .= " or users_dt.eMail='".
+                    $this->recordStructureFields->record["eMail"]["curVal"]."'";
+            }
+
+        }elseif(isset($this->recordStructureFields->record["eMail"]["curVal"])){
+
+            $curVal_where = " where users_dt.eMail='".
+                $this->recordStructureFields->record["eMail"]["curVal"]."'";
+        }
+        if($curVal_where != null){
+            $user_res = $this->listRecords($curVal_where);
+        }
         if(isset($user_res) and count($user_res) == 1) {
             $user_row = $user_res[0];
             foreach ($this->recordStructureFields->record as $fieldName => $field_data){
@@ -64,7 +79,7 @@ class Model_User extends RecordsModel
                 $groupsModel = new RecordsModel("usersToGroups_dt");
                 $userToGroups_res = $groupsModel->listRecords("where usersToGroups_dt.user_id='".$this->recordStructureFields->record["user_id"]["curVal"]."' ");
 
-                if(count($userToGroups_res)){
+                if(is_array($userToGroups_res) and count($userToGroups_res) > 0){
                     foreach ($userToGroups_res as $row_num => $userToGroups_row){
                         $_SESSION[JS_SAIK]["site_user"]["groups"][$userToGroups_row["group_id"]] = array(
                             "read_rule" => $userToGroups_row["read_rule"],
