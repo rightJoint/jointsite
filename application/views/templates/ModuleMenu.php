@@ -29,7 +29,7 @@ class moduleMenu
                 $custom_dir = $module_info["moduleTable"]["tableName"];
             }
             $return_text .= "/" . $custom_dir . "' class='module-table";
-            if ($request["routes"][$mUri_expLength] == $custom_dir) {
+            if (isset($request["routes"][$mUri_expLength]) and $request["routes"][$mUri_expLength] == $custom_dir) {
                 $return_text .= " active";
             }
             $return_text .= "'> " . $module_info["moduleTable"]["aliases"][$_SESSION[JS_SAIK]["lang"]] . "</a>";
@@ -43,7 +43,7 @@ class moduleMenu
                         $custom_dir = $tableName;
                     }
                     $return_text .= $custom_dir . "' ";
-                    if ($request["routes"][$mUri_expLength] == $custom_dir) {
+                    if (isset($request["routes"][$mUri_expLength]) and $request["routes"][$mUri_expLength] == $custom_dir) {
                         $return_text .= "class='active' ";
                     }
                     $return_text .= "> " . $tOption["aliases"][$_SESSION[JS_SAIK]["lang"]]."</a>";
