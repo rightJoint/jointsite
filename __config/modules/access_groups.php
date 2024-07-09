@@ -9,4 +9,7 @@ $module_access_groups = array(
     "notifications" => array(
         "admin-only",
     ),
+    "music" => array(
+        "admin-only",
+    ),
 );

@@ -33,6 +33,7 @@ class view_music extends SiteView
 
     function set_head_array()
     {
+        parent::set_head_array();
         if(!$this->playAlb["robIndex"]){
             $this->metrik_block = false;
             $this->robot_no_index = true;
