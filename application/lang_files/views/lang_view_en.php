@@ -115,4 +115,9 @@ class lang_view_en
             "email_unacceptable" => "email unacceptable",
         ),
     );
+
+    public $musicmenu = array(
+        "link_text" => "My favorite music",
+        "link_title" => "Work a little fun with good music",
+    );
 }

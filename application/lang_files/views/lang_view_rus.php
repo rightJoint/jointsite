@@ -113,4 +113,8 @@ class lang_view_rus
         ),
     );
 
+    public $musicmenu = array(
+        "link_text" => "Избранные трэки",
+        "link_title" => "Работать приятней под хорошую музыку",
+    );
 }
