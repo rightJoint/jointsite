@@ -518,6 +518,7 @@ class SiteView extends View
 
     function print_products_menu()
     {
+        $this->print_product_jointPass();
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
@@ -780,5 +781,18 @@ class SiteView extends View
         return array(
             "basket" => $return,
         );
+    }
+
+    function print_product_jointPass()
+    {
+        echo "<div class='modal-line prod'>" .
+            "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/Products/jointPass.png'></div>" .
+            "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . "/products/jointPass' " .
+            "title='" . $this->lang_map->prod_titles_in_menu["jointPass"]["title"] . "'>" .
+            $this->lang_map->prod_titles_in_menu["jointPass"]["text"] . "</a><sup>" .
+            $this->lang_map->prod_titles_in_menu["jointPass"]["sup"] . "</sup>" .
+            "<span class='opnSubMenux'>" . $this->lang_map->prod_titles_in_menu["jointPass"]["ddm_text"] . "</span>" .
+            "</div>" .
+            "</div>";
     }
 }

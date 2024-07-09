@@ -190,7 +190,7 @@ class landing_view extends SiteView
             "</div>".
             "<div class='promote-block-content'>".
             "<div class='pbc-line f-left'>".
-            "<img src='img/popimg/jointPass.png'>".
+            "<img src='".JOINT_SITE_EXEC_DIR."/img/Products/jointPass.png'>".
             "<p>".
             $this->lang_map->jointpass["p1"].
             "</p>".
@@ -199,7 +199,7 @@ class landing_view extends SiteView
             "</p>".
             "</div>".
             "<div class='pbc-line f-right'>".
-            "<img src='img/Products/encrypt-img.png'>".
+            "<img src='".JOINT_SITE_EXEC_DIR."/img/Products/encrypt-img.png'>".
             "<p>".
             $this->lang_map->jointpass["p3"].
             "</p>".

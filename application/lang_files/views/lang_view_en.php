@@ -19,6 +19,12 @@ class lang_view_en
     public $langpaneltexten = "view in english";
 
     public $prod_titles_in_menu = array(
+        "jointPass" => array(
+            "title" => "Узнать о органайзере паролей joint pass",
+            "text" => "ДжойнтПасс",
+            "sup" => "c#, wpf",
+            "ddm_text" => "продукт",
+        ),
         "jointSite" => array(
             "title" => "About web-application joint site",
             "text" => "Web-site",
