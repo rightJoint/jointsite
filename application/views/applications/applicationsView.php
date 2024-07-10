@@ -11,6 +11,7 @@ class applicationsView extends SiteView
 
     function print_page_content()
     {
+        $srvApplBasket = null;
         if(is_array($this->view_data["basket"])){
             foreach ($this->view_data["basket"]["prod"] as $prodAlias=>$prodInfo){
                 $prodCost = $prodInfo["count"]*$prodInfo["cardPrice_".$_SESSION[JS_SAIK]["lang"]];
@@ -77,7 +78,12 @@ class applicationsView extends SiteView
             "<form class='aplc-form' enctype='multipart/form-data' method='post'>".
             "<div class='aplcf-title'>";
         if($_SESSION[JS_SAIK]["site_user"]['user_id']){
-            $return.="<img src='".USERS_AVATARS_DIR."/".$_SESSION[JS_SAIK]["site_user"]['avatar']."'>".$_SESSION[JS_SAIK]["site_user"]['accAlias'].
+            if (isset($_SESSION[JS_SAIK]["site_user"]["avatar"])) {
+                $avatar_img = USERS_AVATARS_DIR . "/" . $_SESSION[JS_SAIK]["site_user"]["avatar"];
+            }else{
+                $avatar_img = JOINT_SITE_EXEC_DIR . "/img/popimg/avatar-default.png";
+            }
+            $return.="<img src='".$avatar_img."'>".$_SESSION[JS_SAIK]["site_user"]['accAlias'].
                 "<span>Добавить коммент:</span></div><div class='cfForm-err'></div>";
         }else{
             $return.="<img src='/img/popimg/avatar-default.png'>".$this->view_data["rd"]["clientName"]["curVal"].
