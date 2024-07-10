@@ -51,7 +51,7 @@ class RecordListView extends RecordView
             "<div class='search_frame'>".
             "<form class='filterForm' method='post'>";
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if(isset($fieldData["search"])){
+            if(isset($fieldData["search"]) and $fieldData["search"] == true){
                 $field_cur_val = null;
                 if(isset($this->record[$fieldName]["curVal"])){
                     $field_cur_val = $this->record[$fieldName]["curVal"];
@@ -161,7 +161,7 @@ class RecordListView extends RecordView
         $count_of = 0;
         $sortFields_options = null;
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if(isset($fieldData["sort"]) and $fieldData["sort"] == true){
+            if(isset($fieldData["sort"]) and $fieldData["sort"] == true and $fieldData["format"] != "hidden"){
                 $count_of++;
                 if($count_of == 1){
                     if(isset($fieldData["sortOrder"]) and $fieldData["sortOrder"] == "DESC"){
