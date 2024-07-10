@@ -73,7 +73,10 @@ class ModuleController extends RecordsController
                 $this->model->moule_name = $this->module_name;
 
                 $m_view_name = $this->load_module_view($type_of_view);
-                $this->view = new $m_view_name();
+
+                if(!$this->view instanceof $m_view_name){
+                    $this->view = new $m_view_name();
+                }
 
                 $this->view->hasAccessCreate = false;
 
@@ -117,26 +120,32 @@ class ModuleController extends RecordsController
             "/application/views/templates/RecordView.php";
 
         if($type_of_view == "list"){
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/RecordListView.php";
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/ModuleListView.php";
-            return "ModuleListView";
+            if(!$this->view instanceof ModuleListView) {
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/RecordListView.php";
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/ModuleListView.php";
+                return "ModuleListView";
+            }
         }elseif($type_of_view == "detail"){
-
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/RecordDetailView.php";
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/ModuleDetailView.php";
-            return "ModuleDetailView";
+            if(!$this->view instanceof ModuleDetailView) {
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/RecordDetailView.php";
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/ModuleDetailView.php";
+                return "ModuleDetailView";
+            }
         }elseif($type_of_view == "edit" or $type_of_view == "new"){
-
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/RecordEditView.php";
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/views/templates/ModuleEditView.php";
-            return "ModuleEditView";
+            if(!$this->view instanceof ModuleEditView) {
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/RecordEditView.php";
+                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
+                    "/application/views/templates/ModuleEditView.php";
+                return "ModuleEditView";
+            }
         }
+
+        return get_class($this->view);
     }
 
     function process_detail($m_process_url)
@@ -148,7 +157,7 @@ class ModuleController extends RecordsController
             if($this->module_config["bindTables"]){
                 foreach ($this->module_config["bindTables"] as $tName => $tOptions){
 
-                    if($tOptions["relationships"]){
+                    if(isset($tOptions["relationships"])){
 
                         $bindModel_name = $this->load_module_model($this->module_name, $tName);
                         $bindModel = new $bindModel_name();
