@@ -71,9 +71,10 @@ class controller_siteman extends ModuleController
 
             ($request["routes"][3] == "musictracks" and $request["routes"][4] == "filldatalist")){
             $this->module_config = $this->load_module_config("music");
-            $model_name = $this->load_module_model("music", "musictracks");
+            $model_name = $this->load_module_model("music", "musictrackstoalb");
             $this->model = new $model_name();
-            $this->action_filldatalist();
+            $list_return = $this->model->fill_tracks_list();
+            $this->view->generateJson($list_return);
         }
         else{
             $this->module_process("music", $this->sm_process_url."/music");

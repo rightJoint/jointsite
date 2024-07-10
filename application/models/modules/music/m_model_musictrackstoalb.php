@@ -24,9 +24,19 @@ class m_model_musictrackstoalb extends ModuleModel
         $this->recordStructureFields->searchFields["track_name"]["use_table_name"] = $this->tracksTable;
         $this->recordStructureFields->searchFields["albumName"]["use_table_name"] = $this->albTable;
 
-        //$this->recordStructureFields->record["album_id"]["curVal"] = "EBDA3819-3B78-413D-9F36-103A62AF2CCD";
-        //$this->recordStructureFields->record["albumName"]["curVal"] = "111-111-111";
 
+        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+            "/application/models/modules/music/m_model_musicalb.php";
+        $alb_model_name = new m_model_musicalb();
+
+        $where = $alb_model_name->filterWhere("GET");
+
+        $list = $alb_model_name->listRecords($where["where"], $where["order"], $where["limit"], $where["having"]);
+
+        if(is_array($list) and count($list)==1){
+            $this->recordStructureFields->record["album_id"]["curVal"] = $list[0]["album_id"];
+            $this->recordStructureFields->record["albumName"]["curVal"] = $list[0]["albumName"];
+        }
     }
 
     function copyCustomFields()
@@ -73,11 +83,5 @@ left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTab
             "left join ".$this->tracksTable." on ".$this->tracksTable.".track_id = ".$this->tableName.".track_id 
 left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTable.".album_id  ".
             $where)->fetch(PDO::FETCH_ASSOC)["cnt"];
-    }
-
-    function copyGetId()
-    {
-        parent::copyGetId();
-        $this->copyCustomFields();
     }
 }

@@ -208,6 +208,11 @@ class m_rsf_musicalbums extends recordStructureFields
             ),
         );
         $this->searchFields = array(
+            "album_id" => array(
+                "format" => "hidden",
+                "search" => 1,
+                "sort" => 1,
+            ),
             "albumName" => array(
                 "format" => "varchar",
                 "search" => 1,
