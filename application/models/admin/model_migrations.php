@@ -56,6 +56,7 @@ class model_migrations extends RecordsModel
             "update" => "update ",
             "delete" => "delete ",
             "replace " => "replace ",
+            "replace_upper " => "REPLACE ",
             "create_table " => "create table ",
         );
 

@@ -84,4 +84,32 @@ left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTab
 left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTable.".album_id  ".
             $where)->fetch(PDO::FETCH_ASSOC)["cnt"];
     }
+
+    public function fill_tracks_list()
+    {
+
+        $req_where = json_decode($_GET["where"], true);
+        $fdl_where = $this->filterWhere("custom", $req_where);
+
+        $tracks_qry = "SELECT musicTracks.track_id, musicTracks.track_name from musicTracks 
+LEFT JOIN musicTracksToAlb ON musicTracks.track_id = musicTracksToAlb.track_id AND musicTracksToAlb.album_id = '".$_GET["album_id"]."' 
+".$fdl_where["where"]." and musicTracksToAlb.album_id IS null order by musicTracks.track_name";
+
+        $fdl_listRecords = $this->fetchToArray($tracks_qry);
+        if($_GET["findField"] and $_GET["returnKey"]){
+            $list_return = array("" => "");
+            if($fdl_listRecords){
+                foreach ($fdl_listRecords as $list_num => $list_row){
+                    $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
+                }
+            }
+        }else{
+            $list_return = array(
+                "error" => "fields not set",
+            );
+        }
+
+        return $list_return;
+
+    }
 }
