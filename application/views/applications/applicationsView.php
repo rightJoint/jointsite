@@ -77,7 +77,7 @@ class applicationsView extends SiteView
         $return.= "<hr>".
             "<form class='aplc-form' enctype='multipart/form-data' method='post'>".
             "<div class='aplcf-title'>";
-        if($_SESSION[JS_SAIK]["site_user"]['user_id']){
+        if(isset($_SESSION[JS_SAIK]["site_user"]['user_id'])){
             if (isset($_SESSION[JS_SAIK]["site_user"]["avatar"])) {
                 $avatar_img = USERS_AVATARS_DIR . "/" . $_SESSION[JS_SAIK]["site_user"]["avatar"];
             }else{
@@ -110,7 +110,7 @@ class applicationsView extends SiteView
 
         while ($applCm_row = $this->view_data["findApplCm"]->fetch(PDO::FETCH_ASSOC)){
             $applCmClass = null;
-            if($applCm_row["group_id"]){
+            if(isset($applCm_row["group_id"])){
                 $applCmClass = "manag";
             }
             echo "<div class='applCm ".$applCmClass."'>".

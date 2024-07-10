@@ -134,12 +134,11 @@ class controller_applications extends Controller
     function addComment()
     {
 
-        global $routes;
+        global $request;
         if(isset($_POST["appl-f-nc"]) and $_POST["appl-f-nc"]=="y"){
-            $commentModel = new RecordsModel();
-            $commentModel->tableName = "applCm_dt";
 
-            $commentModel->recordStructureFields->record["appl_id"]["curVal"] = $routes[3];
+            $commentModel = new RecordsModel("applCm_dt");
+            $commentModel->recordStructureFields->record["appl_id"]["curVal"] = $request["routes"][3];
 
 
             if(strlen($_POST["content"]) > 1){
@@ -149,7 +148,7 @@ class controller_applications extends Controller
             }
             $commentModel->recordStructureFields->record["dateEntered"]["curVal"] = date("Y-m-d H:i:s");
 
-            if($_SESSION[JS_SAIK]["site_user"]["user_id"]){
+            if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
                 $commentModel->recordStructureFields->record["user_id"]["curVal"] = $_SESSION[JS_SAIK]["site_user"]["user_id"];
             }
 
@@ -211,7 +210,7 @@ class controller_applications extends Controller
         $findApplCm_qry = "select  applCm_dt.content, applCm_dt.dateEntered, applCm_dt.user_id, applCm_dt.attach, usersToGroups_dt.group_id, 
 users_dt.photoLink, users_dt.accAlias, applCm_dt.appl_id    
 from applCm_dt
-left join usersToGroups_dt on applCm_dt.user_id = usersToGroups_dt.user_id and group_id = 'A8357ED4-D2FD-45B3-9ACD-950950BE3535' 
+left join usersToGroups_dt on applCm_dt.user_id = usersToGroups_dt.user_id and group_id = '67A5CC8E-5EBF-46FD-9A37-4BE80DA17681' 
 left join users_dt on users_dt.user_id = usersToGroups_dt.user_id 
 where appl_id = '".$this->model->recordStructureFields->record["appl_id"]["curVal"]."'
 order by applCm_dt.dateEntered desc";
