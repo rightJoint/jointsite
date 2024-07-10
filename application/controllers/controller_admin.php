@@ -258,7 +258,12 @@ class controller_admin extends RecordsController
             $this->model->glob_load_tables($_GET['tableName']);
             $trimTableName = $_GET['tableName'];
 
-            $data["row"] = $this->view->table_cell($_GET['tableName'], $this->model->tables["tables"][$trimTableName]);
+            $access_table_cell = null;
+            if(isset($this->model->tables["tables"][$trimTableName])){
+                $access_table_cell = $this->model->tables["tables"][$trimTableName];
+            }
+
+            $data["row"] = $this->view->table_cell($_GET['tableName'], $access_table_cell);
 
             $data['log'].=$this->lang_map->table_actions["action"].": ".
                 $this->lang_map->table_actions[$_GET["action"]]."<br>".
