@@ -5,11 +5,15 @@ class model_music extends Model_pdo
     {
         if($albAlias){
             $findPlayAlb_qry = "select * from musicAlb where activeFlag is true and albumAlias='".$albAlias."' order by refreshDate DESC";
-            $findPlayAlb_res = $this->query($findPlayAlb_qry);
+            if(!$findPlayAlb_res = $this->pdo_query($findPlayAlb_qry)){
+                jointSite::throwErr("connection", $this->log_message);
+            }
 
         }else{
             $findPlayAlb_qry = "select * from musicAlb where activeFlag is true order by refreshDate DESC LIMIT 1";
-            $findPlayAlb_res = $this->query($findPlayAlb_qry);
+            if(!$findPlayAlb_res = $this->pdo_query($findPlayAlb_qry)){
+                jointSite::throwErr("connection", $this->log_message);
+            }
         }
 
         if($findPlayAlb_res->rowCount() == 1){
