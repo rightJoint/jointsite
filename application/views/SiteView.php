@@ -323,7 +323,7 @@ class SiteView extends View
         if(isset($_SESSION[JS_SAIK]["site_user"])){
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='";
-            if($_SESSION[JS_SAIK]["site_user"]["avatar"]){
+            if(isset($_SESSION[JS_SAIK]["site_user"]["avatar"])){
                 echo USERS_AVATARS_DIR."/".$_SESSION[JS_SAIK]["site_user"]["avatar"];
             }else{
                 echo JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png";
