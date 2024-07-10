@@ -42,6 +42,10 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR."/img/popimg/module.png",
         ),
+        "music" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png",
+        ),
     );
 
     function __construct()
