@@ -131,7 +131,7 @@ class view_admin_tables extends view_admin
             $td_upload .= " - ";
             $td_drop .= " - ";
             $td_download .= " - ";
-            if ($table_data['list']) {
+            if (isset($table_data['list']) and $table_data['list'] == true) {
                 $td_create .= "<img src='".JOINT_SITE_EXEC_DIR."/img/admin/create-icon.png' action='create' onclick='tables(this)'>";
                 $td_list .= "checked";
             }
