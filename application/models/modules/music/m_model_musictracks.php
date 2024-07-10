@@ -10,6 +10,8 @@ class m_model_musictracks extends ModuleModel
         "rus" => "мелодии"
     );
 
+    public $module_name = "music";
+
     function getRecordStructure()
     {
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.

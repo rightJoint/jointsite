@@ -9,6 +9,9 @@ class m_model_musicalb extends ModuleModel
         "en" => "music albums",
         "rus" => "альбомы музыки",
     );
+
+    public $module_name = "music";
+
     function getRecordStructure()
     {
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.

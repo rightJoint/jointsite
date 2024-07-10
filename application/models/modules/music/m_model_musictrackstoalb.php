@@ -12,6 +12,8 @@ class m_model_musictrackstoalb extends ModuleModel
         "rus" => "мелодии в альбом"
     );
 
+    public $module_name = "music";
+
     function getRecordStructure()
     {
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
@@ -55,7 +57,8 @@ class m_model_musictrackstoalb extends ModuleModel
 ".$this->tracksTable.".track_artist, 
 ".$this->tracksTable.".loadDate, 
 ".$this->albTable.".albumName, 
-".$this->albTable.".albumImg 
+".$this->albTable.".albumImg, 
+".$this->albTable.".created_by  
 from ".$this->tableName." 
 left join ".$this->tracksTable." on ".$this->tracksTable.".track_id = ".$this->tableName.".track_id 
 left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTable.".album_id  ".

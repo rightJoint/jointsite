@@ -10,6 +10,6 @@ $module_access_groups = array(
         "admin-only",
     ),
     "music" => array(
-        "admin-only",
+        "532B8184-A552-463C-82D1-70E07E86CEC4",
     ),
 );

@@ -56,6 +56,27 @@ class controller_siteman extends ModuleController
     function action_music()
     {
         require_once JOINT_SITE_CONF_DIR."/music_dir.php";
-        $this->module_process("music", $this->sm_process_url."/music");
+
+        global $request;
+
+        if(isset($request["routes"][3]) and isset($request["routes"][4])and
+
+            ($request["routes"][3] == "musicalb" and $request["routes"][4] == "filldatalist")){
+
+            $this->module_config = $this->load_module_config("music");
+            $model_name = $this->load_module_model("music", $this->module_config["moduleTable"]["tableName"]);
+            $this->model = new $model_name();
+            $this->action_filldatalist();
+        }elseif(isset($request["routes"][3]) and isset($request["routes"][4])and
+
+            ($request["routes"][3] == "musictracks" and $request["routes"][4] == "filldatalist")){
+            $this->module_config = $this->load_module_config("music");
+            $model_name = $this->load_module_model("music", "musictracks");
+            $this->model = new $model_name();
+            $this->action_filldatalist();
+        }
+        else{
+            $this->module_process("music", $this->sm_process_url."/music");
+        }
     }
 }

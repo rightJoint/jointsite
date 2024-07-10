@@ -21,6 +21,9 @@ class m_rsf_musictracks extends recordStructureFields
                 "format" => "date",
                 "curVal" => date("Y-m-d"),
             ),
+            "created_by" => array(
+                "format" => "varchar",
+            ),
         );
         $this->editFields = array (
             "track_id" => array(
@@ -116,6 +119,9 @@ class m_rsf_musictracks extends recordStructureFields
                     "en" => "load-date",
                     "rus" => "Дт. загр.",
                 ),
+            ),
+            "created_by" => array(
+                "format" => "varchar",
             ),
         );
         $this->searchFields = array(

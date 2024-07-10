@@ -32,7 +32,6 @@ class m_rsf_musictrackstoalb extends recordStructureFields
             ),
             "created_by" => array(
                 "format" => "varchar",
-                //"use_table_name" => "musicTracks_dt",
             ),
         );
         $this->editFields = array(
@@ -127,6 +126,9 @@ class m_rsf_musictrackstoalb extends recordStructureFields
                     "en" => "sort date",
                     "rus" => "Сорт.Дт.",
                 ),
+            ),
+            "created_by" => array(
+                "format" => "varchar",
             ),
         );
 
