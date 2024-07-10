@@ -44,7 +44,7 @@ class m_model_groups extends ModuleModel
             " left join users_dt on usersGroups_dt.created_by = users_dt.user_id ".
             " where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
-            if ($fieldInfo["indexes"]) {
+            if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
                 $query_text.=$fieldName."='".$fieldInfo["curVal"]."' and " ;
             }
         }
