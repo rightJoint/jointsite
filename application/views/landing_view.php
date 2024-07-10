@@ -17,15 +17,12 @@ class landing_view extends SiteView
         $this->shortcut_icon = JOINT_SITE_EXEC_DIR."/img/siteLogo/favicon.png";
 
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/products/prod-main.css";
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css";
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/landing/title-block.css";
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/pop-services.css";
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/component.css";
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/landing/contacts-footer.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/modernizr.custom.js";
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/landing-basket.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/matrix-rain.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/landing/contacts.js";
     }

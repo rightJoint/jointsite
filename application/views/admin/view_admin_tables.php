@@ -8,9 +8,7 @@ class view_admin_tables extends view_admin
         parent::__construct();
 
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/admin/tables.css";
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/admin/tables.js";
     }
 

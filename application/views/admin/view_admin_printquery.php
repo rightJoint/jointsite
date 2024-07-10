@@ -9,9 +9,7 @@ class view_admin_printquery extends view_admin
 
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/admin/form-option.css";
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/admin/sql.css";
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/admin/queryPrint.js";
     }
 

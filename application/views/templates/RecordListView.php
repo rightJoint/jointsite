@@ -17,9 +17,7 @@ class RecordListView extends RecordView
     {
         parent::__construct();
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/records.css";
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js";
         $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/records.js";
     }
 

@@ -9,11 +9,14 @@ class SiteView extends View
     public $styles = array(
         JOINT_SITE_EXEC_DIR . "/css/default.css",
         JOINT_SITE_EXEC_DIR . "/css/header.css",
+        JOINT_SITE_EXEC_DIR . "/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css",
     );
 
     public $scripts = array(
         JOINT_SITE_EXEC_DIR . "/lib/js/googleapis.js",
         JOINT_SITE_EXEC_DIR . "/js/header.js",
+        JOINT_SITE_EXEC_DIR . "/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js",
+        JOINT_SITE_EXEC_DIR . "/js/landing-basket.js",
     );
 
     public $metrika = null;
