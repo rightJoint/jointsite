@@ -26,6 +26,7 @@ class RecordsController extends Controller
         $pp_cnt = count($pp_exp);
 
         if (!isset($request["routes"][$pp_cnt]) or
+            $request["routes"][$pp_cnt] == null or
             $request["routes"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
             $this->view->process_url = $process_path;
