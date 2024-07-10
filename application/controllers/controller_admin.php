@@ -289,7 +289,7 @@ class controller_admin extends RecordsController
         $admin_url_expl = explode("/", $this->admin_process_url);
         $admin_url_cnt = count($admin_url_expl);
         global $request;
-        if(isset($request["routes"][$admin_url_cnt+1])){
+        if(isset($request["routes"][$admin_url_cnt+1]) and $request["routes"][$admin_url_cnt+1]!= null){
             $tableName = $request["routes"][$admin_url_cnt+1];
         }elseif ($table_row = $view_data->fetch()){
             $tableName =  $table_row[0];
