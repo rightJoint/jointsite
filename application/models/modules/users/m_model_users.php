@@ -8,6 +8,8 @@ class m_model_users extends ModuleModel
         "rus" => "Список пользователей",
     );
 
+    public $module_name = "users";
+
     function getRecordStructure()
     {
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.

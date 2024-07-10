@@ -15,4 +15,9 @@ $modules_list = array(
         "aliasMenu" => "Уведомления",
         "altText" => "Уведомления",
     ),
+    "music" => array(
+        "mImg" => JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png",
+        "aliasMenu" => "Музыка",
+        "altText" => "Музыка",
+    ),
 );
