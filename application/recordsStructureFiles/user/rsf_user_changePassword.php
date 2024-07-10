@@ -7,7 +7,7 @@ class rsf_user_changePassword extends recordStructureFields
             "user_id" => array(
                 "indexes" => 1,
                 "format" => "varchar",
-                "curVal" => $_SESSION["site_user"]["user_id"],
+                "curVal" => $_SESSION[JS_SAIK]["site_user"]["user_id"],
             ),
             "pw_hash" => array(
                 "format" => "varchar",
