@@ -8,6 +8,8 @@ class m_model_userstogroups extends ModuleModel
         "rus" => "Группы пользователей",
     );
 
+    public $module_name = "users";
+
 
     function getRecordStructure()
     {

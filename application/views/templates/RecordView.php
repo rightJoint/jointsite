@@ -137,7 +137,7 @@ class RecordView extends SiteView
             if(isset($this->record[$fieldNname]["curVal"])){
                 $cur_val_file = $this->record[$fieldNname]["curVal"];
             }
-                "<span class='file_val'>".$cur_val_file."</span>";
+            $return_input .= "<span class='file_val'>".$cur_val_file."</span>";
             if(isset($fieldOption["file_options"]["load_dir"]) and isset($this->record[$fieldNname]["curVal"])){
                 if(isset($fieldOption["file_options"]["file_type"]) and
                     $fieldOption["file_options"]["file_type"] == "img"){
@@ -149,7 +149,7 @@ class RecordView extends SiteView
                     }else{
                         $imgLink = $fieldOption["file_options"]["load_dir"]."/".$value;
                     }
-                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>".$this->record[$fieldNname]["curVal"];
+                    $return_input .= "<img class='cell-img float-l' src='".$imgLink."'>";
                 }
             }
         }
