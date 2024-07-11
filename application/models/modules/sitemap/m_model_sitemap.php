@@ -35,7 +35,7 @@ class m_model_sitemap extends ModuleModel
             "udtcreated.accLogin as createdLogin ".
             "from ".$this->tableName." ".
             "left join users_dt udtcreated on ".$this->tableName.".created_by = udtcreated.user_id ".
-            $where.$order.$limit;
+            $where.$order;
 
         return $this->query($findList_qry);
     }

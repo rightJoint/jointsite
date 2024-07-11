@@ -1,0 +1,35 @@
+.upd-stat {
+    width: 100%;
+    text-align: left;
+}
+.map-lines{
+    text-align: left;
+}
+.map-lines .line-num{
+    display: inline-block;
+    width: 10%;
+}
+.map-lines .line-text{
+    display: inline-block;
+    width: 90%;
+}
+.map-lines .line-text url{
+
+}
+
+.map-lines .line-text loc{
+    width: 60%;
+    display: inline-block;
+}
+.map-lines .line-text lastmod{
+    width: 10%;
+    display: inline-block;
+}
+.map-lines .line-text changefreq{
+    width: 10%;
+    display: inline-block;
+}
+.map-lines .line-text priority{
+    width: 10%;
+    display: inline-block;
+}
