@@ -34,7 +34,7 @@ class moduleMenu
             }
             $return_text .= "'> " . $module_info["moduleTable"]["aliases"][$_SESSION[JS_SAIK]["lang"]] . "</a>";
 
-            if ($module_info["bindTables"]) {
+            if (isset($module_info["bindTables"])) {
                 foreach ($module_info["bindTables"] as $tableName => $tOption) {
                     $return_text .= "<a href='" . $m_process_url . "/";
                     if (isset($tOption["tUrl"])) {
