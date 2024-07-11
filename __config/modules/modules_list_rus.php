@@ -15,4 +15,9 @@ $modules_list = array(
         "aliasMenu" => "Уведомления",
         "altText" => "Уведомления",
     ),
+    "sitemap" => array(
+        "mImg" => JOINT_SITE_EXEC_DIR."/img/popimg/sitemap.png",
+        "aliasMenu" => "Карта сайта",
+        "altText" => "Карта сайта",
+    ),
 );

@@ -15,4 +15,9 @@ $modules_list = array(
         "aliasMenu" => "Notifications",
         "altText" => "Notifications",
     ),
+    "sitemap" => array(
+        "mImg" => JOINT_SITE_EXEC_DIR."/img/popimg/sitemap.png",
+        "aliasMenu" => "Sitemap",
+        "altText" => "Sitemap",
+    ),
 );

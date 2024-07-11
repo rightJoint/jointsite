@@ -9,4 +9,7 @@ $module_access_groups = array(
     "notifications" => array(
         "admin-only",
     ),
+    "sitemap" => array(
+        "admin-only",
+    ),
 );
