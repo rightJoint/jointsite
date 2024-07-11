@@ -209,7 +209,9 @@ class ModuleController extends RecordsController
 
                     }
                 }
-                $this->view->bindTables = $data["bindTables"];
+                if(isset($data["bindTables"])){
+                    $this->view->bindTables = $data["bindTables"];
+                }
             }
         }
         parent::process_detail($m_process_url);
