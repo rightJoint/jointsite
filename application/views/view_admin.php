@@ -33,12 +33,13 @@ class view_admin extends SiteView
 
     function set_head_array()
     {
+        parent::set_head_array();
         $apurl_expl = explode("/", $this->admin_process_url);
         $apurl_cnt = count($apurl_expl);
 
         global $request;
 
-        if(!$request["routes"][$apurl_cnt]){
+        if(!isset($request["routes"][$apurl_cnt])){
             $this->logo = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
         }else{
             $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["admin"]["menu_items"][$request["routes"][$apurl_cnt]]["aliasMenu"];

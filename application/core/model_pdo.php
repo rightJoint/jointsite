@@ -36,6 +36,16 @@ class Model_pdo extends PDO
         $this->throwErrNoConn();
     }
 
+    function pdo_query($statement, $mode = PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
+    {
+        try{
+            return $this->query($statement, $mode);
+        }catch (Exception $e) {
+            $this->log_message = $e->getMessage();
+            return false;
+        }
+    }
+
     function load_lang_files()
     {
         require_once "application/lang_files/models/lang_model_".$_SESSION[JS_SAIK]["lang"].".php";

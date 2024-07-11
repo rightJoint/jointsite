@@ -10,6 +10,11 @@ class view_migrations_log extends RecordListView
 
     function scriptListViewCrtlPannel($slave_req = "")
     {
-        return parent::scriptListViewCrtlPannel($slave_req = "migration_name=".$_GET["migration_name"]);
+        if(isset($_GET["migration_name"])){
+            return parent::scriptListViewCrtlPannel($slave_req = "migration_name=".$_GET["migration_name"]);
+        }else{
+            return false;
+        }
+
     }
 }

@@ -18,8 +18,24 @@ class lang_view_rus
     public $langpaneltexten = "view in english";
 
     public $prod_titles_in_menu = array(
-        "jointSite" => "Подробнее о web-приложении joint site",
-        "admin" => "Админка для mysql на php",
+        "jointSite" => array(
+            "title" => "Подробнее о web-приложении joint site",
+            "text" => "Web-Сайт",
+            "sup" => "php, js, mvc",
+            "ddm_text" => "продукт",
+        ),
+        "admin" => array(
+            "title" => "Админка для mysql на php",
+            "text" => "Админка БД",
+            "sup" => "для mysql",
+            "ddm_text" => "меню",
+        ),
+    );
+    public $auth_menu_text = array(
+        "admin" => array(
+            "adminUser" => "в Админке",
+            "exit" => "выход",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(

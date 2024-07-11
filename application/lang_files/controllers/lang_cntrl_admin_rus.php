@@ -12,7 +12,7 @@ class lang_cntrl_admin_rus extends lang_cntrl_rus
         "Success" => "Успешно",
     );
     public $admin_sql = array(
-        "susses" => "Успенно",
+        "success" => "Успенно",
         "row" => "запись(ей)",
         "success_no_rows" => "Успешно: нет записей",
         "fail" => "Невыполнимый запрос",

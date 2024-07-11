@@ -14,12 +14,14 @@ class RecordEditView extends RecordView
 
     function LoadViewLang_custom()
     {
-        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR."/application/lang_files/views/templates/lang_view_RecordEdit_".$_SESSION[JS_SAIK]["lang"].".php";
+        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR.
+            "/application/lang_files/views/templates/lang_view_RecordEdit_".$_SESSION[JS_SAIK]["lang"].".php";
         return "lang_view_RecordEdit_".$_SESSION[JS_SAIK]["lang"];
     }
 
     function set_head_array()
     {
+        parent::set_head_array();
         $this->lang_map->update_head_array(array(
             "type" => $this->type,
             "h2" => $this->h2,
@@ -42,7 +44,11 @@ class RecordEditView extends RecordView
         echo "<form class='editForm' method='post' enctype='multipart/form-data'>";
 
         foreach ($this->editFields as $fieldName => $fieldData) {
-            echo $this->getTnputType($fieldName, $fieldData, $this->record[$fieldName]["curVal"])["html"];
+            $field_data_val = null;
+            if(isset($this->record[$fieldName]["curVal"])){
+                $field_data_val = $this->record[$fieldName]["curVal"];
+            }
+            echo $this->getTnputType($fieldName, $fieldData, $field_data_val)["html"];
         }
         echo "<div class='submit-line'>";
         if($this->action_log){

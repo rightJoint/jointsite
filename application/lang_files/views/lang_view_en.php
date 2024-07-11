@@ -19,7 +19,24 @@ class lang_view_en
     public $langpaneltexten = "view in english";
 
     public $prod_titles_in_menu = array(
-        "jointSite" => "About web-application joint site",
+        "jointSite" => array(
+            "title" => "About web-application joint site",
+            "text" => "Web-site",
+            "sup" => "php, js, mvc",
+            "ddm_text" => "product",
+        ),
+        "admin" => array(
+            "title" => "php admin for mysql",
+            "text" => "Admin DB",
+            "sup" => "for mysql",
+            "ddm_text" => "menu",
+        ),
+    );
+    public $auth_menu_text = array(
+        "admin" => array(
+            "adminUser" => "in Admin",
+            "exit" => "exit",
+        ),
     );
     public $menu_blocks = array(
         "branches" => array(

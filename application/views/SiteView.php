@@ -106,8 +106,12 @@ class SiteView extends View
         if ($this->metrik_block) {
             if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {
                 require_once JOINT_SITE_CONF_DIR . "/yandexmetrika.php";
-                $this->metrika = $yandex_metrika;
-                $this->yandex_verification = $yandex_verification;
+                if(isset($yandex_metrika)){
+                    $this->metrika = $yandex_metrika;
+                }
+                if(isset($yandex_verification)){
+                    $this->yandex_verification = $yandex_verification;
+                }
             }
         }
 
@@ -196,6 +200,8 @@ class SiteView extends View
             "</span></span></div>" .
             "<div class='h-caption'>" .
             "<div class='textBlock ";
+
+        /*rj-todo text block style on vertical screen, main branch*/
         global $routes;
         if (!$routes[1]) {
             echo "landing";
@@ -312,8 +318,10 @@ class SiteView extends View
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/products/jointsite' ".
-            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]."'>Web site</a><sup>php, js, mvc</sup>".
-            "<span class='opnSubMenu ".$folded_style."'>product</span>".
+            "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
+            $this->lang_map->prod_titles_in_menu["jointSite"]["sup"]."</sup>".
+            "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["jointSite"]["ddm_text"]."</span>".
             "<ul " . $menuStyle . ">".
             $jointsite_menu["text"].
             "</ul>" .
@@ -342,7 +350,8 @@ class SiteView extends View
 
         foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
             $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
-            if (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"]) {
+            if (isset($request["routes"][$disp_url_count]) and
+                (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
                 $return["text"] .= "active";
             }
             $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
@@ -353,7 +362,7 @@ class SiteView extends View
     public function print_admin_menu($admin_url = "/admin")
     {
         $admin_menu = $this->print_menu_items("admin", $admin_url);
-        if (!$_SESSION[JS_SAIK]["admin_user"]["id"] and $admin_menu["is_valid_path"]) {
+        if (!isset($_SESSION[JS_SAIK]["admin_user"]["id"]) and $admin_menu["is_valid_path"]) {
             echo "<form class='auth-form admin' method='post'>" .
                 "<div class='modal-line'>" .
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>" .
@@ -362,7 +371,7 @@ class SiteView extends View
                 "</div>" .
                 "<div class='modal-line'>" .
                 "<div class='modal-line-text'><input type='text' name='login' value='";
-            if ($_POST["login"]) {
+            if (isset($_POST["login"])) {
                 echo $_POST["login"];
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
@@ -371,7 +380,7 @@ class SiteView extends View
                 "<div class='modal-line'>" .
                 "<div class='modal-line-text'>" .
                 "<input type='password' name='password' value='";
-            if ($_POST["password"]) {
+            if (isset($_POST["password"])) {
                 echo $_POST["password"];
             }
             echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
@@ -393,11 +402,11 @@ class SiteView extends View
                 "</form>";
         }
 
-        if ($_SESSION[JS_SAIK]["admin_user"]["id"]) {
+        if (isset($_SESSION[JS_SAIK]["admin_user"]["id"])) {
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
-                "<div class='modal-line-text'>Admin user: ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
-                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>Exit</sup></div>".
+                "<div class='modal-line-text'>".$this->lang_map->auth_menu_text["admin"]["adminUser"].": ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
+                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>".$this->lang_map->auth_menu_text["admin"]["exit"]."</sup></div>".
                 "</div>";
 
             $admin_menu = $this->print_menu_items("admin", $admin_url);
@@ -412,9 +421,11 @@ class SiteView extends View
 
             echo "<div class='modal-line prod'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
-                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/admin' ".
-                "title='".$this->lang_map->prod_titles_in_menu["admin"]."'>Admin</a><sup>for mysql</sup>".
-                "<span class='opnSubMenu ".$folded_style."'>menu</span>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$admin_url."' ".
+                "title='".$this->lang_map->prod_titles_in_menu["admin"]["title"]."'>".
+                $this->lang_map->prod_titles_in_menu["admin"]["text"]."</a><sup>".
+                $this->lang_map->prod_titles_in_menu["admin"]["sup"]."</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["admin"]["ddm_text"]."</span>".
                 "<ul " . $menuStyle . ">".
                 $admin_menu["text"].
                 "</ul>" .

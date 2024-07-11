@@ -32,6 +32,7 @@ class RecordListView extends RecordView
 
     function set_head_array()
     {
+        parent::set_head_array();
         $this->lang_map->set_head_array(array("h2" => $this->h2));
     }
 
@@ -50,8 +51,12 @@ class RecordListView extends RecordView
             "<div class='search_frame'>".
             "<form class='filterForm' method='post'>";
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if($fieldData["search"]){
-                $return_text.= $this->getTnputType($fieldName, $fieldData, $this->record[$fieldName]["curVal"])["html"];
+            if(isset($fieldData["search"]) and $fieldData["search"] == true){
+                $field_cur_val = null;
+                if(isset($this->record[$fieldName]["curVal"])){
+                    $field_cur_val = $this->record[$fieldName]["curVal"];
+                }
+                $return_text.= $this->getTnputType($fieldName, $fieldData, $field_cur_val)["html"];
             }
 
         }
@@ -91,11 +96,16 @@ class RecordListView extends RecordView
 
             "</div>".
             $this->scriptListViewCrtlPannel().
-            "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>".
+            $this->scriptSortBlock().
             "</div>".
             "</div>".
             "</div>".
             "</div>";
+    }
+
+    function scriptSortBlock()
+    {
+        return "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>";
     }
 
     function scriptListViewCrtlPannel($slave_req = "")
@@ -149,17 +159,18 @@ class RecordListView extends RecordView
         $sortOrder_asc = "selected";
         $sortOrder_desc = null;
         $count_of = 0;
+        $sortFields_options = null;
         foreach ($this->searchFields as $fieldName=>$fieldData){
-            if($fieldData["sort"]){
+            if(isset($fieldData["sort"]) and $fieldData["sort"] == true and $fieldData["format"] != "hidden"){
                 $count_of++;
                 if($count_of == 1){
-                    if($fieldData["sortOrder"] == "DESC"){
+                    if(isset($fieldData["sortOrder"]) and $fieldData["sortOrder"] == "DESC"){
                         $sortOrder_desc = "selected";
                         $sortOrder_asc = null;
                     }
                 }
 
-                if($fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
+                if(isset($fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
                     $option_text = $fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
                 }else{
                     $option_text = $fieldName;
@@ -195,45 +206,47 @@ class RecordListView extends RecordView
             $req_uri.=$path."/";
         }
 
+        $return_text = null;
+
         if($this->listRecords){
-            $return_ajax = "<table>".
+            $return_text .= "<table>".
                 "<tr class='fCaption'>";
             foreach ($this->listFields as $fieldName => $fieldInfo){
 
-                $return_ajax.= "<td";
+                $return_text.= "<td";
                 if($fieldInfo["format"] == "hidden"){
-                    $return_ajax.= " style='display:none;'";
+                    $return_text.= " style='display:none;'";
                 }
-                $return_ajax.=">";
+                $return_text.=">";
                 if ($fieldName == "btnEdit"){
-                    $return_ajax.= $this->lang_map->list_table["cell_edit"];
+                    $return_text.= $this->lang_map->list_table["cell_edit"];
                 }elseif ($fieldName == "btnDelete"){
-                    $return_ajax.= $this->lang_map->list_table["cell_del"];
+                    $return_text.= $this->lang_map->list_table["cell_del"];
                 }elseif ($fieldName == "btnDetail"){
-                    $return_ajax.= $this->lang_map->list_table["cell_view"];
-                }elseif($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]]){
-                    $return_ajax.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
+                    $return_text.= $this->lang_map->list_table["cell_view"];
+                }elseif(isset($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
+                    $return_text.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
                 }else{
-                    $return_ajax.= $fieldName;
+                    $return_text.= $fieldName;
                 }
-                $return_ajax.= "</td>";
+                $return_text.= "</td>";
             }
-            $return_ajax.= "</tr>";
+            $return_text.= "</tr>";
 
 
             foreach($this->listRecords as $row_num => $row){
-                $return_ajax.= "<tr>";
+                $return_text.= "<tr>";
                 foreach ($this->listFields as $fieldName => $fieldInfo){
                     $name_print = null;
-                    if($fieldInfo["useName"]){
+                    if(isset($fieldInfo["useName"])){
                         $name_print = " name='".$row[$fieldInfo["useName"]]."' ";
                     }
 
-                    $return_ajax.= "<td";
+                    $return_text.= "<td";
                     if($fieldInfo["format"] == "hidden"){
-                        $return_ajax.= " style='display:none;'";
+                        $return_text.= " style='display:none;'";
                     }
-                    $return_ajax.= ">";
+                    $return_text.= ">";
 
                     if ($fieldInfo["format"] == "file"){
                         if($row[$fieldName]){
@@ -241,7 +254,7 @@ class RecordListView extends RecordView
                                 $imgLink = null;
                                 if($fieldInfo["file_options"]["load_dir"]){
 
-                                    if($fieldInfo["replaces"]){
+                                    if(isset($fieldInfo["replaces"])){
                                         $imgLink = $fieldInfo["file_options"]["load_dir"];
                                         if($fieldInfo["replaces"]){
                                             foreach ($fieldInfo["replaces"] as $replace){
@@ -254,13 +267,13 @@ class RecordListView extends RecordView
                                 }
 
                                 if($imgLink){
-                                    $return_ajax.="<img class='cell-img' src='".$imgLink."'>";
+                                    $return_text.="<img class='cell-img' src='".$imgLink."'>";
                                 }else{
-                                    $return_ajax.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
+                                    $return_text.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
                                         $row[$fieldName];
                                 }
                             }else{
-                                $return_ajax.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
+                                $return_text.= "file:".$fieldInfo["file_options"]["file_type"].":".$fieldInfo["file_options"]["load_dir"]."=".
                                     $row[$fieldName];
                             }
                         }
@@ -278,18 +291,18 @@ class RecordListView extends RecordView
                                 }
                             }
                             if ($fieldName == "btnDetail"){
-                                $return_ajax.= "<a href='".$this->process_url."/detailview?".
+                                $return_text.= "<a href='".$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".
                                     "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
-                                if($row["btnEdit"]!="disabled"){
-                                    $return_ajax.= "<a href='".$this->process_url."/editview?".
+                                if(!isset($row["btnEdit"]) or $row["btnEdit"]!="disabled"){
+                                    $return_text.= "<a href='".$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
-                                if($row["btnDelete"]!="disabled"){
-                                    $return_ajax.= "<a href='".$this->process_url."/deleteview?".
+                                if(!isset($row["btnDelete"]) or $row["btnDelete"]!="disabled"){
+                                    $return_text.= "<a href='".$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png'></a>";
                                 }
@@ -306,37 +319,37 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $return_ajax.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                            $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
-                        if(isset($fieldInfo["maxLength"]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
-                            $return_ajax.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
+                        if(isset($fieldInfo["maxLength"]) and isset($row[$fieldName]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
+                            $return_text.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
                         }else {
-                            $return_ajax.=  $row[$fieldName];
+                            $return_text.=  $row[$fieldName];
                         }
                     }elseif (($fieldInfo["format"] == "int") or ($fieldInfo["format"] =="float")
                         or ($fieldInfo["format"] =="datetime")or ($fieldInfo["format"] =="date")){
-                        $return_ajax.=  $row[$fieldName];
+                        $return_text.=  $row[$fieldName];
                     }elseif (($fieldInfo["format"] == "tinyint") or ($fieldInfo["format"] == "checkbox")){
-                        $return_ajax.= "<input type='checkbox' ".$name_print;
+                        $return_text.= "<input type='checkbox' ".$name_print;
                         if($row[$fieldName]){
-                            $return_ajax.= "checked";
+                            $return_text.= "checked";
                         }
-                        $return_ajax.=">";
+                        $return_text.=">";
                     }elseif ($fieldInfo["format"] == "select"){
-                        $return_ajax.= $fieldInfo["filling"][$row[$fieldName]];
+                        $return_text.= $fieldInfo["filling"][$row[$fieldName]];
                     }
                     else{
-                        $return_ajax.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
+                        $return_text.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
 
                     }
-                    $return_ajax.= "</td>";
+                    $return_text.= "</td>";
                 }
-                $return_ajax.= "</tr>";
+                $return_text.= "</tr>";
             }
-            $return_ajax.= "</table>";
+            $return_text.= "</table>";
         }
-        return $return_ajax;
+        return $return_text;
     }
 
     function pagination_print($recordsCount, $curPage, $onPage, $length=2, $pag_length=2)
