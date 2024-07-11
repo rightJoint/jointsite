@@ -401,7 +401,7 @@ class RecordsModel extends Model_pdo
         }else{
             $field_sort_default = null;
             foreach ($this->recordStructureFields->searchFields as $search_field => $sf_opt){
-                if($sf_opt["sort"]){
+                if(isset($sf_opt["sort"]) and $sf_opt["format"] != "hidden"){
                     $field_sort_default = $search_field;
                     break;
                 }
