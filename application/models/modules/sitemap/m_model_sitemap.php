@@ -51,7 +51,11 @@ class m_model_sitemap extends ModuleModel
             $where=" where ".$where;
         }
 
-        return $this->query($countList_qry." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
+        if($res = $this->pdo_query($countList_qry." ".$where)){
+            return $res->fetch(PDO::FETCH_ASSOC)["cnt"];
+        }else{
+            jointSite::throwErr("connection", $this->log_message);
+        }
     }
 
     function copyCustomFields()

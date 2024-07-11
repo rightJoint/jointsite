@@ -62,6 +62,7 @@ class controller_siteman extends ModuleController
     function action_sitemap()
     {
         global $request;
+        require_once JOINT_SITE_CONF_DIR."/sitemap_dir.php";
         if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2] == "sitemapupdate"){
             $model_name = $this->load_module_model("sitemap", "sitemapupdate");
             $this->model = new $model_name();
