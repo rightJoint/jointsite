@@ -549,13 +549,15 @@ class SiteView extends View
             }
         }
 
-        foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info) {
-            $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
-            if (isset($request["routes"][$disp_url_count]) and
-                (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
-                $return["text"] .= "active";
+        foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
+            if(isset($item_info["use_in_mm"]) and $item_info["use_in_mm"] == true){
+                $return["text"] .= "<li><a href='" . $disp_url . "/" . $url_item . "' class='sub-lnk light ";
+                if (isset($request["routes"][$disp_url_count]) and
+                    (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
+                    $return["text"] .= "active";
+                }
+                $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
             }
-            $return["text"] .= "' title='" . $item_info["altText"] . "'>" . $item_info["aliasMenu"] . "</a></li>";
         }
         return $return;
     }
