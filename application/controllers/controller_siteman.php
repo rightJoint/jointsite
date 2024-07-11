@@ -84,4 +84,16 @@ class controller_siteman extends ModuleController
             $this->module_process("music", $this->sm_process_url."/music");
         }
     }
+
+    function action_services()
+    {
+
+        require_once JOINT_SITE_CONF_DIR."/services_dir.php";
+        $this->module_process("services", $this->sm_process_url."/services");
+    }
+
+    function action_applications()
+    {
+        $this->module_process("applications", $this->sm_process_url."/applications");
+    }
 }
