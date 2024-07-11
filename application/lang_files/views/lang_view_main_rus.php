@@ -15,5 +15,11 @@ class lang_view_main_rus extends lang_view_rus
             "h3-1" => "Тематические ветки",
             "h3-2" => "Core - ветки",
         );
+
+        $this->menu_blocks["branches"]["menu_items"]["fullbranch"] = array(
+            "aliasMenu" => "Полная ветка",
+            "altText" => "Полная ветка",
+            "descr" => "Комплектная ветка содержит все некоммерческие ветки приложения jointSite.",
+        );
     }
 }
