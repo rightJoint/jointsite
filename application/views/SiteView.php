@@ -156,8 +156,8 @@ class SiteView extends View
                             }
                         }
                         if($match_group){
-                            $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name]["use_in_mm"] = true;
                             $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
+                            $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name]["use_in_mm"] = true;
                         }
                     }
                 }
