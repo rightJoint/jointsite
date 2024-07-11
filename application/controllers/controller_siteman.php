@@ -61,21 +61,18 @@ class controller_siteman extends ModuleController
 
     function action_sitemap()
     {
-        $this->module_process("sitemap", $this->sm_process_url."/sitemap");
-        /*
-        global $routes;
-        if($routes[3] == "update"){
-
-            $this->model = $this->loadModel("siteman/sitemap", "update");
+        global $request;
+        if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2] == "sitemapupdate"){
+            $model_name = $this->load_module_model("sitemap", "sitemapupdate");
+            $this->model = new $model_name();
             $view_data = $this->model->update_sitemap();
-            include "application/views/siteman/sitemap/sitemapUpdateView.php";
-            $this->view = new sitemapUpdateView();
-            $this->view->module = $this->modules["sitemap"];
+            $this->view->module_config = $this->load_module_config("sitemap");
+            $this->view->m_process_url = $this->sm_process_url."/sitemap";
+            $this->view->module_name = "sitemap";
             $this->view->view_data = $view_data;
             $this->view->generate();
         }else{
-            $this->module_process( "sitemap");
+            $this->module_process("sitemap", $this->sm_process_url."/sitemap");
         }
-        */
     }
 }
