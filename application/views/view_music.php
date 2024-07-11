@@ -53,7 +53,7 @@ class view_music extends SiteView
                 echo "<div class='alb-menu'>";
 
                 while ($alb_row = $this->albumsList->fetch(PDO::FETCH_ASSOC)){
-                    echo "<a href='/music/album/".$alb_row["albumAlias"]."'>".$alb_row["albumName"]."</a>";
+                    echo "<a href='".JOINT_SITE_EXEC_DIR."/music/album/".$alb_row["albumAlias"]."'>".$alb_row["albumName"]."</a>";
                 }
                 echo "</div>";
             }

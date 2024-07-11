@@ -70,6 +70,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='get from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/main' title='learn more'>detail</a>",
                     "depend" => "no dependencies",
+                    "use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Branch Record",
@@ -82,6 +83,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='download from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
                     "depend" => "branch main",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
@@ -118,6 +120,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='downlowd from github'>link to github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='learn more about Admin'>detail</a>",
                     "depend" => "branch record",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
@@ -153,6 +156,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/music' title='узнать подробнее про Myзыка'>подробнее</a>",
                     "depend" => "ветка record",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
@@ -161,30 +165,37 @@ class lang_view_en
                 "server" => array(
                     "aliasMenu" => "SQL-server",
                     "altText" => "Set up connection to SQL-server and DB",
+                    "use_in_mm" => true,
                 ),
                 "users" => array(
                     "aliasMenu" => "Users",
                     "altText" => "List of users, add or remove admin user",
+                    "use_in_mm" => true,
                 ),
                 "sql" => array(
                     "aliasMenu" => "SQL",
                     "altText" => "Exec SQL-query",
+                    "use_in_mm" => true,
                 ),
                 "printquery" => array(
                     "aliasMenu" => "Print query",
                     "altText" => "Display tables rows select output",
+                    "use_in_mm" => true,
                 ),
                 "tables" => array(
                     "aliasMenu" => "Tables",
                     "altText" => "Actions with tables: create, delete, clear, upload, download",
+                    "use_in_mm" => true,
                 ),
                 "records" => array(
                     "aliasMenu" => "Edit record",
                     "altText" => "Edit, create, delete record in a table",
+                    "use_in_mm" => true,
                 ),
                 "migrations" => array(
                     "aliasMenu" => "Migrations",
                     "altText" => "Update database, records and structure",
+                    "use_in_mm" => true,
                 ),
             ),
         ),

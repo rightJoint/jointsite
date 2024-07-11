@@ -67,6 +67,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
                     "depend" => "нет зависимостей",
+                    "use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
@@ -79,6 +80,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
@@ -114,6 +116,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Админку'>подробнее</a>",
                     "depend" => "ветка record",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
@@ -149,6 +152,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/music' title='узнать подробнее про Myзыка'>подробнее</a>",
                     "depend" => "ветка record",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
@@ -157,30 +161,37 @@ class lang_view_rus
                 "server" => array(
                     "aliasMenu" => "SQL-Сервер",
                     "altText" => "Настройка подключения к SQL-серверу и БД",
+                    "use_in_mm" => true,
                 ),
                 "users" => array(
                     "aliasMenu" => "Пользователи",
                     "altText" => "Список пользователей, добавить или удалить пользователя",
+                    "use_in_mm" => true,
                 ),
                 "sql" => array(
                     "aliasMenu" => "SQL",
                     "altText" => "Выполнить SQL-запрос",
+                    "use_in_mm" => true,
                 ),
                 "printquery" => array(
                     "aliasMenu" => "Печать запроса",
                     "altText" => "Вывод в таблицу результата select",
+                    "use_in_mm" => true,
                 ),
                 "tables" => array(
                     "aliasMenu" => "Таблицы",
                     "altText" => "Действия с таблицами: создать, удалить, очистить, выгрузить, загрузить",
+                    "use_in_mm" => true,
                 ),
                 "records" => array(
                     "aliasMenu" => "Редактирование записей",
                     "altText" => "Редактировать, добавить, удалить запись в таблице",
+                    "use_in_mm" => true,
                 ),
                 "migrations" => array(
                     "aliasMenu" => "Миграции",
                     "altText" => "Обновление базы данных, записей и структуры",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
