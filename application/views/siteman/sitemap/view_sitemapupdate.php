@@ -22,14 +22,16 @@ class view_sitemapupdate extends ModuleListView
             "<div class='contentBlock-wrap'>";
 
         $count_url = 0;
+        $updated_text = "not updated";
         if($this->view_data){
             $count_url = $this->view_data;
+            $updated_text = date("Y-m-d H:i:s");
         }
         echo "<div class='upd-stat'>".
             "<span class='stat-lbl'>count url:</span>".
             "<span class='stat-val'>".$count_url."</span>".
             "<span class='stat-lbl'>updated:</span>".
-            "<span class='stat-val'>".date("Y-m-d H:i:s")."</span>".
+            "<span class='stat-val'>".$updated_text."</span>".
             "</div>".
             "<div class='map-lines'>";
         $handle = fopen($_SERVER["DOCUMENT_ROOT"]."/sitemap.xml", "r");

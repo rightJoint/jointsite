@@ -2,6 +2,15 @@
     width: 100%;
     text-align: left;
 }
+span.stat-lbl{
+    font-weight: bold;
+}
+span.stat-val{
+    font-size: 1.1em;
+    text-decoration: underline;
+    margin-left: 0.2em;
+    margin-right: 1em;
+}
 .map-lines{
     text-align: left;
 }
