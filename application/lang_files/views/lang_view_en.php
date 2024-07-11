@@ -78,6 +78,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='downlowd from github'>link to github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='learn more about Admin'>detail</a>",
                     "depend" => "branch record",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
