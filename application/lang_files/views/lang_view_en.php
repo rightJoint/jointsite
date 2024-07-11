@@ -64,6 +64,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='get from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/main' title='learn more'>detail</a>",
                     "depend" => "no dependencies",
+                    "use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Branch Record",
@@ -76,6 +77,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='download from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
                     "depend" => "branch main",
+                    "use_in_mm" => true,
                 ),
                 "admin" => array(
                     "aliasMenu" => "Simple php admin for mysql",
@@ -89,6 +91,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='downlowd from github'>link to github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='learn more about Admin'>detail</a>",
                     "depend" => "branch record",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",

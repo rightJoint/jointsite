@@ -87,6 +87,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='узнать подробнее про Админку'>подробнее</a>",
                     "depend" => "ветка record",
+                    "use_in_mm" => true,
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
