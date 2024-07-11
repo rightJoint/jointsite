@@ -124,7 +124,7 @@ class ModuleEditView extends RecordEditView
             }*/elseif($fieldOption["format"] == "tinymce"){
         $return_input = "<textarea ".$name_print." ".$id_print." ".$readonly_print.">".$value_print."</textarea>".
             "<script>tinyInit('#".$fieldNname."');</script>";
-    }/*elseif($fieldOption["format"] == "number"){
+    }elseif($fieldOption["format"] == "number"){
                 $return_input="<input type='number' max='".$fieldOption["max"]."' min='".$fieldOption["min"]."' step='".$fieldOption["step"]."' ".
                     $name_print." ".$id_print." ".$value_print." ".$readonly_print.">";
             }elseif($fieldOption["format"] == "list"){
@@ -138,7 +138,7 @@ class ModuleEditView extends RecordEditView
                 }
                 $return_input .="</datalist>";
 
-            }*/else{
+            }else{
         $return_input = $parent_input["return_input"];
     }
 
