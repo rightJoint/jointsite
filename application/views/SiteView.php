@@ -140,6 +140,7 @@ class SiteView extends View
             foreach ($module_access_groups as $module_name => $access_groups){
                 if(!$access_groups or $_SESSION[JS_SAIK]["site_user"]["is_admin"]){
                     $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
+                    $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name]["use_in_mm"] = true;
                 }else{
                     $match_group = false;
                     if(isset($_SESSION[JS_SAIK]["site_user"]["groups"])){
@@ -151,10 +152,10 @@ class SiteView extends View
                         }
                         if($match_group){
                             $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name] = $modules_list[$module_name];
+                            $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name]["use_in_mm"] = true;
                         }
                     }
                 }
-                $this->lang_map->menu_blocks["modules_menu"]["menu_items"][$module_name]["use_in_mm"] = true;
             }
         }
     }
