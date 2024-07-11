@@ -4,7 +4,6 @@ class m_model_sitemapupdate extends m_model_sitemap
 {
 
     public $module_name = "sitemap";
-    public $root_url = "https://rightjoint.ru";
 
     function update_sitemap()
     {
@@ -14,7 +13,7 @@ class m_model_sitemapupdate extends m_model_sitemap
                 "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n";
             while ($list_row = $list_res->fetch(PDO::FETCH_ASSOC)){
                 $map_text.="<url>".
-                    "<loc>".$this->root_url.$list_row["maploc"]."</loc>".
+                    "<loc>".SITEMAP_ROOT_URL.$list_row["maploc"]."</loc>".
                     "<lastmod>".$list_row["lastmod"]."</lastmod>".
                     "<changefreq>".$list_row["changefreq"]."</changefreq>";
                 $print_priority = "0.".$list_row["priority"];

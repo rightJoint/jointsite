@@ -3,8 +3,8 @@ $module_tables_conf = array(
     "moduleTable" => array(
         "tableName" => "sitemap",
         "aliases" => array(
-            "en" => "Sitemap",
-            "rus" => "Карта сайта"
+            "en" => "Map draw",
+            "rus" => "Маршруты"
         ),
     ),
     "bindTables" => array(
