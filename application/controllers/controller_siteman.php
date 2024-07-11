@@ -84,4 +84,21 @@ class controller_siteman extends ModuleController
             $this->module_process("music", $this->sm_process_url."/music");
         }
     }
+
+    function action_sitemap()
+    {
+        global $request;
+        if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2] == "sitemapupdate"){
+            $model_name = $this->load_module_model("sitemap", "sitemapupdate");
+            $this->model = new $model_name();
+            $view_data = $this->model->update_sitemap();
+            $this->view->module_config = $this->load_module_config("sitemap");
+            $this->view->m_process_url = $this->sm_process_url."/sitemap";
+            $this->view->module_name = "sitemap";
+            $this->view->view_data = $view_data;
+            $this->view->generate();
+        }else{
+            $this->module_process("sitemap", $this->sm_process_url."/sitemap");
+        }
+    }
 }

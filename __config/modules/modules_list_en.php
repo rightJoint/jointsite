@@ -20,4 +20,9 @@ $modules_list = array(
         "aliasMenu" => "Music",
         "altText" => "Music",
     ),
+    "sitemap" => array(
+        "mImg" => JOINT_SITE_EXEC_DIR."/img/popimg/sitemap.png",
+        "aliasMenu" => "Sitemap",
+        "altText" => "Sitemap",
+    ),
 );
