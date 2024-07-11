@@ -16,5 +16,6 @@ create table srvCards_dt (
     sortDate date not null,
     unit_rus varchar(8) collate utf8_unicode_ci,
     unit_en varchar(8) collate utf8_unicode_ci,
+    created_by varchar(36) not null collate utf8_unicode_ci,
     primary key (card_id)
     ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

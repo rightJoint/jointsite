@@ -88,18 +88,30 @@ class controller_siteman extends ModuleController
     function action_sitemap()
     {
         global $request;
-        require_once JOINT_SITE_CONF_DIR."/sitemap_dir.php";
-        if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2] == "sitemapupdate"){
+        require_once JOINT_SITE_CONF_DIR . "/sitemap_dir.php";
+        if (isset($request["routes"][$request["exec_dir_cnt"] + 2]) and $request["routes"][$request["exec_dir_cnt"] + 2] == "sitemapupdate") {
             $model_name = $this->load_module_model("sitemap", "sitemapupdate");
             $this->model = new $model_name();
             $view_data = $this->model->update_sitemap();
             $this->view->module_config = $this->load_module_config("sitemap");
-            $this->view->m_process_url = $this->sm_process_url."/sitemap";
+            $this->view->m_process_url = $this->sm_process_url . "/sitemap";
             $this->view->module_name = "sitemap";
             $this->view->view_data = $view_data;
             $this->view->generate();
-        }else{
-            $this->module_process("sitemap", $this->sm_process_url."/sitemap");
+        } else {
+            $this->module_process("sitemap", $this->sm_process_url . "/sitemap");
         }
+    }
+
+    function action_services()
+    {
+
+        require_once JOINT_SITE_CONF_DIR."/services_dir.php";
+        $this->module_process("services", $this->sm_process_url."/services");
+    }
+
+    function action_applications()
+    {
+        $this->module_process("applications", $this->sm_process_url."/applications");
     }
 }
