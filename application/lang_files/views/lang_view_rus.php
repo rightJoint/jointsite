@@ -67,7 +67,6 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
                     "depend" => "нет зависимостей",
-                    "use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
@@ -80,30 +79,6 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
-                    "use_in_mm" => true,
-                ),
-                "siteman" => array(
-                    "aliasMenu" => "Управление сайтом (Siteman)",
-                    "altText" => "подробнее о ветке Siteman",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman",
-                    "test_ref_title" => "Перейти к тесту",
-                    "descr" => "про управление сайтом.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/siteman' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/siteman' title='узнать подробнее про Управление сайтом'>подробнее</a>",
-                    "depend" => "ветка module",
-                ),
-                "module" => array(
-                    "aliasMenu" => "Ветка Модуль (Module)",
-                    "altText" => "подробнее о ветке Модуль",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/module",
-                    "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Описание ветки модуль. ".
-                        "Пользователи, группы, уведомления. Принцип работы модуля.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/module' title='узнать подробнее про Модуль'>подробнее</a>",
-                    "depend" => "ветка record",
                 ),
                 "admin" => array(
                     "aliasMenu" => "Админка на php для mysql",
