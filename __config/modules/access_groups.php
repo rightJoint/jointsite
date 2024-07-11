@@ -12,4 +12,7 @@ $module_access_groups = array(
     "music" => array(
         "532B8184-A552-463C-82D1-70E07E86CEC4",
     ),
+    "sitemap" => array(
+        "admin-only",
+    ),
 );
