@@ -30,7 +30,7 @@ class ModuleController extends RecordsController
 
                 $module_stat["moduleTable"]["countRecords"]=$mainModel->countRecords($countMain_where);
 
-                if($this->module_config["bindTables"]){
+                if(isset($this->module_config["bindTables"])){
                     foreach ($this->module_config["bindTables"] as $tName => $tOptions){
                         $bindModel_name = $this->load_module_model($this->module_name, $tName);
                         $bindModel = new $bindModel_name();
@@ -154,7 +154,7 @@ class ModuleController extends RecordsController
         $mpu_expld = explode("/", $m_process_url);
         $mpu_cnt = count($mpu_expld);
         if($this->module_config["moduleTable"]["tableName"] == $request["routes"][$mpu_cnt-1]){
-            if($this->module_config["bindTables"]){
+            if(isset($this->module_config["bindTables"])){
                 foreach ($this->module_config["bindTables"] as $tName => $tOptions){
 
                     if(isset($tOptions["relationships"])){

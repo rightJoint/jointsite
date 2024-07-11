@@ -60,7 +60,7 @@ class ModuleStatView extends SiteView
             "<td>".$this->module_stat["moduleTable"]["countRecords"]."</td>".
             "</tr>";
 
-        if($this->module_stat["bindTables"]){
+        if(isset($this->module_stat["bindTables"])){
             foreach ($this->module_config["bindTables"] as $tName => $tOptions){
                 echo "<tr class='mst'>".
                     "<td>".$tOptions["aliases"][$_SESSION[JS_SAIK]["lang"]]."</td>".
