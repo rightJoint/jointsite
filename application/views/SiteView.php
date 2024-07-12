@@ -134,7 +134,7 @@ class SiteView extends View
         if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             include JOINT_SITE_CONF_DIR.
                 "/modules/access_groups.php";
-            require_once JOINT_SITE_CONF_DIR.
+            include JOINT_SITE_CONF_DIR.
                 "/modules/modules_list_".$_SESSION[JS_SAIK]["lang"].".php";
 
             foreach ($module_access_groups as $module_name => $access_groups){
@@ -457,7 +457,7 @@ class SiteView extends View
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_password"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if(isset($signUp_err["pass_unacceptable"])){
+        if($signUp_err["pass_unacceptable"] == true){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["pass_unacceptable"]."</div>";
         }
         echo "</div>".
@@ -470,7 +470,7 @@ class SiteView extends View
         echo "' placeholder='".$this->lang_map->sitesignUpform["placeholder_repeat"]."'>".
             "</div>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
-        if(isset($signUp_err["pass_dont_match"])){
+        if($signUp_err["pass_dont_match"] == true){
             echo "<div class='modal-line-err'>".$this->lang_map->sitesignUpform["errors"]["pass_dont_match"]."</div>";
         }
         echo "</div>".

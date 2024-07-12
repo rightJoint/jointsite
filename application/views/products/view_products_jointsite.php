@@ -97,7 +97,7 @@ class View_Products_JointSite extends view_main
             "<ul>".
             "<li>Apache_2.4-PHP_7.2+Nginx_1.23</li>".
             "<li>MySQL-5.6</li>".
-            "<li>PHP_7.2</li>".
+            "<li>PHP_8.1</li>".
             "</ul>".
             "</p>";
     }

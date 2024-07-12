@@ -35,12 +35,12 @@ class view_main extends SiteView
         echo "<div class='branches-block'>";
         echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
         $this->print_branch("music");
-        $this->print_branch("siteman");
+
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
 
-        $this->print_branch("main");
+        //$this->print_branch("main");
         $this->print_branch("record");
-        $this->print_branch("module");
+        $this->print_branch("siteman");
 
         echo "</div>";
     }

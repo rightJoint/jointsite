@@ -40,7 +40,7 @@ class ModuleModel extends RecordsModel
 
     function checkAccessModel()
     {
-        if($_SESSION[JS_SAIK]["site_user"]["is_admin"]){
+        if(isset($_SESSION[JS_SAIK]["site_user"]["is_admin"]) and $_SESSION[JS_SAIK]["site_user"]["is_admin"] == true){
             $this->access_rules = array(
                 "read_rule" => 7,
                 "create_rule" => 7,
@@ -60,7 +60,7 @@ class ModuleModel extends RecordsModel
         );
 
         if($this->access_groups){
-            if($_SESSION[JS_SAIK]["site_user"]["groups"]){
+            if(isset($_SESSION[JS_SAIK]["site_user"]["groups"])){
                 foreach ($_SESSION[JS_SAIK]["site_user"]["groups"] as $group_id => $access_rules){
                     if(in_array($group_id, $this->access_groups)){
                         foreach ($this->access_rules as $return_u_rule => $return_u_val){
