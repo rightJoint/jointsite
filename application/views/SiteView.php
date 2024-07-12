@@ -130,7 +130,7 @@ class SiteView extends View
         if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             include JOINT_SITE_CONF_DIR.
                 "/modules/access_groups.php";
-            require_once JOINT_SITE_CONF_DIR.
+            include JOINT_SITE_CONF_DIR.
                 "/modules/modules_list_".$_SESSION[JS_SAIK]["lang"].".php";
 
             foreach ($module_access_groups as $module_name => $access_groups){
