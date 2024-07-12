@@ -367,7 +367,7 @@ class SiteView extends View
             "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/user-logo.png'></div>".
             "<div class='modal-line-text'>";
-        //$this->print_social_buttons();
+        $this->print_social_buttons();
         echo "<a class='m-l-blue title decnone' id='siteSignIn' href='#'>".
             $this->lang_map->sitesignInform["form_title"].
             "</a>".
@@ -420,7 +420,7 @@ class SiteView extends View
             "<div class='modal-line'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/checkInNow.png'></div>".
             "<div class='modal-line-text'>";
-        //$this->print_social_buttons();
+        $this->print_social_buttons();
         echo "<a class='m-l-blue title decnone' href='#' id='siteSignUp'>".
             $this->lang_map->sitesignUpform["form_title"].
             "</a>".
@@ -576,5 +576,21 @@ class SiteView extends View
                 "</div>" .
                 "</div>";
         }
+    }
+
+    function print_social_buttons()
+    {
+        include JOINT_SITE_CONF_DIR."/social_auth.php";
+
+        echo "<a href='https://connect.ok.ru/oauth/authorize?client_id=".$auth_conf["ok"]["client_id"]."&scope=VALUABLE_ACCESS".
+            "&response_type=code&redirect_uri=".$auth_conf["ok"]["redirect_uri"]."&layout=w&state=ok' ".
+            "title='Вход через Одноклассники' class='sb_auth'>".
+            "<img src='/img/social_logo/ok-logo.png' alt='ok-кнопка'>".
+            "</a>".
+            "<a href='https://oauth.vk.com/authorize?client_id=".$auth_conf["vk"]["client_id"].
+            "&display=page&redirect_uri=".$auth_conf["vk"]["redirect_uri"]."&scope=friends&response_type=code&v=5.62' ".
+            "title='Вход через ВКонтакте' class='sb_auth'>".
+            "<img src='/img/social_logo/vk-logo.png' alt='vk-кнопка'>".
+            "</a>";
     }
 }
