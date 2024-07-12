@@ -397,6 +397,8 @@ class Controller_User extends RecordsController
             }else{
                 $singIn_err = $this->lang_map->signIn_err["wrong_login_or_pass"];
             }
+        }elseif(isset($_GET['code']) and $_GET["code"] != null){
+            $this->social_auth();
         }
 
         if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
@@ -411,16 +413,16 @@ class Controller_User extends RecordsController
     {
         $signUp_message = $this->lang_map->signUn_message["use_menu"];
         $this->view->active_modal_menu = true;
+        $this->view->signUp_err = array(
+            "login_unacceptable" => false,
+            "login_reserved" => false,
+            "pass_unacceptable" => false,
+            "pass_dont_match" => false,
+            "email_unacceptable" => false,
+        );
 
         if(isset($_POST["auth_signUp"]) and $_POST["auth_signUp"] == $this->view->lang_map->sitesignUpform["submit_btn"]){
             $occur_err = false;
-            $this->view->signUp_err = array(
-                "login_unacceptable" => false,
-                "login_reserved" => false,
-                "pass_unacceptable" => false,
-                "pass_dont_match" => false,
-                "email_unacceptable" => false,
-            );
             if(!$this->model->checkUserLogin()){
                 $this->view->signUp_err["login_unacceptable"] = true;
                 $occur_err = true;
@@ -485,5 +487,83 @@ class Controller_User extends RecordsController
 
 
         $this->view->generate();
+    }
+
+    function social_auth()
+    {
+        if (isset($_GET['state']) and $_GET['state']=='ok') {
+            $this->auth_ok();
+        }else{
+            if (strlen($_GET['code'])<300){
+                $this->auth_vk();
+            }else{
+                echo "another network";
+                exit;
+            }
+        }
+    }
+
+    function auth_ok()
+    {
+        if($this->model->ok_auth()){
+            if($this->model->copy_by_login_or_email()){
+                $this->model->updateRecord();
+                if($this->model->auth_user()){
+                    header("Location: /");
+                }else{
+                    $this->view->view_data = $this->model->log_message;
+                }
+            }else{
+                $this->model->recordStructureFields->record["user_id"]["curVal"] =
+                $this->model->recordStructureFields->record["created_by"]["curVal"] = $this->model->createGUID();
+                $this->model->recordStructureFields->record["validDate"]["curVal"] =
+                $this->model->recordStructureFields->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                $this->model->recordStructureFields->record["blackList"]["curVal"] = false;
+                if($this->model->insertRecord()){
+                    if($this->model->auth_user()){
+                        header("Location: /");
+                    }else{
+                        $this->view->view_data = $this->model->log_message;
+                    }
+                }else{
+                    $this->view->view_data = $this->model->log_message;
+                }
+            }
+
+        }else{
+            $this->view->view_data = $this->model->log_message;
+        }
+    }
+
+    function auth_vk()
+    {
+        if($this->model->vk_auth()){
+            if($this->model->copy_by_login_or_email()){
+                $this->model->updateRecord();
+                if($this->model->auth_user()){
+                    header("Location: /");
+                }else{
+                    $this->view->view_data = $this->model->log_message;
+                }
+            }else{
+                $this->model->recordStructureFields->record["user_id"]["curVal"] =
+                $this->model->recordStructureFields->record["created_by"]["curVal"] = $this->model->createGUID();
+                $this->model->recordStructureFields->record["validDate"]["curVal"] =
+                $this->model->recordStructureFields->record["regDate"]["curVal"] = date("Y-m-h H:i:s");
+                $this->model->recordStructureFields->record["blackList"]["curVal"] = false;
+                if($this->model->insertRecord()){
+                    if($this->model->auth_user()){
+                        header("Location: /");
+                    }else{
+                        $this->view->view_data = $this->model->log_message;
+                    }
+                }else{
+                    $this->view->view_data = $this->model->log_message;
+                }
+            }
+
+        }else{
+            $this->view->view_data = $this->model->log_message;
+        }
     }
 }
