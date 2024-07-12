@@ -5,11 +5,22 @@ class lang_view_jointsite_siteman_rus extends lang_view_products_jointsite_rus
     {
         parent::__construct();
 
+        $this->prodmenu["principles_of_work"] = "Принцип работы модуля";
+
+        $this->principles_of_work = array(
+            "h3-1" => "Загрузка модели",
+            "h3-2" => "Загрузка представления",
+        );
+
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
-        $this->product_custom["p1"] = "Record содержит контроллер, модель и представления для работы с записями ".
-            "в таблицах базы данных. Все core-ветки, как и Record будут вливаться в ветку main.";
-        $this->product_deploy["install"]["checkout-branch"] = "main";
+        $this->product_custom["p1"] = "В Siteman настроены основные модули сайта для управления пользователями, группами и оповещениями.";
+        $this->product_custom["p2"] = "После установки и проведения миграций Админка сайта будет доступна по адресу ".
+            "<a href='".JOINT_SITE_EXEC_DIR."/siteman'>/siteman</a>.";
+        $this->product_custom["p3"] = "Для входа используйте ".
+            "<span class='ex-conf'>логин: </span>siteman".
+            " и <span class='ex-conf'>пароль: </span>siteman";
+        $this->product_deploy["install"]["checkout-branch"] = "siteman";
         $this->product_deploy["install"]["example-text"] = "клонирование репозитория и переключение на ветку ".
             "(<strong>".$this->product_deploy["install"]["checkout-branch"]."</strong>)";
 

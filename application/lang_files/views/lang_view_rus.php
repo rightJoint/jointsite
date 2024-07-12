@@ -46,12 +46,13 @@ class lang_view_rus
                     "altText" => "подробнее о ветке Приложение",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
                     "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ",
+                    "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ".
+                "Ветка main содержит все некоммерческие ветки сайта, как этот.",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
                     "depend" => "нет зависимостей",
-                    "use_in_mm" => true,
+                    //"use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
@@ -71,24 +72,12 @@ class lang_view_rus
                     "altText" => "подробнее о ветке Siteman",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman",
                     "test_ref_title" => "Перейти к тесту",
-                    "descr" => "про управление сайтом.",
+                    "descr" => "Ветка Sitema предназначена для быстрого старта новых модулей, ".
+                        "позволяет настроить доступ к сайту используя авторизацию и систему ролей, для оповещения пользователей ".
+                        "разработана модель и шаблоны уведомлений.",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/siteman' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/siteman' title='узнать подробнее про Управление сайтом'>подробнее</a>",
-                    "depend" => "ветка module",
-                ),
-                "module" => array(
-                    "aliasMenu" => "Ветка Модуль (Module)",
-                    "altText" => "подробнее о ветке Модуль",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/module",
-                    "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Модуль описывается в настройках как связанные таблицы по принципу главная - подчиненные. ".
-                        "В моделях созданы дополнительные методы для групповых операций поиска и удаления. ".
-                        "На представлени добавлены сабпанели подчиненных таблиц. ".
-                        "Для настроийки прав доступа к модулю используется ситема ролей и авторизация на сайте.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/module' title='узнать подробнее про Модуль'>подробнее</a>",
                     "depend" => "ветка record",
                     "use_in_mm" => true,
                 ),
