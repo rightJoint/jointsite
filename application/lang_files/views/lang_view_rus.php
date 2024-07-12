@@ -50,6 +50,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
                     "depend" => "нет зависимостей",
+                    "use_in_mm" => true,
                 ),
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
@@ -62,6 +63,7 @@ class lang_view_rus
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
                     "depend" => "ветка main",
+                    "use_in_mm" => true,
                 ),
                 "admin" => array(
                     "aliasMenu" => "Админка на php для mysql",

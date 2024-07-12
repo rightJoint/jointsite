@@ -24,6 +24,7 @@ class jointSite
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
 
         //session app instance key at host
+        $s_key = null;
         if($JOINT_SITE_EXEC_DIR){
             for ($c = 0; $c<$request["exec_dir_cnt"]; $c++){
                 $s_key .= $request["exec_dir"][$c];
