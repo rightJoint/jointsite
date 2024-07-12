@@ -411,16 +411,16 @@ class Controller_User extends RecordsController
     {
         $signUp_message = $this->lang_map->signUn_message["use_menu"];
         $this->view->active_modal_menu = true;
+        $this->view->signUp_err = array(
+            "login_unacceptable" => false,
+            "login_reserved" => false,
+            "pass_unacceptable" => false,
+            "pass_dont_match" => false,
+            "email_unacceptable" => false,
+        );
 
         if(isset($_POST["auth_signUp"]) and $_POST["auth_signUp"] == $this->view->lang_map->sitesignUpform["submit_btn"]){
             $occur_err = false;
-            $this->view->signUp_err = array(
-                "login_unacceptable" => false,
-                "login_reserved" => false,
-                "pass_unacceptable" => false,
-                "pass_dont_match" => false,
-                "email_unacceptable" => false,
-            );
             if(!$this->model->checkUserLogin()){
                 $this->view->signUp_err["login_unacceptable"] = true;
                 $occur_err = true;
