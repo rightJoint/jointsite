@@ -71,8 +71,8 @@ class lang_view_rus
                     "altText" => "подробнее о ветке Myзыка",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/music",
                     "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Описание ветки музыка. ".
-                        "Создание альбомов, добавление мелодий.",
+                    "descr" => "Музыкальная галлерея для небольшого количества мелодий и альбомов. ".
+                        "Один трэк может находится в нескольких альбомах, к альбому можно добавить обложку и описание.",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/music' title='узнать подробнее про Myзыка'>подробнее</a>",
