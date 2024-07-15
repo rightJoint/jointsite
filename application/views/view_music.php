@@ -38,8 +38,7 @@ class view_music extends SiteView
             $this->metrik_block = false;
             $this->robot_no_index = true;
         }
-        //$this->lang_map->set_head_array(array("albumName" => $this->playAlb["albumName"], "metaDescr" => $this->playAlb["metaDescr"]));
-        //include "application/lang_files/views/music/sha_music_".$_SESSION["lang"].".php";
+        $this->lang_map->set_head_array(array("albumName" => $this->playAlb["albumName"], "metaDescr" => $this->playAlb["metaDescr"]));
     }
 
     function print_page_content()
