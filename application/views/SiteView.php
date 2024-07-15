@@ -287,6 +287,8 @@ class SiteView extends View
         }
         echo "</div><div class='ft-center'><hr><span>by Right Joint</span></div>" .
             "<div class='ft-right'>" .
+            "<img src='".JOINT_SITE_EXEC_DIR."/img/y_metrika.png'".
+            "style='height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;'/>".
             "</div>" .
             "</footer>" .
             "</div></div></div>";
