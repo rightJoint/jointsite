@@ -68,6 +68,18 @@ class lang_view_rus
                     "depend" => "ветка record",
                     "use_in_mm" => true,
                 ),
+                "main" => array(
+                    "aliasMenu" => "Ветка Приложение (Main)",
+                    "altText" => "подробнее о ветке Приложение",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "Приложение JointSite можно установить как web-сайт или запустить на отдельном адресе. ".
+                        "В ветку main вливаются содержит все некоммерческие ветки сайта.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про Запись'>подробнее</a>",
+                    "depend" => "нет звисимостей",
+                ),
             ),
         ),
     );

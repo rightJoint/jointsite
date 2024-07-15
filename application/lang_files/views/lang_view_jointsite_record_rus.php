@@ -8,8 +8,8 @@ class lang_view_jointsite_record_rus extends lang_view_products_jointsite_rus
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
         $this->product_custom["p1"] = "Record содержит контроллер, модель и представления для работы с записями ".
-            "в таблицах базы данных. Все core-ветки, как и Record будут вливаться в ветку main.";
-        $this->product_deploy["install"]["checkout-branch"] = "main";
+            "в таблицах базы данных.";
+        $this->product_deploy["install"]["checkout-branch"] = "recnew";
         $this->product_deploy["install"]["example-text"] = "клонирование репозитория и переключение на ветку ".
             "(<strong>".$this->product_deploy["install"]["checkout-branch"]."</strong>)";
 
