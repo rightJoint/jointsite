@@ -34,7 +34,26 @@ class view_jointsite_admin extends View_Products_JointSite
 
     }
 
-
+    function prod_info_custom()
+    {
+        echo "<div class='branches-block'>".
+            "<p>".
+            $this->lang_map->product_custom["p1"].
+            "</p>";
+        if(isset($this->lang_map->product_custom["p2"])){
+            echo "<p>".
+                $this->lang_map->product_custom["p2"].
+                "</p>";
+        }
+        if(isset($this->lang_map->product_custom["p3"])){
+            echo "<p>".
+                $this->lang_map->product_custom["p3"].
+                "</p>";
+        }
+        echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
+        $this->print_prod_branches();
+        echo "</div>";
+    }
 
     function print_prod_branches()
     {

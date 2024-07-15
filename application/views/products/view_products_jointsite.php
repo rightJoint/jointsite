@@ -61,6 +61,9 @@ class View_Products_JointSite extends view_main
             "<p>".
             $this->lang_map->product_custom["p1"].
             "</p>";
+        $this->print_branch("main");
+        echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
+        $this->print_branch("music");
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
         $this->print_prod_branches();
         echo "</div>";
@@ -68,7 +71,7 @@ class View_Products_JointSite extends view_main
 
     function print_prod_branches()
     {
-        $this->print_branch("main");
+        $this->print_branch("siteman");
         $this->print_branch("record");
     }
 
