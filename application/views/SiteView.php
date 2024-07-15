@@ -42,6 +42,10 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png",
         ),
+        "music" => array(
+            "href" => "#",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png",
+        ),
     );
 
     public $admin_auth_err = null;
@@ -359,6 +363,8 @@ class SiteView extends View
 
         $this->print_admin_menu("/admin");
 
+        $this->print_music_menu();
+
         echo "</div></div></div></div>";
     }
 
@@ -660,5 +666,16 @@ class SiteView extends View
                 "</div>" .
                 "</div>";
         }
+    }
+
+    function print_music_menu()
+    {
+        echo "<div class='modal-line'>".
+            "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png'></div>".
+            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR."/music/album/my-fav-music' ".
+            "title='".$this->lang_map->musicmenu["link_title"]."'>".
+            $this->lang_map->musicmenu["link_text"].
+            "</a></div>".
+            "</div>";
     }
 }

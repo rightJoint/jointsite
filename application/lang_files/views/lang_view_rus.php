@@ -103,6 +103,18 @@ class lang_view_rus
                     "depend" => "ветка record",
                     "use_in_mm" => true,
                 ),
+                "music" => array(
+                    "aliasMenu" => "Ветка Myзыка",
+                    "altText" => "подробнее о ветке Myзыка",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/music",
+                    "test_ref_title" => "Перейти к тесту",
+                    "descr" => "Описание ветки музыка. ".
+                        "Создание альбомов, добавление мелодий.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/music' title='скачать с гит хаба'>ссылка на github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/music' title='узнать подробнее про Myзыка'>подробнее</a>",
+                    "depend" => "ветка record",
+                ),
             ),
         ),
         "admin" => array(
@@ -172,5 +184,10 @@ class lang_view_rus
             "pass_dont_match" => "пароли не совпадают",
             "email_unacceptable" => "недопустимый email",
         ),
+    );
+
+    public $musicmenu = array(
+        "link_text" => "Избранные трэки",
+        "link_title" => "Работать приятней под хорошую музыку",
     );
 }

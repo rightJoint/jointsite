@@ -1,0 +1,129 @@
+.alb-menu{
+    margin: 1em 1%;
+    text-align: left;
+    width: 98%;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    display: inline-flex;
+    height: 1.8em;
+}
+.alb-menu::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.alb-menu a{
+    margin: 0 0.2em;
+    background-color: navy;
+    color: silver;
+    padding: 0.2em;
+    border-radius: 0.2em;
+    white-space: nowrap;
+
+}
+.alb-menu a.active{
+
+}
+.play-alb{
+    width: calc(98% - 4px);
+    margin: 0 1%;
+    border: 2px solid darkcyan;
+
+}
+.play-alb .alb-name{
+    width: 100%;
+    font-weight: bold;
+    background-color: silver;
+}
+.play-cont-wrap{
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+.play-alb .alb-cover{
+    vertical-align: middle;
+    display: inline-block;
+    width: 20%;
+}
+.play-alb .alb-cover img{
+    margin: 0.5em;
+    border-radius: 0.5em;
+    height: 4em;
+    width: 4em;
+    display: inline-block;
+}
+.play-alb .alb-descr{
+    vertical-align: middle;
+    display: inline-block;
+    width: 80%;
+}
+.play-alb .alb-created, .play-alb .alb-updated{
+    font-size: 0.9em;
+    text-align: left;
+    display: inline-block;
+    width: 50%;
+}
+.play-alb .alb-created span, .play-alb .alb-updated span{
+    font-weight: bold;
+}
+.tracks-list{
+    width: 98%;
+    margin: 1em 1% 2em 1%;
+}
+.tracks-list .track-line{
+    width: 100%;
+    display: inline-block;
+    border-bottom: 1px solid silver;
+    color: midnightblue;
+    padding: 0.1em;
+
+}
+.tracks-list .track-line .track-num{
+    display: inline-block;
+    width: 10%;
+    border-right: 1px solid silver;
+    border-left: 1px solid silver;
+}
+.tracks-list .track-line .track-name{
+    border-right: 1px solid silver;
+    display: inline-block;
+    width: 59%;
+}
+.tracks-list .track-line .track-name a{
+    text-decoration: none;
+    color: midnightblue;
+}
+.tracks-list .track-line .track-play{
+    border-right: 1px solid silver;
+    display: inline-block;
+    width: 10%;
+}
+.tracks-list .track-line .track-artist{
+    border-right: 1px solid silver;
+    display: inline-block;
+    width: 20%;
+}
+.tracks-list .track-line .track-play input[type=button]{
+    vertical-align: middle;
+    font-size: 0.8em;
+}
+.ac-wrap {
+    width: 98%;
+    margin: 1em 1%;
+}
+
+.track-line.caption{
+    background-color: midnightblue;
+    color: silver;
+}
+
+
+@media only screen and (max-width : 960px) and (orientation:portrait)  {
+    .tracks-list .track-line .track-name{
+        border-right: 1px solid silver;
+        display: inline-block;
+        width: 78%;
+    }
+    .tracks-list .track-line .track-artist{
+        display: none;
+    }
+}
