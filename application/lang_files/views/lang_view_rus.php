@@ -28,18 +28,6 @@ class lang_view_rus
     public $menu_blocks = array(
         "branches" => array(
             "menu_items" => array(
-                "main" => array(
-                    "aliasMenu" => "Ветка Приложение (Main)",
-                    "altText" => "подробнее о ветке Приложение",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
-                    "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Приложение можно установить как сайт или запускать внутри сайта на отдельном url. ",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='узнать подробнее про приложение'>подробнее</a>",
-                    "depend" => "нет зависимостей",
-                    "use_in_mm" => true,
-                ),
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
                     "altText" => "подробнее о ветке Запись",
@@ -50,7 +38,7 @@ class lang_view_rus
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/record' title='узнать подробнее про Запись'>подробнее</a>",
-                    "depend" => "ветка main",
+                    "depend" => "нет звисимостей",
                     "use_in_mm" => true,
                 ),
             ),
