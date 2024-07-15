@@ -75,6 +75,7 @@ class lang_view_rus
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/siteman' title='скачать с гит хаба'>ссылка на github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/siteman' title='узнать подробнее про Управление сайтом'>подробнее</a>",
+                    "depend" => "ветка record",
                     "use_in_mm" => true,
                 ),
                 "admin" => array(
