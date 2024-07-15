@@ -52,8 +52,8 @@ class view_main extends SiteView
             "</div>".
             "<div class='branch-main'>".
             "<div class='branch-title'>".
-            "<a href='".$this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["test_ref"]."' ".
-            "title='".$this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["test_ref_title"]."'>".
+            "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/".$b_name."' ".
+            "title='".$this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["altText"]."'>".
             $this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["aliasMenu"].
             "</a>".
             "</div>".

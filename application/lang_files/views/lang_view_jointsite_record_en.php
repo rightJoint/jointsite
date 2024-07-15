@@ -8,8 +8,8 @@ class lang_view_jointsite_record_en extends lang_view_products_jointsite_en
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
         $this->product_custom["p1"] = "Record include controller, model and views to handle records ".
-            "in database tables. All core-branches, as well as Record merge into main.";
-        $this->product_deploy["install"]["checkout-branch"] = "main";
+            "in database tables.";
+        $this->product_deploy["install"]["checkout-branch"] = "recnew";
         $this->product_deploy["install"]["example-text"] = "Clone repository and checkout branch ".
             "(<strong>".$this->product_deploy["install"]["checkout-branch"]."</strong>)";
 
