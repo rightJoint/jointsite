@@ -38,11 +38,13 @@ class SiteView extends View
             "href" => "#",
             "img" => JOINT_SITE_EXEC_DIR."/img/popimg/record.png",
         ),
-        "module" => array(
+        "admin" => array(
             "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/module.png",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png",
         ),
     );
+
+    public $admin_auth_err = null;
 
     function __construct()
     {
@@ -326,6 +328,7 @@ class SiteView extends View
 
         $this->print_products_menu();
 
+
         if(isset($_SESSION[JS_SAIK]["site_user"])){
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='";
@@ -353,6 +356,8 @@ class SiteView extends View
         }
 
         $this->print_siteman_menu();
+
+        $this->print_admin_menu("/admin");
 
         echo "</div></div></div></div>";
     }
@@ -552,9 +557,10 @@ class SiteView extends View
         return $return;
     }
 
+
     function print_siteman_menu($siteman_url = "/siteman")
     {
-        if(isset($this->lang_map->menu_blocks["modules_menu"]["menu_items"])){
+        if (isset($this->lang_map->menu_blocks["modules_menu"]["menu_items"])) {
             $menuStyle = "style='display: none'";
             $folded_style = "folded";
 
@@ -565,15 +571,91 @@ class SiteView extends View
                 $folded_style = null;
             }
 
+            echo "<div class='modal-line prod'>" .
+
+                "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/popimg/leverage.png'></div>" .
+                "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . $siteman_url . "' " .
+                "title='" . $this->lang_map->prod_titles_in_menu["siteman"]["title"] . "'>" .
+                $this->lang_map->prod_titles_in_menu["siteman"]["text"] . "</a><sup>" .
+                $this->lang_map->prod_titles_in_menu["siteman"]["sup"] . "</sup>" .
+                "<span class='opnSubMenu " . $folded_style . "'>" . $this->lang_map->prod_titles_in_menu["siteman"]["ddm_text"] . "</span>" .
+                "<ul " . $menuStyle . ">" .
+                $siteman_menu_items["text"] .
+                "</ul>" .
+                "</div>" .
+                "</div>";
+        }
+    }
+
+    public function print_admin_menu($admin_url = "/admin")
+    {
+        $admin_menu = $this->print_menu_items("admin", $admin_url);
+        if (!isset($_SESSION[JS_SAIK]["admin_user"]["id"]) and $admin_menu["is_valid_path"]) {
+            echo "<form class='auth-form admin' method='post'>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>" .
+                "<div class='modal-line-text'><a class='m-l-blue title decnone' href='#'>" . $this->lang_map->adminblock["form_title"] .
+                "</a></div>" .
+                "</div>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-text'><input type='text' name='login' value='";
+            if (isset($_POST["login"])) {
+                echo $_POST["login"];
+            }
+            echo "' placeholder='" . $this->lang_map->adminblock["placeholder_login"] . "'>" . "</div>" .
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>" .
+                "</div>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-text'>" .
+                "<input type='password' name='password' value='";
+            if (isset($_POST["password"])) {
+                echo $_POST["password"];
+            }
+            echo "' placeholder='" . $this->lang_map->adminblock["placeholder_password"] . "'>" .
+                "</div>" .
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/pass-img.png'></div>";
+            if ($this->admin_auth_err) {
+                echo "<div class='modal-line-err'>" . $this->admin_auth_err . "</div>";
+            }
+            //if throwErr, thrown message
+            if ($this->alert_message) {
+                echo "<div class='modal-line-err'>" . $this->alert_message . "</div>";
+            }
+            echo "</div>" .
+                "<div class='modal-line'>" .
+                "<div class='modal-line-text'>" .
+                "<input type='submit' name='auth_admin' value='" . $this->lang_map->adminblock["submit_btn"] . "'></div>" .
+                "<div class='modal-line-img'></div>" .
+                "</div>" .
+                "</form>";
+        }
+
+        if (isset($_SESSION[JS_SAIK]["admin_user"]["id"])) {
+            echo "<div class='modal-line'>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
+                "<div class='modal-line-text'>".$this->lang_map->auth_menu_text["admin"]["adminUser"].": ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
+                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>".$this->lang_map->auth_menu_text["admin"]["exit"]."</sup></div>".
+                "</div>";
+
+            $admin_menu = $this->print_menu_items("admin", $admin_url);
+
+            $menuStyle = "style='display: none'";
+            $folded_style = "folded";
+
+            if ($admin_menu["is_valid_path"]) {
+                $menuStyle = null;
+                $folded_style = null;
+            }
+
             echo "<div class='modal-line prod'>".
-                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/leverage.png'></div>".
-                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$siteman_url."' ".
-                "title='".$this->lang_map->prod_titles_in_menu["siteman"]["title"]."'>".
-                $this->lang_map->prod_titles_in_menu["siteman"]["text"]."</a><sup>".
-                $this->lang_map->prod_titles_in_menu["siteman"]["sup"]."</sup>".
-                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["siteman"]["ddm_text"]."</span>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$admin_url."' ".
+                "title='".$this->lang_map->prod_titles_in_menu["admin"]["title"]."'>".
+                $this->lang_map->prod_titles_in_menu["admin"]["text"]."</a><sup>".
+                $this->lang_map->prod_titles_in_menu["admin"]["sup"]."</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["admin"]["ddm_text"]."</span>".
                 "<ul " . $menuStyle . ">".
-                $siteman_menu_items["text"].
+                $admin_menu["text"].
                 "</ul>" .
                 "</div>" .
                 "</div>";
