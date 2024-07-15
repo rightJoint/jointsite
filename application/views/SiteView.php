@@ -43,11 +43,7 @@ class SiteView extends View
         ),
         "admin" => array(
             "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR . "/img/popimg/admin-logo.png",
-        ),
-        "module" => array(
-            "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/module.png",
+            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png",
         ),
         "music" => array(
             "href" => "#",
@@ -143,8 +139,8 @@ class SiteView extends View
         if(isset($_SESSION[JS_SAIK]["site_user"]["user_id"])){
             include JOINT_SITE_CONF_DIR.
                 "/modules/access_groups.php";
-            require_once JOINT_SITE_CONF_DIR .
-                "/modules/modules_list_" . $_SESSION[JS_SAIK]["lang"] . ".php";
+            include JOINT_SITE_CONF_DIR.
+                "/modules/modules_list_".$_SESSION[JS_SAIK]["lang"].".php";
 
             foreach ($module_access_groups as $module_name => $access_groups) {
                 if (!$access_groups or $_SESSION[JS_SAIK]["site_user"]["is_admin"]) {
@@ -355,6 +351,7 @@ class SiteView extends View
 
         $this->print_products_menu();
 
+
         if(isset($_SESSION[JS_SAIK]["site_user"])){
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='";
@@ -384,6 +381,7 @@ class SiteView extends View
         $this->print_siteman_menu();
 
         $this->print_admin_menu("/admin");
+
         $this->print_music_menu();
 
         echo "</div></div></div></div>";
@@ -587,7 +585,7 @@ class SiteView extends View
 
     function print_siteman_menu($siteman_url = "/siteman")
     {
-        if(isset($this->lang_map->menu_blocks["modules_menu"]["menu_items"])){
+        if (isset($this->lang_map->menu_blocks["modules_menu"]["menu_items"])) {
             $menuStyle = "style='display: none'";
             $folded_style = "folded";
 
@@ -598,15 +596,16 @@ class SiteView extends View
                 $folded_style = null;
             }
 
-            echo "<div class='modal-line prod'>".
-                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/leverage.png'></div>".
-                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$siteman_url."' ".
-                "title='".$this->lang_map->prod_titles_in_menu["siteman"]["title"]."'>".
-                $this->lang_map->prod_titles_in_menu["siteman"]["text"]."</a><sup>".
-                $this->lang_map->prod_titles_in_menu["siteman"]["sup"]."</sup>".
-                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["siteman"]["ddm_text"]."</span>".
-                "<ul " . $menuStyle . ">".
-                $siteman_menu_items["text"].
+            echo "<div class='modal-line prod'>" .
+
+                "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/popimg/leverage.png'></div>" .
+                "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . $siteman_url . "' " .
+                "title='" . $this->lang_map->prod_titles_in_menu["siteman"]["title"] . "'>" .
+                $this->lang_map->prod_titles_in_menu["siteman"]["text"] . "</a><sup>" .
+                $this->lang_map->prod_titles_in_menu["siteman"]["sup"] . "</sup>" .
+                "<span class='opnSubMenu " . $folded_style . "'>" . $this->lang_map->prod_titles_in_menu["siteman"]["ddm_text"] . "</span>" .
+                "<ul " . $menuStyle . ">" .
+                $siteman_menu_items["text"] .
                 "</ul>" .
                 "</div>" .
                 "</div>";
@@ -673,15 +672,15 @@ class SiteView extends View
                 $folded_style = null;
             }
 
-            echo "<div class='modal-line prod'>" .
-                "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/popimg/admin-logo.png'></div>" .
-                "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . $admin_url . "' " .
-                "title='" . $this->lang_map->prod_titles_in_menu["admin"]["title"] . "'>" .
-                $this->lang_map->prod_titles_in_menu["admin"]["text"] . "</a><sup>" .
-                $this->lang_map->prod_titles_in_menu["admin"]["sup"] . "</sup>" .
-                "<span class='opnSubMenu " . $folded_style . "'>" . $this->lang_map->prod_titles_in_menu["admin"]["ddm_text"] . "</span>" .
-                "<ul " . $menuStyle . ">" .
-                $admin_menu["text"] .
+            echo "<div class='modal-line prod'>".
+                "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$admin_url."' ".
+                "title='".$this->lang_map->prod_titles_in_menu["admin"]["title"]."'>".
+                $this->lang_map->prod_titles_in_menu["admin"]["text"]."</a><sup>".
+                $this->lang_map->prod_titles_in_menu["admin"]["sup"]."</sup>".
+                "<span class='opnSubMenu ".$folded_style."'>".$this->lang_map->prod_titles_in_menu["admin"]["ddm_text"]."</span>".
+                "<ul " . $menuStyle . ">".
+                $admin_menu["text"].
                 "</ul>" .
                 "</div>" .
                 "</div>";
@@ -816,6 +815,7 @@ class SiteView extends View
             "</a></div>".
             "</div>";
     }
+
     function print_social_buttons()
     {
         include JOINT_SITE_CONF_DIR."/social_auth.php";

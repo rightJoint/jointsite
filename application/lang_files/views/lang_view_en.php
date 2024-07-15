@@ -1,5 +1,4 @@
 <?php
-
 class lang_view_en
 {
     public $head = array(
@@ -54,6 +53,13 @@ class lang_view_en
             "siteUser" => "on Site",
             "exit" => "exit",
             "title" => "personal page",
+            "ddm_text" => "menu",
+        ),
+        "admin" => array(
+            "title" => "php admin for mysql",
+            "text" => "Admin DB",
+            "sup" => "for mysql",
+            "ddm_text" => "menu",
         ),
     );
 
@@ -83,6 +89,7 @@ class lang_view_en
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
                     "depend" => "branch main",
                 ),
+
                 "admin" => array(
                     "aliasMenu" => "Simple php admin for mysql",
                     "altText" => "detail about Admin",
@@ -108,18 +115,6 @@ class lang_view_en
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/siteman' title='узнать подробнее про Управление сайтом'>подробнее</a>",
                     "depend" => "ветка module",
                 ),
-                "module" => array(
-                    "aliasMenu" => "Ветка Модуль (Module)",
-                    "altText" => "подробнее о ветке Модуль",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/module",
-                    "test_ref_title" => "Перейти к тесту",
-                    "descr" => "Описание ветки модуль. ".
-                        "Добавлены кастомные поля типа list и файл для загрузки данных, и другие.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/module' title='скачать с гит хаба'>ссылка на github</a>",
-                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/module' title='узнать подробнее про Модуль'>подробнее</a>",
-                    "depend" => "ветка record",
-                ),
                 "music" => array(
                     "aliasMenu" => "Ветка Myзыка",
                     "altText" => "подробнее о ветке Myзыка",
@@ -132,6 +127,7 @@ class lang_view_en
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/music' title='узнать подробнее про Myзыка'>подробнее</a>",
                     "depend" => "ветка record",
                     "use_in_mm" => true,
+
                 ),
             ),
         ),
@@ -175,12 +171,6 @@ class lang_view_en
             ),
         ),
     );
-    public $adminblock = array(
-        "form_title" => "Get in Admin",
-        "placeholder_login" => "You login...",
-        "placeholder_password" => "enter password...",
-        "submit_btn" => "Submit",
-    );
 
     public $sitesignInform = array(
         "form_title" => "Sign in",
@@ -219,6 +209,14 @@ class lang_view_en
             "message-ps" => "Subject",
             "submit" => "Send",
         ),
+    );
+
+    public $adminblock = array(
+        "form_title" => "Get in Admin",
+        "placeholder_login" => "You login...",
+        "placeholder_password" => "enter password...",
+        "submit_btn" => "Submit",
+
     );
 
     public $musicmenu = array(

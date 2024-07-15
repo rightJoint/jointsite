@@ -1,7 +1,8 @@
 <?php
 class view_main extends SiteView
 {
-    public $current_branch = "fullbranch";
+    public $current_branch = "music";
+
 
     function __construct()
     {
@@ -33,7 +34,10 @@ class view_main extends SiteView
     function print_branches_block()
     {
         echo "<div class='branches-block'>";
+        //echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
+        //$this->print_branch("siteman");
         echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
+
         $this->print_branch("music");
         $this->print_branch("siteman");
         $this->print_branch("admin");
@@ -43,6 +47,16 @@ class view_main extends SiteView
         $this->print_branch("main");
 
 
+
+        $this->print_branch("admin");
+        echo "<h3>".$this->lang_map->product_custom["h3-1"]."</h3>";
+        $this->print_branch("music");
+
+        echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
+
+        //$this->print_branch("main");
+        $this->print_branch("record");
+        $this->print_branch("siteman");
 
         echo "</div>";
     }
