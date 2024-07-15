@@ -31,8 +31,6 @@ class lang_view_rus
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
                     "altText" => "подробнее о ветке Запись",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/record",
-                    "test_ref_title" => "Перейти к тесту",
                     "descr" => "Структуру записи можно получить из базы данных или описать в файле в виде массива. ".
                         "Добавлены кастомные поля типа list и файл для загрузки данных, и другие.",
                     "version" => "v1.0",
@@ -43,9 +41,7 @@ class lang_view_rus
                 ),
                 "main" => array(
                     "aliasMenu" => "Ветка Приложение (Main)",
-                    "altText" => "подробнее о ветке Приложение",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
-                    "test_ref_title" => "Перейти к тесту",
+                    "altText" => "подробнее о ветке Приложение (Main)",
                     "descr" => "Приложение JointSite можно установить как web-сайт или запустить на отдельном адресе. ".
                         "В ветку main вливаются содержит все некоммерческие ветки сайта.",
                     "version" => "v1.0",
