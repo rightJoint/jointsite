@@ -8,7 +8,7 @@ class lang_view_jointsite_admin_rus extends lang_view_products_jointsite_rus
         $this->head["description"] = $this->head["h1"].". ".$this->head["title"];
 
         $this->product_custom["p1"] = "В контроллере вручную проверяется загрузка моделей и представлений для возможности ".
-            "воспроизвести на другом url как в <a href='#product-test'>тестовом примере.</a>";
+            "воспроизвести на другом url.";
         $this->product_custom["h3-2"] = $this->product_custom["h3-1"];
         $this->product_deploy["install"]["checkout-branch"] = "admin";
 

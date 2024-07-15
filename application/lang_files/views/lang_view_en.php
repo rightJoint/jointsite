@@ -103,6 +103,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='downlowd from github'>link to github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='learn more about Admin'>detail</a>",
                     "depend" => "branch record",
+                    "use_in_mm" => true,
                 ),
                 "music" => array(
                     "aliasMenu" => "Ветка Myзыка",
@@ -123,30 +124,37 @@ class lang_view_en
                 "server" => array(
                     "aliasMenu" => "SQL-server",
                     "altText" => "Set up connection to SQL-server and DB",
+                    "use_in_mm" => true,
                 ),
                 "users" => array(
                     "aliasMenu" => "Users",
                     "altText" => "List of users, add or remove admin user",
+                    "use_in_mm" => true,
                 ),
                 "sql" => array(
                     "aliasMenu" => "SQL",
                     "altText" => "Exec SQL-query",
+                    "use_in_mm" => true,
                 ),
                 "printquery" => array(
                     "aliasMenu" => "Print query",
                     "altText" => "Display tables rows select output",
+                    "use_in_mm" => true,
                 ),
                 "tables" => array(
                     "aliasMenu" => "Tables",
                     "altText" => "Actions with tables: create, delete, clear, upload, download",
+                    "use_in_mm" => true,
                 ),
                 "records" => array(
                     "aliasMenu" => "Edit record",
                     "altText" => "Edit, create, delete record in a table",
+                    "use_in_mm" => true,
                 ),
                 "migrations" => array(
                     "aliasMenu" => "Migrations",
                     "altText" => "Update database, records and structure",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
