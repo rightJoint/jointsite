@@ -43,44 +43,81 @@ class view_jointsite_siteman extends View_Products_JointSite
 
     function principles_of_work()
     {
-        /*
-        include JOINT_SITE_CONF_DIR."/music_dir.php";
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/RecordsController.php";
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/ModuleController.php";
-        $test_module_controller = new ModuleController("model_pdo", "View", "test");
-        $test_module_controller->module_process("music", JOINT_SITE_EXEC_DIR."/products/jointsite/siteman");
-*/
-
-        /*
-        include JOINT_SITE_CONF_DIR."/music_dir.php";
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/RecordsModel.php";
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/ModuleModel.php";
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/models/modules/music/m_model_musicalb.php";
-        $test_module_model = new m_model_musicalb();
-        $test_list = $test_module_model->listRecords(null, null, null, null);
-        var_dump($test_list);
-        */
-
-
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<section class='prod-test'>".
             "<h2 id='principles_of_work'>".$this->lang_map->prodmenu["principles_of_work"]."</h2>".
+            "<h3>Конфигурация таблиц модуля</h3>".
+            "<p>".
+            "Настройки модулей по умолчанию находятся в папке <span class='ex-conf'>__config/modules</span>. В файлах ".
+            "<span class='ex-conf'>module_alias..._mconf.php</span> настраивается основная таблица и подчиненные, ".
+            "и связи таблиц по ключевым полям.".
+            "</p>".
+            "<h3>Группы доступа</h3>".
+            "<p>".
+            "Для работы с группами доступа в SiteMan настроен отдельный модуль <span class='ex-conf'>groups</span>".
+            "Права на действия просмотр-создание-изменение-удаление записей для отдельного пользователя задаются в группах пользователя.".
+            "</p>".
+            "<h3>Права доступа к модулю</h3>".
+            "<p>".
+            "Права доступа к модулю задаются в виде id - групп в файле <span class='ex-conf'>access_groups.php</span>".
+            "Таким образом права пользователя устанавливаются на группу, а группа добавляется к модулю. ".
+            "При наличии у пользователя и модуля нескольких групп доступа, будут применяться максимальные права пользователя из этих групп. ".
+            "</p>".
+            "<h3>Добавление модуля в меню</h3>".
+            "<p>".
+            "Список модулей Siteman для показа в меню настраивается в файлах <span class='ex-conf'>modules_list_rus.php</span> ".
+            "и <span class='ex-conf'>modules_list_en.php</span>".
+            "Для отображения доступных модулей на предствлении <span class='ex-conf'>SiteView.php</span> в методе ".
+            "<span class='ex-conf'>set_head_array()</span> деляется дополнительная проверка.".
+            "</p>".
+            "<h3>Использование контроллера модуля</h3>".
             "<div class='example'>".
             "<div class='example-code'>".
             "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/core/RecordsController.php'".
-            "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/core/RecordsController.php'".
             "</div>".
             "<div class='example-code'>".
-            "git checkout ".$this->lang_map->product_deploy["install"]["checkout-branch"].
+            "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/core/ModuleController.php'".
+            "</div>".
+            "<div class='example-code'>".
+            "$ test_module_controller = new ModuleController('model_pdo', 'View', 'test');".
+            "</div>".
+            "<div class='example-code'>".
+            "$ test_module_controller->module_process('music', JOINT_SITE_EXEC_DIR.'/products/jointsite/siteman');".
             "</div>".
             "<div class='example-text'>".
-            $this->lang_map->product_deploy["install"]["example-text"].
+            "Пример как отобразить управление модуля <span class='ex-conf'>groups</span> на текущем адресе ".
+            "<span class='ex-conf'>/products/jointsite/siteman</span> ".
             "</div>".
             "</div>".
-            "<h3>".$this->lang_map->principles_of_work["h3-1"]."</h3>".
-            "<h3>".$this->lang_map->principles_of_work["h3-2"]."</h3>".
+
+
+            "<h3>Использование модели</h3>".
+            "<div class='example'>".
+            "<div class='example-code'>".
+            "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/core/RecordsModel.php';".
+            "</div>".
+            "<div class='example-code'>".
+            "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/core/ModuleModel.php';".
+            "</div>".
+            "<div class='example-code'>".
+            "require_once $ _SERVER['DOCUMENT_ROOT'].JOINT_SITE_EXEC_DIR.'/application/models/modules/users/m_model_users.php';".
+            "</div>".
+            "<div class='example-code'>".
+            "$ test_module_model = new m_model_users();".
+            "</div>".
+            "<div class='example-code'>".
+            "$ test_list = $ test_module_model->listRecords(null, null, null, null);".
+            "</div>".
+            "<div class='example-code'>".
+            "var_dump($ test_list);".
+            "</div>".
+            "<div class='example-text'>".
+            "Пример получение списка пользователей сайта".
+            "</div>".
+            "</div>".
             "</section>".
+            "<p></p>".
             "</div></div></div>";
     }
 
@@ -113,5 +150,13 @@ class view_jointsite_siteman extends View_Products_JointSite
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
         $this->print_prod_branches();
         echo "</div>";
+    }
+
+    function prod_deploy_config()
+    {
+        echo "<h3>".$this->lang_map->product_config["h3"]."</h3>".
+            "<p>".
+            $this->lang_map->product_config["p1"].
+            "</p>";
     }
 }

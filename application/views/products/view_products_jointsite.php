@@ -17,7 +17,6 @@ class View_Products_JointSite extends view_main
         $this->prod_menu();
         $this->prod_info();
         $this->prod_deploy();
-        $this->prod_test();
     }
     function prod_about()
     {
@@ -40,7 +39,6 @@ class View_Products_JointSite extends view_main
             "<ul>".
             "<li><a href='#product-info'>".$this->lang_map->prodmenu["h2_common"]."</a></li>".
             "<li><a href='#product-setup'>".$this->lang_map->prodmenu["h2_setup"]."</a></li>".
-            "<li><a href='#product-test'>".$this->lang_map->prodmenu["h2_test"]."</a></li>".
             "</ul>".
             "</section>".
             "</div></div></div>";
@@ -185,18 +183,5 @@ class View_Products_JointSite extends view_main
             echo "<p>".$this->lang_map->product_migration["p2"]."</p>";
         }
 
-    }
-
-    function prod_test()
-    {
-        echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
-            "<div class='contentBlock-wrap'>".
-            "<section class='prod-test'>".
-            "<h2 id='product-test'>".$this->lang_map->prodmenu["h2_test"]."</h2>".
-            "<p>".
-            $this->lang_map->prod_test["p1"].
-            "</p>".
-            "</section>".
-            "</div></div></div>";
     }
 }

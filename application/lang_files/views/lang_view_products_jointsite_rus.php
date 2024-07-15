@@ -19,7 +19,6 @@ class lang_view_products_jointsite_rus extends lang_view_main_rus
             "h2_сontent" => "Содержание",
             "h2_common" => "О продукте",
             "h2_setup" => "Установка",
-            "h2_test" => "Тест",
         );
         $this->product_deploy = array(
             "install" => array(
@@ -59,9 +58,6 @@ class lang_view_products_jointsite_rus extends lang_view_main_rus
             "example-text-2" => "Устанока директории <span class='ex-conf'>/mirror</span> для запуска внутри другого приложения",
             "mirror_dir" => "/mirror",
             "mirror_base" => "mirror"
-        );
-        $this->prod_test = array(
-            "p1" => "Для теста внутри этого приложения используется отдельный url <span class='ex-conf'>/test</span>."
         );
     }
 }
