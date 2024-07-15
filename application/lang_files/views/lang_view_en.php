@@ -41,28 +41,30 @@ class lang_view_en
     public $menu_blocks = array(
         "branches" => array(
             "menu_items" => array(
-                "main" => array(
-                    "aliasMenu" => "Branch Application (Main)",
-                    "altText" => "about branch main",
-                    "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/main",
-                    "test_ref_title" => "Do test",
-                    "descr" => "Its possible to run this app inside some another app or deploy as site.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='get from github'>link to github</a>",
-                    "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/main' title='learn more'>detail</a>",
-                    "depend" => "no dependencies",
-                ),
                 "record" => array(
                     "aliasMenu" => "Branch Record",
                     "altText" => "about branch Record",
-                    "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew",
+                    "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/record",
                     "test_ref_title" => "Do test",
-                    "descr" => "Record structure gets from database or file described that. " .
-                        "Embedded custom fields as list or file to upload data, and another.",
+                    "descr" => "Record structure gets from database or from structure-file. ".
+                        "Embedded custom fields as list or file to upload data, and another",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='download from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
-                    "depend" => "branch main",
+                    "depend" => "no dependencies",
+                    "use_in_mm" => true,
+                ),
+                "main" => array(
+                    "aliasMenu" => "Branch Application (Main)",
+                    "altText" => "learn more about Application",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
+                    "test_ref_title" => "Do test",
+                    "descr" => "Application JointSite may use as web-site or run into another. ".
+                        "Branch main contains all free branches of this site.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='download from github'>link to github</a>",
+                    "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/main' title='learn more'>detail</a>",
+                    "depend" => "no dependencies",
                 ),
                 "admin" => array(
                     "aliasMenu" => "Simple php admin for mysql",
@@ -76,6 +78,7 @@ class lang_view_en
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/admin' title='downlowd from github'>link to github</a>",
                     "more" => "<a href='".JOINT_SITE_EXEC_DIR."/products/jointsite/admin' title='learn more about Admin'>detail</a>",
                     "depend" => "branch record",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
@@ -84,30 +87,37 @@ class lang_view_en
                 "server" => array(
                     "aliasMenu" => "SQL-server",
                     "altText" => "Set up connection to SQL-server and DB",
+                    "use_in_mm" => true,
                 ),
                 "users" => array(
                     "aliasMenu" => "Users",
                     "altText" => "List of users, add or remove admin user",
+                    "use_in_mm" => true,
                 ),
                 "sql" => array(
                     "aliasMenu" => "SQL",
                     "altText" => "Exec SQL-query",
+                    "use_in_mm" => true,
                 ),
                 "printquery" => array(
                     "aliasMenu" => "Print query",
                     "altText" => "Display tables rows select output",
+                    "use_in_mm" => true,
                 ),
                 "tables" => array(
                     "aliasMenu" => "Tables",
                     "altText" => "Actions with tables: create, delete, clear, upload, download",
+                    "use_in_mm" => true,
                 ),
                 "records" => array(
                     "aliasMenu" => "Edit record",
                     "altText" => "Edit, create, delete record in a table",
+                    "use_in_mm" => true,
                 ),
                 "migrations" => array(
                     "aliasMenu" => "Migrations",
                     "altText" => "Update database, records and structure",
+                    "use_in_mm" => true,
                 ),
             ),
         ),
