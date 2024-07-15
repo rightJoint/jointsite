@@ -69,6 +69,7 @@ class View_Products_JointSite extends view_main
 
     function print_prod_branches()
     {
+        $this->print_branch("siteman");
         $this->print_branch("record");
     }
 
