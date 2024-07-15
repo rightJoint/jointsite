@@ -44,17 +44,6 @@ class lang_view_en
     public $menu_blocks = array(
         "branches" => array(
             "menu_items" => array(
-                "main" => array(
-                    "aliasMenu" => "Branch Application (Main)",
-                    "altText" => "about branch main",
-                    "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/main",
-                    "test_ref_title" => "Do test",
-                    "descr" => "Its possible to run this app inside some another app or deploy as site.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='get from github'>link to github</a>",
-                    "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/main' title='learn more'>detail</a>",
-                    "depend" => "no dependencies",
-                ),
                 "record" => array(
                     "aliasMenu" => "Branch Record",
                     "altText" => "about branch Record",
@@ -65,7 +54,7 @@ class lang_view_en
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='download from github'>link to github</a>",
                     "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
-                    "depend" => "branch main",
+                    "depend" => "no dependencies",
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",

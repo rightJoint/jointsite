@@ -113,27 +113,40 @@ class ModuleModel extends RecordsModel
         }else{
             if($return_access_listRecords){
                 foreach ($return_access_listRecords as $row_num => $row){
-                    if ($this->access_rules["edit_rule"] < 3) {
-                        if ($this->access_rules["edit_rule"] == 2) {
+                    $check_read = true;
+                    if ($this->access_rules["read_rule"] < 3) {
+                        if ($this->access_rules["read_rule"] == 2) {
                             if ($row["created_by"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]) {
+                                $check_read = false;
+                            }
+                        }
+                    }
+
+                    if($check_read == true){
+                        if ($this->access_rules["edit_rule"] < 3) {
+                            if ($this->access_rules["edit_rule"] == 2) {
+                                if ($row["created_by"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]) {
+                                    $return_access_listRecords[$row_num]["btnEdit"] = "disabled";
+                                }
+
+                            } else {
                                 $return_access_listRecords[$row_num]["btnEdit"] = "disabled";
                             }
 
-                        } else {
-                            $return_access_listRecords[$row_num]["btnEdit"] = "disabled";
                         }
+                        if ($this->access_rules["delete_rule"] < 3) {
+                            if ($this->access_rules["delete_rule"] == 2) {
+                                if ($row["created_by"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]) {
+                                    $return_access_listRecords[$row_num]["btnDelete"] = "disabled";
+                                }
 
-                    }
-                    if ($this->access_rules["delete_rule"] < 3) {
-                        if ($this->access_rules["delete_rule"] == 2) {
-                            if ($row["created_by"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]) {
+                            } else {
                                 $return_access_listRecords[$row_num]["btnDelete"] = "disabled";
                             }
 
-                        } else {
-                            $return_access_listRecords[$row_num]["btnDelete"] = "disabled";
                         }
-
+                    }else{
+                        unset($return_access_listRecords[$row_num]);
                     }
                 }
             }
