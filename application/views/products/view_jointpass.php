@@ -7,6 +7,7 @@ class view_jointpass extends SiteView
     {
         parent::__construct();
         $this->styles[] = JOINT_SITE_EXEC_DIR."/css/products/prod-deploy.css";
+        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/main_view.css";
     }
 /*
     function load_lang_files()

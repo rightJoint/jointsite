@@ -19,13 +19,13 @@ class lang_view_en
 
     public $prod_titles_in_menu = array(
         "jointPass" => array(
-            "title" => "Узнать о органайзере паролей joint pass",
+            "title" => "Learn more about joint pass",
             "text" => "ДжойнтПасс",
             "sup" => "c#, wpf",
             "ddm_text" => "продукт",
         ),
         "jointSite" => array(
-            "title" => "About web-application joint site",
+            "title" => "About web-application joint site on the mirror",
             "text" => "Web-site",
             "sup" => "php, js, mvc",
             "ddm_text" => "product",
@@ -55,12 +55,6 @@ class lang_view_en
             "title" => "personal page",
             "ddm_text" => "menu",
         ),
-        "admin" => array(
-            "title" => "php admin for mysql",
-            "text" => "Admin DB",
-            "sup" => "for mysql",
-            "ddm_text" => "menu",
-        ),
     );
 
     public $menu_blocks = array(
@@ -68,7 +62,7 @@ class lang_view_en
             "menu_items" => array(
                 "record" => array(
                     "aliasMenu" => "Branch Record",
-                    "altText" => "about branch Record",
+                    "altText" => "about branch Record on the mirror",
                     "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/record",
                     "test_ref_title" => "Do test",
                     "descr" => "Record structure gets from database or from structure-file. ".
@@ -81,7 +75,7 @@ class lang_view_en
                 ),
                 "main" => array(
                     "aliasMenu" => "Branch Application (Main)",
-                    "altText" => "learn more about Application",
+                    "altText" => "learn more about Application on the mirror",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/main",
                     "test_ref_title" => "Do test",
                     "descr" => "Application JointSite may use as web-site or run into another. ".
@@ -93,8 +87,8 @@ class lang_view_en
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Site manager",
-                    "altText" => "about branch Record Siteman",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman",
+                    "altText" => "about branch Record Siteman on the mirror",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman on the mirror",
                     "test_ref_title" => "Do test",
                     "descr" => "Branch Siteman meants for quick start new modules, ".
                         "allow adjust access by using auth and roles system, for users notifications ".
@@ -106,9 +100,9 @@ class lang_view_en
                     "use_in_mm" => true,
                 ),
                 "admin" => array(
-                    "aliasMenu" => "Simple php admin for mysql",
+                    "aliasMenu" => "Simple php admin for mysql on the mirror",
                     "altText" => "detail about Admin",
-                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin",
+                    "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin on the mirror",
                     "test_ref_title" => "Do test Admin",
                     "descr" => "Simple php admin provide web-interface to set up connection to mysql-server and database, ".
                         "work with tables and records. ".
@@ -120,7 +114,7 @@ class lang_view_en
                     "use_in_mm" => true,
                 ),
                 "music" => array(
-                    "aliasMenu" => "Ветка Myзыка",
+                    "aliasMenu" => "Ветка Myзыка on the mirror",
                     "altText" => "подробнее о ветке Myзыка",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/music",
                     "test_ref_title" => "Перейти к тесту",

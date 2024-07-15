@@ -531,7 +531,7 @@ class SiteView extends View
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
-        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite");
+        $jointsite_menu = $this->print_menu_items("branches", "/mirror/products/jointsite");
 
         if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
@@ -540,7 +540,7 @@ class SiteView extends View
 
         echo "<div class='modal-line prod'>" .
             "<div class='modal-line-img'><img src='" . JOINT_SITE_EXEC_DIR . "/img/popimg/internet.png'></div>" .
-            "<div class='modal-line-text'><a class='m-l-blue' href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite' " .
+            "<div class='modal-line-text'><a class='m-l-blue' href='/mirror/products/jointsite' " .
             "title='" . $this->lang_map->prod_titles_in_menu["jointSite"]["title"] . "'>" .
             $this->lang_map->prod_titles_in_menu["jointSite"]["text"] . "</a><sup>" .
             $this->lang_map->prod_titles_in_menu["jointSite"]["sup"] . "</sup>" .

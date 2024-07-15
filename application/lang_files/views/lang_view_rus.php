@@ -25,7 +25,7 @@ class lang_view_rus
             "ddm_text" => "продукт",
         ),
         "jointSite" => array(
-            "title" => "Подробнее о web-приложении joint site",
+            "title" => "Подробнее о web-приложении joint site на зеркале",
             "text" => "Web-Сайт",
             "sup" => "php, js, mvc",
             "ddm_text" => "продукт",
@@ -40,12 +40,6 @@ class lang_view_rus
             "title" => "Управление сайтом",
             "text" => "Управление",
             "sup" => "сайтом",
-            "ddm_text" => "меню",
-        ),
-        "admin" => array(
-            "title" => "Админка для mysql на php",
-            "text" => "Админка БД",
-            "sup" => "для mysql",
             "ddm_text" => "меню",
         ),
     );
@@ -65,7 +59,7 @@ class lang_view_rus
             "menu_items" => array(
                 "record" => array(
                     "aliasMenu" => "Ветка Запись (Record)",
-                    "altText" => "подробнее о ветке Запись",
+                    "altText" => "подробнее о ветке Запись на зеркале",
                     "descr" => "Структуру записи можно получить из базы данных или описать в файле в виде массива. ".
                         "Добавлены кастомные поля типа list и файл для загрузки данных, и другие.",
                     "version" => "v1.0",
@@ -76,7 +70,7 @@ class lang_view_rus
                 ),
                 "siteman" => array(
                     "aliasMenu" => "Управление сайтом (Siteman)",
-                    "altText" => "подробнее о ветке Siteman",
+                    "altText" => "подробнее о ветке Siteman на зеркале",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/siteman",
                     "test_ref_title" => "Перейти к тесту",
                     "descr" => "Ветка Sitema предназначена для быстрого старта новых модулей, ".
@@ -90,7 +84,7 @@ class lang_view_rus
                 ),
                 "admin" => array(
                     "aliasMenu" => "Админка на php для mysql",
-                    "altText" => "подробнее о ветке Admin",
+                    "altText" => "подробнее о ветке Admin на зеркале",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/admin",
                     "test_ref_title" => "Перейти к тесту Admin",
                     "descr" => "Админка позволяет настроить подключение к mysql-серверу и базе данных, работать с таблицами и записями в них. ".
@@ -103,7 +97,7 @@ class lang_view_rus
                 ),
                 "music" => array(
                     "aliasMenu" => "Ветка Myзыка",
-                    "altText" => "подробнее о ветке Myзыка",
+                    "altText" => "подробнее о ветке Myзыка на зеркале",
                     "test_ref" => JOINT_SITE_EXEC_DIR."/products/jointsite/music",
                     "test_ref_title" => "Перейти к тесту",
                     "descr" => "Музыкальная галлерея для небольшого количества мелодий и альбомов. ".
@@ -116,7 +110,7 @@ class lang_view_rus
                 ),
                 "main" => array(
                     "aliasMenu" => "Ветка Приложение (Main)",
-                    "altText" => "подробнее о ветке Приложение (Main)",
+                    "altText" => "подробнее о ветке Приложение (Main) на зеркале",
                     "descr" => "Приложение JointSite можно установить как web-сайт или запустить на отдельном адресе. ".
                         "В ветку main вливаются содержит все некоммерческие ветки сайта.",
                     "version" => "v1.0",
