@@ -40,4 +40,15 @@ class view_jointsite_record extends View_Products_JointSite
         }
 
     }
+
+    function prod_info_custom()
+    {
+        echo "<div class='branches-block'>".
+            "<p>".
+            $this->lang_map->product_custom["p1"].
+            "</p>";
+        echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
+        $this->print_prod_branches();
+        echo "</div>";
+    }
 }
