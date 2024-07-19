@@ -351,8 +351,8 @@ class controller_admin extends RecordsController
         if($action_name == "log"){
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/models/admin/model_migrations_log.php";
-            $this->model = new model_migrations_log();
-            $this->records_process($this->admin_process_url."/migrations/log");
+            $m_log_controller = new RecordsController("model_migrations_log", get_class($this->view), null);
+            $m_log_controller->records_process($this->admin_process_url."/migrations/log");
         }
         return true;
     }
