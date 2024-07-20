@@ -15,6 +15,12 @@ class controller_siteman extends ModuleController
         parent::__construct($loaded_model, $loaded_view, $action_name);
     }
 
+    function checkTemplateView($type_of_view)
+    {
+        parent::checkTemplateView($type_of_view);
+        $this->view->metrik_block = false;
+    }
+
     function load_module_view($type_of_view)
     {
         $parent_view = parent::load_module_view($type_of_view);
