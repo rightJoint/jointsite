@@ -3,6 +3,7 @@ class ModulesListView extends SiteView
 {
     public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/leverage.png";
     public $sm_process_url = JOINT_SITE_EXEC_DIR."/siteman";
+    public $metrik_block = false;
 
     function __construct()
     {
