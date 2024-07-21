@@ -12,11 +12,6 @@ class model_landing extends Model_pdo
         return $this->query($popServices_qry);
     }
 
-    function throwErrNoConn()
-    {
-        return true;
-    }
-
     function lBasketAdd()
     {
         $findProd_qry = "select * from srvCards_dt where cardAlias='".$_GET['lBasketAdd']."' and cardActive is true";
