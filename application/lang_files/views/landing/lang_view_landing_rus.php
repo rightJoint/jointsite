@@ -21,7 +21,7 @@ class lang_view_landing_rus extends lang_view_rus
             "advantages-list-2" => "Хорошая репутация",
             "advantages-list-3" => "Опыт работы в банке",
             "advantages-list-4" => "Без посредников",
-            "advantages-list-5" => "Flexible pricing and discount system",
+            "advantages-list-5" => "Гибкие расценки и система скидок",
             "ask-q-1" => "Задайте свои вопросы по",
             "ask-q-2" => "Телеграм",
             "ask-q-3" => "или",
