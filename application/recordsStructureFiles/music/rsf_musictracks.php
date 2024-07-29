@@ -125,6 +125,7 @@ class rsf_musictracks extends recordStructureFields
             ),
         );
         $this->searchFields = array(
+
             "loadDate" => array(
                 "format" => "date",
                 "sort" => 1,
@@ -155,7 +156,6 @@ class rsf_musictracks extends recordStructureFields
             "track_file" => array(
                 "format" => "varchar",
                 "sort" => 1,
-                "search" => 1,
                 "fieldAliases" => array(
                     "en" => "play file",
                     "rus" => "Файл мелодии",

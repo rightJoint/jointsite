@@ -20,6 +20,6 @@ class model_musictracks extends RecordsModel
     }
     function getNewTracks()
     {
-        return $this->listRecords();
+        return $this->listRecords(null, " order by loadDate DESC ", " limit 0, 10", null);
     }
 }

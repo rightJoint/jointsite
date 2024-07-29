@@ -2,8 +2,10 @@
 class view_music_albums extends view_music
 {
 
-     public $logo= JOINT_SITE_EXEC_DIR."/img/music/albums.png";
+    public $logo= JOINT_SITE_EXEC_DIR."/img/music/albums.png";
     public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
+    public $hasAccessCreate = false;
+
     function print_page_content()
     {
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
@@ -18,7 +20,7 @@ class view_music_albums extends view_music
         $return_text = null;
         if($this->listRecords) {
             //$return_text .= "<table>" .
-           //     "<tr class='fCaption'>";
+            //     "<tr class='fCaption'>";
             //echo "<pre>";
             //print_r($this->listFields);
             foreach ($this->listRecords as $fieldName => $fieldInfo) {

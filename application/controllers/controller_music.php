@@ -62,7 +62,8 @@ class Controller_Music extends RecordsController
             require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
                 "/application/models/music/model_musicalbum.php";
             $model_musicalbum = new model_musicalbum();
-            $this->view->trackList = $model_musicalbum->listRecords("where musicTracksToAlb.album_id='".$this->view->playAlb["album_id"]."'");
+            $this->view->trackList = $model_musicalbum->listRecords("where musicTracksToAlb.album_id='".$this->view->playAlb["album_id"]."'",
+            " order by musicTracksToAlb.sortDate desc ");
             $this->view->generate();
         }else{
             jointSite::throwErr("request", null);
