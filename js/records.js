@@ -66,12 +66,19 @@ $.fn["recordsPgBlock"] = function (url, slave_req) {
                         $(pagination).html(responce.pgView);
                         $(list_table).preloader("remove");
 
+                        call_after_pg();
+
                         pg(pagination);
                     });
                 }
             });
         });
     }
+}
+
+function call_after_pg()
+{
+
 }
 
 function applyFilterForm()
