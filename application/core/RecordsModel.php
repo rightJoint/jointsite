@@ -120,18 +120,18 @@ class RecordsModel extends Model_pdo
 
     public function fetchToArray($findList_qry)
     {
-        $findList_res = $this->query($findList_qry);
-
-        $return_listRecords = null;
-        if($findList_res->rowCount()){
-            $row_counter = 0;
-            while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
-                $return_listRecords[$row_counter] = $findList_row;
-                $row_counter++;
+        if($findList_res = $this->pdo_query($findList_qry)){
+            $return_listRecords = null;
+            if($findList_res->rowCount()){
+                $row_counter = 0;
+                while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
+                    $return_listRecords[$row_counter] = $findList_row;
+                    $row_counter++;
+                }
             }
+            return $return_listRecords;
         }
-
-        return $return_listRecords;
+        jointSite::throwErr("XXX", $this->log_message);
     }
 
     public function copyRecord(){
