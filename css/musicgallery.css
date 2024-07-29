@@ -7,7 +7,7 @@
 .alb-menu{
     margin: 1em 1%;
     text-align: left;
-    /*width: 98%;*/
+    width: calc(96% - 6.2em);
     overflow-x: scroll;
     overflow-y: scroll;
     display: inline-flex;
@@ -27,7 +27,7 @@
 
 }
 .alb-menu a.active{
-
+    background-color: firebrick;
 }
 
 
@@ -139,6 +139,8 @@
     display: inline-block;
     position: relative;
 
+    width: 6.2em;
+
     margin: 1em 1%;
     text-align: left;
     height: 1.8em;
@@ -225,4 +227,7 @@ span.alb-info-val{
 .music-block-ref
 {
     font-size: 1.2em;
+}
+.ctrl-line .sort-block {
+    width: 60%;
 }

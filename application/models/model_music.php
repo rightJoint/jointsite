@@ -18,7 +18,7 @@ class model_music extends RecordsModel
 
     function getNewAlbums()
     {
-        return $this->listRecords();
+        return $this->listRecords(null, " order by dateOfCr DESC, albumName ", " limit 0, 3", " having countRec > 0");
 
 
     }
@@ -32,9 +32,14 @@ class model_music extends RecordsModel
             "left join users_dt on ".$this->tableName.".created_by = users_dt.user_id ".
             $where.
             "group by ".$this->tableName.".album_id".
-            $having.$order.$limit;
+            " having countRec>0 ".$order.$limit;
 
         return $this->fetchToArray($findList_qry);
+    }
+
+    function countRecords($where = null)
+    {
+        return count($this->listRecords(null, null, null, " having countRec>0"));
     }
 
     function getAlbumsList()
