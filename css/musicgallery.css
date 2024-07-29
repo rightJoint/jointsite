@@ -1,7 +1,13 @@
+.contentBlock-wrap.music h2{
+    font-size: 1.2em;
+    border-bottom: 1px solid black;
+    font-family: "Mona Sans", system-ui, sans-serif;
+}
+
 .alb-menu{
     margin: 1em 1%;
     text-align: left;
-    width: 98%;
+    /*width: 98%;*/
     overflow-x: scroll;
     overflow-y: scroll;
     display: inline-flex;
@@ -23,48 +29,46 @@
 .alb-menu a.active{
 
 }
-.play-alb{
+
+
+
+.alb-block{
     width: calc(98% - 4px);
     margin: 0 1%;
-    border: 2px solid darkcyan;
-
+    border: 1px solid darkgray;
+    margin-bottom: 1em;
 }
-.play-alb .alb-name{
+.alb-block .alb-name{
     width: 100%;
-    font-weight: bold;
-    background-color: silver;
+    border-bottom: 1px solid lightblue;
+    text-align: left;
+    font-size: 1.4em;
+    font-family: "Mona Sans", system-ui, sans-serif;
 }
 .play-cont-wrap{
     display: inline-block;
     vertical-align: middle;
     width: 100%;
 }
-.play-alb .alb-cover{
+.alb-block .alb-cover{
     vertical-align: middle;
     display: inline-block;
     width: 20%;
 }
-.play-alb .alb-cover img{
+.alb-block .alb-cover img{
     margin: 0.5em;
     border-radius: 0.5em;
     height: 4em;
     width: 4em;
     display: inline-block;
 }
-.play-alb .alb-descr{
+.alb-block .alb-descr{
     vertical-align: middle;
     display: inline-block;
+    font-size: 1.2em;
     width: 80%;
 }
-.play-alb .alb-created, .play-alb .alb-updated{
-    font-size: 0.9em;
-    text-align: left;
-    display: inline-block;
-    width: 50%;
-}
-.play-alb .alb-created span, .play-alb .alb-updated span{
-    font-weight: bold;
-}
+
 .tracks-list{
     width: 98%;
     margin: 1em 1% 2em 1%;
@@ -126,4 +130,99 @@
     .tracks-list .track-line .track-artist{
         display: none;
     }
+}
+
+.music-menu{
+    text-align: left;
+}
+.music-nav{
+    display: inline-block;
+    position: relative;
+
+    margin: 1em 1%;
+    text-align: left;
+    height: 1.8em;
+
+}
+
+.music-nav ul{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 1.8em;
+    vertical-align: bottom;
+    margin: 0;
+    padding: 0;
+}
+
+.music-nav ul li {
+    list-style: none;
+    display: block;
+
+    margin: 0 0.2em;
+    background-color: darkorange;
+    color: black;
+    padding: 0.2em;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: bold;
+    border-top: 1px solid black;
+}
+.music-nav ul li a {
+    color: navy;
+}
+.music-menu .opn{
+
+}
+
+.music-nav span{
+    margin: 0 0.2em;
+    background-color: darkorange;
+    color: black;
+    padding: 0.2em;
+    height: 1.4em;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    text-decoration: underline;
+
+}
+
+.alb-row3{
+    display: inline-block;
+    width: 33%;
+}
+span.alb-info-name{
+    font-size: 0.8em;
+}
+span.alb-info-val{
+    font-size: 1.2em;
+}
+.alb-row3 span.alb-info-name{
+    font-size: 0.8em;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+.alb-row3 span.alb-info-val{
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+.alb-cover span.alb-info-val{
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+}
+
+.music-block-ref
+{
+    text-align: left;
+    margin-bottom: 2em;
+}
+.music-block-ref
+{
+    font-size: 1.2em;
 }
