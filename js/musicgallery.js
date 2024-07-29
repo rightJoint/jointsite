@@ -1,11 +1,13 @@
 $(document).ready(function (){
-
-    $("#music-album").jointMusicPlayer();
+    //call_after_pg();
+ $("#music-album").jointMusicPlayer();
 })
 
 var cur_track_num = 0;
 var new_track_num = 0;
 var next_num = 0;
+
+
 
 $.fn["jointMusicPlayer"] = function () {
     var htmlMusicPlayer = document.getElementById("htmlMusicPlayer");
@@ -15,6 +17,17 @@ $.fn["jointMusicPlayer"] = function () {
     var timerId;
 
     var alb_length = 0;
+
+    var nav_menu = document.getElementById("music-nav-menu");
+
+    $(nav_menu).mouseenter(function (){
+        $(this).find("ul").css("display", "inherit");
+        console.log("mouseenter");
+    })
+    $(nav_menu).mouseleave(function (){
+        $(this).find("ul").css("display", "none");
+        console.log("mouseleave");
+    })
 
 
     $(this).find(".track-line .track-play input[type=button]").each(function (){
@@ -57,4 +70,13 @@ $.fn["jointMusicPlayer"] = function () {
         })
 
     });
+}
+
+function call_after_pg()
+{
+    cur_track_num = 0;
+    new_track_num = 0;
+    next_num = 0;
+
+    $('#musicTracks').jointMusicPlayer();
 }
