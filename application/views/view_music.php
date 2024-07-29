@@ -1,16 +1,20 @@
 <?php
-class view_music extends SiteView
+require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+    "/application/views/templates/RecordView.php";
+require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+    "/application/views/templates/RecordListView.php";
+class view_music extends RecordListView
 {
     public $albumsList  = null;
     public $playAlb = null;
     public $trackList = null;
 
+    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
+    public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
+
     function __construct()
     {
         parent::__construct();
-
-        $this->logo = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
-        $this->shortcut_icon = $this->logo;
         $this->scripts[]= JOINT_SITE_EXEC_DIR."/js/musicgallery.js";
         $this->styles[]= JOINT_SITE_EXEC_DIR."/css/musicgallery.css";
     }
@@ -31,53 +35,68 @@ class view_music extends SiteView
         return "lang_view_music_".$_SESSION["lang"];
     }
 
-    function set_head_array()
+    function music_menu()
     {
-        parent::set_head_array();
-        if(!$this->playAlb["robIndex"]){
-            $this->metrik_block = false;
-            $this->robot_no_index = true;
-        }
-        $this->lang_map->set_head_array(array("albumName" => $this->playAlb["albumName"], "metaDescr" => $this->playAlb["metaDescr"]));
+        echo "<div class='music-menu'>";
+        $this->music_nav_menu();
+        echo "</div>";
     }
 
-    function print_page_content()
+    function music_nav_menu()
     {
-        echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
-            "<div class='contentBlock-wrap'>";
+        echo "<div class='music-nav' id='music-nav-menu'>";
+        echo "<span>Nav</span>".
+        "<ul>".
+        "<li><a href='".JOINT_SITE_EXEC_DIR."/music/albums'>Albums</a></li>".
+        "<li><a href='".JOINT_SITE_EXEC_DIR."/music/tracks'>Tracks</a></li>".
+        "<li>"."<a href='".JOINT_SITE_EXEC_DIR."/music'>Music</a>"."</li>".
+        "</ul>";
+        echo "</div>";
+    }
 
-        if($this->albumsList){
-            if($this->albumsList->rowCount()){
+    function print_music_album($album)
+    {
+        $return_text = "<div class='alb-block'>".
+            "<div class='alb-name'>".$album["albumName"]."</div>".
+            "<div class='alb-cover'><a href='".JOINT_SITE_EXEC_DIR."/music/album/".$album["albumAlias"]."' title='play album'>".
+            "<img src='".MUSIC_COVERS_DIR."/".$album["albumImg"]."'></a>".
 
-                echo "<div class='alb-menu'>";
+            "<div class='alb-count-tracks'>".
+            "<span class='alb-info-name'>count</span>".
+            "<span class='alb-info-val'>".$album["countRec"]."</span>".
+            "<span class='alb-info-name'>tracks<span>".
+            "</div>".
+            "</div>".
 
-                while ($alb_row = $this->albumsList->fetch(PDO::FETCH_ASSOC)){
-                    echo "<a href='".JOINT_SITE_EXEC_DIR."/music/album/".$alb_row["albumAlias"]."'>".$alb_row["albumName"]."</a>";
-                }
-                echo "</div>";
-            }
-        }
+            "<div class='alb-descr'>".
 
-        if($this->playAlb){
-            echo "<div class='play-alb'>".
-                "<div class='alb-name'>".$this->playAlb["albumName"]."</div>".
-                "<div class='alb-cover'><img src='".MUSIC_COVERS_DIR."/".$this->playAlb["albumImg"]."'></div>".
-                "<div class='alb-descr'>".$this->playAlb["metaDescr"]."</div>".
-                "<div class='alb-created'>".$this->lang_map->music["alb_created"].": <span>".
-                $this->playAlb["dateOfCr"]."</span></div>".
-                "<div class='alb-updated'>".$this->lang_map->music["alb_updated"].": <span>".
-                $this->playAlb["refreshDate"]."</span></div>".
-                "</div>";
-        }
 
-        echo "<div class='ac-wrap'>".
+            $album["metaDescr"]."</div>".
+            "<div class='alb-row3'>".
+            "<span class='alb-info-name'>created by</span>".
+            "<span class='alb-info-val'>".$album["alb_created"]."</span>".
+            "</div>".
+            "<div class='alb-row3'>".
+            "<span class='alb-info-name'>created date</span>".
+            "<span class='alb-info-val'>".$album["dateOfCr"]."</span>".
+            "</div>".
+            "<div class='alb-row3'>".
+            "<span class='alb-info-name'>updated date</span>".
+            "<span class='alb-info-val'>".$album["refreshDate"]."</span>".
+            "</div>".
+            "</div>";
+        return $return_text;
+    }
+
+    function print_music_tracks()
+    {
+        $return_text = "<div class='ac-wrap'>".
             "<audio controls='controls' autoplay id='htmlMusicPlayer'>".
             "</audio>".
             "</div>".
             "<div class='tracks-list' id='music-album'>";
-
-        if($this->trackList->rowCount() > 0){
-            echo "<div class='track-line caption'>".
+        if(count($this->listRecords)){
+            $return_text.= "<div class='track-line caption'>".
                 "<div class='track-num'>No</div>".
                 "<div class='track-artist'>".$this->lang_map->music["t_art"]."</div>".
                 "<div class='track-name'>".$this->lang_map->music["t_song"]."</div>".
@@ -86,14 +105,15 @@ class view_music extends SiteView
 
             $track_num = 0;
 
-            while ($track_row = $this->trackList->fetch(PDO::FETCH_ASSOC)){
+            foreach ($this->listRecords  as $num => $track_row){
+
                 $print_track_file = $track_row["track_file"];
                 if(strpos(" ".$track_row["track_file"], "http", 0)!=1){
                     $print_track_file=MUSIC_TRACKS_DIR."/".$print_track_file;
                 }
 
                 $track_num++;
-                echo "<div class='track-line'>".
+                $return_text.= "<div class='track-line'>".
                     "<div class='track-num'>".$track_num."</div>".
                     "<div class='track-artist'>".$track_row["track_artist"]."</div>".
                     "<div class='track-name'>".
@@ -104,7 +124,7 @@ class view_music extends SiteView
             }
         }
 
-        echo "</div>".
-            "</div></div></div>";
+        $return_text.= "</div>";
+        return $return_text;
     }
 }

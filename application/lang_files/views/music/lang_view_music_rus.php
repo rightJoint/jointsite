@@ -1,5 +1,5 @@
 <?php
-class lang_view_music_rus extends lang_view_rus
+class lang_view_music_rus extends lang_view_RecordsList_rus
 {
     function __construct()
     {
