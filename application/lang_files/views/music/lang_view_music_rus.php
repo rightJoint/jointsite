@@ -5,7 +5,7 @@ class lang_view_music_rus extends lang_view_RecordsList_rus
         "nav" => "Навигация",
         "nav_alb" => "Альбомы",
         "nav_tracks" => "Трэки",
-        "nav_music" => "Музыка",
+        "nav_music" => "Свежее",
     );
 
     function __construct()

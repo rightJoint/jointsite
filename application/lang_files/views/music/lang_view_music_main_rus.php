@@ -15,8 +15,7 @@ class lang_view_music_main_rus extends lang_view_music_rus
     function __construct()
     {
         parent::__construct();
-        $this->head["h1"] = "Музыка - свежее";
-        $this->head["title"] = "Музыка - свежее";
+        $this->head["title"] = $this->head["h1"];
 
     }
 }
