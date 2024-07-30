@@ -11,4 +11,12 @@ class lang_view_music_main_en extends lang_view_music_en
         "see_all_1" => "Слушать все",
         "see_all_2" => "трэка",
     );
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->head["h1"] = "Музыка - свежее";
+        $this->head["title"] = "Музыка - свежее";
+
+    }
 }
