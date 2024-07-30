@@ -12,54 +12,11 @@ class model_musicalbum extends RecordsModel
         "rus" => "мелодии в альбом"
     );
 
-    public $module_name = "music";
-
     function getRecordStructure()
     {
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
             "/application/recordsStructureFiles/music/rsf_musictracktoalb.php";
         $this->recordStructureFields = new rsf_musictracktoalb();
-       // $this->recordStructureFields->record["track_name"]["use_table_name"] =
-       // $this->recordStructureFields->record["albumName"]["use_table_name"] =
-       // $this->recordStructureFields->searchFields["track_name"]["use_table_name"] = $this->tracksTable;
-       // $this->recordStructureFields->searchFields["albumName"]["use_table_name"] = $this->albTable;
-
-
-        /*
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/models/modules/music/m_model_musicalb.php";
-        $alb_model_name = new m_model_musicalb();
-
-        $where = $alb_model_name->filterWhere("GET");
-
-        $list = $alb_model_name->listRecords($where["where"], $where["order"], $where["limit"], $where["having"]);
-
-        if(is_array($list) and count($list)==1){
-            $this->recordStructureFields->record["album_id"]["curVal"] = $list[0]["album_id"];
-            $this->recordStructureFields->record["albumName"]["curVal"] = $list[0]["albumName"];
-        }
-        */
-    }
-
-    function getPlayAlb($albAlias = null)
-    {
-        if($albAlias){
-            $alb = $this->listRecords(" where albumAlias='".$albAlias."'");
-            echo "<pre>";
-            print_r($alb);
-            exit;
-        }else{
-            //$findPlayAlb_qry = "select * from musicAlb where activeFlag is true order by refreshDate DESC LIMIT 1";
-            // if(!$findPlayAlb_res = $this->pdo_query($findPlayAlb_qry)){
-            jointSite::throwErr("connection", $this->log_message);
-            //}
-        }
-
-        if(count($alb) == 1){
-            return $alb;
-        }else{
-            jointSite::throwErr("request", "album ".$albAlias." not exist or active");
-        }
     }
 
     function copyCustomFields()
@@ -108,33 +65,4 @@ left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTab
 left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTable.".album_id  ".
             $where)->fetch(PDO::FETCH_ASSOC)["cnt"];
     }
-/*
-    public function fill_tracks_list()
-    {
-
-        $req_where = json_decode($_GET["where"], true);
-        $fdl_where = $this->filterWhere("custom", $req_where);
-
-        $tracks_qry = "SELECT musicTracks.track_id, musicTracks.track_name from musicTracks 
-LEFT JOIN musicTracksToAlb ON musicTracks.track_id = musicTracksToAlb.track_id AND musicTracksToAlb.album_id = '".$_GET["album_id"]."' 
-".$fdl_where["where"]." and musicTracksToAlb.album_id IS null order by musicTracks.track_name";
-
-        $fdl_listRecords = $this->fetchToArray($tracks_qry);
-        if($_GET["findField"] and $_GET["returnKey"]){
-            $list_return = array("" => "");
-            if($fdl_listRecords){
-                foreach ($fdl_listRecords as $list_num => $list_row){
-                    $list_return[$list_row[$_GET["returnKey"]]] = $list_row[$_GET["findField"]];
-                }
-            }
-        }else{
-            $list_return = array(
-                "error" => "fields not set",
-            );
-        }
-
-        return $list_return;
-
-    }
-*/
 }
