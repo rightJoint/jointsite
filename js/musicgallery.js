@@ -22,11 +22,11 @@ $.fn["jointMusicPlayer"] = function () {
 
     $(nav_menu).mouseenter(function (){
         $(this).find("ul").css("display", "inherit");
-        console.log("mouseenter");
+        $(this).find("span").css("text-decoration", "inherit");
     })
     $(nav_menu).mouseleave(function (){
         $(this).find("ul").css("display", "none");
-        console.log("mouseleave");
+        $(this).find("span").css("text-decoration", "underline");
     })
 
 

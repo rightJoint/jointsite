@@ -34,7 +34,12 @@ class model_music extends RecordsModel
             "group by ".$this->tableName.".album_id".
             " having countRec>0 ".$order.$limit;
 
-        return $this->fetchToArray($findList_qry);
+        $result = $this->fetchToArray($findList_qry);
+        if($result){
+            return $this->fetchToArray($findList_qry);
+        }else{
+            jointSite::throwErr("notFound", "album not found");
+        }
     }
 
     function countRecords($where = null)
