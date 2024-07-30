@@ -80,4 +80,17 @@ class Controller_Music extends RecordsController
         $this->records_process(JOINT_SITE_EXEC_DIR."/music/tracks");
     }
 
+    function action_edit($json = true)
+    {
+        jointSite::throwErr("request", "not-allowed-in-musicsite");
+    }
+    function action_delete($json = true)
+    {
+        jointSite::throwErr("request", "not-allowed-in-musicsite");
+    }
+    function action_new($json = true)
+    {
+        jointSite::throwErr("request", "not-allowed-in-musicsite");
+    }
+
 }
