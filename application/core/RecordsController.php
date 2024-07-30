@@ -202,7 +202,7 @@ class RecordsController extends Controller
         }
     }
 
-    private function action_edit($json = true)
+    protected function action_edit($json = true)
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest(null, "GET");
@@ -223,7 +223,7 @@ class RecordsController extends Controller
 
     }
 
-    private function action_new($json = true)
+    protected function action_new($json = true)
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest();
