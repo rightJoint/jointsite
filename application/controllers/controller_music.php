@@ -3,8 +3,6 @@ require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
     "/application/core/RecordsController.php";
 class Controller_Music extends RecordsController
 {
-    public $music_path = "/music";
-
     function __construct($loaded_model, $loaded_view, $action_name)
     {
         require_once JOINT_SITE_CONF_DIR."/music_dir.php";
@@ -57,14 +55,19 @@ class Controller_Music extends RecordsController
     {
         global $request;
         if(isset($request["routes"][$request["exec_dir_cnt"]+2]) and $request["routes"][$request["exec_dir_cnt"]+2]!=null){
-            $this->view->playAlb = $this->model->listRecords("where musicAlb.albumAlias='".$request["routes"][$request["exec_dir_cnt"]+2]."'")[0];
-            $this->view->albumsList = $this->model->listRecords();
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-                "/application/models/music/model_musicalbum.php";
-            $model_musicalbum = new model_musicalbum();
-            $this->view->trackList = $model_musicalbum->listRecords("where musicTracksToAlb.album_id='".$this->view->playAlb["album_id"]."'",
-            " order by musicTracksToAlb.sortDate desc ");
-            $this->view->generate();
+            $playAlb = $this->model->listRecords("where musicAlb.albumAlias='".$request["routes"][$request["exec_dir_cnt"]+2]."'");
+            if(isset($playAlb[0])){
+                $this->view->playAlb = $playAlb[0];
+                $this->view->albumsList = $this->model->listRecords();
+                require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
+                    "/application/models/music/model_musicalbum.php";
+                $model_musicalbum = new model_musicalbum();
+                $this->view->trackList = $model_musicalbum->listRecords("where musicTracksToAlb.album_id='".$this->view->playAlb["album_id"]."'",
+                    " order by musicTracksToAlb.sortDate desc ");
+                $this->view->generate();
+            }else{
+                jointSite::throwErr("notFound", "album-not-found");
+            }
         }else{
             jointSite::throwErr("request", null);
         }
@@ -72,25 +75,13 @@ class Controller_Music extends RecordsController
 
     function action_albums()
     {
-        $this->records_process(JOINT_SITE_EXEC_DIR."/music/albums");
+        $this->view->process_url = JOINT_SITE_EXEC_DIR."/music/albums";
+        $this->process_list();
     }
 
     function action_tracks()
     {
-        $this->records_process(JOINT_SITE_EXEC_DIR."/music/tracks");
+        $this->view->process_url = JOINT_SITE_EXEC_DIR."/music/tracks";
+        $this->process_list();
     }
-
-    function action_edit($json = true)
-    {
-        jointSite::throwErr("request", "not-allowed-in-musicsite");
-    }
-    function action_delete($json = true)
-    {
-        jointSite::throwErr("request", "not-allowed-in-musicsite");
-    }
-    function action_new($json = true)
-    {
-        jointSite::throwErr("request", "not-allowed-in-musicsite");
-    }
-
 }
