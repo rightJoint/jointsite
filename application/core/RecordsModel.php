@@ -121,7 +121,7 @@ class RecordsModel extends Model_pdo
     public function fetchToArray($findList_qry)
     {
         if($findList_res = $this->pdo_query($findList_qry)){
-            $return_listRecords = null;
+            $return_listRecords = array();
             if($findList_res->rowCount()){
                 $row_counter = 0;
                 while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
