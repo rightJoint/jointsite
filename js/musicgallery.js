@@ -1,5 +1,4 @@
 $(document).ready(function (){
-    //call_after_pg();
  $("#music-album").jointMusicPlayer();
 })
 
@@ -79,4 +78,9 @@ function call_after_pg()
     next_num = 0;
 
     $('#musicTracks').jointMusicPlayer();
+}
+
+function call_after_FilterForm()
+{
+    call_after_pg();
 }
