@@ -101,7 +101,13 @@ function applyFilterForm()
         $(".pagination").html(responce.pgView);
          $(".list_table").preloader("remove");
         $(".list_table").after(responce.jsCtrlPanel);
+        call_after_FilterForm();
     });
+
+}
+
+function call_after_FilterForm()
+{
 
 }
 
