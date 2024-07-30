@@ -12,6 +12,9 @@ class view_music extends RecordListView
     public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
     public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/music-logo.png";
 
+    public $robot_no_index = true;
+    public $metrik_block = false;
+
     function __construct()
     {
         parent::__construct();
