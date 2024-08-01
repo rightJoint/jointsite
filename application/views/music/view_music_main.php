@@ -30,7 +30,7 @@ class view_music_main extends view_music
         echo "<section>";
         echo "<h2>".$this->lang_map->tracks_section["h2"]."</h2>";
         echo $this->print_music_tracks();
-        echo "<div class='music-block-ref'><a href='".JOINT_SITE_EXEC_DIR."/music/albums' title='albums list'>".
+        echo "<div class='music-block-ref'><a href='".JOINT_SITE_EXEC_DIR."/music/tracks' title='albums list'>".
             $this->lang_map->tracks_section["see_all_1"].
             " ".$this->tracks_count." ".$this->lang_map->tracks_section["see_all_2"]."</a></div>";
         echo "</section>";
