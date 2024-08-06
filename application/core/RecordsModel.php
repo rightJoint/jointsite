@@ -150,6 +150,9 @@ class RecordsModel extends Model_pdo
                 if(isset($result[$fieldName])){
                     $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
                     $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                }else{
+                    $this->recordStructureFields->record[$fieldName]["curVal"] = null;
+                    $this->recordStructureFields->record[$fieldName]["fetchVal"] = null;
                 }
             }
             return $this->copyCustomFields();
@@ -249,10 +252,7 @@ class RecordsModel extends Model_pdo
                     $q_where .= "' and ";
                 }
 
-                if ((isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"])) and
-                    ($fieldInfo["fetchVal"] != $fieldInfo["curVal"])
-                or (!isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"]))
-                ) {
+                if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
                     if(!isset($this->recordStructureFields->editFields[$fieldName]["readonly"])){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {
