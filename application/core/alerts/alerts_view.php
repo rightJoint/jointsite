@@ -4,6 +4,7 @@ class Alerts_View extends SiteView
     public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/error.png";
     public $response_code = 200;
     public $robot_no_index = true;
+    public $metrik_block = false;
     public $alert_message = null;
 
     function __construct()
