@@ -120,18 +120,18 @@ class RecordsModel extends Model_pdo
 
     public function fetchToArray($findList_qry)
     {
-        $findList_res = $this->query($findList_qry);
-
-        $return_listRecords = null;
-        if($findList_res->rowCount()){
-            $row_counter = 0;
-            while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
-                $return_listRecords[$row_counter] = $findList_row;
-                $row_counter++;
+        if($findList_res = $this->pdo_query($findList_qry)){
+            $return_listRecords = array();
+            if($findList_res->rowCount()){
+                $row_counter = 0;
+                while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
+                    $return_listRecords[$row_counter] = $findList_row;
+                    $row_counter++;
+                }
             }
+            return $return_listRecords;
         }
-
-        return $return_listRecords;
+        jointSite::throwErr("XXX", $this->log_message);
     }
 
     public function copyRecord(){
@@ -150,6 +150,9 @@ class RecordsModel extends Model_pdo
                 if(isset($result[$fieldName])){
                     $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];
                     $this->recordStructureFields->record[$fieldName]["fetchVal"] = $result[$fieldName];
+                }else{
+                    $this->recordStructureFields->record[$fieldName]["curVal"] = null;
+                    $this->recordStructureFields->record[$fieldName]["fetchVal"] = null;
                 }
             }
             return $this->copyCustomFields();
@@ -249,10 +252,7 @@ class RecordsModel extends Model_pdo
                     $q_where .= "' and ";
                 }
 
-                if ((isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"])) and
-                    ($fieldInfo["fetchVal"] != $fieldInfo["curVal"])
-                or (!isset($fieldInfo["fetchVal"]) and isset($fieldInfo["curVal"]))
-                ) {
+                if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
                     if(!isset($this->recordStructureFields->editFields[$fieldName]["readonly"])){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {

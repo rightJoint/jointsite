@@ -340,8 +340,12 @@ class RecordListView extends RecordView
                         $return_text.= $fieldInfo["filling"][$row[$fieldName]];
                     }
                     else{
-                        $return_text.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
-
+                        $custom_type = $this->getCustomListType($fieldName, $row[$fieldName]);
+                        if($custom_type != null){
+                            $return_text.=$custom_type;
+                        }else{
+                            $return_text.= "<span>[format=".$fieldInfo["format"]."]:</span>".$row[$fieldName]."";
+                        }
                     }
                     $return_text.= "</td>";
                 }
@@ -350,6 +354,11 @@ class RecordListView extends RecordView
             $return_text.= "</table>";
         }
         return $return_text;
+    }
+
+    function getCustomListType($fieldName, $fieldVal)
+    {
+
     }
 
     function pagination_print($recordsCount, $curPage, $onPage, $length=2, $pag_length=2)
