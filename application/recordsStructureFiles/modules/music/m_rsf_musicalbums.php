@@ -39,6 +39,10 @@ class m_rsf_musicalbums extends recordStructureFields
             "created_by" => array(
                 "format" => "varchar",
             ),
+            "created_login" => array(
+                "format" => "varchar",
+                "use_table_name" => "non-db",
+            ),
         );
 
         $this->editFields = array(
@@ -206,6 +210,10 @@ class m_rsf_musicalbums extends recordStructureFields
                 ),
                 "format" => "int",
             ),
+            "created_login" => array(
+                "format" => "varchar",
+                "maxLength" => 20,
+            ),
         );
         $this->searchFields = array(
             "album_id" => array(
@@ -355,6 +363,14 @@ class m_rsf_musicalbums extends recordStructureFields
                 "fieldAliases" => array(
                     "en" => "seo-rob-index",
                     "rus" => "сео-индекс",
+                ),
+            ),
+            "created_login" => array(
+                "format" => "varchar",
+                "readonly" => 1,
+                "fieldAliases" => array(
+                    "en" => "created_by",
+                    "rus" => "created_by",
                 ),
             ),
         );
