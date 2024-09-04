@@ -133,7 +133,7 @@ class Controller_User extends RecordsController
             $this->process_list();
         }elseif($request["routes"][$request["exec_dir_cnt"] + 2] == "detailview"){
 
-            $this->model->copyValFromRequest(null, "GET");
+            $this->model->copyValFromRequest($_GET);
 
             if($this->model->copyRecord()){
 
@@ -149,7 +149,7 @@ class Controller_User extends RecordsController
                 jointSite::throwErr("request", "copy record fail on detail in controller_user notification");
             }
         }elseif($request["routes"][$request["exec_dir_cnt"] + 2] == "deleteview"){
-            $this->model->copyValFromRequest(null, "GET");
+            $this->model->copyValFromRequest($_GET);
 
             if($this->model->copyRecord()){
 
@@ -174,7 +174,7 @@ class Controller_User extends RecordsController
         if($this->model->copyRecord()){
             if($_POST){
                 $log_res = false;
-                $this->model->copyValFromRequest();
+                $this->model->copyValFromRequest($_POST);
 
                 if($this->model->recordStructureFields->record["eMail"]["curVal"] != $this->model->recordStructureFields->record['eMail']["fetchVal"]){
                     if($this->model->checkUserEmail($this->model->recordStructureFields->record["eMail"]["curVal"])){
@@ -216,7 +216,7 @@ class Controller_User extends RecordsController
         if($_POST){
             $log_date = date("Y-m-d H:i:s");
 
-            $this->model->copyValFromRequest();
+            $this->model->copyValFromRequest($_POST);
 
 
             if($this->model->checkUserPassword($_POST["password"])){
@@ -330,7 +330,7 @@ class Controller_User extends RecordsController
         if($this->model->copyRecord()){
             $this->view->active_modal_menu = false;
             if($_POST or $_FILES){
-                $this->model->copyValFromRequest();
+                $this->model->copyValFromRequest($_POST);
                 $this->view->action_log = array(
                     "result" => $this->model->updateRecord(),
                     "log" => $this->model->log_message,
