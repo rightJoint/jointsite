@@ -29,7 +29,7 @@ class m_model_musictrackstoalb extends ModuleModel
             "/application/models/modules/music/m_model_musicalb.php";
         $alb_model_name = new m_model_musicalb();
 
-        $where = $alb_model_name->filterWhere("GET");
+        $where = $alb_model_name->filterWhere($_GET);
 
         $list = $alb_model_name->listRecords($where["where"], $where["order"], $where["limit"], $where["having"]);
 
@@ -89,10 +89,15 @@ left join ".$this->albTable." on ".$this->tableName.".album_id = ".$this->albTab
     {
 
         $req_where = json_decode($_GET["where"], true);
-        $fdl_where = $this->filterWhere("custom", $req_where);
+        $fdl_where = $this->filterWhere($req_where);
+
+        $album_id_where = null;
+        if(isset($_GET["album_id"]) and $_GET["album_id"]!= null){
+            $album_id_where = "AND musicTracksToAlb.album_id = '".$_GET["album_id"]."'";
+        }
 
         $tracks_qry = "SELECT musicTracks.track_id, musicTracks.track_name from musicTracks 
-LEFT JOIN musicTracksToAlb ON musicTracks.track_id = musicTracksToAlb.track_id AND musicTracksToAlb.album_id = '".$_GET["album_id"]."' 
+LEFT JOIN musicTracksToAlb ON musicTracks.track_id = musicTracksToAlb.track_id ".$album_id_where."
 ".$fdl_where["where"]." and musicTracksToAlb.album_id IS null order by musicTracks.track_name";
 
         $fdl_listRecords = $this->fetchToArray($tracks_qry);

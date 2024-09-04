@@ -64,7 +64,7 @@ class Model_User extends RecordsModel
         return false;
     }
 
-    protected function auth_user()
+    public function auth_user()
     {
         if($this->recordStructureFields->record["validDate"]["curVal"]){
             if(!$this->recordStructureFields->record["blackList"]["curVal"]){
