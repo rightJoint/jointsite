@@ -12,6 +12,7 @@ class RecordListView extends RecordView
     public $list_frame_id = null;
     public $newBtn_qry = null;
     public $hasAccessCreate = true;
+    public $slave_req = null;
 
     function __construct()
     {
@@ -106,9 +107,9 @@ class RecordListView extends RecordView
         return "<script>$('#".$this->list_frame_id."').recordsSortBlock();</script>";
     }
 
-    function scriptListViewCrtlPannel($slave_req = "")
+    function scriptListViewCrtlPannel()
     {
-        return "<script>$('#".$this->list_frame_id."').recordsPgBlock('".$this->process_url."', '".$slave_req."');</script>";
+        return "<script>$('#".$this->list_frame_id."').recordsPgBlock('".$this->process_url."', '".$this->slave_req."');</script>";
     }
 
     function listPgView()
@@ -319,6 +320,16 @@ class RecordListView extends RecordView
                             }
                             $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
+                    }elseif($fieldInfo["format"] == "ref"){
+                        $urlLink = null;
+                        if($fieldInfo["replaces"]){
+                            $urlLink = $fieldInfo["url"];
+                            foreach ($fieldInfo["replaces"] as $replace){
+                                $urlLink = str_replace($replace, $row[$replace], $urlLink);
+                            }
+                        }
+                        $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
                         if(isset($fieldInfo["maxLength"]) and isset($row[$fieldName]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
                             $return_text.= mb_substr($row[$fieldName], 0, $fieldInfo["maxLength"])." ...";
