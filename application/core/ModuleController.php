@@ -26,7 +26,7 @@ class ModuleController extends RecordsController
 
                 $mainModel = new $mainModel_name();
 
-                $countMain_where = $mainModel->filterWhere()["where"];
+                $countMain_where = $mainModel->filterWhere($_GET)["where"];
 
                 $module_stat["moduleTable"]["countRecords"]=$mainModel->countRecords($countMain_where);
 
@@ -35,7 +35,7 @@ class ModuleController extends RecordsController
                         $bindModel_name = $this->load_module_model($this->module_name, $tName);
                         $bindModel = new $bindModel_name();
                         $bindModel->module_name = $this->module_name;
-                        $count_where = $bindModel->filterWhere()["where"];
+                        $count_where = $bindModel->filterWhere($_GET)["where"];
                         $module_stat["bindTables"][$tName]["countRecords"]=$bindModel->countRecords($count_where);
                     }
                 }
@@ -58,6 +58,7 @@ class ModuleController extends RecordsController
                 }else{
                     jointSite::throwErr("request", "module process table ".$request["routes"][$mpu_cnt]." not found");
                 }
+                $type_of_view = null;
                 if(!isset($request["routes"][$mpu_cnt+1]) or $request["routes"][$mpu_cnt+1] == "listview"){
                     $type_of_view = "list";
                 }elseif($request["routes"][$mpu_cnt+1] == "detailview"){
@@ -172,7 +173,7 @@ class ModuleController extends RecordsController
                         $bindModel_where = substr($bindModel_where, 0, strlen($bindModel_where) -4);
                         $slave_req = substr($slave_req, 0, strlen($slave_req) -1);
 
-                        $sup_cond = $bindModel->filterWhere("GET", null);
+                        $sup_cond = $bindModel->filterWhere($_GET);
 
                         $sup_cond["where"] = " where ".$bindModel_where;
 
@@ -217,7 +218,7 @@ class ModuleController extends RecordsController
         parent::process_detail($m_process_url);
     }
 
-    function action_delete($json = true)
+    function action_delete($reqArr)
     {
         global $request;
         $mpu_expld = explode("/", $this->m_process_url);
@@ -234,9 +235,6 @@ class ModuleController extends RecordsController
             }
         }
 
-        $this->view->action_log = parent::action_delete(false);
-        if ($this->view->action_log["result"]) {
-            header("Location: " . $this->m_process_url."/".$request["routes"][$mpu_cnt]);
-        }
+        return parent::action_delete($reqArr);
     }
 }

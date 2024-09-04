@@ -87,9 +87,9 @@ class ModuleModel extends RecordsModel
     }
 
 
-    function filterWhere($method = "POST", $REQ_ARR = null)
+    function filterWhere($REQ_ARR)
     {
-        $filter_where = parent::filterWhere($method, $REQ_ARR);
+        $filter_where = parent::filterWhere($REQ_ARR);
         if($this->access_rules["read_rule"] > 2){
             return $filter_where;
         }elseif($this->access_rules["read_rule"] == 2){
@@ -189,11 +189,13 @@ class ModuleModel extends RecordsModel
     {
         if($this->access_rules["delete_rule"]<3){
             if ($this->access_rules["delete_rule"] == 2) {
-                if($this->recordStructureFields->record["created_by"]["curVal"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]){
-                    jointSite::throwErr("access", "access denied in ModuleRecordsModel copyRecord on user_id");
+                if($this->recordStructureFields->record["created_by"]["fetchVal"] != $_SESSION[JS_SAIK]["site_user"]["user_id"]){
+                    jointSite::throwErr("access",
+                        "access denied in ModuleRecordsModel copyRecord on user_id delete_rule: ".$this->access_rules["delete_rule"].
+                        " ".$this->recordStructureFields->record["created_by"]["curVal"]." vs ".$_SESSION[JS_SAIK]["site_user"]["user_id"]);
                 }
             }else{
-                jointSite::throwErr("access", "access denied in ModuleRecordsModel copyRecord on edit_rule: ".$this->access_rules["read_rule"]);
+                jointSite::throwErr("access", "access denied in ModuleRecordsModel deleteRecord on delete_rule: ".$this->access_rules["delete_rule"]);
             }
         }
 
@@ -216,7 +218,7 @@ class ModuleModel extends RecordsModel
                     foreach ($bind_list as $rec_num => $rec_fields){
                         $del_bind_record = new $bind_model_name();
                         foreach ($bind_model->recordStructureFields->record as $field_name => $field_info){
-                            if($field_info["indexes"]){
+                            if(isset($field_info["indexes"]) and $field_info["indexes"] == true){
                                 $del_bind_record->recordStructureFields->record[$field_name]["curVal"] = $rec_fields[$field_name];
                             }
                         }
