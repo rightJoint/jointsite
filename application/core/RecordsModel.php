@@ -208,7 +208,7 @@ class RecordsModel extends Model_pdo
         $queryToInsert .= $queryToInsert_temp;
 
 
-        if($this->query($queryToInsert)){
+        if($this->pdo_query($queryToInsert)){
 
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
                 if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
@@ -221,7 +221,7 @@ class RecordsModel extends Model_pdo
             return true;
         }
 
-        $this->log_message = $this->lang_map->insertRecord["fail"].$date_stamp;
+        $this->log_message = $this->lang_map->insertRecord["fail"].$date_stamp." cause: ".$this->log_message;
         return false;
     }
 
@@ -268,7 +268,7 @@ class RecordsModel extends Model_pdo
         $q_where = substr($q_where, 0, strlen($q_where)-4);
         if(strlen($q_fields) > 2){
             $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
-            if($this->query($query_text.$q_fields.$q_where)){
+            if($this->pdo_query($query_text.$q_fields.$q_where)){
                 $this->log_message .= $this->lang_map->updateRecord["success"].": ".$date_stamp;
                 return true;
             }else{
@@ -307,16 +307,8 @@ class RecordsModel extends Model_pdo
         return false;
     }
 
-    function filterWhere($method = "POST", $REQ_ARR = null)
+    function filterWhere($REQ_ARR)
     {
-        if(!$REQ_ARR){
-            if($method == "GET"){
-                $REQ_ARR = $_GET;
-            }elseif($method == "POST" and !($REQ_ARR)){
-                $REQ_ARR = $_POST;
-            }
-        }
-
         $return_where = null;
         $return_order = null;
         $return_limit = null;
@@ -436,15 +428,8 @@ class RecordsModel extends Model_pdo
         );
     }
 
-    function copyValFromRequest($REQ_ARR = null, $method = "POST")
+    function copyValFromRequest($REQ_ARR)
     {
-        if(!$REQ_ARR){
-            if($method == "GET"){
-                $REQ_ARR = $_GET;
-            }else{
-                $REQ_ARR = $_POST;
-            }
-        }
         foreach ($this->recordStructureFields->record as $fName=>$fData){
             if(isset($this->recordStructureFields->editFields[$fName])){
                 if(($fData["format"]=="checkbox") or ($fData["format"] == "tinyint")){

@@ -37,7 +37,7 @@ class RecordsController extends Controller
         } elseif ($request["routes"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
             $this->view->view_data = $view_data;
-            $this->view->action_log = $this->action_detail(false);
+            $this->view->action_log = $this->action_detail();
             if ($this->view->action_log["result"]) {
                 $this->process_detail($process_path);
 
@@ -52,10 +52,10 @@ class RecordsController extends Controller
             $this->checkTemplateView("edit");
             $this->view->view_data = $view_data;
             if (isset($_POST["submit"]) and $_POST["submit"] == $this->view->lang_map->view_submit_val) {
-                $this->view->action_log = $this->action_edit(false);
+                $this->view->action_log = $this->action_edit($_POST);
                 $this->model->copyCustomFields();
             } else {
-                $this->model->copyValFromRequest(null, "GET");
+                $this->model->copyValFromRequest($_GET);
                 if (!$this->model->copyRecord()) {
                     jointSite::throwErr("request", $this->model->log_message);
                 }
@@ -72,7 +72,7 @@ class RecordsController extends Controller
             $this->view->type = "new";
             if (isset($_POST["submit"]) and
                 $_POST["submit"] == $this->view->lang_map->view_submit_val_new) {
-                $this->view->action_log = $this->action_new(false);
+                $this->view->action_log = $this->action_new($_POST);
                 if ($this->view->action_log["result"]) {
                     $get_str = null;
                     foreach ($this->model->recordStructureFields->record as $fName => $fData) {
@@ -92,14 +92,14 @@ class RecordsController extends Controller
             $this->view->generate();
 
         } elseif ($request["routes"][$pp_cnt] == "deleteview") {
-            $this->model->copyValFromRequest(null, "GET");
+            $this->model->copyValFromRequest($_GET);
             if ($this->model->copyRecord()) {
                 $this->checkTemplateView("delete");
                 $this->view->view_data = $view_data;
                 $this->view->type = "delete";
                 if (isset($_POST["submit"]) and
                     ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
-                    $this->view->action_log = $this->action_delete(false);
+                    $this->view->action_log = $this->action_delete($_POST);
                     if ($this->view->action_log["result"]) {
                         header("Location: " . $process_path);
                     }
@@ -111,7 +111,7 @@ class RecordsController extends Controller
                 jointSite::throwErr("request", $this->model->log_message);
             }
         } elseif (!$this->doAction_custom($request["routes"][$pp_cnt])) {
-            jointSite::throwErr("stab", "no custom actions in RecordsController");
+            jointSite::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
         }
     }
 
@@ -142,11 +142,12 @@ class RecordsController extends Controller
             $this->view->onPage = $_POST["onPage"];
         }
 
-        $list_records = $this->action_list(false);
+        $list_records = $this->action_list($_POST);
 
         $this->view->listCount = $list_records["count"];
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $list_records["list"];
+        $this->view->slave_req = $this->makeSlaveRequest();
 
         if (isset($_POST["applyFilterRec"])) {
             $listJson = array(
@@ -162,95 +163,73 @@ class RecordsController extends Controller
         }
     }
 
+    function makeSlaveRequest()
+    {
+
+    }
+
     function doAction_custom($action_name)
     {
         return false;
     }
 
-    private function action_list($json = true)
+    protected function action_list($reqArr = null)
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest();
-        $sup_cond = $this->model->filterWhere();
+        $this->model->copyValFromRequest($reqArr);
+        $sup_cond = $this->model->filterWhere($reqArr);
 
-        $list_records = array(
+        return array(
             "count" => $this->model->countRecords($sup_cond["where"], $sup_cond["having"]),
             "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"], $sup_cond["having"]),
         );
-
-        if($json){
-            $this->view->generateJson($list_records);
-        }else{
-            return $list_records;
-        }
     }
 
-    private function action_detail($json = true)
+    private function action_detail()
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest(null, "GET");
-        $copy_res = array(
+        $this->model->copyValFromRequest($_GET);
+        return array(
             "result" => $this->model->copyRecord(),
             "log" => $this->model->log_message,
             "record" => $this->model->recordStructureFields->record,
         );
-        if($json){
-            $copy_res["record"] = $this->model->recordStructureFields->record;
-            $this->view->generateJson($copy_res);
-        }else{
-            return $copy_res;
-        }
     }
 
-    protected function action_edit($json = true)
+    protected function action_edit($reqArr)
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest(null, "GET");
+        $this->model->copyValFromRequest($reqArr);
         if ($this->model->copyRecord()) {
-            $this->model->copyValFromRequest();
-            $edit_res = array(
+            $this->model->copyValFromRequest($reqArr);
+            return array(
                 "result" => $this->model->updateRecord(),
                 "log" => $this->model->log_message,
             );
-            if($json){
-                $this->view->generateJson($edit_res);
-            }else{
-                return $edit_res;
-            }
         } else {
             jointSite::throwErr("request", $this->model->log_message);
         }
 
     }
 
-    protected function action_new($json = true)
+    protected function action_new($reqArr)
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest();
-        $new_res = array(
+        $this->model->copyValFromRequest($reqArr);
+        return array(
             "result" => $this->model->insertRecord(),
             "log" => $this->model->log_message,
         );
-        if($json){
-            $this->view->generateJson($new_res);
-        }else{
-            return $new_res;
-        }
     }
 
-    protected function action_delete($json = true)
+    protected function action_delete($reqArr)
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest();
-        $del_res = array(
+        $this->model->copyValFromRequest($reqArr);
+        return array(
             "result" => $this->model->deleteRecord(),
             "log" => $this->model->log_message,
         );
-        if($json){
-            $this->view->generateJson($del_res);
-        }else{
-            return $del_res;
-        }
     }
 
     /*if custom model mot loaded*/
@@ -298,7 +277,7 @@ class RecordsController extends Controller
     function action_filldatalist()
     {
         $req_where = json_decode($_GET["where"], true);
-        $fdl_where = $this->model->filterWhere("custom", $req_where);
+        $fdl_where = $this->model->filterWhere($req_where);
 
         $fdl_listRecords = $this->model->listRecords($fdl_where["where"]);
 
