@@ -34,7 +34,7 @@ class controller_applications extends Controller
     function mkApplicationModal()
     {
         $this->model = new model_applications(null, "applications");
-        $this->model->copyValFromRequest();
+        $this->model->copyValFromRequest($_POST);
 
         $errFlag = false;
 

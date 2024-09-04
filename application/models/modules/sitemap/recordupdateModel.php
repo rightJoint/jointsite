@@ -8,7 +8,7 @@ class recordupdateModel extends recordsitemapModel
 
     function update_sitemap()
     {
-        $list_res = $this->listRecords(" where ".$this->filterWhere()["where"], " order by ".$this->tableName.".maploc ", null);
+        $list_res = $this->listRecords(" where ".$this->filterWhere($_POST)["where"], " order by ".$this->tableName.".maploc ", null);
         if($list_res->rowCount()){
             $map_text = "<?xml version='1.0' encoding='UTF-8'?>\n".
                 "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n";
@@ -29,9 +29,9 @@ class recordupdateModel extends recordsitemapModel
         return false;
     }
 
-    function filterWhere($method = "POST", $REQ_ARR = null)
+    function filterWhere($REQ_ARR)
     {
-        $filter_where = parent::filterWhere($method, $REQ_ARR = null);
+        $filter_where = parent::filterWhere($REQ_ARR);
 
         $use_cond = "siteMap_dt.use_flag is true ";
         if($filter_where["where"]){
