@@ -7,7 +7,7 @@ class Alerts_model
         "notFound" => 404,
         "stab" =>  200,
         "access" => 403,
-        "connection" =>200,
+        "connection" =>503,
         "request" => 400,
         "config" => 200,
         "XXX" =>  200,
