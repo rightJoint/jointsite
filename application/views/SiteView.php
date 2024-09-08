@@ -220,7 +220,7 @@ class SiteView extends View
         if ($_SESSION[JS_SAIK]["lang"] == "en") {
             echo "active ";
         }
-        echo "en' href='?lang=en' title='" . $this->lang_map->lang_panel_text_en . "'><span>En</span></a>" .
+        echo "en' href='?lang=en' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
@@ -231,7 +231,7 @@ class SiteView extends View
 
         /*rj-todo text block style on vertical screen, main branch*/
         global $routes;
-        if (!$routes[1]) {
+        if (!isset($routes[1]) or $routes[1] == null) {
             echo "landing";
         }
         echo "'><span class='firmName'>" . $this->lang_map->head["header_text"] . "</span>" .
