@@ -17,8 +17,8 @@ class Alerts_controller extends Controller
 
         $this->view->lang_map->head["h1"] = $this->model->lang_map->stack_err[$errType]["h1"];
         $this->view->lang_map->head["title"] = $this->model->lang_map->stack_err[$errType]["title"];
-        $this->view->lang_map->head["description"] = $this->model->lang_map->stack_err[$errType]["description"];
-        $this->view->view_data = $this->model->lang_map->stack_err[$errType]["description"];
+        $this->view->lang_map->head["description"] = $this->view->view_data =
+            $this->model->lang_map->stack_err[$errType]["description"];
         $this->view->response_code = $this->model->response_codes[$errType];
 
         //view modal menu active to display sign in forms
@@ -27,10 +27,11 @@ class Alerts_controller extends Controller
         }
 
         $this->view->alert_message = $message;
-        $this->view->generate();
 
         if($this->view->response_code != 200){
             http_response_code($this->view->response_code);
         }
+
+        $this->view->generate();
     }
 }

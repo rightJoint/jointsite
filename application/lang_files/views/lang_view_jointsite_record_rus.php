@@ -18,7 +18,7 @@ class lang_view_jointsite_record_rus extends lang_view_products_jointsite_rus
         $this->product_migration["p1"] = "Запросы на создание тестовых таблиц и вставки данных находятся в каталоге <span class='ex-conf'>/migrations</span>";
         $this->prod_test = array(
             "p1" => "Проведите миграцию <span class='ex-conf'>2024-05-21_rj-test-records</span>. ".
-                "<a href='".JOINT_SITE_EXEC_DIR."/test/records' title='Как работает Запись на тесте'>Проверить ветку Запись на тесте</a>. ".
+                "<a href='".JOINT_SITE_LANG_REF."/test/records' title='Как работает Запись на тесте'>Проверить ветку Запись на тесте</a>. ".
         "В примере используются кастомные модели из музкальной галлереи",
         );
     }

@@ -25,6 +25,10 @@ class RecordsController extends Controller
         $pp_exp = explode("/", $process_path);
         $pp_cnt = count($pp_exp);
 
+        if(isset($_SESSION[JS_SAIK]["lang_ref"])){
+            $pp_cnt--;
+        }
+
         if (!isset($request["routes"][$pp_cnt]) or
             $request["routes"][$pp_cnt] == null or
             $request["routes"][$pp_cnt] == "listview") {
@@ -168,7 +172,7 @@ class RecordsController extends Controller
 
     }
 
-    function doAction_custom($action_name)
+    function doAction_custom(string $action_name)
     {
         return false;
     }
