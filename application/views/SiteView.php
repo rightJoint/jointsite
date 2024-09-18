@@ -335,14 +335,15 @@ class SiteView extends View
         $disp_url_count = count($disp_url_exp);
 
         $return = array(
-            "is_valid_path" => true,
+            "is_valid_path" => false,
             "text" => null,
         );
 
         foreach ($disp_url_exp as $n => $disp_path ){
-            if(isset($request["routes"][$n]) and $disp_path != $request["routes"][$n]){
+            if(isset($request["routes"][$n]) and $disp_path == $request["routes"][$n]){
+                $return["is_valid_path"] = true;
+            }else{
                 $return["is_valid_path"] = false;
-                break;
             }
         }
 
