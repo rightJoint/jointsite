@@ -17,7 +17,7 @@ class lang_view_jointsite_main_rus extends lang_view_products_jointsite_rus
         $this->product_config["p1"] = "Все основные настройки приложения по умолчанию находятся в каталоге  <span class='ex-conf'>/__config</span>. ";
         $this->product_config["p2"] ="В этой ветке никаких дополнительных настроек не требуется.";
         $this->prod_test = array(
-            "p1" => "Проверить работу приложения можно на <a href='".JOINT_SITE_EXEC_DIR."/test/main' ".
+            "p1" => "Проверить работу приложения можно на <a href='".JOINT_SITE_LANG_REF."/test/main' ".
                 "title='Как работает на тесте'>Проверить приложение</a>, но в этой ветке только шаблоны, которые не интересно проверять.",
 
         );

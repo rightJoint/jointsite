@@ -5,7 +5,7 @@ class Controller {
 
     public $lang_map;
 
-    function __construct($loaded_model, $loaded_view, $action_name)
+    function __construct(string $loaded_model, string $loaded_view, string $action_name)
     {
         $lang_class = $this->LoadCntrlLang();
         $this->lang_map = new $lang_class;
