@@ -97,10 +97,11 @@ class jointSite
         }
 
         if($_SESSION[JS_SAIK]["lang_ref"]!=null){
-            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], strlen($_SESSION[JS_SAIK]["lang_ref"]),
-                strlen($_SERVER['REQUEST_URI'])-strlen($_SESSION[JS_SAIK]["lang_ref"]));
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], strlen(JOINT_SITE_EXEC_DIR) + strlen($_SESSION[JS_SAIK]["lang_ref"]),
+                strlen($_SERVER['REQUEST_URI']));
         }else{
-            $request["routes_lang"] = $_SERVER['REQUEST_URI'];
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], strlen(JOINT_SITE_EXEC_DIR),
+                strlen($_SERVER['REQUEST_URI']));;
         }
         define("JOINT_SITE_LANG_REF", JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"]);
     }

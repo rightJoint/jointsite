@@ -10,7 +10,7 @@ class controller_test extends RecordsController
 
     function action_records()
     {
-        $this->records_process(JOINT_SITE_EXEC_DIR."/test/records", "migrations_log", null);
+        $this->records_process(JOINT_SITE_ROOT_LANG."/test/records", "migrations_log", null);
     }
 
     function doAction_custom($action_name)

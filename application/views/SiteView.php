@@ -184,12 +184,12 @@ class SiteView extends View
         if ($_SESSION[JS_SAIK]["lang"] == "rus") {
             echo "active ";
         }
-        echo "rus' href='/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if ($_SESSION[JS_SAIK]["lang"] == "en") {
             echo "active ";
         }
-        echo "en' href='/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
@@ -266,17 +266,17 @@ class SiteView extends View
         if ($_SESSION[JS_SAIK]["lang"] == "rus") {
             echo "active ";
         }
-        echo "rus' href='/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if ($_SESSION[JS_SAIK]["lang"] == "en") {
             echo "active ";
         }
-        echo "en' href='/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
-        $home_ref = "/";
+        $home_ref = "/".$_SESSION[JS_SAIK]["lang_ref"];
         if (JOINT_SITE_EXEC_DIR) {
-            $home_ref = JOINT_SITE_EXEC_DIR;
+            $home_ref = JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"];
         }
         echo "<a href='" . $home_ref . "' title='";
         if (!$request["routes"][$request["exec_dir_cnt"]]) {
@@ -326,6 +326,7 @@ class SiteView extends View
     function print_menu_items($block_name, $disp_url = null)
     {
         global $request;
+        $disp_url_ref = JOINT_SITE_LANG_REF.$disp_url;
         $disp_url = JOINT_SITE_EXEC_DIR.$disp_url;
         $disp_url_exp = explode("/", $disp_url);
         $disp_url_count = count($disp_url_exp);
@@ -344,7 +345,7 @@ class SiteView extends View
 
         foreach ($this->lang_map->menu_blocks[$block_name]["menu_items"] as $url_item => $item_info){
             if(isset($item_info["use_in_mm"]) and $item_info["use_in_mm"] == true){
-                $return["text"] .= "<li><a href='" . JOINT_SITE_LANG_REF.$disp_url . "/" . $url_item . "' class='sub-lnk light ";
+                $return["text"] .= "<li><a href='" . $disp_url_ref . "/" . $url_item . "' class='sub-lnk light ";
                 if (isset($request["routes"][$disp_url_count]) and
                     (($request["routes"][$disp_url_count] ==  $url_item) and $return["is_valid_path"])) {
                     $return["text"] .= "active";

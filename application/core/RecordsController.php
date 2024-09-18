@@ -25,11 +25,15 @@ class RecordsController extends Controller
         $pp_exp = explode("/", $process_path);
         $pp_cnt = count($pp_exp);
 
+        if(isset($_SESSION[JS_SAIK]["lang_ref"])){
+            $pp_cnt--;
+        }
+
         if (!isset($request["routes"][$pp_cnt]) or
             $request["routes"][$pp_cnt] == null or
             $request["routes"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
-            $this->view->process_url = JOINT_SITE_LANG_REF.$process_path;
+            $this->view->process_url = $process_path;
             $this->view->view_data = $view_data;
 
             $this->process_list();
@@ -81,7 +85,7 @@ class RecordsController extends Controller
                         }
                     }
                     $get_str = substr($get_str, 0, strlen($get_str) - 1);
-                    header("Location: " . JOINT_SITE_LANG_REF.$process_path . "/editview?" . $get_str);
+                    header("Location: " . $process_path . "/editview?" . $get_str);
                 }
             }
 
@@ -101,7 +105,7 @@ class RecordsController extends Controller
                     ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
                     $this->view->action_log = $this->action_delete($_POST);
                     if ($this->view->action_log["result"]) {
-                        header("Location: " . JOINT_SITE_LANG_REF.$process_path);
+                        header("Location: " . $process_path);
                     }
                 }
                 $this->view->editFields = $this->model->recordStructureFields->editFields;
@@ -271,7 +275,7 @@ class RecordsController extends Controller
         }else{
             $this->view->h2 = $this->model->tableName;
         }
-        $this->view->process_url = JOINT_SITE_LANG_REF.$process_path;
+        $this->view->process_url = $process_path;
     }
 
     function action_filldatalist()
