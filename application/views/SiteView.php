@@ -305,7 +305,7 @@ class SiteView extends View
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
-        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite");
+        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite", JOINT_SITE_LANG_REF);
 
         if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
@@ -326,10 +326,10 @@ class SiteView extends View
             "</div>";
     }
 
-    function print_menu_items($block_name, $disp_url = null)
+    function print_menu_items($block_name, $disp_url = null, $disp_lang = null)
     {
         global $request;
-        $disp_url_ref = JOINT_SITE_LANG_REF.$disp_url;
+        $disp_url_ref = $disp_lang.$disp_url;
         $disp_url = JOINT_SITE_EXEC_DIR.$disp_url;
         $disp_url_exp = explode("/", $disp_url);
         $disp_url_count = count($disp_url_exp);
