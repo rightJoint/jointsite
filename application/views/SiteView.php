@@ -274,9 +274,9 @@ class SiteView extends View
         echo "en' href='/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
-        $home_ref = "/";
+        $home_ref = $_SESSION[JS_SAIK]["lang_ref"];
         if (JOINT_SITE_EXEC_DIR) {
-            $home_ref = JOINT_SITE_EXEC_DIR;
+            $home_ref = JOINT_SITE_EXEC_DIR."/".$_SESSION[JS_SAIK]["lang_ref"];
         }
         echo "<a href='" . $home_ref . "' title='";
         if (!$request["routes"][$request["exec_dir_cnt"]]) {
