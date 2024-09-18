@@ -1,6 +1,8 @@
 <?php
 class view_admin_main extends view_admin
 {
+    public $admin_process_url = "/test/phpmysqladmin";
+
     function __construct()
     {
         parent::__construct();
@@ -16,7 +18,7 @@ class view_admin_main extends view_admin
                 "<div class='contentCell-img'>".
                 "<img src='".$this->img_for_modules[$admin_mod]."'>".
                 "</div><div class='contentCell-text'>".
-                "<a href='".$this->admin_process_url."/".$admin_mod."/'>".$mod_opt["aliasMenu"]."</a>".
+                "<a href='".$this->admin_process_url."/".$admin_mod."'>".$mod_opt["aliasMenu"]."</a>".
                 "<p>".$mod_opt["altText"]."</p></div></div>";
         }
         echo "</div>".

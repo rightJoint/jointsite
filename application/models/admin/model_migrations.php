@@ -217,7 +217,7 @@ class model_migrations extends RecordsModel
 
         //add command line to edit commands
 
-        if($commands){
+        if(isset($commands)){
             $c_num = count($commands)+1;
         }else{
             $c_num = 1;
@@ -243,7 +243,7 @@ class model_migrations extends RecordsModel
 
     function updateRecord()
     {
-        $commands = null;
+        $commands = "";
 
         foreach ($_POST as $key => $val){
             if(strpos(" ".$key, "cmd_")){

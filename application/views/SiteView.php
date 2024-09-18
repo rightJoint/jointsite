@@ -370,7 +370,7 @@ class SiteView extends View
 
     public function print_admin_menu($admin_url = "/admin")
     {
-        $admin_menu = $this->print_menu_items("admin", $admin_url);
+        $admin_menu = $this->print_menu_items("admin", $admin_url, JOINT_SITE_LANG_REF);
         if (!isset($_SESSION[JS_SAIK]["admin_user"]["id"]) and $admin_menu["is_valid_path"]) {
             echo "<form class='auth-form admin' method='post'>" .
                 "<div class='modal-line'>" .
@@ -415,10 +415,8 @@ class SiteView extends View
             echo "<div class='modal-line'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/avatar-default.png'></div>".
                 "<div class='modal-line-text'>".$this->lang_map->auth_menu_text["admin"]["adminUser"].": ".$_SESSION[JS_SAIK]['admin_user']['id']."<sup>".
-                "<a href='".JOINT_SITE_EXEC_DIR.$admin_url."?cmd=exit'>".$this->lang_map->auth_menu_text["admin"]["exit"]."</sup></div>".
+                "<a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_LANG_REF.$admin_url."?cmd=exit'>".$this->lang_map->auth_menu_text["admin"]["exit"]."</sup></div>".
                 "</div>";
-
-            $admin_menu = $this->print_menu_items("admin", $admin_url);
 
             $menuStyle = "style='display: none'";
             $folded_style = "folded";
@@ -430,7 +428,7 @@ class SiteView extends View
 
             echo "<div class='modal-line prod'>".
                 "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png'></div>".
-                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.$admin_url."' ".
+                "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_LANG_REF.$admin_url."' ".
                 "title='".$this->lang_map->prod_titles_in_menu["admin"]["title"]."'>".
                 $this->lang_map->prod_titles_in_menu["admin"]["text"]."</a><sup>".
                 $this->lang_map->prod_titles_in_menu["admin"]["sup"]."</sup>".
