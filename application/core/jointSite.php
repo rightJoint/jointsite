@@ -95,12 +95,15 @@ class jointSite
             $_SESSION[JS_SAIK]["lang_ref"] = null;
             define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR);
         }
-
+        $exec_dir_len = 0;
+        if(JOINT_SITE_EXEC_DIR){
+            $exec_dir_len = strlen(JOINT_SITE_EXEC_DIR);
+        }
         if($_SESSION[JS_SAIK]["lang_ref"]!=null){
-            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], strlen(JOINT_SITE_EXEC_DIR) + strlen($_SESSION[JS_SAIK]["lang_ref"]),
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len + strlen($_SESSION[JS_SAIK]["lang_ref"]),
                 strlen($_SERVER['REQUEST_URI']));
         }else{
-            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], strlen(JOINT_SITE_EXEC_DIR),
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len,
                 strlen($_SERVER['REQUEST_URI']));;
         }
         define("JOINT_SITE_LANG_REF", JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"]);
