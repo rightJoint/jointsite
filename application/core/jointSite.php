@@ -12,16 +12,20 @@ class jointSite
         global $request;
         $request["routes_path"] = explode('?', $_SERVER['REQUEST_URI'])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
-        $request["routes_cnt"] = count($request["routes"]);
-        $request["exec_path"] = $JOINT_SITE_EXEC_DIR;
+
         if(isset($JOINT_SITE_EXEC_DIR) and $JOINT_SITE_EXEC_DIR != null and $JOINT_SITE_EXEC_DIR != ""){
             $request["exec_dir"] = explode('/', $JOINT_SITE_EXEC_DIR);
         }else{
             $request["exec_dir"] = array(0 => "");
         }
 
+        $request["routes_cnt"] = count($request["routes"]);
+        $request["exec_path"] = $JOINT_SITE_EXEC_DIR;
+
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
+
+        session_start();
 
         //session app instance key at host
         $s_key = null;
@@ -32,25 +36,17 @@ class jointSite
         }else{
             $s_key = "main";
         }
+
         define("JS_SAIK", $s_key);
+        define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
 
-        session_start();
-
-        if(isset($_GET["lang"]) and $_GET["lang"] =="en"){
-            $_SESSION[JS_SAIK]["lang"] = "en";
-        }elseif(isset($_GET["lang"]) and $_GET["lang"]=="rus"){
-            $_SESSION[JS_SAIK]["lang"] = "rus";
-        }elseif(!isset($_SESSION[JS_SAIK]["lang"])){
-            $_SESSION[JS_SAIK]["lang"]="rus";
-        }
-
+        $this->set_lang_environment();
 
         if(!$this->checkAppDir()) {
             $request_exec_dir = array(
                 "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
                 "rus" => "Ошибка приложения: Маршрут не соответствует конфигурации",
             );
-            echo $request_exec_dir[$_SESSION[JS_SAIK]["lang"]]." (route: ".$request["routes_path"].", EXEC_DIR: ".$request["exec_path"].")";
             exit;
         }
 
@@ -58,7 +54,7 @@ class jointSite
         $lang_app_name = "lang_app_".$_SESSION[JS_SAIK]["lang"];
         $this->lang_map = new $lang_app_name();
 
-        define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+
         define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
         require_once JOINT_SITE_CONF_DIR."/dir_const.php";
         require_once JOINT_SITE_APP_CONFIG;
@@ -75,6 +71,44 @@ class jointSite
 
         $this->run($loaded_controller, $loaded_model, $loaded_view, $action_name);
 
+    }
+
+    function set_lang_environment()
+    {
+        global $request;
+        if(isset($request["routes"][$request["exec_dir_cnt"]]) and
+            $request["routes"][$request["exec_dir_cnt"]] == "en"){
+            unset($request["routes"][$request["exec_dir_cnt"]]);
+            $request["routes"] = array_values($request["routes"]);
+            $_SESSION[JS_SAIK]["lang"] = "en";
+            $_SESSION[JS_SAIK]["lang_ref"] = "/en";
+            $request["routes_cnt"] --;
+            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR."/en");
+        }elseif (isset($request["routes"][$request["exec_dir_cnt"]]) and
+            $request["routes"][$request["exec_dir_cnt"]] == "ru"){
+            unset($request["routes"][$request["exec_dir_cnt"]]);
+            $_SESSION[JS_SAIK]["lang"] = "rus";
+            $_SESSION[JS_SAIK]["lang_ref"] = "/ru";
+            $request["routes"] = array_values($request["routes"]);
+            $request["routes_cnt"] --;
+            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR."/ru");
+        }else{
+            $_SESSION[JS_SAIK]["lang"] = "rus";
+            $_SESSION[JS_SAIK]["lang_ref"] = null;
+            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR);
+        }
+        $exec_dir_len = 0;
+        if(JOINT_SITE_EXEC_DIR){
+            $exec_dir_len = strlen(JOINT_SITE_EXEC_DIR);
+        }
+        if($_SESSION[JS_SAIK]["lang_ref"]!=null){
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len + strlen($_SESSION[JS_SAIK]["lang_ref"]),
+                strlen($_SERVER['REQUEST_URI']));
+        }else{
+            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len,
+                strlen($_SERVER['REQUEST_URI']));;
+        }
+        define("JOINT_SITE_LANG_REF", JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"]);
     }
 
     function run($loaded_controller, $loaded_model, $loaded_view, $action_name)
