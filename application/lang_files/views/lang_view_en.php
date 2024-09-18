@@ -41,6 +41,18 @@ class lang_view_en
     public $menu_blocks = array(
         "branches" => array(
             "menu_items" => array(
+                "main" => array(
+                    "aliasMenu" => "Branch Application (Main)",
+                    "altText" => "about branch main",
+                    "test_ref" => JOINT_SITE_EXEC_DIR . "/products/jointsite/main",
+                    "test_ref_title" => "Do test",
+                    "descr" => "Its possible to run this app inside some another app or deploy as site.",
+                    "version" => "v1.0",
+                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='get from github'>link to github</a>",
+                    "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/main' title='learn more'>detail</a>",
+                    "depend" => "no dependencies",
+                    "use_in_mm" => true,
+                ),
                 "record" => array(
                     "aliasMenu" => "Branch Record",
                     "altText" => "about branch Record",
@@ -50,21 +62,9 @@ class lang_view_en
                         "Embedded custom fields as list or file to upload data, and another",
                     "version" => "v1.0",
                     "get" => "<a href='https://github.com/rightJoint/jointsite/tree/recnew' title='download from github'>link to github</a>",
-                    "more" => "<a href='" . JOINT_SITE_LANG_REF. "/products/jointsite/recnew' title='learn more'>detail</a>",
-                    "depend" => "no dependencies",
+                    "more" => "<a href='" . JOINT_SITE_EXEC_DIR . "/products/jointsite/recnew' title='learn more'>detail</a>",
+                    "depend" => "branch main",
                     "use_in_mm" => true,
-                ),
-                "main" => array(
-                    "aliasMenu" => "Branch Application (Main)",
-                    "altText" => "learn more about Application",
-                    "test_ref" => JOINT_SITE_LANG_REF."/products/jointsite/main",
-                    "test_ref_title" => "Do test",
-                    "descr" => "Application JointSite may use as web-site or run into another. ".
-                        "Branch main contains all free branches of this site.",
-                    "version" => "v1.0",
-                    "get" => "<a href='https://github.com/rightJoint/jointsite/tree/main' title='download from github'>link to github</a>",
-                    "more" => "<a href='".JOINT_SITE_LANG_REF."/products/jointsite/main' title='learn more'>detail</a>",
-                    "depend" => "no dependencies",
                 ),
                 "admin" => array(
                     "aliasMenu" => "Simple php admin for mysql",
