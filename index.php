@@ -1,3 +1,3 @@
 <?php
 require_once "application/core/jointSite.php";
-new jointSite();
+jointSite::jointSiteRun("/xxx", $_SERVER["DOCUMENT_ROOT"], $_SERVER["REQUEST_URI"]);

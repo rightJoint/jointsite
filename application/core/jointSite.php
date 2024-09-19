@@ -1,116 +1,138 @@
 <?php
+//echo $_SERVER["DOCUMENT_ROOT"]."<br>";
+//echo $_SERVER["REQUEST_URI"]."<br>";
+//exit;
 class jointSite
 {
     public $lang_map;
     public $app_log;
 
-    function __construct($JOINT_SITE_EXEC_DIR=null)
-    {
-        global $mct;
-        $mct['start_time'] = microtime(true);
+    //function __construct($JOINT_SITE_EXEC_DIR=null)
+    //{
+    //global $mct;
+    // $mct['start_time'] = microtime(true);
 
+    //global $request;
+
+
+    // self::prepare_request($JOINT_SITE_EXEC_DIR=null, $_SERVER["DOCUMENT_ROOT"], $_SERVER["REQUEST_URI"]);
+    /*
+            echo "<pre>";
+            print_r($request);
+            exit;
+
+            self::checkAppDir();
+            self::prepare_app_lang();
+            self::prepare_session_key();
+            self::load_app_lang();
+
+
+            define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
+            require_once JOINT_SITE_CONF_DIR."/dir_const.php";
+            require_once JOINT_SITE_APP_CONFIG;
+
+            $loaded_controller = $this->loadControllerFromRequest();
+            $loaded_model = $this->loadModelFromRequest();
+            $loaded_view = $this->loadViewFromRequest();
+            $this->app_log["action"] = $action_name = $this->getActionFromRequest();
+
+            $this->print_load_log();
+            //$this->print_load_log("controller");
+
+            $this->run($loaded_controller, $loaded_model, $loaded_view, $action_name);
+    */
+    //}
+
+    static function jointSiteRun($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    {
         global $request;
-        $request["routes_path"] = explode('?', $_SERVER['REQUEST_URI'])[0];
+        self::prepare_request($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+        self::prepare_app_lang();
+
+        self::prepare_session_key();
+        echo JS_SAIK;
+        //print_r($_SESSION);
+
+        //exit;
+    }
+
+    static function test()
+    {
+        global $test;
+        define("XXX_TEST", "11111111111-----------test--------------2222222222222");
+        $test = "ttttttteeeeessssttttt";
+    }
+
+    static function prepare_request($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    {
+        define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+        define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT.$JOINT_SITE_EXEC_DIR);
+        global $request;
+        $request["routes_uri"] = $REQUEST_URI;
+        $request["routes_path"] = explode('?', $request["routes_uri"])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
 
-        if(isset($JOINT_SITE_EXEC_DIR) and $JOINT_SITE_EXEC_DIR != null and $JOINT_SITE_EXEC_DIR != ""){
-            $request["exec_dir"] = explode('/', $JOINT_SITE_EXEC_DIR);
+        if(JOINT_SITE_EXEC_DIR != null and JOINT_SITE_EXEC_DIR != ""){
+            $request["exec_dir"] = explode('/', JOINT_SITE_EXEC_DIR);
         }else{
             $request["exec_dir"] = array(0 => "");
         }
 
         $request["routes_cnt"] = count($request["routes"]);
-        $request["exec_path"] = $JOINT_SITE_EXEC_DIR;
-
+        $request["exec_path"] = JOINT_SITE_EXEC_DIR;
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
-
-        session_start();
-
-        //session app instance key at host
-        $s_key = null;
-        if($JOINT_SITE_EXEC_DIR){
-            for ($c = 0; $c<$request["exec_dir_cnt"]; $c++){
-                $s_key .= $request["exec_dir"][$c];
-            }
-        }else{
-            $s_key = "main";
-        }
-
-        define("JS_SAIK", $s_key);
-        define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
-
-        $this->set_lang_environment();
-
-        if(!$this->checkAppDir()) {
-            $request_exec_dir = array(
-                "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
-                "rus" => "Ошибка приложения: Маршрут не соответствует конфигурации",
-            );
-            exit;
-        }
-
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/lang_files/lang_app_".$_SESSION[JS_SAIK]["lang"].".php");
-        $lang_app_name = "lang_app_".$_SESSION[JS_SAIK]["lang"];
-        $this->lang_map = new $lang_app_name();
-
-
-        define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
-        require_once JOINT_SITE_CONF_DIR."/dir_const.php";
-        require_once JOINT_SITE_APP_CONFIG;
-
-        $loaded_controller = $this->loadControllerFromRequest();
-        $loaded_model = $this->loadModelFromRequest();
-        $loaded_view = $this->loadViewFromRequest();
-        $this->app_log["action"] = $action_name = $this->getActionFromRequest();
-
-        $this->print_load_log();
-        //$this->print_load_log("controller");
-
-        $this->run($loaded_controller, $loaded_model, $loaded_view, $action_name);
-
     }
 
-    function set_lang_environment()
+    static function prepare_app_lang()
     {
         global $request;
-        if(isset($request["routes"][$request["exec_dir_cnt"]]) and
-            $request["routes"][$request["exec_dir_cnt"]] == "en"){
-            unset($request["routes"][$request["exec_dir_cnt"]]);
-            $request["routes"] = array_values($request["routes"]);
-            $_SESSION[JS_SAIK]["lang"] = "en";
-            $_SESSION[JS_SAIK]["lang_ref"] = "/en";
-            $request["routes_cnt"] --;
-            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR."/en");
-        }elseif (isset($request["routes"][$request["exec_dir_cnt"]]) and
-            $request["routes"][$request["exec_dir_cnt"]] == "ru"){
-            unset($request["routes"][$request["exec_dir_cnt"]]);
-            $_SESSION[JS_SAIK]["lang"] = "rus";
-            $_SESSION[JS_SAIK]["lang_ref"] = "/ru";
-            $request["routes"] = array_values($request["routes"]);
-            $request["routes_cnt"] --;
-            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR."/ru");
-        }else{
-            $_SESSION[JS_SAIK]["lang"] = "rus";
-            $_SESSION[JS_SAIK]["lang_ref"] = null;
-            define("JOINT_SITE_ROOT_LANG", JOINT_SITE_EXEC_DIR);
-        }
+
         $exec_dir_len = 0;
         if(JOINT_SITE_EXEC_DIR){
             $exec_dir_len = strlen(JOINT_SITE_EXEC_DIR);
         }
-        if($_SESSION[JS_SAIK]["lang_ref"]!=null){
-            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len + strlen($_SESSION[JS_SAIK]["lang_ref"]),
-                strlen($_SERVER['REQUEST_URI']));
+
+        if(isset($request["routes"][$request["exec_dir_cnt"]]) and
+            $request["routes"][$request["exec_dir_cnt"]] != null){
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][$request["exec_dir_cnt"]]);
+            define("JOINT_SITE_APP_LANG", $request["routes"][$request["exec_dir_cnt"]]);
+            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], $exec_dir_len + strlen(JOINT_SITE_REQ_LANG),
+                strlen($request["routes_uri"])));
+            unset($request["routes"][$request["exec_dir_cnt"]]);
+            $request["routes"] = array_values($request["routes"]);
+            $request["routes_cnt"] --;
+
         }else{
-            $request["routes_lang"] = substr($_SERVER['REQUEST_URI'], $exec_dir_len,
-                strlen($_SERVER['REQUEST_URI']));;
+            /*default lang: ru */
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
+            define("JOINT_SITE_APP_LANG", "ru");
+            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], $exec_dir_len,
+                strlen($request["routes_uri"])));
         }
-        define("JOINT_SITE_LANG_REF", JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"]);
     }
 
-    function run($loaded_controller, $loaded_model, $loaded_view, $action_name)
+    //session app instance key at host
+    static function prepare_session_key()
     {
+        session_start();
+        global $request;
+        $s_key = null;
+        if(JOINT_SITE_EXEC_DIR){
+            for ($c = 0; $c<$request["exec_dir_cnt"]; $c++){
+                $s_key .= $request["exec_dir"][$c];
+            }
+        }else{
+            echo "MAIN";
+            $s_key = "main";
+        }
+        define("JS_SAIK", $s_key);
+    }
+
+    static function run($loaded_controller, $loaded_model, $loaded_view, $action_name)
+    {
+        global $lang_app;
+
         $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
         $action = "action_".$action_name;
 
@@ -119,7 +141,7 @@ class jointSite
         }
         else{
             if(!USE_DEFAULT_ACTION){
-                self::throwErr("request", $this->lang_map->app_err["request_action"].
+                self::throwErr("request", $lang_app->app_err["request_action"].
                     "<br>".$loaded_controller."->".$action);
             }else{
                 $controller->action_index();
@@ -127,7 +149,17 @@ class jointSite
         }
     }
 
-    function checkAppDir()
+    static function load_app_lang()
+    {
+        global $lang_app;
+        echo JOINT_SITE_REQ_LANG;
+        exit;
+        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        $lang_app_name = "lang_app";
+        $lang_app = new $lang_app_name();
+    }
+
+    static function checkAppDir()
     {
         global $request;
 
@@ -139,7 +171,12 @@ class jointSite
             }
             return true;
         }else{
-            return false;
+            $request_exec_dir = array(
+                "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
+                "ru" => "Ошибка приложения: Маршрут не соответствует конфигурации",
+            );
+            echo $request_exec_dir[JOINT_SITE_APP_LANG];
+            exit;
         }
     }
 
