@@ -1,71 +1,122 @@
 <?php
-//echo $_SERVER["DOCUMENT_ROOT"]."<br>";
-//echo $_SERVER["REQUEST_URI"]."<br>";
-//exit;
 class jointSite
 {
-    public $lang_map;
+    //public static $lang_map;
     public $app_log;
-
-    //function __construct($JOINT_SITE_EXEC_DIR=null)
-    //{
-    //global $mct;
-    // $mct['start_time'] = microtime(true);
-
-    //global $request;
-
-
-    // self::prepare_request($JOINT_SITE_EXEC_DIR=null, $_SERVER["DOCUMENT_ROOT"], $_SERVER["REQUEST_URI"]);
-    /*
-            echo "<pre>";
-            print_r($request);
-            exit;
-
-            self::checkAppDir();
-            self::prepare_app_lang();
-            self::prepare_session_key();
-            self::load_app_lang();
-
-
-            define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
-            require_once JOINT_SITE_CONF_DIR."/dir_const.php";
-            require_once JOINT_SITE_APP_CONFIG;
-
-            $loaded_controller = $this->loadControllerFromRequest();
-            $loaded_model = $this->loadModelFromRequest();
-            $loaded_view = $this->loadViewFromRequest();
-            $this->app_log["action"] = $action_name = $this->getActionFromRequest();
-
-            $this->print_load_log();
-            //$this->print_load_log("controller");
-
-            $this->run($loaded_controller, $loaded_model, $loaded_view, $action_name);
-    */
-    //}
 
     static function jointSiteRun($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
+
+
         global $request;
-        self::prepare_request($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
-        self::prepare_app_lang();
+        /*
+        run site on /mirror
 
-        self::prepare_session_key();
-        echo JS_SAIK;
-        //print_r($_SESSION);
+        $JOINT_SITE_EXEC_DIR = "/mirror",
+        $_SERVER["DOCUMENT_ROOT"] = "",
+        $_SERVER["REQUEST_URI"] = "/mirror/ru/test/phpmysqladmin/printquery?test=1111"
 
+         * global request =
+Array
+(
+    [routes_uri] => /mirror/ru/test/phpmysqladmin/printquery?test=1111      uri with get request, its $_SERVER["REQUEST_URI"]
+    [routes_path] => /mirror/ru/test/phpmysqladmin/printquery               no get request in $_SERVER[REQUEST_URI]
+    [routes] => Array
+        (
+            [0] =>                                                          always zero
+            [1] => mirror
+            [2] => test
+            [3] => phpmysqladmin
+            [4] => printquery
+        )
+
+    [exec_dir] => Array
+        (
+            [0] =>
+            [1] => mirror
+        )
+
+    [routes_cnt] => 5                                                       count(routes)
+    [exec_path] => /mirror                                                  its $JOINT_SITE_EXEC_DIR = /mirror
+    [exec_dir_cnt] => 2                                                     CASE: 1 in root, 2 on mirror
+    [diff_cnt] => 4
+)
+
+        define constants:
+        JOINT_SITE_EXEC_DIR                                                 $JOINT_SITE_EXEC_DIR = /mirror
+        JOINT_SITE_REQUIRE_DIR                                              its $_SERVER["DOCUMENT_ROOT"]
+                                                                            C:/OSPanel/domains/rj-test.local/mirror
+        JOINT_SITE_REQ_LANG                                                 shortcut for lang_file C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru
+        JOINT_SITE_APP_LANG                                                 ru or en
+        JOINT_SITE_APP_REF                                                  null, /ru or /en
+        JOINT_SITE_REQ_ROOT                                                 it routes_uri cut of lang uri to process logic
+                                                                            /mirror/test/phpmysqladmin/printquery?test=1111
+
+        JS_SAIK                                                             main or mirror
+
+         */
+        self::set_app_envir($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+
+        if(!self::checkAppDir()) {
+            $request_exec_dir = array(
+                "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
+                "rus" => "Ошибка приложения: Маршрут не соответствует конфигурации",
+            );
+            echo $request_exec_dir[JOINT_SITE_APP_LANG]." (route: ".$request["routes_path"].", EXEC_DIR: ".$request["exec_path"].")";
+            exit;
+        }
+
+        ;
+
+        /*
+         * define constants JOINT_SITE_CONF_DIR = "C:/OSPanel/domains/rj-test.local/mirror/__config";
+         */
+        self::get_config_dir();
+
+        /*
+         * options default model, view
+         */
+        self::set_app_config();
+
+        $loaded_controller = self::loadControllerFromRequest();
+        $loaded_model = self::loadModelFromRequest();
+        $loaded_view = self::loadViewFromRequest();
+        $app_log["action"] = $action_name = self::getActionFromRequest();
+
+
+
+        //echo JOINT_SITE_REQUIRE_DIR;
+        //exit;
+
+        //define("JOINT_SITE_CONF_DIR", $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/__config");
+        //require_once JOINT_SITE_CONF_DIR."/dir_const.php";
+        //require_once JOINT_SITE_APP_CONFIG;
+
+        //echo JOINT_SITE_EXEC_DIR." / ".JOINT_SITE_REQUIRE_DIR." / ".JOINT_SITE_REQ_LANG." / ".JOINT_SITE_APP_LANG." / ".JOINT_SITE_APP_REF." / ".JOINT_SITE_REQ_ROOT;
+        //echo "<pre>";
+        //print_r($request);
+        //exit;
+
+        //echo "<pre>";
+        //print_r($request);
         //exit;
     }
 
-    static function test()
+    static function set_app_envir($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI)
     {
-        global $test;
-        define("XXX_TEST", "11111111111-----------test--------------2222222222222");
-        $test = "ttttttteeeeessssttttt";
+        global $mct;
+        $mct['start_time'] = microtime(true);
+
+        self::prepare_request($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+        self::prepare_app_lang();
+        self::prepare_session_key();
+        self::load_app_lang();
     }
 
     static function prepare_request($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
         define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+
         define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT.$JOINT_SITE_EXEC_DIR);
         global $request;
         $request["routes_uri"] = $REQUEST_URI;
@@ -84,21 +135,20 @@ class jointSite
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
     }
 
-    static function prepare_app_lang()
+    static function prepare_app_lang($acceptable_lang = array("en", "ru", ))
     {
         global $request;
-
-        $exec_dir_len = 0;
-        if(JOINT_SITE_EXEC_DIR){
-            $exec_dir_len = strlen(JOINT_SITE_EXEC_DIR);
-        }
-
         if(isset($request["routes"][$request["exec_dir_cnt"]]) and
-            $request["routes"][$request["exec_dir_cnt"]] != null){
+            in_array($request["routes"][$request["exec_dir_cnt"]], $acceptable_lang)){
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][$request["exec_dir_cnt"]]);
             define("JOINT_SITE_APP_LANG", $request["routes"][$request["exec_dir_cnt"]]);
-            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], $exec_dir_len + strlen(JOINT_SITE_REQ_LANG),
-                strlen($request["routes_uri"])));
+            define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
+            $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
+            define("JOINT_SITE_REQ_ROOT",
+                substr($request["routes_uri"], 0,
+                    $pos_lang)
+                .substr($request["routes_uri"], $pos_lang+1 + strlen(JOINT_SITE_APP_LANG),
+                    strlen($request["routes_uri"])));
             unset($request["routes"][$request["exec_dir_cnt"]]);
             $request["routes"] = array_values($request["routes"]);
             $request["routes_cnt"] --;
@@ -107,8 +157,9 @@ class jointSite
             /*default lang: ru */
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
             define("JOINT_SITE_APP_LANG", "ru");
-            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], $exec_dir_len,
+            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
+            define("JOINT_SITE_APP_REF", null);
         }
     }
 
@@ -123,10 +174,22 @@ class jointSite
                 $s_key .= $request["exec_dir"][$c];
             }
         }else{
-            echo "MAIN";
             $s_key = "main";
         }
         define("JS_SAIK", $s_key);
+    }
+
+    static function get_config_dir()
+    {
+        define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".trim(file_get_contents(JOINT_SITE_REQUIRE_DIR."/app_config_dir.txt")));
+    }
+
+    static function set_app_config()
+    {
+        define("USE_DEFAULT_CONTROLLER", false);
+        define("USE_DEFAULT_MODEL", true);
+        define("USE_DEFAULT_VIEW", true);
+        define("USE_DEFAULT_ACTION", false);
     }
 
     static function run($loaded_controller, $loaded_model, $loaded_view, $action_name)
@@ -152,8 +215,6 @@ class jointSite
     static function load_app_lang()
     {
         global $lang_app;
-        echo JOINT_SITE_REQ_LANG;
-        exit;
         require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
         $lang_app_name = "lang_app";
         $lang_app = new $lang_app_name();
@@ -171,71 +232,65 @@ class jointSite
             }
             return true;
         }else{
-            $request_exec_dir = array(
-                "en" => "Application error: rout not compatible JOINT_SITE_EXEC_DIR",
-                "ru" => "Ошибка приложения: Маршрут не соответствует конфигурации",
-            );
-            echo $request_exec_dir[JOINT_SITE_APP_LANG];
-            exit;
+            return false;
         }
     }
 
-    function loadControllerFromRequest()
+    static function loadControllerFromRequest()
     {
-        global $request;
+        global $request, $app_log, $lang_app;
 
         $default_name = $controller_name = 'Controller';
 
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/controller.php");
+        require_once JOINT_SITE_REQUIRE_DIR."/application/core/controller.php";
 
         if($new_controller_name = self::load_instance("controller")){
             $controller_name = $new_controller_name;
         }
 
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
-
-            self::throwErr("request", $this->lang_map->app_err["request_controller"]);
+            self::throwErr("request", $lang_app->app_err["request_controller"]);
         }
 
-        $this->app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
+        $app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
 
         return $controller_name;
     }
 
-    function loadModelFromRequest()
+    static function loadModelFromRequest()
     {
-        global $request;
+        global $request, $app_log, $lang_app;
 
         //$default_model = "Model";
         $default_model = "Model_pdo";
 
         $model_name = $default_model;
 
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/".strtolower($default_model).".php");
+        require_once JOINT_SITE_REQUIRE_DIR."/application/core/".strtolower($default_model).".php";
 
         if($new_model_name = self::load_instance("model")){
             $model_name = $new_model_name;
         }
 
         if($model_name == $default_model and !USE_DEFAULT_MODEL){
-            self::throwErr("request", $this->lang_map->app_err["request_model"]);
+            self::throwErr("request", $lang_app->app_err["request_model"]);
         }
 
-        $this->app_log["load"]["model"][] = array("final_model_name" => $model_name);
+        $app_log["load"]["model"][] = array("final_model_name" => $model_name);
 
         return $model_name;
     }
 
 
-    function loadViewFromRequest()
+    static function loadViewFromRequest()
     {
-        global $request;
+        global $request, $app_log, $lang_app;
 
         $default_name = "SiteView";
         $view_name = $default_name;
 
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/core/View.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application/views/SiteView.php");
+        require_once JOINT_SITE_REQUIRE_DIR."/application/core/View.php";
+        require_once JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php";
 
         if($new_view_name = self::load_instance("view")){
             $view_name = $new_view_name;
@@ -243,16 +298,16 @@ class jointSite
 
         if($view_name == $default_name and !USE_DEFAULT_VIEW){
 
-            self::throwErr("request", $this->lang_map->app_err["request_view"]);
+            self::throwErr("request", $lang_app->app_err["request_view"]);
         }
-        $this->app_log["load"]["view"][] = array("final_view_name" => $view_name);
+        $app_log["load"]["view"][] = array("final_view_name" => $view_name);
         return $view_name;
     }
 
 
-    function load_instance($instance_type)
+    static function load_instance($instance_type)
     {
-        global $request;
+        global $request, $app_log;
 
         if($instance_type == "controller"){
             $instance_dir = "/controllers";
@@ -270,12 +325,12 @@ class jointSite
         $result_name = null;
         $check_dir = null;
         for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
-            $this->app_log[$instance_type]["deep"] = $deep;
+            $app_log[$instance_type]["deep"] = $deep;
             if (!empty($request["routes"][$deep])){
                 $try_name = $instance_name."_".$request["routes"][$deep];
                 $try_load = array(
                     "try_name" => $try_name,
-                    "try_path" => $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir.
+                    "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir.
                         strtolower($try_name).'.php',
                     "loaded" => false,
                 );
@@ -284,17 +339,17 @@ class jointSite
                     $result_name = $try_load["try_name"];
                     $try_load["loaded"] = true;
                 }else{
-                    $this->app_log[$instance_type]["deep"] = $deep-1;
+                    $app_log[$instance_type]["deep"] = $deep-1;
                 }
-                $this->app_log["load"][$instance_type][] = $try_load;
+                $app_log["load"][$instance_type][] = $try_load;
 
                 $check_dir.=$request["routes"][$deep]."/";
                 if (!empty($request["routes"][$deep+1])){
-                    if(is_dir($_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir)) {
+                    if(is_dir(JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir)) {
                         $try_name = $instance_name."_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
                         $try_load = array(
                             "try_name" => $try_name,
-                            "try_path" => $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application".$instance_dir."/" .
+                            "try_path" => JOINT_SITE_REQUIRE_DIR . "/application".$instance_dir."/" .
                                 $check_dir . strtolower($try_name) . '.php',
                             "loaded" => false,
                         );
@@ -303,12 +358,12 @@ class jointSite
                             $result_name = $try_load["try_name"];
                             $try_load["loaded"] = true;
                         }else{
-                            $this->app_log[$instance_type]["deep"] = $deep-1;
+                            $app_log[$instance_type]["deep"] = $deep-1;
                         }
-                        $this->app_log["load"][$instance_type][] = $try_load;
+                        $app_log["load"][$instance_type][] = $try_load;
                     }else{
-                        $this->app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
-                            $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".$check_dir);
+                        $app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
+                            JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir);
                         break;
                     }
                 }else{
@@ -319,7 +374,7 @@ class jointSite
                 $try_name = $instance_name."_main";
                 $try_load = array(
                     "try_name" => $try_name,
-                    "try_path" => $_SERVER["DOCUMENT_ROOT"].$request["exec_path"]."/application".$instance_dir."/".
+                    "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".
                         strtolower($try_name).'.php',
                     "loaded" => false,
                 );
@@ -329,7 +384,7 @@ class jointSite
                     $result_name = $try_load["try_name"];
                     $try_load["loaded"] = true;
                 }
-                $this->app_log["load"][$instance_type][] = $try_load;
+                $app_log["load"][$instance_type][] = $try_load;
                 break;
             }
         }
@@ -337,12 +392,12 @@ class jointSite
         return $result_name;
     }
 
-    function getActionFromRequest()
+    static function getActionFromRequest()
     {
-        global $request;
+        global $request, $app_log;
         $action_name = "index";
-        if (!empty($request["routes"][$this->app_log["controller"]["deep"]+1])){
-            $action_name = $request["routes"][$this->app_log["controller"]["deep"]+1];
+        if (!empty($request["routes"][$app_log["controller"]["deep"]+1])){
+            $action_name = $request["routes"][$app_log["controller"]["deep"]+1];
         }
 
         return $action_name;
@@ -350,12 +405,12 @@ class jointSite
 
     static function throwErr($errType, $message)
     {
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/controller.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/alerts/Alerts_controller.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/alerts/Alerts_model.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/View.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/views/SiteView.php");
-        require_once ($_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/alerts/alerts_view.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
+        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
         $controller = new Alerts_controller();
         $controller->generateErr($errType, $message);
         exit;

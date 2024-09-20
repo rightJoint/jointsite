@@ -1,5 +1,5 @@
 <?php
-class lang_app_en
+class lang_app
 {
     public $app_err = array(
         "request_model" => "Application error: model path not valid",

@@ -15,7 +15,7 @@ class view_test extends SiteView
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<ul>".
-            "<li><a href='".JOINT_SITE_LANG_REF."/test/records'>Test Records</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/records'>Test Records</a></li>".
             "</ul>".
         "</div></div></div>";
     }

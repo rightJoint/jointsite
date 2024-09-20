@@ -1,6 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-    "/application/core/RecordsController.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsController.php";
 class controller_test extends RecordsController
 {
     function action_testErr()

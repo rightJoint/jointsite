@@ -47,9 +47,8 @@ class SiteView extends View
 
     function LoadViewLang($request = null)
     {
-        require_once($_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR .
-            "/application/lang_files/views/lang_view_" . $_SESSION[JS_SAIK]["lang"] . ".php");
-        $return_lang = "lang_view_" . $_SESSION[JS_SAIK]["lang"];
+        require_once(JOINT_SITE_REQ_LANG."/views/lang_view.php");
+        $return_lang = "lang_view";
 
         if (!$request) {
             global $request;
@@ -57,16 +56,16 @@ class SiteView extends View
 
 
         if (!empty($request["routes"][$request["exec_dir_cnt"]])) {
-            $try_name = "lang_view_" . $request["routes"][$request["exec_dir_cnt"]] . "_" . $_SESSION[JS_SAIK]["lang"];
-            $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
+            $try_name = "lang_view" . $request["routes"][$request["exec_dir_cnt"]];
+            $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
             if (file_exists($try_path)) {
                 require_once($try_path);
                 $return_lang = $try_name;
             }
             if (!empty($request["routes"][$request["exec_dir_cnt"] + 1])) {
                 $try_name = "lang_view_" . $request["routes"][$request["exec_dir_cnt"]] . "_" .
-                    $request["routes"][$request["exec_dir_cnt"] + 1] . "_" . $_SESSION[JS_SAIK]["lang"];
-                $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
+                    $request["routes"][$request["exec_dir_cnt"] + 1];
+                $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
 
                 if (file_exists($try_path)) {
                     require_once($try_path);
@@ -74,9 +73,9 @@ class SiteView extends View
                 }
             }
         } else {
-            $try_name = "lang_view_main_" . $_SESSION[JS_SAIK]["lang"];
+            $try_name = "lang_view_main";
 
-            $try_path = $_SERVER["DOCUMENT_ROOT"] . $request["exec_path"] . "/application/lang_files/views/" . strtolower($try_name) . '.php';
+            $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
             if (file_exists($try_path)) {
                 require_once($try_path);
                 $return_lang = $try_name;
@@ -181,15 +180,15 @@ class SiteView extends View
         echo "<header><div class='headerCenter'>";
         echo "<div class='lang-panel'>" .
             "<a class='lang-cntrl ";
-        if ($_SESSION[JS_SAIK]["lang"] == "rus") {
+        if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if ($_SESSION[JS_SAIK]["lang"] == "en") {
+        if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
@@ -263,21 +262,21 @@ class SiteView extends View
             "<div class='modal-line' style='position: relative; min-height: 3.8em' >" .
             "<div class='lang-panel mp'>" .
             "<a class='lang-cntrl ";
-        if ($_SESSION[JS_SAIK]["lang"] == "rus") {
+        if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if ($_SESSION[JS_SAIK]["lang"] == "en") {
+        if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".$request["routes_lang"]."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
         if (JOINT_SITE_EXEC_DIR) {
-            $home_ref = JOINT_SITE_EXEC_DIR.$_SESSION[JS_SAIK]["lang_ref"];
-        }elseif($_SESSION[JS_SAIK]["lang_ref"]){
-            $home_ref = $_SESSION[JS_SAIK]["lang_ref"];
+            $home_ref = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF;
+        }elseif(JOINT_SITE_APP_REF){
+            $home_ref = JOINT_SITE_APP_REF;
         }else{
             $home_ref = "/";
         }
@@ -305,7 +304,7 @@ class SiteView extends View
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
-        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite", JOINT_SITE_LANG_REF);
+        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite", JOINT_SITE_APP_REF);
 
         if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
@@ -314,7 +313,7 @@ class SiteView extends View
 
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
-            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_LANG_REF."/products/jointsite' ".
+            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_APP_REF."/products/jointsite' ".
             "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
             $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
             $this->lang_map->prod_titles_in_menu["jointSite"]["sup"]."</sup>".
