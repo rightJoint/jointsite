@@ -359,7 +359,7 @@ Array
 
     function js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
     {
-        global $lang_app;
+        global $lang_app, $js_result;
 
         if($loaded_controller and $loaded_model and $loaded_view and $action_name){
             $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
@@ -367,6 +367,9 @@ Array
 
             if(method_exists($controller, $action)){
                 $controller->$action();
+                if(isset($js_result["error"]) and $js_result["error"] == true){
+                    return false;
+                }
             }
             else{
                 if(!USE_DEFAULT_ACTION){
@@ -374,6 +377,9 @@ Array
                         "<br>".$loaded_controller."->".$action);
                 }else{
                     $controller->action_index();
+                    if(isset($js_result["error"]) and $js_result["error"] == true){
+                        return false;
+                    }
                 }
             }
         }else{

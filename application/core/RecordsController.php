@@ -1,5 +1,6 @@
 <?php
-class RecordsController extends Controller
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsControllerInterface.php";
+class RecordsController extends Controller implements RecordsControllerInterface
 {
     public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
 
@@ -11,10 +12,14 @@ class RecordsController extends Controller
 
     public function records_process($process_path=null,
                                     $default_table = null, //
-                                    $view_data = null)
+                                    $view_data = null):bool
     {
         $this->default_table = $default_table;
-        $this->checkRecordModel();
+
+        if(!$this->checkRecordModel())
+        {
+            return false;
+        }
 
         //used in all processed views
         require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
@@ -45,7 +50,7 @@ class RecordsController extends Controller
                 $this->process_detail($process_path);
 
             } else {
-                jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"] .
+                return jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"] .
                     $this->lang_map->rc_errors["detail"] . ", " .
                     $this->lang_map->rc_errors["model_err"] .
                     $this->model->log_message);
@@ -60,7 +65,7 @@ class RecordsController extends Controller
             } else {
                 $this->model->copyValFromRequest($_GET);
                 if (!$this->model->copyRecord()) {
-                    jointSite::throwErr("request", $this->model->log_message);
+                    return jointSite::throwErr("request", $this->model->log_message);
                 }
             }
 
@@ -111,11 +116,12 @@ class RecordsController extends Controller
                 $this->prepareViewFields($process_path);
                 $this->view->generate();
             } else {
-                jointSite::throwErr("request", $this->model->log_message);
+                return jointSite::throwErr("request", $this->model->log_message);
             }
         } elseif (!$this->doAction_custom($request["routes"][$pp_cnt])) {
-            jointSite::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
+            return jointSite::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
         }
+        return true;
     }
 
     function process_detail($process_path)
@@ -210,7 +216,7 @@ class RecordsController extends Controller
                 "log" => $this->model->log_message,
             );
         } else {
-            jointSite::throwErr("request", $this->model->log_message);
+            return jointSite::throwErr("request", $this->model->log_message);
         }
 
     }
@@ -236,12 +242,13 @@ class RecordsController extends Controller
     }
 
     /*if custom model mot loaded*/
-    function checkRecordModel()
+    function checkRecordModel():bool
     {
         if(!$this->model instanceof RecordsModel) {
             require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
             $this->model = new RecordsModel($this->default_table);
         }
+        return $this->model->getRecordStructure();
     }
 
     //if custom view not loaded

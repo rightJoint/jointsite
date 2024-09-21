@@ -1,8 +1,10 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR ."/application/recordsStructureFiles/recordStructureFields.php";
-class RecordsModel extends Model_pdo
+require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModelInterface.php";
+class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
     public $tableName = null;
+
     public $modelAliases = array(
         "en" => null,
         "ru" => null,
@@ -16,11 +18,6 @@ class RecordsModel extends Model_pdo
         if($tableName and !$this->tableName){
             $this->tableName = $tableName;
         }
-        if($this->tableName){
-            $this->getRecordStructure();
-        }else{
-            jointSite::throwErr("XXX", $this->lang_map->table_name_rm_err);
-        }
     }
 
     function load_lang_files()
@@ -30,8 +27,16 @@ class RecordsModel extends Model_pdo
         return "lang_model_Record";
     }
 
-    function getRecordStructure()
+    public function getRecordStructure():bool
     {
+
+        if($this->tableName){
+            //return $this->getRecordStructure();
+        }else{
+
+            return jointSite::throwErr("XXX", $this->lang_map->table_name_rm_err);
+        }
+
         $this->recordStructureFields = new  recordStructureFields();
 
         $replaceUrl = null;
@@ -64,7 +69,7 @@ class RecordsModel extends Model_pdo
                         $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
                     }
                 }else{
-                    jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
+                    return jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
                 }
 
                 $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
@@ -84,7 +89,7 @@ class RecordsModel extends Model_pdo
                 $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
             }
         }else{
-            jointSite::throwErr("request", $this->lang_map->table_name_not_found.": table_name='".$this->tableName."', ".
+            return jointSite::throwErr("request", $this->lang_map->table_name_not_found.": table_name='".$this->tableName."', ".
                 "/core/RecordsModel->getRecordStructure");
         }
         if($count_keys){
@@ -97,6 +102,8 @@ class RecordsModel extends Model_pdo
             $this->recordStructureFields->listFields["btnEdit"]["url"] = $replaceUrl;
             $this->recordStructureFields->listFields["btnDelete"]["url"] = $replaceUrl;
         }
+
+        return true;
     }
 
     public function countRecords($where = null)
@@ -118,10 +125,11 @@ class RecordsModel extends Model_pdo
         return $this->fetchToArray($findList_qry);
     }
 
-    public function fetchToArray($findList_qry)
+    public function fetchToArray($findList_qry):array
     {
+        $return_listRecords = array();
         if($findList_res = $this->pdo_query($findList_qry)){
-            $return_listRecords = array();
+
             if($findList_res->rowCount()){
                 $row_counter = 0;
                 while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
@@ -131,10 +139,11 @@ class RecordsModel extends Model_pdo
             }
             return $return_listRecords;
         }
-        jointSite::throwErr("XXX", $this->log_message);
+        return jointSite::throwErr("XXX", $this->log_message);
     }
 
-    public function copyRecord(){
+    public function copyRecord():bool
+    {
         $date_stamp = date("H:i:s");
         $query_text="select * from ".$this->tableName." where ";
         foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
@@ -144,6 +153,7 @@ class RecordsModel extends Model_pdo
         }
         $query_text = substr($query_text, 0, strlen($query_text)-4);
         $query_res = $this->query($query_text);
+
         if($query_res->rowCount()==1){
             $result=$query_res->fetch(PDO::FETCH_ASSOC);
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
@@ -162,7 +172,7 @@ class RecordsModel extends Model_pdo
         return false;
     }
 
-    function copyCustomFields()
+    function copyCustomFields():bool
     {
         return true;
     }
