@@ -106,9 +106,7 @@ Array
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
             define("JOINT_SITE_REQ_ROOT",
-                substr($request["routes_uri"], 0,
-                    $pos_lang)
-                .substr($request["routes_uri"], $pos_lang+1 + strlen(JOINT_SITE_APP_LANG),
+                substr($request["routes_uri"], $pos_lang+1 + strlen(JOINT_SITE_APP_LANG),
                     strlen($request["routes_uri"])));
             unset($request["routes"][$request["exec_dir_cnt"]]);
             $request["routes"] = array_values($request["routes"]);
@@ -118,7 +116,7 @@ Array
             /*default lang: ru */
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
             define("JOINT_SITE_APP_LANG", "ru");
-            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
+            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], strlen(JOINT_SITE_EXEC_DIR),
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
         }
