@@ -5,9 +5,8 @@ class RecordsController extends Controller
 
     function LoadCntrlLang_custom()
     {
-        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/lang_files/".
-            "controllers/lang_RecordsController_".$_SESSION[JS_SAIK]["lang"].".php";
-        return "lang_RecordsController_".$_SESSION[JS_SAIK]["lang"];
+        require_once JOINT_SITE_REQ_LANG."/controllers/lang_RecordsController.php";
+        return "lang_RecordsController";
     }
 
     public function records_process($process_path=null,
@@ -18,14 +17,14 @@ class RecordsController extends Controller
         $this->checkRecordModel();
 
         //used in all processed views
-        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/views/templates/RecordView.php";
+        require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
 
         global $request;
 
         $pp_exp = explode("/", $process_path);
         $pp_cnt = count($pp_exp);
 
-        if(isset($_SESSION[JS_SAIK]["lang_ref"])){
+        if(JOINT_SITE_APP_REF){
             $pp_cnt--;
         }
 
@@ -130,8 +129,8 @@ class RecordsController extends Controller
 
     function process_list()
     {
-        if ($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]) {
-            $this->view->h2 = $this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]];
+        if ($this->model->modelAliases[JOINT_SITE_APP_LANG]) {
+            $this->view->h2 = $this->model->modelAliases[JOINT_SITE_APP_LANG];
         } else {
             $this->view->h2 = $this->model->tableName;
         }
@@ -240,7 +239,7 @@ class RecordsController extends Controller
     function checkRecordModel()
     {
         if(!$this->model instanceof RecordsModel) {
-            require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/core/RecordsModel.php";
+            require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
             $this->model = new RecordsModel($this->default_table);
         }
     }
@@ -250,18 +249,18 @@ class RecordsController extends Controller
     {
         if($type_of_view == "list"){
             if(!$this->view instanceof RecordListView) {
-                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/views/templates/RecordListView.php";
+                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordListView.php";
                 $this->view = new RecordListView();
             }
         }elseif ($type_of_view == "detail"){
             if(!$this->view instanceof RecordDetailView) {
-                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/views/templates/RecordDetailView.php";
+                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordDetailView.php";
                 $this->view = new RecordDetailView();
             }
         }
         elseif (in_array($type_of_view, array("edit", "new", "delete"))){
             if(!$this->view instanceof RecordEditView) {
-                require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR . "/application/views/templates/RecordEditView.php";
+                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordEditView.php";
                 $this->view = new RecordEditView();
             }
         }
@@ -270,8 +269,8 @@ class RecordsController extends Controller
     function prepareViewFields($process_path = null)
     {
         $this->view->record = $this->model->recordStructureFields->record;
-        if($this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]]){
-            $this->view->h2=$this->model->modelAliases[$_SESSION[JS_SAIK]["lang"]];
+        if($this->model->modelAliases[JOINT_SITE_APP_LANG]){
+            $this->view->h2=$this->model->modelAliases[JOINT_SITE_APP_LANG];
         }else{
             $this->view->h2 = $this->model->tableName;
         }

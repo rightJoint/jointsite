@@ -23,34 +23,31 @@ class Controller {
         $this->view->controller_action = $action_name;
     }
 
-    function LoadView_custom($action_name = null)
+    function LoadView_custom($action_name = null):string
     {
-
+        return "";
     }
 
-    function LoadModel_custom($action_name = null)
+    function LoadModel_custom($action_name = null):string
     {
-
+        return "";
     }
 
-    function LoadCntrlLang()
+    function LoadCntrlLang():string
     {
-        global $request;
-        require_once ($_SERVER["DOCUMENT_ROOT"].$request["exec_path"].
-            "/application/lang_files/controllers/lang_cntrl_".$_SESSION[JS_SAIK]["lang"].".php");
-        $return_lang = "lang_cntrl_".$_SESSION[JS_SAIK]["lang"];
+        require_once (JOINT_SITE_REQ_LANG."/controllers/lang_cntrl.php");
+        $return_lang = "lang_cntrl";
 
         if($custom_lang = $this->LoadCntrlLang_custom()){
             $return_lang = $custom_lang;
         }
 
         return $return_lang;
-
     }
 
-    function LoadCntrlLang_custom()
+    function LoadCntrlLang_custom():string
     {
-
+        return "";
     }
 
     function action_index()

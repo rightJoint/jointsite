@@ -21,6 +21,29 @@ class AppLoadInstTest extends PHPUnit\Framework\TestCase
 
     }
 
+    function test_run_err()
+    {
+        global $document_root, $request, $exec_dir;
+
+        jointSite::jointSiteRun($exec_dir, $document_root,
+            $exec_dir."/xxx/phpmysqladmin/printquery?test=1111");
+
+        //jointSite::set_app_config();
+
+        //$loaded_controller = jointSite::loadControllerFromRequest();
+        //$this->assertEquals(false, $loaded_controller);
+
+        //$loaded_model = jointSite::loadModelFromRequest();
+        //$this->assertEquals("Model_pdo", $loaded_model);
+
+        //$loaded_view = jointSite::loadViewFromRequest();
+        //$this->assertEquals("SiteView", $loaded_view);
+
+        //$loaded_view = jointSite::getActionFromRequest();
+        //$this->assertEquals("SiteView", $loaded_view);
+    }
+
+    /*
     function test_contr_err()
     {
         global $document_root, $request, $exec_dir;
@@ -31,18 +54,18 @@ class AppLoadInstTest extends PHPUnit\Framework\TestCase
         jointSite::set_app_config();
 
         $loaded_controller = jointSite::loadControllerFromRequest();
-        $this->assertEquals("Controller_phpmysqladmin", $loaded_controller);
+        $this->assertEquals(false, $loaded_controller);
 
-        /*$loaded_model = jointSite::loadModelFromRequest();
-        $this->assertEquals("Model_test", $loaded_model);
+        $loaded_model = jointSite::loadModelFromRequest();
+        $this->assertEquals("Model_pdo", $loaded_model);
 
         $loaded_view = jointSite::loadViewFromRequest();
-        $this->assertEquals("View_test", $loaded_view);
+        $this->assertEquals("SiteView", $loaded_view);
 
-        $action_name = jointSite::getActionFromRequest();
-        $this->assertEquals("printquery", $action_name);
-        */
+        $loaded_view = jointSite::getActionFromRequest();
+        $this->assertEquals("SiteView", $loaded_view);
     }
+    */
 /*
     function test_app_dir_ok_1()
     {

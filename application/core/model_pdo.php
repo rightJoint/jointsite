@@ -7,7 +7,7 @@ class Model_pdo extends PDO
 
     public $sql_db_name = null;
 
-    function __construct($sql_db_connect_json = SQL_CONN_DEFAULT)
+    function __construct($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php")
     {
         $lang_class = $this->load_lang_files();
         $this->lang_map = new $lang_class;
@@ -48,8 +48,8 @@ class Model_pdo extends PDO
 
     function load_lang_files()
     {
-        require_once "application/lang_files/models/lang_model_".$_SESSION[JS_SAIK]["lang"].".php";
-        return "lang_model_".$_SESSION[JS_SAIK]["lang"];
+        require_once JOINT_SITE_REQ_LANG."/models/lang_model.php";
+        return "lang_model";
     }
 
     function throwErrNoConn()
