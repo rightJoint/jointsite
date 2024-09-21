@@ -3,7 +3,7 @@ class RecordsController extends Controller
 {
     public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
 
-    function LoadCntrlLang_custom()
+    function LoadCntrlLang_custom():string
     {
         require_once JOINT_SITE_REQ_LANG."/controllers/lang_RecordsController.php";
         return "lang_RecordsController";

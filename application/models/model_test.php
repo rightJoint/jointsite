@@ -5,7 +5,7 @@ class Model_Test
     {
         return array(
             "en" => "application test success, model passed data - this text",
-            "rus" => "проверка приложения прошла успешно, модель передала данные - этот текст"
-        )[$_SESSION[JS_SAIK]["lang"]];
+            "ru" => "проверка приложения прошла успешно, модель передала данные - этот текст"
+        )[JOINT_SITE_APP_LANG];
     }
 }

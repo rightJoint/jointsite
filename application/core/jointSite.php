@@ -8,12 +8,7 @@ class jointSite
         global $mct;
         $mct['start_time'] = microtime(true);
         $this->js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
-
-        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
-        $lang_app_name = "lang_app";
-        $this->lang_map = new $lang_app_name();
-
-
+        $this->load_app_lang();
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
     }
@@ -66,13 +61,20 @@ Array
          */
 
 
-        $this->js_RoutesRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_ExplodeRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
         $this->js_session_key();
         define("JOINT_SITE_CONF_DIR", $this->js_config_dir());
     }
 
-    function js_RoutesRequest($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function load_app_lang()
+    {
+        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        $lang_app_name = "lang_app";
+        $this->lang_map = new $lang_app_name();
+    }
+
+    function js_ExplodeRequest($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
         define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
 
@@ -387,7 +389,8 @@ Array
         global $js_result;
 
         if($result){
-            echo "run: ok";
+            return true;
+            //echo "run: ok";
         }else{
             $this->js_display_err($js_result["errType"], $js_result["message"]);
             echo "run: err";
@@ -419,6 +422,7 @@ Array
     static function throwErr($errType, $message):bool
     {
         global $js_result;
+        $js_result["error"] = true;
         $js_result["errType"] = $errType;
         $js_result["message"] = $message;
         /*always return false*/
