@@ -136,7 +136,7 @@ Array
         define("JS_SAIK", $s_key);
     }
 
-    function js_config_dir():string
+    function js_config_dir()
     {
         return JOINT_SITE_REQUIRE_DIR."/".trim(file_get_contents(JOINT_SITE_REQUIRE_DIR."/app_config_dir.txt"));
     }

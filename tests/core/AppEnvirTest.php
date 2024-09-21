@@ -8,14 +8,37 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     //protected $preserveGlobalState = FALSE;
     protected $runTestInSeparateProcess = TRUE;
 
+    public $jointSite;
+
     protected function setUp(): void
     {
         global $document_root;
         $document_root = "C:/OSPanel/domains/rj-test.local";
         require_once "application/core/jointSite.php";
+        $this->jointSite = $this->getMockBuilder('jointSite')->onlyMethods(array("js_config_dir"))->getMock();
+        //$this->createMock("jointSite");
+        $this->jointSite->expects($this->any())->method('js_config_dir')->willReturn('geralt.of.rivia');
+            //->expects($this->once())
+            //->method('js_config_dir')
+            //->with($featureName, $context)
+           // ->willReturn("xa-xa-xa");
+        //$this->jointSite->method('js_config_dir')
+        //    ->willReturn('foo');
+
+        /*$this->jointSite = $this->createStub("jointSite");
+        $this->jointSite->method('js_config_dir')
+            ->willReturn('foo');
+        */
+         //   ->willReturn('foo');
+        //$stub->expects($this->any())
+        //    ->method('doSomething')
+        //    ->will($this->returnCallback('callback'));
+
+        //$this->jointSite = $this->getMockBuilder('ntSendModel')->onlyMethods(array("js_config_dir"))->getMock();
 
 
 
+        //$this->jointSite->expects($this->once())->method("sendOnEmail");
     }
 
     protected function tearDown(): void
@@ -26,13 +49,21 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     function test_request_main_default()
     {
         global $document_root, $request;
-        $jointSite = new jointSite();
+
+        $this->jointSite = $this->createStub("jointSite");
+        $this->jointSite->method('js_config_dir')
+            ->willReturn(['foo']);
+
+        //$jointSite = new jointSite();
         //$jointSite = $this->createMock(jointSite::class);
        // $jointSite->method('js_config_dir')
        //     ->willReturn('xxxx');
         //$test_site = new jointSite();
 
-        $jointSite->js_PrepareRequest(null, $document_root,
+        //$jointSite =
+
+
+        $this->jointSite->js_PrepareRequest(null, $document_root,
             "/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
