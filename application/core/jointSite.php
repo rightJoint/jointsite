@@ -8,6 +8,12 @@ class jointSite
         global $mct;
         $mct['start_time'] = microtime(true);
         $this->js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+
+        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        $lang_app_name = "lang_app";
+        $this->lang_map = new $lang_app_name();
+
+
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
     }
@@ -114,11 +120,6 @@ Array
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
         }
-
-        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
-        $lang_app_name = "lang_app";
-        $this->lang_map = new $lang_app_name();
-
     }
 
     function js_session_key()

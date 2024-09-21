@@ -1,11 +1,10 @@
 <?php
-//php ./vendor/bin/phpunit tests/core/AppEnvirTest.php
-//php ./vendor/bin/phpunit --stderr tests/core/AppEnvirTest.php
-    //php ./vendor/bin/phpunit --debug tests/core/AppEnvir.php
-    //php ./vendor/bin/phpunit --verbose -c tests/core/AppEnvir.php
-class AppEnvirTest extends PHPUnit\Framework\TestCase
+//php ./vendor/bin/phpunit tests/core/js_prepare_request_Test.php
+//php ./vendor/bin/phpunit --stderr tests/core/js_prepare_request_Test.php
+//php ./vendor/bin/phpunit --debug tests/core/js_prepare_request_Test.php
+//php ./vendor/bin/phpunit --verbose -c tests/core/js_prepare_request_Test.php
+class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 {
-    //protected $preserveGlobalState = FALSE;
     protected $runTestInSeparateProcess = TRUE;
 
     public $jointSite;
@@ -16,29 +15,7 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         $document_root = "C:/OSPanel/domains/rj-test.local";
         require_once "application/core/jointSite.php";
         $this->jointSite = $this->getMockBuilder('jointSite')->onlyMethods(array("js_config_dir"))->getMock();
-        //$this->createMock("jointSite");
-        $this->jointSite->expects($this->any())->method('js_config_dir')->willReturn('geralt.of.rivia');
-            //->expects($this->once())
-            //->method('js_config_dir')
-            //->with($featureName, $context)
-           // ->willReturn("xa-xa-xa");
-        //$this->jointSite->method('js_config_dir')
-        //    ->willReturn('foo');
-
-        /*$this->jointSite = $this->createStub("jointSite");
-        $this->jointSite->method('js_config_dir')
-            ->willReturn('foo');
-        */
-         //   ->willReturn('foo');
-        //$stub->expects($this->any())
-        //    ->method('doSomething')
-        //    ->will($this->returnCallback('callback'));
-
-        //$this->jointSite = $this->getMockBuilder('ntSendModel')->onlyMethods(array("js_config_dir"))->getMock();
-
-
-
-        //$this->jointSite->expects($this->once())->method("sendOnEmail");
+        $this->jointSite->expects($this->any())->method('js_config_dir')->willReturn('C:/OSPanel/domains/rj-test.local/__testconfig');
     }
 
     protected function tearDown(): void
@@ -49,19 +26,6 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     function test_request_main_default()
     {
         global $document_root, $request;
-
-        $this->jointSite = $this->createStub("jointSite");
-        $this->jointSite->method('js_config_dir')
-            ->willReturn(['foo']);
-
-        //$jointSite = new jointSite();
-        //$jointSite = $this->createMock(jointSite::class);
-       // $jointSite->method('js_config_dir')
-       //     ->willReturn('xxxx');
-        //$test_site = new jointSite();
-
-        //$jointSite =
-
 
         $this->jointSite->js_PrepareRequest(null, $document_root,
             "/test/phpmysqladmin/printquery?test=1111");
@@ -88,19 +52,16 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(null, JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("main", JS_SAIK);
-        $this->assertEquals("__xxxx", JOINT_SITE_CONF_DIR);
+        $this->assertEquals("C:/OSPanel/domains/rj-test.local/__testconfig", JOINT_SITE_CONF_DIR);
 
 
     }
 
-    /*
     function test_request_main_en()
     {
         global $document_root, $request;
 
-        $test_site = new jointSite();
-
-        $test_site->js_PrepareRequest(null, $document_root,
+        $this->jointSite->js_PrepareRequest(null, $document_root,
             "/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -131,9 +92,7 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        $test_site = new jointSite();
-
-        $test_site->js_PrepareRequest(null, $document_root,
+        $this->jointSite->js_PrepareRequest(null, $document_root,
             "/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -164,9 +123,7 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        $test_site = new jointSite();
-
-        $test_site->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
             "/mirror/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -197,9 +154,7 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        $test_site = new jointSite();
-
-        $test_site->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
             "/mirror/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -230,9 +185,7 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        $test_site = new jointSite();
-
-        $test_site->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
             "/mirror/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -248,6 +201,8 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
             "diff_cnt" => 4,
         );
 
+        $this->assertSame($result_req, $request);
+
         $this->assertEquals("/mirror", JOINT_SITE_EXEC_DIR);
         $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror", JOINT_SITE_REQUIRE_DIR);
         $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
@@ -256,5 +211,4 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals("/mirror/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
-*/
 }
