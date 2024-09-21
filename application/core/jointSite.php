@@ -1,7 +1,7 @@
 <?php
 class jointSite
 {
-    public $app_log;
+    public $lang_map;
 
     function js_Run($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
@@ -114,6 +114,11 @@ Array
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
         }
+
+        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        $lang_app_name = "lang_app";
+        $this->lang_map = new $lang_app_name();
+
     }
 
     function js_session_key()
@@ -204,7 +209,7 @@ Array
             self::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
         }
 
-        $result_name = null;
+        $result_name = "";
         $check_dir = null;
         for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
@@ -276,9 +281,8 @@ Array
 
     function checkAppControllerSettings($controller_name, $default_name="Controller"):bool
     {
-        global $lang_app;
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
-            return self::throwErr("request", $lang_app->app_err["request_controller"]);
+            return self::throwErr("request", $this->lang_map->app_err["request_controller"]);
         }
         return true;
     }
@@ -379,9 +383,12 @@ Array
 
     function js_HandleResult(bool $result)
     {
+        global $js_result;
+
         if($result){
             echo "run: ok";
         }else{
+            $this->js_display_err($js_result["errType"], $js_result["message"]);
             echo "run: err";
         }
     }
@@ -389,10 +396,7 @@ Array
 /*
     function load_app_lang()
     {
-        global $lang_app;
-        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
-        $lang_app_name = "lang_app";
-        $lang_app = new $lang_app_name();
+
     }
 
     function checkAppDir()
@@ -413,8 +417,16 @@ Array
 */
     static function throwErr($errType, $message):bool
     {
+        global $js_result;
+        $js_result["errType"] = $errType;
+        $js_result["message"] = $message;
         /*always return false*/
         return false;
+
+    }
+
+    function js_display_err($errType, $message)
+    {
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");

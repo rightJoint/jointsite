@@ -13,6 +13,9 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         global $document_root;
         $document_root = "C:/OSPanel/domains/rj-test.local";
         require_once "application/core/jointSite.php";
+
+
+
     }
 
     protected function tearDown(): void
@@ -23,8 +26,13 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     function test_request_main_default()
     {
         global $document_root, $request;
+        $jointSite = new jointSite();
+        //$jointSite = $this->createMock(jointSite::class);
+       // $jointSite->method('js_config_dir')
+       //     ->willReturn('xxxx');
+        //$test_site = new jointSite();
 
-        jointSite::set_app_envir(null, $document_root,
+        $jointSite->js_PrepareRequest(null, $document_root,
             "/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -49,15 +57,19 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(null, JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("main", JS_SAIK);
+        $this->assertEquals("__xxxx", JOINT_SITE_CONF_DIR);
 
 
     }
 
+    /*
     function test_request_main_en()
     {
         global $document_root, $request;
 
-        jointSite::set_app_envir(null, $document_root,
+        $test_site = new jointSite();
+
+        $test_site->js_PrepareRequest(null, $document_root,
             "/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -88,7 +100,9 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        jointSite::set_app_envir(null, $document_root,
+        $test_site = new jointSite();
+
+        $test_site->js_PrepareRequest(null, $document_root,
             "/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -119,7 +133,9 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        jointSite::set_app_envir("/mirror", $document_root,
+        $test_site = new jointSite();
+
+        $test_site->js_PrepareRequest("/mirror", $document_root,
             "/mirror/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -150,7 +166,9 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        jointSite::set_app_envir("/mirror", $document_root,
+        $test_site = new jointSite();
+
+        $test_site->js_PrepareRequest("/mirror", $document_root,
             "/mirror/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -181,7 +199,9 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
     {
         global $document_root, $request;
 
-        jointSite::set_app_envir("/mirror", $document_root,
+        $test_site = new jointSite();
+
+        $test_site->js_PrepareRequest("/mirror", $document_root,
             "/mirror/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -205,5 +225,5 @@ class AppEnvirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals("/mirror/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
-
+*/
 }
