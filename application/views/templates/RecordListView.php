@@ -24,8 +24,8 @@ class RecordListView extends RecordView
 
     function LoadViewLang_custom()
     {
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/lang_files/views/templates/lang_view_RecordsList_".$_SESSION[JS_SAIK]["lang"].".php";
-        $lang_name = "lang_view_RecordsList_".$_SESSION[JS_SAIK]["lang"];
+        require_once JOINT_SITE_REQ_LANG."/views/templates/lang_view_RecordsList.php";
+        $lang_name = "lang_view_RecordsList";
         return $lang_name;
     }
 
@@ -169,8 +169,8 @@ class RecordListView extends RecordView
                     }
                 }
 
-                if(isset($fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
-                    $option_text = $fieldData["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
+                if(isset($fieldData["fieldAliases"][JOINT_SITE_APP_LANG])){
+                    $option_text = $fieldData["fieldAliases"][JOINT_SITE_APP_LANG];
                 }else{
                     $option_text = $fieldName;
                 }
@@ -223,8 +223,8 @@ class RecordListView extends RecordView
                     $return_text.= $this->lang_map->list_table["cell_del"];
                 }elseif ($fieldName == "btnDetail"){
                     $return_text.= $this->lang_map->list_table["cell_view"];
-                }elseif(isset($fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
-                    $return_text.= $fieldInfo["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
+                }elseif(isset($fieldInfo["fieldAliases"][JOINT_SITE_APP_LANG])){
+                    $return_text.= $fieldInfo["fieldAliases"][JOINT_SITE_APP_LANG];
                 }else{
                     $return_text.= $fieldName;
                 }

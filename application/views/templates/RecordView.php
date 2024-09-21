@@ -63,8 +63,8 @@ class RecordView extends SiteView
         }
         $label_print .= $label_class.">";
 
-        if(isset($fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]])){
-            $label_print .= $fieldOption["fieldAliases"][$_SESSION[JS_SAIK]["lang"]];
+        if(isset($fieldOption["fieldAliases"][JOINT_SITE_APP_LANG])){
+            $label_print .= $fieldOption["fieldAliases"][JOINT_SITE_APP_LANG];
         }else{
             $label_print .= $fieldNname;
         }

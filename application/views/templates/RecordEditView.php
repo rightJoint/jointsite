@@ -14,9 +14,8 @@ class RecordEditView extends RecordView
 
     function LoadViewLang_custom()
     {
-        require_once $_SERVER["DOCUMENT_ROOT"] . JOINT_SITE_EXEC_DIR.
-            "/application/lang_files/views/templates/lang_view_RecordEdit_".$_SESSION[JS_SAIK]["lang"].".php";
-        return "lang_view_RecordEdit_".$_SESSION[JS_SAIK]["lang"];
+        require_once JOINT_SITE_REQ_LANG."/views/templates/lang_view_RecordEdit.php";
+        return "lang_view_RecordEdit";
     }
 
     function set_head_array()
