@@ -5,7 +5,7 @@ class model_migrations_log extends RecordsModel
 {
     public $tableName = "migrations_log";
 
-    function getRecordStructure()
+    function getRecordStructure():bool
     {
 
         require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.

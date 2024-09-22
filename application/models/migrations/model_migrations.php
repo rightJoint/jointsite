@@ -5,11 +5,11 @@ class model_migrations extends RecordsModel
 {
     public $tableName = "migrations";
 
-    function getRecordStructure()
+    function getRecordStructure():bool
     {
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/recordsStructureFiles/migrations/rsf_migrations.php";
+        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations.php";
         $this->recordStructureFields = new  rsf_migrations();
+        return true;
     }
 
     function glob_migration_files()
@@ -18,6 +18,9 @@ class model_migrations extends RecordsModel
         $add_date = date("Y-m-d H:i:s");
         $list_where = null;
 
+        /*find all .sql -files in PATH_TO_MIGRATIONS
+        and then put into migrations table if trey arent there
+        */
         foreach (glob(PATH_TO_MIGRATIONS . "/*.sql") as $mirgation_file) {
             $this->recordStructureFields->record["migration_name"]["curVal"] = basename($mirgation_file);
             if(!parent::copyRecord()){
@@ -29,13 +32,13 @@ class model_migrations extends RecordsModel
             $files_list.="'".basename($mirgation_file)."', ";
         }
 
+        //$files_list - list all founded .sql -files
+
+        //mark files they are in migrations table and has not found - was deleted
         if($files_list){
             $files_list =substr($files_list, 0, strlen($files_list)-2);
-
-            $list_where = "where migration_name not in (".$files_list.")";
-
+            $list_where = "where migration_name not in (".$files_list.") and migr_file = true";
         }
-
 
         $list_migr = $this->listRecords($list_where);
 
@@ -47,9 +50,10 @@ class model_migrations extends RecordsModel
                 $this->updateRecord();
             }
         }
+
     }
 
-    function parse_sql_file($file_name)
+    function parse_sql_file($file_name):array
     {
         $acceptable_queries = array(
             "insert" => "insert ",
@@ -60,7 +64,7 @@ class model_migrations extends RecordsModel
             "create_table " => "create table ",
         );
 
-        $new_cmd_lines = null;
+        $new_cmd_lines = array();
 
         if(file_exists($file_name)){
             $this->recordStructureFields->record["commands"]["curVal"] = file_get_contents($file_name);
@@ -101,7 +105,7 @@ class model_migrations extends RecordsModel
         return $new_cmd_lines;
     }
 
-    function exec_migration($migr_file)
+    function exec_migration($migr_file):array
     {
         $return=array(
             "log" => null,
@@ -172,7 +176,7 @@ class model_migrations extends RecordsModel
 
     }
 
-    function copyCustomFields()
+    function copyCustomFields():bool
     {
         if($this->recordStructureFields->record["migration_name"]["curVal"] ){
             if(file_exists(PATH_TO_MIGRATIONS . "/".
