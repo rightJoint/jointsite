@@ -328,7 +328,7 @@ class jointSite implements jointSiteInterface
             }
             else{
                 if(!USE_DEFAULT_ACTION){
-                    return self::throwErr("request", $lang_app->app_err["request_action"].
+                    return self::throwErr("request", $this->lang_map->app_err["request_action"].
                         "<br>".$loaded_controller."->".$action);
                 }else{
                     $controller->action_index();
