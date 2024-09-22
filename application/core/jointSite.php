@@ -1,5 +1,6 @@
 <?php
-class jointSite
+require_once __DIR__."/jointSiteInterface.php";
+class jointSite implements jointSiteInterface
 {
     public $lang_map;
 
@@ -13,65 +14,12 @@ class jointSite
         $this->js_HandleResult($result);
     }
 
-    function js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI)
+    function js_PrepareRequest($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        /*
-        run site on /mirror
-
-        $JOINT_SITE_EXEC_DIR = "/mirror",
-        $_SERVER["DOCUMENT_ROOT"] = "",
-        $_SERVER["REQUEST_URI"] = "/mirror/ru/test/phpmysqladmin/printquery?test=1111"
-
-         * global request =
-Array
-(
-    [routes_uri] => /mirror/ru/test/phpmysqladmin/printquery?test=1111      uri with get request, its $_SERVER["REQUEST_URI"]
-    [routes_path] => /mirror/ru/test/phpmysqladmin/printquery               no get request in $_SERVER[REQUEST_URI]
-    [routes] => Array
-        (
-            [0] =>                                                          always zero
-            [1] => mirror
-            [2] => test
-            [3] => phpmysqladmin
-            [4] => printquery
-        )
-
-    [exec_dir] => Array
-        (
-            [0] =>
-            [1] => mirror
-        )
-
-    [routes_cnt] => 5                                                       count(routes)
-    [exec_path] => /mirror                                                  its $JOINT_SITE_EXEC_DIR = /mirror
-    [exec_dir_cnt] => 2                                                     CASE: 1 in root, 2 on mirror
-    [diff_cnt] => 4
-)
-        define constants:
-        JOINT_SITE_EXEC_DIR                                                 $JOINT_SITE_EXEC_DIR = /mirror
-        JOINT_SITE_REQUIRE_DIR                                              its $_SERVER["DOCUMENT_ROOT"]
-        JOINT_SITE_REQ_LANG                                                 shortcut for lang_file C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru
-        JOINT_SITE_APP_LANG                                                 ru or en
-        JOINT_SITE_APP_REF                                                  null, /ru or /en
-        JOINT_SITE_REQ_ROOT                                                 it routes_uri cut of lang uri to process logic
-                                                                            /mirror/test/phpmysqladmin/printquery?test=1111
-
-        JS_SAIK                                                             main or mirror
-
-         */
-
-
         $this->js_ExplodeRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
         $this->js_session_key();
         define("JOINT_SITE_CONF_DIR", $this->js_config_dir());
-    }
-
-    function load_app_lang()
-    {
-        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
-        $lang_app_name = "lang_app";
-        $this->lang_map = new $lang_app_name();
     }
 
     function js_ExplodeRequest($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
@@ -135,6 +83,13 @@ Array
             $s_key = "main";
         }
         define("JS_SAIK", $s_key);
+    }
+
+    function load_app_lang()
+    {
+        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        $lang_app_name = "lang_app";
+        $this->lang_map = new $lang_app_name();
     }
 
     function js_config_dir()
@@ -288,7 +243,7 @@ Array
         return true;
     }
 
-    function loadModelFromRequest()
+    function loadModelFromRequest():string
     {
         global $request, $app_log, $lang_app;
 
@@ -319,7 +274,7 @@ Array
         return true;
     }
 
-    function loadViewFromRequest()
+    function loadViewFromRequest():string
     {
         global $request, $app_log, $lang_app;
 
@@ -346,7 +301,7 @@ Array
         return true;
     }
 
-    function getActionFromRequest()
+    function getActionFromRequest():string
     {
         global $request, $app_log;
         $action_name = "index";

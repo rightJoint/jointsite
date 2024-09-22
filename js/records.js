@@ -60,7 +60,11 @@ $.fn["recordsPgBlock"] = function (url, slave_req) {
                         setRelative: true
                     });
 
+                    console.log(filterSerialazed)
+                    console.log(url+"/listview")
+
                     $.post(url+"/listview", filterSerialazed, function (data) {
+                        console.log(data)
                         var responce = JSON.parse(data);
                         $(list_table).html(responce.listView);
                         $(pagination).html(responce.pgView);
