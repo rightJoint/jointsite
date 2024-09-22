@@ -1,5 +1,7 @@
 <?php
-class Controller {
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/ControllerInterface.php";
+class Controller implements ControllerInterface
+{
     public $model;
     public $view;
 
@@ -33,7 +35,7 @@ class Controller {
         return "";
     }
 
-    function LoadCntrlLang():string
+    private function LoadCntrlLang():string
     {
         require_once (JOINT_SITE_REQ_LANG."/controllers/lang_cntrl.php");
         $return_lang = "lang_cntrl";
