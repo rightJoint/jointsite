@@ -1,7 +1,5 @@
 <?php
-interface RecordsControllerInterface
+interface RecordsControllerInterface extends RecordsProcessControllerInterface
 {
-    public function records_process():bool;
 
-    public function checkRecordModel():bool;
 }
