@@ -24,7 +24,11 @@ class jointSite implements jointSiteInterface
 
     function js_ExplodeRequest($JOINT_SITE_EXEC_DIR=null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+        if($JOINT_SITE_EXEC_DIR){
+            define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+        }else{
+            define("JOINT_SITE_EXEC_DIR", "");
+        }
 
         define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT.$JOINT_SITE_EXEC_DIR);
         global $request;

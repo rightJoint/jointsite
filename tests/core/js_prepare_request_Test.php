@@ -38,7 +38,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
             ),
             "exec_dir" => array(""),
             "routes_cnt" => 4,
-            "exec_path" => null,
+            "exec_path" => "",
             "exec_dir_cnt" => 1,
             "diff_cnt" => 3,
         );
@@ -72,7 +72,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
             ),
             "exec_dir" => array(""),
             "routes_cnt" => 4,
-            "exec_path" => null,
+            "exec_path" => "",
             "exec_dir_cnt" => 1,
             "diff_cnt" => 4,
         );
@@ -103,7 +103,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
             ),
             "exec_dir" => array(""),
             "routes_cnt" => 4,
-            "exec_path" => null,
+            "exec_path" => "",
             "exec_dir_cnt" => 1,
             "diff_cnt" => 4,
         );
@@ -146,7 +146,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals(null, JOINT_SITE_APP_REF);
-        $this->assertEquals("/mirror/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
+        $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
 
@@ -177,7 +177,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/en", JOINT_SITE_REQ_LANG);
         $this->assertEquals("en", JOINT_SITE_APP_LANG);
         $this->assertEquals("/en", JOINT_SITE_APP_REF);
-        $this->assertEquals("/mirror/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
+        $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
 
@@ -208,7 +208,7 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals("/ru", JOINT_SITE_APP_REF);
-        $this->assertEquals("/mirror/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
+        $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
 }
