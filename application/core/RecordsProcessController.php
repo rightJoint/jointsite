@@ -4,6 +4,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
 {
     public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
     public $process_path;
+    public $view_data;
 
     function LoadCntrlLang_custom():string
     {
@@ -17,6 +18,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
     {
         $this->process_path = $process_path;
         $this->default_table = $default_table;
+        $this->view_data = $view_data;
 
         if(!$this->checkRecordModel())
         {
