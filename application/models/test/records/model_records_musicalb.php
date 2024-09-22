@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
+define("MUSIC_COVERS_DIR", JOINT_SITE_EXEC_DIR."/userdata/music/covers");
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
 class model_records_musicalb extends RecordsModel
 {
     public $tableName = "rjt_musicAlb";
@@ -8,11 +9,13 @@ class model_records_musicalb extends RecordsModel
 
     public $modelAliases = array(
         "en" => "music albums",
-        "rus" => "альбомы музыки",
+        "ru" => "альбомы музыки",
     );
-    function getRecordStructure()
+    function getRecordStructure():bool
     {
+        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
         $this->recordStructureFields = new rsf_musicalbums();
+        return true;
     }
 
     function listRecords($where = null, $order = null, $limit = null, $having = null)

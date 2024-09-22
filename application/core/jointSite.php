@@ -102,13 +102,13 @@ class jointSite implements jointSiteInterface
         /*define constants used default*/
         $this->set_app_config();
 
-        $loaded_controller = $this->loadControllerFromRequest();
-        if(!$this->checkAppControllerSettings($loaded_controller)){
+        $loaded_model = $this->loadModelFromRequest();
+        if(!$this->checkAppModelSettings($loaded_model)) {
             return false;
         }
 
-        $loaded_model = $this->loadModelFromRequest();
-        if(!$this->checkAppModelSettings($loaded_model)) {
+        $loaded_controller = $this->loadControllerFromRequest();
+        if(!$this->checkAppControllerSettings($loaded_controller)){
             return false;
         }
 
