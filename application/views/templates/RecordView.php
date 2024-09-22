@@ -1,4 +1,6 @@
 <?php
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/View.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php";
 class RecordView extends SiteView
 {
 
@@ -6,6 +8,7 @@ class RecordView extends SiteView
     public $h2 = null;
     public $process_url = null;
     public $record = null;
+    public $slave_req = null;
 
     public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
 
@@ -181,5 +184,14 @@ class RecordView extends SiteView
         );
 
 
+    }
+
+    function format_slave_req():string
+    {
+        if(!$this->slave_req){
+            return "";
+        }else{
+            return "?".$this->slave_req;
+        }
     }
 }

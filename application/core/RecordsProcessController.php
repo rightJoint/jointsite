@@ -49,9 +49,9 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         } elseif ($request["routes"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
             $this->view->view_data = $view_data;
-            $this->view->action_log = $this->action_detail();
+            $this->view->action_log = $this->exec_detail($_GET);
             if ($this->view->action_log["result"]) {
-                $this->process_detail($process_path);
+                $this->process_detail();
 
             } else {
                 return jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"] .
@@ -63,8 +63,9 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         } elseif ($request["routes"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
             $this->view->view_data = $view_data;
+            $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and $_POST["submit"] == $this->view->lang_map->view_submit_val) {
-                $this->view->action_log = $this->action_edit($_POST);
+                $this->view->action_log = $this->exec_edit($_POST);
                 $this->model->copyCustomFields();
             } else {
                 $this->model->copyValFromRequest($_GET);
@@ -82,9 +83,10 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
             $this->checkTemplateView("new");
             $this->view->view_data = $view_data;
             $this->view->type = "new";
+            $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and
                 $_POST["submit"] == $this->view->lang_map->view_submit_val_new) {
-                $this->view->action_log = $this->action_new($_POST);
+                $this->view->action_log = $this->exec_new($_POST);
                 if ($this->view->action_log["result"]) {
                     $get_str = null;
                     foreach ($this->model->recordStructureFields->record as $fName => $fData) {
@@ -109,9 +111,11 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
                 $this->checkTemplateView("delete");
                 $this->view->view_data = $view_data;
                 $this->view->type = "delete";
+                $this->view->slave_req = $this->makeSlaveRequest();
+
                 if (isset($_POST["submit"]) and
                     ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
-                    $this->view->action_log = $this->action_delete($_POST);
+                    $this->view->action_log = $this->exec_delete($_POST);
                     if ($this->view->action_log["result"]) {
                         header("Location: " . $process_path);
                     }
@@ -128,11 +132,12 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         return true;
     }
 
-    function process_detail($process_path)
+    function process_detail()
     {
         $this->view->viewFields = $this->model->recordStructureFields->viewFields;
+        $this->view->slave_req = $this->makeSlaveRequest();
 
-        $this->prepareViewFields($process_path);
+        $this->prepareViewFields($this->process_path);
 
         $this->view->generate();
     }
@@ -155,7 +160,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
             $this->view->onPage = $_POST["onPage"];
         }
 
-        $list_records = $this->action_list($_POST);
+        $list_records = $this->exec_list($_POST);
 
         $this->view->listCount = $list_records["count"];
         $this->view->listFields = $this->model->recordStructureFields->listFields;
@@ -186,7 +191,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         return false;
     }
 
-    protected function action_list($reqArr = null)
+    public function exec_list($reqArr = null):array
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest($reqArr);
@@ -198,10 +203,10 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         );
     }
 
-    private function action_detail()
+    public function exec_detail($reqArr = null):array
     {
         $this->checkRecordModel();
-        $this->model->copyValFromRequest($_GET);
+        $this->model->copyValFromRequest($reqArr);
         return array(
             "result" => $this->model->copyRecord(),
             "log" => $this->model->log_message,
@@ -209,7 +214,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         );
     }
 
-    protected function action_edit($reqArr)
+    public function exec_edit($reqArr):array
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest($reqArr);
@@ -220,12 +225,15 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
                 "log" => $this->model->log_message,
             );
         } else {
-            return jointSite::throwErr("request", $this->model->log_message);
+            return array(
+                "result" => false,
+                "log" => $this->model->log_message,
+            );
         }
 
     }
 
-    protected function action_new($reqArr)
+    public function exec_new($reqArr):array
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest($reqArr);
@@ -235,7 +243,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         );
     }
 
-    protected function action_delete($reqArr)
+    public function exec_delete($reqArr):array
     {
         $this->checkRecordModel();
         $this->model->copyValFromRequest($reqArr);

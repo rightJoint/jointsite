@@ -3,6 +3,10 @@ require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsProcessController.
 require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsControllerInterface.php";
 class RecordsController extends RecordsProcessController implements RecordsControllerInterface
 {
+    function action_index()
+    {
+        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+    }
 
     function action_detailview()
     {

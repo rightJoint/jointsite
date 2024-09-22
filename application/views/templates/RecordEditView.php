@@ -38,7 +38,7 @@ class RecordEditView extends RecordView
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>" . "<div class='edit-record-frame'>";
         if ($this->h2) {
-            echo "<h2><a href='".$this->process_url."'>" . $this->h2 . "</a></h2>";
+            echo "<h2><a href='".$this->process_url.$this->format_slave_req()."'>" . $this->h2 . "</a></h2>";
         }
         echo "<form class='editForm' method='post' enctype='multipart/form-data'>";
 

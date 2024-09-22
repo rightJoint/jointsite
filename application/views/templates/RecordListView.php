@@ -187,7 +187,7 @@ class RecordListView extends RecordView
             "</div>".
             "<div class='new-block'>";
         if($this->hasAccessCreate){
-            $return_ajax.="<a href='".$this->process_url."/newview".$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
+            $return_ajax.="<a href='".$this->process_url."/newview".$this->format_slave_req().$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
         }
 
         $return_ajax.="</div>".
@@ -289,6 +289,7 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
+                            $urlLink .="&".$this->slave_req;
                             if ($fieldName == "btnDetail"){
                                 $return_text.= "<a href='".$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".

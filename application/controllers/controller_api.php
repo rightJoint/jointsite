@@ -1,15 +1,19 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-    "/application/core/RecordsController.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsController.php";
 class controller_api extends RecordsController
 {
-    function __construct($loaded_model, $loaded_view, $action_name)
+    public function records_process($process_path=null,
+                                    $default_table = null, //
+                                    $view_data = null):bool
     {
-        $this->checkAccessController();
-        parent::__construct($loaded_model, $loaded_view, $action_name);
+        if(!$this->checkAccessController()){
+            return false;
+        }
+        return parent::records_process($process_path, $default_table, $view_data);
+
     }
 
-    static function checkAccessController()
+    function checkAccessController():bool
     {
         if(file_exists(JOINT_SITE_CONF_DIR."/api/access_token.txt")){
             $rest_access_token = null;
@@ -26,8 +30,8 @@ class controller_api extends RecordsController
                 $access_err = "wrong access token";
             }
         }else{
-            $access_err = "token file ".JOINT_SITE_APP_CONFIG."/api/access_token.txt not exist";
+            $access_err = "token file ".JOINT_SITE_CONF_DIR."/api/access_token.txt not exist";
         }
-        jointSite::throwErr("access", "denied in rest api contoller cause ".$access_err);
+        return jointSite::throwErr("access", "denied in rest api contoller cause ".$access_err);
     }
 }
