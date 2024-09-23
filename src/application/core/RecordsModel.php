@@ -1,6 +1,6 @@
 <?php
 require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModelInterface.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/interfaces/RecordsModelInterface.php";
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
     public $tableName = null;
@@ -30,10 +30,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
     public function getRecordStructure():bool
     {
 
-        if($this->tableName){
-            //return $this->getRecordStructure();
-        }else{
-
+        if(!$this->tableName){
             return jointSite::throwErr("XXX", $this->lang_map->table_name_rm_err);
         }
 
@@ -43,55 +40,60 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $replaceArr = null;
         $count_keys = 0;
 
-        $datatype_res  = $this->query("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
-            "where table_schema = '". $this->sql_db_name."' and table_name = '".$this->tableName."'");
-        if($datatype_res->rowCount()){
-            while ($datatype_row = $datatype_res->fetch(PDO::FETCH_ASSOC)){
+        if($datatype_res  = $this->pdo_query("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
+            "where table_schema = '". $this->sql_db_name."' and table_name = '".$this->tableName."'")){
+            if($datatype_res->rowCount()){
+                while ($datatype_row = $datatype_res->fetch(PDO::FETCH_ASSOC)){
 
-                if(!$datatype_row["COLUMN_KEY"]){
+                    if(!$datatype_row["COLUMN_KEY"]){
 
-                }elseif($datatype_row["COLUMN_KEY"] == "PRI"){
-                    $count_keys++;
-                    $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
+                    }elseif($datatype_row["COLUMN_KEY"] == "PRI"){
+                        $count_keys++;
+                        $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
 
-                    $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
-                    $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
+                        $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
+                        $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
 
-                    $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
-                    $replaceUrl.=$datatype_row["COLUMN_NAME"]."=".$datatype_row["COLUMN_NAME"]."&";
-                    $replaceArr[] = $datatype_row["COLUMN_NAME"];
-                    $this->recordStructureFields->listFields["btnDetail"]["replaces"][] = $datatype_row["COLUMN_NAME"];
-                    $this->recordStructureFields->listFields["btnEdit"]["replaces"][] = $datatype_row["COLUMN_NAME"];
-                    $this->recordStructureFields->listFields["btnDelete"]["replaces"][] = $datatype_row["COLUMN_NAME"];
-                    if($datatype_row["EXTRA"] == "auto_increment"){
-                        $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
-                        $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
-                        $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
+                        $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["indexes"] = 1;
+                        $replaceUrl.=$datatype_row["COLUMN_NAME"]."=".$datatype_row["COLUMN_NAME"]."&";
+                        $replaceArr[] = $datatype_row["COLUMN_NAME"];
+                        $this->recordStructureFields->listFields["btnDetail"]["replaces"][] = $datatype_row["COLUMN_NAME"];
+                        $this->recordStructureFields->listFields["btnEdit"]["replaces"][] = $datatype_row["COLUMN_NAME"];
+                        $this->recordStructureFields->listFields["btnDelete"]["replaces"][] = $datatype_row["COLUMN_NAME"];
+                        if($datatype_row["EXTRA"] == "auto_increment"){
+                            $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
+                            $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
+                            $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
+                        }
+                    }else{
+                        return jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
                     }
-                }else{
-                    return jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
-                }
 
-                $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
+                    $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
 
-                if($datatype_row["DATA_TYPE"] == "text"){
-                    $searchDataType = "varchar";
-                }else{
-                    $searchDataType = $datatype_row["DATA_TYPE"];
+                    if($datatype_row["DATA_TYPE"] == "text"){
+                        $searchDataType = "varchar";
+                    }else{
+                        $searchDataType = $datatype_row["DATA_TYPE"];
+                    }
+                    $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["format"] = $searchDataType;
+                    $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["sort"] = true;
+                    $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["search"] = true;
+                    $this->recordStructureFields->listFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
+                    $this->recordStructureFields->listFields[$datatype_row["COLUMN_NAME"]]["maxLength"] = 20;
+                    $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
+                    $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
+                    $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
                 }
-                $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["format"] = $searchDataType;
-                $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["sort"] = true;
-                $this->recordStructureFields->searchFields[$datatype_row["COLUMN_NAME"]]["search"] = true;
-                $this->recordStructureFields->listFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
-                $this->recordStructureFields->listFields[$datatype_row["COLUMN_NAME"]]["maxLength"] = 20;
-                $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
-                $this->recordStructureFields->viewFields[$datatype_row["COLUMN_NAME"]]["readonly"] = true;
-                $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
+            }else{
+                return jointSite::throwErr("request", $this->lang_map->table_name_not_found." _".$this->sql_db_name."_: table_name='".$this->tableName."', ".
+                    "/core/RecordsModel->getRecordStructure");
             }
         }else{
-            return jointSite::throwErr("request", $this->lang_map->table_name_not_found.": table_name='".$this->tableName."', ".
-                "/core/RecordsModel->getRecordStructure");
+            return jointSite::throwErr("request", $this->lang_map->table_name_not_found.": db_name '".$this->sql_db_name."'".
+                " table_name='".$this->tableName."' - 2222222");
         }
+
         if($count_keys){
             $this->recordStructureFields->listFields["btnDetail"]["format"] = "link";
             $this->recordStructureFields->listFields["btnEdit"]["format"] = "link";

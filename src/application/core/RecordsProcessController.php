@@ -1,5 +1,5 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsProcessControllerInterface.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/interfaces/RecordsProcessControllerInterface.php";
 class RecordsProcessController extends Controller implements RecordsProcessControllerInterface
 {
     public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model

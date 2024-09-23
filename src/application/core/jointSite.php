@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/jointSiteInterface.php";
+require_once __DIR__ . "/interfaces/jointSiteInterface.php";
 class jointSite implements jointSiteInterface
 {
     public $lang_map;
@@ -53,6 +53,8 @@ class jointSite implements jointSiteInterface
         global $request;
         if(isset($request["routes"][$request["exec_dir_cnt"]]) and
             in_array($request["routes"][$request["exec_dir_cnt"]], $acceptable_lang)){
+
+
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][$request["exec_dir_cnt"]]);
             define("JOINT_SITE_APP_LANG", $request["routes"][$request["exec_dir_cnt"]]);
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
@@ -96,9 +98,13 @@ class jointSite implements jointSiteInterface
         $this->lang_map = new $lang_app_name();
     }
 
-    function js_config_dir()
+    function js_config_dir():string
     {
-        return JOINT_SITE_REQUIRE_DIR."/".trim(file_get_contents(JOINT_SITE_REQUIRE_DIR."/app_config_dir.txt"));
+        //return $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/_config"
+
+        $app_config_dir = "";
+        require_once JOINT_SITE_REQUIRE_DIR."/app_config_dir.php";
+        return $app_config_dir;
     }
 
     function js_app_exec():bool

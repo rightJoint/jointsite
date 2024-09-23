@@ -34,6 +34,8 @@ class Model_pdo extends PDO
                     "PDO object is not initialized, constructor was not called";
             }
         }else{
+            echo $sql_db_connect_json;
+            exit;
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
                 "PDO object is not initialized, constructor was not called";
