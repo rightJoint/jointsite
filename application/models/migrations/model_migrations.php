@@ -1,6 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-    "/application/core/RecordsModel.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
 class model_migrations extends RecordsModel
 {
     public $tableName = "migrations";
@@ -108,55 +107,60 @@ class model_migrations extends RecordsModel
     function exec_migration($migr_file):array
     {
         $return=array(
-            "log" => null,
+            "log" => array(),
             "err" => 0,
         );
         $count_q = 0;
         $count_suss = 0;
         $count_fail = 0;
-        if($this->recordStructureFields->record["status"]["curVal"] == "new"){
-            if($commands = $this->parse_sql_file(PATH_TO_MIGRATIONS."/".$migr_file)){
-                $return["log"][] = "Exec file ".$migr_file;
-                $commands_count = count($commands);
-                if($commands_count){
-                    $return["log"][] = "count(".$commands_count.")";
-                    foreach ($commands as $q_num => $q_info){
-                        $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
-                        if($this->pdo_query($q_info["query"])){
-                            $count_suss++;
-                            $return["log"][] = "result: SUCCESS";
-                        }else{
-                            $return["log"][] = "result: FAIL: ";
-                            foreach ($this->errorInfo() as $err_num => $err_info){
-                                $return["log"][] = str_replace("'", "", $err_info);
+
+        $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
+        if($this->copyRecord()){
+            if($this->recordStructureFields->record["status"]["curVal"] == "new"){
+                if($commands = $this->parse_sql_file(PATH_TO_MIGRATIONS."/".$migr_file)){
+                    $return["log"][] = "Exec file ".$migr_file;
+                    $commands_count = count($commands);
+                    if($commands_count){
+                        $return["log"][] = "count(".$commands_count.")";
+                        foreach ($commands as $q_num => $q_info){
+                            $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
+                            if($this->pdo_query($q_info["query"])){
+                                $count_suss++;
+                                $return["log"][] = "result: SUCCESS";
+                            }else{
+                                $return["log"][] = "result: FAIL: ";
+                                foreach ($this->errorInfo() as $err_num => $err_info){
+                                    $return["log"][] = str_replace("'", "", $err_info);
+                                }
+                                $return["err"] = true;
+                                $count_fail++;
                             }
-                            $return["err"] = true;
-                            $count_fail++;
+                            $count_q++;
                         }
-                        $count_q++;
-                    }
 
-                    if($return["err"]){
-                        $return["err"] = "cant exec all migrations";
-                    }
-                    $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
+                        if($return["err"]){
+                            $return["err"] = "cant exec all migrations";
+                        }
+                        $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
 
+                    }else{
+                        $return["err"] = "no queries in ".$migr_file;
+                        $return["log"][] = "no queries in ".$migr_file;
+                    }
                 }else{
-                    $return["err"] = "no queries in ".$migr_file;
-                    $return["log"][] = "no queries in ".$migr_file;
+                    $return["err"] = "no sql file or no commands (empty migration sql file) ".$migr_file;
+                    $return["log"][] = "no sql file or no commands (empty migration sql file) ".$migr_file;
                 }
             }else{
-                $return["err"] = "no sql file or no commands (empty migration sql file) ".$migr_file;
-                $return["log"][] = "no sql file or no commands (empty migration sql file) ".$migr_file;
+                $return["log"][] = "migration status is not new";
             }
         }else{
-            $return["log"][] = "migration status is not new";
+            $return["err"] = "cant find migration in the migrations table";
+            $return["log"][] = $return["err"];
         }
 
-        require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-            "/application/models/admin/model_migrations_log.php";
-
         $migration_log = new model_migrations_log();
+        $migration_log->getRecordStructure();
 
         $migration_log->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         $migration_log->recordStructureFields->record["add_date"]["curVal"] = date("Y-m-d H:i:s");
@@ -170,9 +174,9 @@ class model_migrations extends RecordsModel
         }
         $this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
 
-        parent::updateRecord();
+        $this->updateRecord();
 
-        return $return["err"];
+        return $return;
 
     }
 
@@ -245,32 +249,33 @@ class model_migrations extends RecordsModel
         return true;
     }
 
-    function updateRecord()
+    function updateMigration($req_arr):bool
+    {
+        $commands = $this->getCommandsText($req_arr);
+        file_put_contents(PATH_TO_MIGRATIONS."/".$this->recordStructureFields->record["migration_name"]["curVal"].".sql", $commands);
+        return $this->updateRecord(); // TODO: Change the autogenerated stub
+    }
+
+    function insertMigration($req_arr): bool
+    {
+        $commands = $this->getCommandsText($req_arr);
+        file_put_contents(PATH_TO_MIGRATIONS."/".$this->recordStructureFields->record["migration_name"]["curVal"].".sql", $commands);
+        return $this->insertRecord(); // TODO: Change the autogenerated stub
+    }
+
+    function getCommandsText($req_arr):string
     {
         $commands = "";
-
-        foreach ($_POST as $key => $val){
+        foreach ($req_arr as $key => $val){
             if(strpos(" ".$key, "cmd_")){
-                unset($this->recordStructureFields->record[$key]);
-                unset($this->recordStructureFields->editFields[$key]);
                 if($val){
                     $commands.=$val."\n";
                 }
             }
         }
-        foreach ($this->recordStructureFields->record as $key => $val){
-            if(strpos(" ".$key, "cmd_")){
-                unset($this->recordStructureFields->record[$key]);
-                unset($this->recordStructureFields->editFields[$key]);
-            }
-        }
-        $commands = substr($commands, 0, strlen($commands)-1);
-        if($this->recordStructureFields->record["commands"]["curVal"] != $commands){
-            file_put_contents(PATH_TO_MIGRATIONS."/".$this->recordStructureFields->record["migration_name"]["curVal"], $commands);
-            $this->log_message .=$this->lang_map->updateRecord["success"]." migration file ";
-        }
-        return parent::updateRecord();
+        return $commands;
     }
+
 
     function deleteRecord()
     {

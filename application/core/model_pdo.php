@@ -7,6 +7,8 @@ class Model_pdo extends PDO
 
     public $sql_db_name = null;
 
+    public $db_connect_status = false;
+
     function __construct($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php")
     {
         $lang_class = $this->load_lang_files();
@@ -19,7 +21,7 @@ class Model_pdo extends PDO
                         $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
                     if($this->query("use ".$connSettings["CONN_DB"])){
                         $this->sql_db_name = $connSettings["CONN_DB"];
-                        return true;
+                        $this->db_connect_status = true;
                     }else {
                         $this->log_message = $this->lang_map->conn_err["conn_problem"];
                     }
@@ -27,34 +29,45 @@ class Model_pdo extends PDO
                     $this->log_message = $e->getMessage();
                 }
             }else{
-                $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".$this->sql_connection["pathToSettings"];
+                $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".
+                    $this->sql_connection["pathToSettings"].
+                    "PDO object is not initialized, constructor was not called";
             }
         }else{
-            $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".$sql_db_connect_json;
+            $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
+                $sql_db_connect_json.
+                "PDO object is not initialized, constructor was not called";
         }
-
-        $this->throwErrNoConn();
     }
 
+    /*
+     * return PDO or false
+     */
     function pdo_query($statement, $mode = PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
     {
-        try{
-            return $this->query($statement, $mode);
-        }catch (Exception $e) {
-            $this->log_message = $e->getMessage();
-            return false;
+        if($this->throwErrNoConn()){
+            try{
+                return $this->query($statement, $mode);
+            }catch (Exception $e) {
+                $this->log_message = $e->getMessage();
+            }
         }
+        return false;
     }
 
-    function load_lang_files()
+    function load_lang_files():string
     {
         require_once JOINT_SITE_REQ_LANG."/models/lang_model.php";
         return "lang_model";
     }
 
-    function throwErrNoConn()
+    function throwErrNoConn():bool
     {
-        jointSite::throwErr("connection", $this->log_message);
+        if(!$this->db_connect_status){
+            //return true;
+            return jointSite::throwErr("connection", $this->log_message);
+        }
+        return true;
     }
 
     public function get_data()
@@ -62,7 +75,7 @@ class Model_pdo extends PDO
 
     }
 
-    public function createGUID()
+    public function createGUID():string
     {
         if (function_exists('com_create_guid') === true){
             return trim(com_create_guid(), '{}');
