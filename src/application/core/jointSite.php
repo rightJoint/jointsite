@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__."/jointSiteInterface.php";
+require_once __DIR__ . "/jointSiteInterface.php";
 class jointSite implements jointSiteInterface
 {
     public $lang_map;
