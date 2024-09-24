@@ -1,27 +1,38 @@
 # syntax=docker/dockerfile:1
 
-FROM composer:lts as deps
+FROM composer:lts as prod-deps
 WORKDIR /app
-RUN --mount=type=bind,source=composer.json,target=composer.json \
-    --mount=type=bind,source=composer.lock,target=composer.lock \
+RUN --mount=type=bind,source=./composer.json,target=composer.json \
+    --mount=type=bind,source=./composer.lock,target=composer.lock \
     --mount=type=cache,target=/tmp/cache \
     composer install --no-dev --no-interaction
 
-FROM php:8.2-apache as final
-RUN a2enmod rewrite
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions xdebug
-ENV PHP_IDE_CONFIG 'serverName=rj-test'
-RUN echo "xdebug.mode=debug,develop" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.start_with_request = yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.idekey = docker" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.log=/var/www/html/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+FROM composer:lts as dev-deps
+WORKDIR /app
+RUN --mount=type=bind,source=./composer.json,target=composer.json \
+    --mount=type=bind,source=./composer.lock,target=composer.lock \
+    --mount=type=cache,target=/tmp/cache \
+    composer install --no-interaction
 
+FROM php:8.2-apache as base
+RUN a2enmod rewrite
 RUN docker-php-ext-install pdo pdo_mysql
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-COPY --from=deps app/vendor/ /var/www/html/vendor
 COPY ./src /var/www/html
-RUN chown -R www-data:www-data /var/www #this line after COPY
+
+FROM base as development
+COPY ./tests /var/www/html/tests
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+COPY --from=dev-deps app/vendor/ /var/www/html/vendor
+
+FROM development as test
+WORKDIR /var/www/html
+RUN ./vendor/bin/phpunit --stderr tests/core/js_prepare_request_Test.php
+RUN ./vendor/bin/phpunit --stderr tests/core/chek_some_runs_errTest.php
+
+FROM base as final
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY --from=prod-deps app/vendor/ /var/www/html/vendor
 USER www-data
+
+
+#RUN a2enmod rewrite
