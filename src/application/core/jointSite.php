@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/interfaces/jointSiteInterface.php";
+require_once __DIR__ . "/Interfaces/jointSiteInterface.php";
 class jointSite implements jointSiteInterface
 {
     public $lang_map;
@@ -113,10 +113,11 @@ class jointSite implements jointSiteInterface
         $this->set_app_config();
 
         $loaded_model = $this->loadModelFromRequest();
+
+
         if(!$this->checkAppModelSettings($loaded_model)) {
             return false;
         }
-
         $loaded_controller = $this->loadControllerFromRequest();
         if(!$this->checkAppControllerSettings($loaded_controller)){
             return false;
@@ -130,7 +131,6 @@ class jointSite implements jointSiteInterface
         global $app_log;
 
         $app_log["action"] = $action_name = $this->getActionFromRequest();
-
         return $this->js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name);
     }
 
@@ -177,6 +177,7 @@ class jointSite implements jointSiteInterface
 
         $result_name = "";
         $check_dir = null;
+
         for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
             if (!empty($request["routes"][$deep])){
@@ -236,8 +237,15 @@ class jointSite implements jointSiteInterface
                     require_once ($try_load["try_path"]);
                     $result_name = $try_load["try_name"];
                     $try_load["loaded"] = true;
+                }else{
+
+                    return "";
                 }
+
+
                 $app_log["load"][$instance_type][] = $try_load;
+
+
                 break;
             }
         }
@@ -264,11 +272,9 @@ class jointSite implements jointSiteInterface
 
         require_once JOINT_SITE_REQUIRE_DIR."/application/core/".strtolower($default_model).".php";
 
-        if($new_model_name = self::load_instance("model")){
+        if($new_model_name = $this->load_instance("model")){
             $model_name = $new_model_name;
         }
-
-
 
         $app_log["load"]["model"][] = array("final_model_name" => $model_name);
 

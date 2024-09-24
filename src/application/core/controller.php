@@ -1,5 +1,5 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/interfaces/ControllerInterface.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/ControllerInterface.php";
 class Controller implements ControllerInterface
 {
     public $model;

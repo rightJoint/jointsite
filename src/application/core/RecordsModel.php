@@ -1,6 +1,6 @@
 <?php
 require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/interfaces/RecordsModelInterface.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsModelInterface.php";
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
     public $tableName = null;

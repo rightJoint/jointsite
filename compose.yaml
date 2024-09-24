@@ -17,7 +17,7 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./
+          path: ./src
           target: /var/www/html
     extra_hosts:
       - "host.docker.internal:host-gateway"
