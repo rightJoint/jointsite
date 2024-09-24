@@ -11,9 +11,12 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        global $document_root;
-        $document_root = "C:/OSPanel/domains/rj-test.local";
-        require_once "application/core/jointSite.php";
+        global $env;
+
+        $env = parse_ini_file('.env');
+
+        require_once $env["JOINT_SITE_TEST_DIR"]."/application/core/jointSite.php";
+
         $this->jointSite = $this->getMockBuilder('jointSite')->onlyMethods(array("js_config_dir"))->getMock();
         $this->jointSite->expects($this->any())->method('js_config_dir')->willReturn('C:/OSPanel/domains/rj-test.local/__testconfig');
     }
@@ -25,9 +28,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_main_default()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest(null, $document_root,
+        $this->jointSite->js_PrepareRequest(null, $env["JOINT_SITE_TEST_DIR"],
             "/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -46,8 +49,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals(null, JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/application/lang_files/ru", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"], JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals(null, JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
@@ -59,9 +62,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_main_en()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest(null, $document_root,
+        $this->jointSite->js_PrepareRequest(null, $env["JOINT_SITE_TEST_DIR"],
             "/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -80,8 +83,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals(null, JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/application/lang_files/en", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"], JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/application/lang_files/en", JOINT_SITE_REQ_LANG);
         $this->assertEquals("en", JOINT_SITE_APP_LANG);
         $this->assertEquals("/en", JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
@@ -90,9 +93,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_main_ru()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest(null, $document_root,
+        $this->jointSite->js_PrepareRequest(null, $env["JOINT_SITE_TEST_DIR"],
             "/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -111,8 +114,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals(null, JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/application/lang_files/ru", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"], JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals("/ru", JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
@@ -121,9 +124,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_mirror_default()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $env["JOINT_SITE_TEST_DIR"],
             "/mirror/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -142,8 +145,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals("/mirror", JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror", JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals(null, JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
@@ -152,9 +155,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_mirror_en()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $env["JOINT_SITE_TEST_DIR"],
             "/mirror/en/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -173,8 +176,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals("/mirror", JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/en", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror", JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror/application/lang_files/en", JOINT_SITE_REQ_LANG);
         $this->assertEquals("en", JOINT_SITE_APP_LANG);
         $this->assertEquals("/en", JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
@@ -183,9 +186,9 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
 
     function test_request_mirror_ru()
     {
-        global $document_root, $request;
+        global $request, $env;
 
-        $this->jointSite->js_PrepareRequest("/mirror", $document_root,
+        $this->jointSite->js_PrepareRequest("/mirror", $env["JOINT_SITE_TEST_DIR"],
             "/mirror/ru/test/phpmysqladmin/printquery?test=1111");
 
         $result_req = array(
@@ -204,8 +207,8 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertSame($result_req, $request);
 
         $this->assertEquals("/mirror", JOINT_SITE_EXEC_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror", JOINT_SITE_REQUIRE_DIR);
-        $this->assertEquals("C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror", JOINT_SITE_REQUIRE_DIR);
+        $this->assertEquals($env["JOINT_SITE_TEST_DIR"]."/mirror/application/lang_files/ru", JOINT_SITE_REQ_LANG);
         $this->assertEquals("ru", JOINT_SITE_APP_LANG);
         $this->assertEquals("/ru", JOINT_SITE_APP_REF);
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
