@@ -1,6 +1,9 @@
 <?php
 class lang_view_main extends lang_view
 {
+    public $branches = array();
+    public $product_custom = array();
+
     function __construct()
     {
         $this->branches = array(
