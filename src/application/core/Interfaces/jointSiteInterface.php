@@ -1,7 +1,7 @@
 <?php
 interface jointSiteInterface
 {
-    public function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_Run($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
     /*
         run site on /mirror
@@ -47,9 +47,9 @@ Array
         JS_SAIK                                                             main or mirror
 
          */
-    public function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_PrepareRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
-    public function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_ExplodeRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
     public function js_LangReq($acceptable_lang = array("en", "ru", ));
 

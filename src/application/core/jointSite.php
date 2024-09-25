@@ -4,35 +4,31 @@ class jointSite implements jointSiteInterface
 {
     public $lang_map;
 
-    function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_Run($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
         global $mct;
         $mct['start_time'] = microtime(true);
-        $this->js_PrepareRequest($DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->load_app_lang();
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
     }
 
-    static function js_get_env_params($_DIR)
+    function js_PrepareRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        global $env;
-        $env = parse_ini_file($_DIR);
-        define("JOINT_SITE_EXEC_DIR", $env["JOINT_SITE_EXEC_DIR"]);
-    }
-
-    function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
-    {
-
-        $this->js_ExplodeRequest($DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_ExplodeRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
         $this->js_session_key();
         define("JOINT_SITE_CONF_DIR", $this->js_config_dir());
     }
 
-    function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_ExplodeRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-
+        if($JOINT_SITE_EXEC_DIR){
+            define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
+        }else{
+            define("JOINT_SITE_EXEC_DIR", "");
+        }
 
         define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT.JOINT_SITE_EXEC_DIR);
         global $request;

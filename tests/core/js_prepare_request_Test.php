@@ -16,7 +16,6 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $env = parse_ini_file('.env');
 
         require_once $env["JOINT_SITE_TEST_DIR"]."/application/core/jointSite.php";
-
         $this->jointSite = $this->getMockBuilder('jointSite')->onlyMethods(array("js_config_dir"))->getMock();
         $this->jointSite->expects($this->any())->method('js_config_dir')->willReturn('C:/OSPanel/domains/rj-test.local/__testconfig');
     }
@@ -214,4 +213,5 @@ class js_prepare_request_Test extends PHPUnit\Framework\TestCase
         $this->assertEquals("/test/phpmysqladmin/printquery?test=1111", JOINT_SITE_REQ_ROOT);
         $this->assertEquals("mirror", JS_SAIK);
     }
+
 }
