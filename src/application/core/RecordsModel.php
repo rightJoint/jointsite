@@ -90,8 +90,8 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                     "/core/RecordsModel->getRecordStructure");
             }
         }else{
-            return jointSite::throwErr("request", $this->lang_map->table_name_not_found.": db_name '".$this->sql_db_name."'".
-                " table_name='".$this->tableName."' - 2222222");
+            return jointSite::throwErr("request", "RecordsModel throw err: ".$this->lang_map->table_name_not_found.": db_name '".$this->sql_db_name."'".
+                " table_name='".$this->tableName."'");
         }
 
         if($count_keys){

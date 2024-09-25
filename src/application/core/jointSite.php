@@ -371,9 +371,6 @@ class jointSite implements jointSiteInterface
             return true;
             //echo "run: ok";
         }else{
-            echo "<pre>";
-            print_r($js_result["message"]);
-            exit;
             $this->js_display_err($js_result["errType"], $js_result["message"]);
             echo "run: err";
         }
@@ -405,7 +402,8 @@ class jointSite implements jointSiteInterface
     {
         global $js_result;
         $js_result["error"] = true;
-        $js_result["message"][$errType][] = $message;
+        $js_result["errType"] = $errType;
+        $js_result["message"][] = array($errType => $message);
         /*always return false*/
         return false;
 

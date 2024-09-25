@@ -37,8 +37,8 @@ class Model_pdo extends PDO
 
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
-                "PDO object is not initialized, constructor was not called---3333";
-            //jointSite::throwErr("connection", $this->log_message);
+                "PDO object is not initialized, constructor was not called";
+            jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
             return false;
         }
     }
@@ -68,7 +68,7 @@ class Model_pdo extends PDO
     {
         if(!$this->db_connect_status){
             //return true;
-            return jointSite::throwErr("connection", $this->log_message);
+            return jointSite::throwErr("connection", "Model_pdo throwErrNoConn add err: ".$this->log_message);
         }
         return true;
     }

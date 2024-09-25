@@ -5,7 +5,7 @@ class Alerts_View extends SiteView
     public $response_code = 200;
     public $robot_no_index = true;
     public $metrik_block = false;
-    public $alert_message = null;
+    public $alert_message = array();
 
     function __construct()
     {
@@ -34,19 +34,19 @@ class Alerts_View extends SiteView
             "<span class='ew-txt'>".$this->lang_map->ew_txt."</span>".
             "<span class='ew-code'>".$this->response_code."</span>".
             "<span class='ew-h'>";
-        if($this->alert_message){
-            echo $this->alert_message;
-        }
-            echo "</span>".
-            "<div class='ew-detail'>";
-        if($this->view_data){
+
+        if(count($this->alert_message)){
             echo $this->view_data;
-        }
-        if($this->alert_message){
-            echo "<p>".$this->alert_message."</p>";
+            echo "</span>".
+                "<div class='ew-detail'>";
+            foreach ($this->alert_message as $num => $alert_signal){
+                foreach ($alert_signal as $alert_type => $alert_message){
+                    echo $num.": ".$alert_type." => ".$alert_message."<br>";
+                }
+            }
+            echo "</div>";
         }
         echo "</div>".
-            "</div>".
             "</div>".
             "</div>".
             "</div>";

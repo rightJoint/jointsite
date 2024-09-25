@@ -27,6 +27,7 @@ span.ew-code{
     color: silver;
 }
 .ew-detail{
+    text-align: left;
     display: inline-block;
     border: 1px solid darkgreen;
     color: green;

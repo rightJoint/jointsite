@@ -1,1 +1,1 @@
-{"CONN_LOC":"db","CONN_USER":"root","CONN_PW":"example","CONN_DB":"example"}
+{"CONN_LOC":"localhost","CONN_USER":"root","CONN_PW":"example","CONN_DB":"js_db"}
