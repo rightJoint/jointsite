@@ -32,6 +32,7 @@ RUN ./vendor/bin/phpunit --stderr tests/core/chek_some_runs_errTest.php
 FROM base as final
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=prod-deps app/vendor/ /var/www/html/vendor
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 USER www-data
 
 
