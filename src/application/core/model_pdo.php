@@ -19,8 +19,8 @@ class Model_pdo extends PDO
                 try {
                     parent::__construct('mysql:host='.$connSettings["CONN_LOC"].';',
                         $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
+                    $this->sql_db_name = $connSettings["CONN_DB"];
                     if($this->query("use ".$connSettings["CONN_DB"])){
-                        $this->sql_db_name = $connSettings["CONN_DB"];
                         $this->db_connect_status = true;
                     }else {
                         $this->log_message = $this->lang_map->conn_err["conn_problem"];
@@ -34,11 +34,12 @@ class Model_pdo extends PDO
                     "PDO object is not initialized, constructor was not called";
             }
         }else{
-            echo $sql_db_connect_json;
-            exit;
+
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
-                "PDO object is not initialized, constructor was not called";
+                "PDO object is not initialized, constructor was not called---3333";
+            //jointSite::throwErr("connection", $this->log_message);
+            return false;
         }
     }
 
