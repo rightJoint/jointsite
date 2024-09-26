@@ -5,55 +5,98 @@ class Model_pdo extends PDO
 
     public $log_message = null;
 
-    public $sql_db_name = null;
+    public $conn_db = null;                //database name connected
 
-    public $db_connect_status = false;
+    public $connect_server_status = false;
 
-    function __construct($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php")
+    public $connect_database_status = false;
+
+    function __construct()
     {
         $lang_class = $this->load_lang_files();
         $this->lang_map = new $lang_class;
+        $this->connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php");
+    }
 
-        if(file_exists($sql_db_connect_json)){
-            if($connSettings=json_decode(@file_get_contents($sql_db_connect_json), true)){
-                try {
-                    parent::__construct('mysql:host='.$connSettings["CONN_LOC"].';',
-                        $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
-                    $this->sql_db_name = $connSettings["CONN_DB"];
-                    if($this->query("use ".$connSettings["CONN_DB"])){
-                        $this->db_connect_status = true;
-                    }else {
-                        $this->log_message = $this->lang_map->conn_err["conn_problem"];
-                    }
-                }catch (Exception $e) {
-                    $this->log_message = $e->getMessage();
-                    jointSite::throwErr("connection", "Model_pdo throw err cant connect:".$this->log_message);
-                }
+    private function connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php"): bool
+    {
+        global $js_result;
+        $connSettings = $this->set_up_connect_config($sql_db_connect_json);
+        if (!$js_result["error"]) {
+            $this->conn_db = $connSettings["CONN_DB"];
+            try {
+                parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
+                    $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
+                $this->connect_server_status = true;
+                $this->getRecordStructure();
+                return $this->select_database();
+            } catch (Exception $e) {
+                $this->log_message = $e->getMessage();
+                jointSite::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
+            }
+        }
+        return false;
+    }
+
+    public function getRecordStructure()
+    {
+
+    }
+
+    function select_database():bool
+    {
+        if ($this->query("use " . $this->conn_db)) {
+            $this->connect_database_status = true;
+            return true;
+        } else {
+            $this->log_message = $this->lang_map->conn_err["conn_problem"];
+        }
+        return false;
+    }
+
+    private function set_up_connect_config($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php"):array
+    {
+        $connSettings = array(
+            "CONN_LOC" => "",
+            "CONN_DB" => "",
+            "CONN_PW" => "",
+            "CONN_USER" => "",
+        );
+        if(file_exists($sql_db_connect_json)) {
+            if ($try_connSettings = json_decode(@file_get_contents($sql_db_connect_json), true)) {
+                $connSettings = $try_connSettings;
             }else{
+
+
                 $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".
-                    $this->sql_connection["pathToSettings"].
                     "PDO object is not initialized, constructor was not called";
                 jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
             }
         }else{
-
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
                 "PDO object is not initialized, constructor was not called";
             jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
-            return false;
         }
+        return $connSettings;
     }
+
+
 
     /*
      * return PDO or false
      */
     function pdo_query($statement, $mode = PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
     {
-        try{
-            return $this->query($statement, $mode);
-        }catch (Exception $e) {
-            $this->log_message = $e->getMessage();
+        if($this->connect_database_status){
+            try{
+                return $this->query($statement, $mode);
+            }catch (Exception $e) {
+                $this->log_message = $e->getMessage();
+                jointSite::throwErr("connection", "query wrong format: ".$statement);
+            }
+        }else{
+            jointSite::throwErr("connection", "Model_pdo->pdo_query throw err: no-db-connection");
         }
         return false;
     }
