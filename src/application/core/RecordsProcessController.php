@@ -14,7 +14,10 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
 
     public function records_process():bool
     {
-        $this->checkRecordModel();
+        if(!$this->checkRecordModel())
+        {
+            return false;
+        }
 
         //used in all processed views
         require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
@@ -246,12 +249,21 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
     }
 
     /*if custom model mot loaded*/
-    function checkRecordModel()
+    function checkRecordModel():bool
     {
-        if(!$this->model instanceof RecordsModel) {
-            require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
-            $this->model = new RecordsModel($this->process_table);
+        if($this->model->connect_database_status){
+            if(!$this->model instanceof RecordsModel) {
+                require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
+                $this->model = new RecordsModel($this->process_table);
+            }
+            if($table = $this->model->pdo_query("SHOW TABLES LIKE '".$this->process_table."'")->fetch(PDO::FETCH_ASSOC)){
+                return true;
+            }else{
+                jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
+                    " in database ".$this->model->conn_db);
+            }
         }
+        return false;
     }
 
     //if custom view not loaded

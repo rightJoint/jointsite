@@ -110,10 +110,10 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
     public function countRecords($where = null)
     {
-        return $this->query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
+        return $this->pdo_query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
     }
 
-    public function listRecords($where = null, $order = null, $limit = null, $having = null)
+    public function listRecords($where = null, $order = null, $limit = null, $having = null):array
     {
         $findList_qry = "select ";
         foreach ($this->recordStructureFields->listFields as $fieldName => $fieldOptions){
