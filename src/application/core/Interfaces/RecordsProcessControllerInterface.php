@@ -3,7 +3,7 @@ interface RecordsProcessControllerInterface
 {
     public function records_process():bool;
 
-    public function checkRecordModel():bool;
+    public function checkRecordModel();
 
     public function process_detail();
 

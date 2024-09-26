@@ -2,8 +2,8 @@
 require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsProcessControllerInterface.php";
 class RecordsProcessController extends Controller implements RecordsProcessControllerInterface
 {
-    public $default_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
-    public $process_path;
+    public $process_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
+    public $process_url;
     public $view_data;
 
     function LoadCntrlLang_custom():string
@@ -12,25 +12,17 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         return "lang_RecordsController";
     }
 
-    public function records_process($process_path=null,
-                                    $default_table = null, //
-                                    $view_data = null):bool
+    public function records_process():bool
     {
-        $this->process_path = $process_path;
-        $this->default_table = $default_table;
-        $this->view_data = $view_data;
-
-        if(!$this->checkRecordModel())
-        {
-            return false;
-        }
+        $this->checkRecordModel();
 
         //used in all processed views
         require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
 
         global $request;
 
-        $pp_exp = explode("/", $process_path);
+
+        $pp_exp = explode("/", $this->process_url);
         $pp_cnt = count($pp_exp);
 
         if(JOINT_SITE_APP_REF){
@@ -41,14 +33,14 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
             $request["routes"][$pp_cnt] == null or
             $request["routes"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
-            $this->view->process_url = $process_path;
-            $this->view->view_data = $view_data;
+            $this->view->process_url = $this->process_url;
+            $this->view->view_data = $this->view_data;
 
             $this->process_list();
 
         } elseif ($request["routes"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
-            $this->view->view_data = $view_data;
+            $this->view->view_data = $this->view_data;
             $this->view->action_log = $this->exec_detail($_GET);
             if ($this->view->action_log["result"]) {
                 $this->process_detail();
@@ -62,7 +54,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
 
         } elseif ($request["routes"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
-            $this->view->view_data = $view_data;
+            $this->view->view_data = $this->view_data;
             $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and $_POST["submit"] == $this->view->lang_map->view_submit_val) {
                 $this->view->action_log = $this->exec_edit($_POST);
@@ -76,12 +68,12 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
 
             $this->view->editFields = $this->model->recordStructureFields->editFields;
 
-            $this->prepareViewFields($process_path);
+            $this->prepareViewFields();
 
             $this->view->generate();
         } elseif ($request["routes"][$pp_cnt] == "newview") {
             $this->checkTemplateView("new");
-            $this->view->view_data = $view_data;
+            $this->view->view_data = $this->view_data;
             $this->view->type = "new";
             $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and
@@ -95,13 +87,13 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
                         }
                     }
                     $get_str = substr($get_str, 0, strlen($get_str) - 1);
-                    header("Location: " . $process_path . "/editview?" . $get_str);
+                    header("Location: " . $this->process_url . "/editview?" . $get_str);
                 }
             }
 
             $this->view->editFields = $this->model->recordStructureFields->editFields;
 
-            $this->prepareViewFields($process_path);
+            $this->prepareViewFields();
 
             $this->view->generate();
 
@@ -109,7 +101,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
             $this->model->copyValFromRequest($_GET);
             if ($this->model->copyRecord()) {
                 $this->checkTemplateView("delete");
-                $this->view->view_data = $view_data;
+                $this->view->view_data = $this->view_data;
                 $this->view->type = "delete";
                 $this->view->slave_req = $this->makeSlaveRequest();
 
@@ -117,11 +109,11 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
                     ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
                     $this->view->action_log = $this->exec_delete($_POST);
                     if ($this->view->action_log["result"]) {
-                        header("Location: " . $process_path);
+                        header("Location: " . $this->process_url);
                     }
                 }
                 $this->view->editFields = $this->model->recordStructureFields->editFields;
-                $this->prepareViewFields($process_path);
+                $this->prepareViewFields();
                 $this->view->generate();
             } else {
                 return jointSite::throwErr("request", $this->model->log_message);
@@ -254,13 +246,12 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
     }
 
     /*if custom model mot loaded*/
-    function checkRecordModel():bool
+    function checkRecordModel()
     {
         if(!$this->model instanceof RecordsModel) {
             require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
-            $this->model = new RecordsModel($this->default_table);
+            $this->model = new RecordsModel($this->process_table);
         }
-        return $this->model->getRecordStructure();
     }
 
     //if custom view not loaded
@@ -285,7 +276,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         }
     }
 
-    function prepareViewFields($process_path = null)
+    function prepareViewFields()
     {
         $this->view->record = $this->model->recordStructureFields->record;
         if($this->model->modelAliases[JOINT_SITE_APP_LANG]){
@@ -293,7 +284,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         }else{
             $this->view->h2 = $this->model->tableName;
         }
-        $this->view->process_url = $process_path;
+        $this->view->process_url = $this->process_url;
     }
 
     function action_filldatalist()

@@ -5,31 +5,31 @@ class RecordsController extends RecordsProcessController implements RecordsContr
 {
     function action_index()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
 
     function action_detailview()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
 
     function action_listview()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
 
     function action_editview()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
 
     function action_deleteview()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
     function action_newview()
     {
-        $this->records_process($this->process_path, $this->default_table, $this->view_data);
+        $this->records_process();
     }
 
 }
