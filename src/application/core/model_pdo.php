@@ -28,8 +28,10 @@ class Model_pdo extends PDO
                 parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
                     $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
                 $this->connect_server_status = true;
-                $this->getRecordStructure();
-                return $this->select_database();
+                if($this->select_database()){
+                    $this->getRecordStructure();
+                    return true;
+                }
             } catch (Exception $e) {
                 $this->log_message = $e->getMessage();
                 jointSite::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);

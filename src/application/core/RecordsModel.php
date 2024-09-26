@@ -14,10 +14,10 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
     function __construct($tableName = null)
     {
-        parent::__construct();
         if($tableName and !$this->tableName){
             $this->tableName = $tableName;
         }
+        parent::__construct();
     }
 
     function load_lang_files():string
