@@ -1,7 +1,7 @@
 <?php
 interface RecordsModelInterface
 {
-    public function getRecordStructure():bool;
+    public function getRecordStructure();
 
 
 }

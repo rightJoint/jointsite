@@ -27,7 +27,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         return "lang_model_Record";
     }
 
-    public function getRecordStructure():bool
+    public function getRecordStructure()
     {
 
         if(!$this->tableName){
@@ -41,7 +41,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $count_keys = 0;
 
         if($datatype_res  = $this->pdo_query("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
-            "where table_schema = '". $this->sql_db_name."' and table_name = '".$this->tableName."'")){
+            "where table_schema = '". $this->conn_db."' and table_name = '".$this->tableName."'")){
             if($datatype_res->rowCount()){
                 while ($datatype_row = $datatype_res->fetch(PDO::FETCH_ASSOC)){
 
