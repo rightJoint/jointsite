@@ -13,6 +13,9 @@ class View
 
     function generateJson($data)
     {
+        global $js_result;
+        $js_result["view_generateJson_called"] = true;
+
         header("Content-Type: ".$this->header_content_type);
         echo json_encode($data, true);
     }
