@@ -6,8 +6,13 @@ class jointSite implements jointSiteInterface
 
     function js_Run($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        global $mct;
+        global $mct, $js_result;
+
+        $js_result["error"] = false;                    //:bool false if no err
+        $js_result["view_generated_called"] = false;     //:bool, false if SiteView not generated
+
         $mct['start_time'] = microtime(true);
+
         $this->js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->load_app_lang();
         $result = $this->js_app_exec();
@@ -361,14 +366,21 @@ class jointSite implements jointSiteInterface
 
     function js_HandleResult(bool $result)
     {
-        global $js_result;
+        global $js_result, $app_log;
+        /*
+         *
+         * $js_result["error"]                                      :bool, true if err occurs
+         * $js_result["errType"]                                    type last thrown err
+         * $js_result["message"][] = array($errType => $message);   list err
+         * $js_result["view_generated_called"]                      :bool, true if SiteView generated
+         */
 
         if($result){
             return true;
-            //echo "run: ok";
         }else{
-            $this->js_display_err($js_result["errType"], $js_result["message"]);
-            echo "run: err";
+            if(!$js_result["view_generated_called"]){
+                $this->js_display_err($js_result["errType"], $js_result["message"]);
+            }
         }
     }
 
@@ -415,35 +427,5 @@ class jointSite implements jointSiteInterface
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
         $controller = new Alerts_controller();
         $controller->generateErr($errType, $message);
-        exit;
     }
-/*
-    function print_load_log($type_of_log = null)
-    {
-        if($type_of_log){
-            echo "<div style='text-align: left; font-size: 16px;'>";
-            if($type_of_log == "all"){
-                echo "Controller_Action: ".$this->app_log["action"] ."<br>";
-                foreach ($this->app_log["load"] as $type_of_log => $block_log){
-                    self::print_load_log_type($type_of_log);
-                }
-            }else{
-                self::print_load_log_type($type_of_log);
-            }
-            echo "</div>";
-        }
-    }
-
-    function print_load_log_type($type_of_log)
-    {
-        echo $type_of_log."-LOG<br>";
-        echo "LoadDeep: ".$this->app_log[$type_of_log]["deep"]."<br>";
-        for($load_deep = 0; $load_deep< count($this->app_log["load"][$type_of_log]);$load_deep++){
-            foreach ($this->app_log["load"][$type_of_log][$load_deep] as $try_f => $try_v){
-                echo $load_deep.":> ".$try_f."=".$try_v."<br>";
-            }
-            echo "........................................................................................<br>";
-        }
-    }
-*/
 }

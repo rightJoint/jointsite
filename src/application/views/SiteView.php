@@ -97,6 +97,9 @@ class SiteView extends View
 
     function generate()
     {
+        global $js_result;
+        $js_result["view_generated_called"] = true;
+
         $this->set_head_array();
         if ($this->metrik_block) {
             if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {

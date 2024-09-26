@@ -50,12 +50,10 @@ class Model_pdo extends PDO
      */
     function pdo_query($statement, $mode = PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
     {
-        if($this->throwErrNoConn()){
-            try{
-                return $this->query($statement, $mode);
-            }catch (Exception $e) {
-                $this->log_message = $e->getMessage();
-            }
+        try{
+            return $this->query($statement, $mode);
+        }catch (Exception $e) {
+            $this->log_message = $e->getMessage();
         }
         return false;
     }
@@ -64,15 +62,6 @@ class Model_pdo extends PDO
     {
         require_once JOINT_SITE_REQ_LANG."/models/lang_model.php";
         return "lang_model";
-    }
-
-    function throwErrNoConn():bool
-    {
-        if(!$this->db_connect_status){
-            //return true;
-            return jointSite::throwErr("connection", "Model_pdo throwErrNoConn add err: ".$this->log_message);
-        }
-        return true;
     }
 
     public function get_data()
