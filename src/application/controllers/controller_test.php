@@ -1,31 +1,36 @@
 <?php
 require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsController.php";
+
+define("PATH_TO_MIGRATIONS", JOINT_SITE_REQUIRE_DIR."/migrations");
+
 class controller_test extends RecordsController
 {
     public $process_path = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test";
     public $default_table = "migrations_log";
 
-    function LoadModel_custom($action_name = null): string
-    {
-        if($action_name == "mirationstest"){
-            require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations.php";
-            require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations_log.php";
-            return "model_migrations";
-        }
-        return parent::LoadModel_custom();
-    }
-
     function action_index()
     {
-        $this->records_process(JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test", "migrations_log", null);
+        global $app_log;
+        //echo "action-index";
+
+        //echo "<pre>";
+        //print_r($app_log);
+        //exit;
+        if($this->records_process(JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test", "migrations_log", null))
+        {
+           // echo "process-ok";
+        }else{
+            //echo "process-fail";
+        }
     }
 
     function action_mirationstest()
     {
-        define("PATH_TO_MIGRATIONS", JOINT_SITE_REQUIRE_DIR."/migrations");
-        $migrations_model = new model_migrations();
-        $migrations_model->getRecordStructure();
+        //$migrations_model = new model_migrations();
+        //$migrations_model->connect_db();
+        //if
 
+        exit;
         $new_mirgation_test = new model_migrations();
         $new_mirgation_test->getRecordStructure();
 
