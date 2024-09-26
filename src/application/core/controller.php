@@ -12,12 +12,23 @@ class Controller implements ControllerInterface
         $lang_class = $this->LoadCntrlLang();
         $this->lang_map = new $lang_class;
 
+        global $app_log;
         if($custom_model = $this->LoadModel_custom($action_name)){
+            $app_log["load"]["model"][] = array(
+                "try_name" => $custom_model,
+                "try_path" => "Controller __construct LoadModel_custom",
+                "loaded" => true,
+            );
             $loaded_model = $custom_model;
         }
 
         if($custom_view = $this->LoadView_custom($action_name)){
             $loaded_view = $custom_view;
+            $app_log["view"]["model"][] = array(
+                "try_name" => $custom_model,
+                "try_path" => "Controller __construct LoadModel_custom",
+                "loaded" => true,
+            );
         }
 
         $this->model = new $loaded_model();
