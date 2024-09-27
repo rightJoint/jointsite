@@ -98,8 +98,6 @@ class SiteView extends View
     function generate()
     {
         header("Content-Type: ".$this->header_content_type);
-        global $js_result;
-        $js_result["view_generated_called"] = true;
 
         $this->set_head_array();
         if ($this->metrik_block) {

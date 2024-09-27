@@ -9,7 +9,6 @@ class jointSite implements jointSiteInterface
         global $mct, $js_result;
 
         $js_result["error"] = false;                    //:bool false if no err
-        $js_result["view_generated_called"] = false;     //:bool, false if SiteView not generated
 
         $mct['start_time'] = microtime(true);
 
@@ -374,15 +373,12 @@ class jointSite implements jointSiteInterface
          * $js_result["error"]                                      :bool, true if err occurs
          * $js_result["errType"]                                    type last thrown err
          * $js_result["message"][] = array($errType => $message);   list err
-         * $js_result["view_generated_called"]                      :bool, true if SiteView generated
          */
 
         if($result){
             return true;
         }else{
-            if(!$js_result["view_generated_called"]){
-                $this->js_display_err($js_result["errType"], $js_result["message"]);
-            }
+            $this->js_display_err($js_result["errType"], $js_result["message"]);
         }
     }
 
