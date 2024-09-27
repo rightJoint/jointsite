@@ -9,11 +9,11 @@ class view_migrationstest extends SiteView
             "<div class='test-menu' style='text-align: left'>".
             "<h2>Tests migrations list</h2>".
             "<ul>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/checkConnectServerStatus'>checkConnectServerStatus</a></li>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/createMigrationsTables'>createMigrationsTables</a></li>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/execNewMigrations'>execNewMigrations</a></li>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsList'>migrationsList</a></li>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog'>migrationsLog</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/migrationstest/checkConnectServerStatus'>checkConnectServerStatus</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/migrationstest/createMigrationsTables'>createMigrationsTables</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/migrationstest/execNewMigrations'>execNewMigrations</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/migrationstest/migrationsList'>migrationsList</a></li>".
+            "<li><a href='".JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog'>migrationsLog</a></li>".
             "</ul>".
             "</div>".
             "</div></div></div>";

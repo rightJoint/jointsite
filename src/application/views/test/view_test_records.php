@@ -40,7 +40,7 @@ class view_test_records extends SiteView
         $return_text .= "</select>".
             "</div>".
             "</div></div></div>".
-            "<link rel='stylesheet' href='".JOINT_SITE_EXEC_DIR."/css/test/test-rec.css'>";
+            "<link rel='stylesheet' href='/css/test/test-rec.css'>";
         return $return_text;
     }
 
