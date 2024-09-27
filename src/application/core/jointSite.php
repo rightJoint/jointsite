@@ -13,6 +13,11 @@ class jointSite implements jointSiteInterface
         $mct['start_time'] = microtime(true);
 
         $this->js_PrepareRequest($DOCUMENT_ROOT, $REQUEST_URI);
+        global $request;
+        //echo "<pre>";
+       // print_r($request);
+        //exit;
+
         $this->load_app_lang();
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
@@ -32,35 +37,29 @@ class jointSite implements jointSiteInterface
         $request["routes_uri"] = $REQUEST_URI;
         $request["routes_path"] = explode('?', $request["routes_uri"])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
-        $request["exec_dir"] = array(0 => "");
         $request["routes_cnt"] = count($request["routes"]);
-        $request["exec_dir_cnt"] = count($request["exec_dir"]);
-        $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
+        //!!!!!!!!
+        $request["diff_cnt"] = $request["routes_cnt"] - 1;
     }
 
     function js_LangReq($acceptable_lang = array("en", "ru", ))
     {
         global $request;
-        if(isset($request["routes"][$request["exec_dir_cnt"]]) and
-            in_array($request["routes"][$request["exec_dir_cnt"]], $acceptable_lang)){
-
-
-
-            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][$request["exec_dir_cnt"]]);
-            define("JOINT_SITE_APP_LANG", $request["routes"][$request["exec_dir_cnt"]]);
+        if(isset($request["routes"][1]) and
+            in_array($request["routes"][1], $acceptable_lang)){
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][1]);
+            define("JOINT_SITE_APP_LANG", $request["routes"][1]);
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
             define("JOINT_SITE_REQ_ROOT",
                 substr($request["routes_uri"], $pos_lang+1 + strlen(JOINT_SITE_APP_LANG),
                     strlen($request["routes_uri"])));
-            unset($request["routes"][$request["exec_dir_cnt"]]);
+            unset($request["routes"][1]);
             $request["routes"] = array_values($request["routes"]);
             $request["routes_cnt"] --;
 
         }else{
             /*default lang: ru */
-            echo JOINT_SITE_REQUIRE_DIR;
-            exit;
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
             define("JOINT_SITE_APP_LANG", "ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
@@ -154,7 +153,7 @@ class jointSite implements jointSiteInterface
         $result_name = "";
         $check_dir = null;
 
-        for($deep = $request["exec_dir_cnt"]; $deep <= $request["routes"]; $deep++){
+        for($deep = 1; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
             if (!empty($request["routes"][$deep])){
                 $try_name = $instance_name."_".$request["routes"][$deep];

@@ -55,16 +55,16 @@ class SiteView extends View
         }
 
 
-        if (!empty($request["routes"][$request["exec_dir_cnt"]])) {
-            $try_name = "lang_view" . $request["routes"][$request["exec_dir_cnt"]];
+        if (!empty($request["routes"][1])) {
+            $try_name = "lang_view" . $request["routes"][1];
             $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
             if (file_exists($try_path)) {
                 require_once($try_path);
                 $return_lang = $try_name;
             }
-            if (!empty($request["routes"][$request["exec_dir_cnt"] + 1])) {
-                $try_name = "lang_view_" . $request["routes"][$request["exec_dir_cnt"]] . "_" .
-                    $request["routes"][$request["exec_dir_cnt"] + 1];
+            if (!empty($request["routes"][2])) {
+                $try_name = "lang_view_" . $request["routes"][1] . "_" .
+                    $request["routes"][2];
                 $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
 
                 if (file_exists($try_path)) {
@@ -280,7 +280,7 @@ class SiteView extends View
             $home_ref = "/";
         }
         echo "<a href='" . $home_ref . "' title='";
-        if (!isset($request["routes"][$request["exec_dir_cnt"]])) {
+        if (!isset($request["routes"][1])) {
             echo $this->lang_map->modalmenu["ref_on_home_title"];
         } else {
             echo $this->lang_map->modalmenu["ref_home_title"];

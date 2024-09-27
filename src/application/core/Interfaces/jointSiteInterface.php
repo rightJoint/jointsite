@@ -23,14 +23,7 @@ Array
             [4] => printquery
         )
 
-    [exec_dir] => Array
-        (
-            [0] =>
-            [1] => mirror
-        )
-
     [routes_cnt] => 5                                                       count(routes)
-    [exec_dir_cnt] => 2                                                     CASE: 1 in root, 2 on mirror
     [diff_cnt] => 4
 )
         define constants:
