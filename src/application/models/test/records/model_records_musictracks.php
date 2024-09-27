@@ -1,18 +1,20 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
 class model_records_musictracks extends RecordsModel
 {
     public $tableName = "rjt_musicTracks";
 
     public $tracksToAlb = "rjt_musicTracksToAlb";
 
-    public $modelAliases = array(
-        "en" => "music tracks",
-        "rus" => "мелодии"
-    );
+   // public $modelAliases = array(
+    //    "en" => "music tracks",
+     //   "rus" => "мелодии"
+    //);
 
     function getRecordStructure()
     {
+        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
+        //require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
         $this->recordStructureFields = new rsf_musictracks();
         $this->recordStructureFields->editFields["track_artist"]["filling"] = $this->fill_artist_list();
     }

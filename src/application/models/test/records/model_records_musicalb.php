@@ -6,10 +6,10 @@ class model_records_musicalb extends RecordsModel
 
     public $tracksToAlb = "rjt_musicTracksToAlb";
 
-    public $modelAliases = array(
-        "en" => "music albums",
-        "ru" => "альбомы музыки",
-    );
+    //public $modelAliases = array(
+    //    "en" => "music albums",
+    //    "ru" => "альбомы музыки",
+    //);
     function getRecordStructure():bool
     {
         require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";

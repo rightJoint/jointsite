@@ -49,7 +49,7 @@ class rsf_musictracks extends recordStructureFields
                     "rus" => "Файл мелодии",
                 ),
                 "file_options" => array(
-                    "load_dir" => MUSIC_TRACKS_DIR,
+                    "load_dir" => JOINT_SITE_USERS_DIR."/music/tracks",
                     //"file_type" => "img",
                     "accept" => "mp3",
                 ),
