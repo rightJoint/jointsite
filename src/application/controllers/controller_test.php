@@ -5,7 +5,7 @@ define("PATH_TO_MIGRATIONS", JOINT_SITE_REQUIRE_DIR."/migrations");
 
 class controller_test extends RecordsController
 {
-    public $process_url = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/records";
+    public $process_url = JOINT_SITE_APP_REF."/test/records";
     public $process_table = "migrations";
 
     function action_index()

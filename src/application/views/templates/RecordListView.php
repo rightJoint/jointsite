@@ -2,7 +2,7 @@
 class RecordListView extends RecordView
 {
     public $process_url;
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/editRecords.png";
+    public $logo = "/img/popimg/editRecords.png";
     public $listFields = null;
     public $listRecords = null;
     public $searchFields= null;
@@ -17,9 +17,9 @@ class RecordListView extends RecordView
     function __construct()
     {
         parent::__construct();
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/records.css";
+        $this->styles[] = "/css/records.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/records.js";
+        $this->scripts[] = "/js/records.js";
     }
 
     function LoadViewLang_custom()
@@ -293,18 +293,18 @@ class RecordListView extends RecordView
                             if ($fieldName == "btnDetail"){
                                 $return_text.= "<a href='".$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".
-                                    "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png'></a>";
+                                    "<img src='/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
                                 if(!isset($row["btnEdit"]) or $row["btnEdit"]!="disabled"){
                                     $return_text.= "<a href='".$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
-                                        "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png'></a>";
+                                        "<img src='/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
                                 if(!isset($row["btnDelete"]) or $row["btnDelete"]!="disabled"){
                                     $return_text.= "<a href='".$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
-                                        "<img src='".JOINT_SITE_EXEC_DIR."/img/popimg/drop-icon.png'></a>";
+                                        "<img src='/img/popimg/drop-icon.png'></a>";
                                 }
                             }
                         }else{

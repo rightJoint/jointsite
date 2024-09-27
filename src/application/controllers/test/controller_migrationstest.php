@@ -1,7 +1,7 @@
 <?php
 class controller_migrationstest extends RecordsController
 {
-    public $process_url = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest";
+    public $process_url = JOINT_SITE_APP_REF."/test/migrationstest";
 
     function LoadModel_custom($action_name = null): string
     {
@@ -61,7 +61,7 @@ class controller_migrationstest extends RecordsController
     {
         $process_migr_controller = new RecordsController("model_migrations",
             "View", "index");
-        $process_migr_controller->process_url = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";;
+        $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";;
         $process_migr_controller->records_process();
     }
 
@@ -69,7 +69,7 @@ class controller_migrationstest extends RecordsController
     {
         $process_migr_controller = new RecordsController("model_migrations_log",
             "View", "index");
-        $process_migr_controller->process_url = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";;
+        $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";;
         $process_migr_controller->records_process();
     }
 

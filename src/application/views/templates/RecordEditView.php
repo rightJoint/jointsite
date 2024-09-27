@@ -1,7 +1,7 @@
 <?php
 class RecordEditView extends RecordView
 {
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/edit-icon.png";
+    public $logo = "/img/popimg/edit-icon.png";
     public $editFields = null;
 
     public $type = "edit"; /*or edit or new*/
@@ -9,7 +9,7 @@ class RecordEditView extends RecordView
     function __construct()
     {
         parent::__construct();
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/records.css";
+        $this->styles[] = "/css/records.css";
     }
 
     function LoadViewLang_custom()

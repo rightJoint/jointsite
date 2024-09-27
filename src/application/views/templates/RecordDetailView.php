@@ -5,7 +5,7 @@ class RecordDetailView extends RecordView
     public $viewFields = null;
     public $slave_req = null;
 
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/eye-icon.png";
+    public $logo = "/img/popimg/eye-icon.png";
 
     public $type = "detail";
 
@@ -13,9 +13,9 @@ class RecordDetailView extends RecordView
     {
         parent::__construct();
 
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/records.css";
+        $this->styles[] = "/css/records.css";
 
-        $this->scripts[] = JOINT_SITE_EXEC_DIR."/js/records.js";
+        $this->scripts[] = "/js/records.js";
     }
 
     function LoadViewLang_custom()

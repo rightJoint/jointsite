@@ -4,7 +4,7 @@ class jointSite implements jointSiteInterface
 {
     public $lang_map;
 
-    function js_Run($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
         global $mct, $js_result;
 
@@ -12,41 +12,30 @@ class jointSite implements jointSiteInterface
 
         $mct['start_time'] = microtime(true);
 
-        $this->js_PrepareRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_PrepareRequest($DOCUMENT_ROOT, $REQUEST_URI);
         $this->load_app_lang();
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
     }
 
-    function js_PrepareRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        $this->js_ExplodeRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_ExplodeRequest($DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
         $this->js_session_key();
         $this->js_get_env();
     }
 
-    function js_ExplodeRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
     {
-        if($JOINT_SITE_EXEC_DIR){
-            define("JOINT_SITE_EXEC_DIR", $JOINT_SITE_EXEC_DIR);
-        }else{
-            define("JOINT_SITE_EXEC_DIR", "");
-        }
-
-        define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT.JOINT_SITE_EXEC_DIR);
+        define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT);
         global $request;
         $request["routes_uri"] = $REQUEST_URI;
         $request["routes_path"] = explode('?', $request["routes_uri"])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
-
-        if(JOINT_SITE_EXEC_DIR != null and JOINT_SITE_EXEC_DIR != ""){
-            $request["exec_dir"] = explode('/', JOINT_SITE_EXEC_DIR);
-        }else{
-            $request["exec_dir"] = array(0 => "");
-        }
-
+        $request["exec_dir"] = array(0 => "");
         $request["routes_cnt"] = count($request["routes"]);
+        //!!!!!!!!
         $request["exec_path"] = JOINT_SITE_EXEC_DIR;
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
@@ -74,7 +63,7 @@ class jointSite implements jointSiteInterface
             /*default lang: ru */
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
             define("JOINT_SITE_APP_LANG", "ru");
-            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], strlen(JOINT_SITE_EXEC_DIR),
+            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
         }
@@ -82,16 +71,11 @@ class jointSite implements jointSiteInterface
 
     function js_session_key()
     {
-        //session_start();
-        global $request;
-        $s_key = null;
-        if(JOINT_SITE_EXEC_DIR){
-            for ($c = 0; $c<$request["exec_dir_cnt"]; $c++){
-                $s_key .= $request["exec_dir"][$c];
-            }
-        }else{
+
+
             $s_key = "main";
-        }
+
+        //!!!!!!!!
         define("JS_SAIK", $s_key);
     }
 
@@ -105,7 +89,7 @@ class jointSite implements jointSiteInterface
     function js_get_env()
     {
         $env = parse_ini_file('.env');
-        define("JOINT_SITE_USERS_DIR", JOINT_SITE_EXEC_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
+        define("JOINT_SITE_USERS_DIR", "/".$env["JOINT_SITE_USERS_DIR"]);
         define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
     }
 

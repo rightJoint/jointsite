@@ -1,21 +1,21 @@
 <?php
 class SiteView extends View
 {
-    public $shortcut_icon = JOINT_SITE_EXEC_DIR . "/img/siteLogo/favicon.png";
-    public $logo = JOINT_SITE_EXEC_DIR . "/img/popimg/menu-icon.png";
+    public $shortcut_icon = "/img/siteLogo/favicon.png";
+    public $logo = "/img/popimg/menu-icon.png";
 
     public $view_data = null;
 
     public $styles = array(
-        JOINT_SITE_EXEC_DIR . "/css/default.css",
-        JOINT_SITE_EXEC_DIR . "/css/header.css",
-        JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css",
+        "/css/default.css",
+        "/css/header.css",
+        "/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/css/preloader.css",
     );
 
     public $scripts = array(
-        JOINT_SITE_EXEC_DIR . "/lib/js/googleapis.js",
-        JOINT_SITE_EXEC_DIR . "/js/header.js",
-        JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js",
+        "/lib/js/googleapis.js",
+        "/js/header.js",
+        "/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js",
     );
 
     public $metrika = null;
@@ -30,11 +30,11 @@ class SiteView extends View
     public $branches = array(
         "main" => array(
             "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-400.png",
+            "img" => "/img/siteLogo/rightjoint-logo-400.png",
         ),
         "record" => array(
             "href" => "#",
-            "img" => JOINT_SITE_EXEC_DIR."/img/popimg/record.png",
+            "img" => "/img/popimg/record.png",
         ),
     );
 
@@ -148,6 +148,7 @@ class SiteView extends View
         foreach ($this->scripts as $script => $scrSrc) {
             echo "<script src='" . $scrSrc . "'></script>";
         }
+        //!!!!!!!!!!!
         echo "<script>var exec_dir='" . JOINT_SITE_EXEC_DIR . "';</script>";
         echo "</head>";
     }
@@ -185,12 +186,12 @@ class SiteView extends View
         if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
@@ -210,11 +211,11 @@ class SiteView extends View
         $header_add_styles = "<style>
         .hi-icon-mobile.menu:before {background-image: url(" . $this->logo . ");}
         .modal-right .modal-close{
-                background-image: url('" . JOINT_SITE_EXEC_DIR . "/img/popimg/closeModal.png');
+                background-image: url('/img/popimg/closeModal.png');
             }
             @media only screen and (max-width : 1024px) and (orientation : portrait){
             .modal-right:not(.signIn) .modal-close:not(.signIn){
-                    background-image: url('" . JOINT_SITE_EXEC_DIR . "/img/popimg/closeModal-white.png');
+                    background-image: url('/img/popimg/closeModal-white.png');
             }
             }                      
             </style>";
@@ -267,17 +268,15 @@ class SiteView extends View
         if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='".JOINT_SITE_EXEC_DIR."/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='".JOINT_SITE_EXEC_DIR."/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
-        if (JOINT_SITE_EXEC_DIR) {
-            $home_ref = JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF;
-        }elseif(JOINT_SITE_APP_REF){
+        if(JOINT_SITE_APP_REF){
             $home_ref = JOINT_SITE_APP_REF;
         }else{
             $home_ref = "/";
@@ -289,7 +288,7 @@ class SiteView extends View
             echo $this->lang_map->modalmenu["ref_home_title"];
         }
         echo "'>" .
-            "<img src='" . JOINT_SITE_EXEC_DIR . "/img/siteLogo/rightjoint-logo-150.png' alt='RJ-logo'>" .
+            "<img src='/img/siteLogo/rightjoint-logo-150.png' alt='RJ-logo'>" .
             $this->lang_map->modalmenu["ref_home"] .
             "</a>" .
             "<p>" . $this->lang_map->modalmenu["home_descr"] . "</p>" .
@@ -314,7 +313,7 @@ class SiteView extends View
         }
 
         echo "<div class='modal-line prod'>".
-            "<div class='modal-line-img'><img src='".JOINT_SITE_EXEC_DIR."/img/popimg/internet.png'></div>".
+            "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
             "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_APP_REF."/products/jointsite' ".
             "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
             $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
@@ -331,7 +330,6 @@ class SiteView extends View
     {
         global $request;
         $disp_url_ref = $disp_lang.$disp_url;
-        $disp_url = JOINT_SITE_EXEC_DIR.$disp_url;
         $disp_url_exp = explode("/", $disp_url);
         $disp_url_count = count($disp_url_exp);
 

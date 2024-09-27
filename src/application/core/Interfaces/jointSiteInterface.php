@@ -1,12 +1,11 @@
 <?php
 interface jointSiteInterface
 {
-    public function js_Run($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
     /*
         run site on /mirror
 
-        $JOINT_SITE_EXEC_DIR = "/mirror",
         $_SERVER["DOCUMENT_ROOT"] = "",
         $_SERVER["REQUEST_URI"] = "/mirror/ru/test/phpmysqladmin/printquery?test=1111"
 
@@ -36,7 +35,6 @@ Array
     [diff_cnt] => 4
 )
         define constants:
-        JOINT_SITE_EXEC_DIR                                                 $JOINT_SITE_EXEC_DIR = /mirror
         JOINT_SITE_REQUIRE_DIR                                              its $_SERVER["DOCUMENT_ROOT"]
         JOINT_SITE_REQ_LANG                                                 shortcut for lang_file C:/OSPanel/domains/rj-test.local/mirror/application/lang_files/ru
         JOINT_SITE_APP_LANG                                                 ru or en
@@ -47,9 +45,9 @@ Array
         JS_SAIK                                                             main or mirror
 
          */
-    public function js_PrepareRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
-    public function js_ExplodeRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
     public function js_LangReq($acceptable_lang = array("en", "ru", ));
 

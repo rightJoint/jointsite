@@ -1,7 +1,7 @@
 <?php
 class Alerts_View extends SiteView
 {
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/error.png";
+    public $logo = "/img/popimg/error.png";
     public $response_code = 200;
     public $robot_no_index = true;
     public $metrik_block = false;
@@ -14,7 +14,7 @@ class Alerts_View extends SiteView
         $lang_class ="lang_view_alerts";
         $this->lang_map = new $lang_class;
 
-        $this->styles[]=JOINT_SITE_EXEC_DIR."/css/alerts.css";
+        $this->styles[]= "/css/alerts.css";
     }
 
     function LoadViewLang_custom()

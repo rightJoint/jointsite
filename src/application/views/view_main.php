@@ -6,7 +6,7 @@ class view_main extends SiteView
     function __construct()
     {
         parent::__construct();
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/main_view.css";
+        $this->styles[] = "/css/main_view.css";
     }
 
     function set_head_array()

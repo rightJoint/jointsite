@@ -10,7 +10,7 @@ class RecordView extends SiteView
     public $record = null;
     public $slave_req = null;
 
-    public $shortcut_icon = JOINT_SITE_EXEC_DIR."/img/popimg/admin-logo.png";
+    public $shortcut_icon = "/img/popimg/admin-logo.png";
 
     function getTnputType( $fieldNname, $fieldOption = array(
         "format" => null,

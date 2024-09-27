@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musictrackstoalb.php";
+require_once $_SERVER["DOCUMENT_ROOT"]."/application/recordsStructureFiles/test/rsf_musictrackstoalb.php";
 class model_records_musictrackstoalb extends RecordsModel
 {
     public $tableName = "rjt_musicTracksToAlb";

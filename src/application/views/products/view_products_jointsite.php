@@ -1,14 +1,13 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR.
-    "/application/views/view_main.php";
+require_once $_SERVER["DOCUMENT_ROOT"]."/application/views/view_main.php";
 class View_Products_JointSite extends view_main
 {
-    public $logo = JOINT_SITE_EXEC_DIR."/img/popimg/internet.png";
+    public $logo = "/img/popimg/internet.png";
     public $current_branch = "main";
     function __construct()
     {
         parent::__construct();
-        $this->styles[] = JOINT_SITE_EXEC_DIR."/css/products/prod-deploy.css";
+        $this->styles[] = "/css/products/prod-deploy.css";
     }
 
     function print_page_content()
