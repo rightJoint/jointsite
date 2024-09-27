@@ -1,3 +1,13 @@
-.edit-record-frame{
+.table-selector{
+    width: 98%;
+    text-align: right;
+    background-color: midnightblue;
+    padding: 0.2em 1% 0.2em 1%;
     margin-top: 1em;
+}
+.table-selector label{
+    color: white;
+}
+.table-selector select{
+    font-size: 1em;
 }

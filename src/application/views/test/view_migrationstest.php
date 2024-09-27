@@ -13,7 +13,7 @@ class view_migrationstest extends SiteView
             "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/createMigrationsTables'>createMigrationsTables</a></li>".
             "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/execNewMigrations'>execNewMigrations</a></li>".
             "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsList'>migrationsList</a></li>".
-            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsList'>migrationsLog</a></li>".
+            "<li><a href='".JOINT_SITE_EXEC_DIR.JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog'>migrationsLog</a></li>".
             "</ul>".
             "</div>".
             "</div></div></div>";
