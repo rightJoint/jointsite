@@ -271,7 +271,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                     $q_where .= "' and ";
                 }
 
-                if (isset($fieldInfo["fetchVal"]) and $fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
+                if ($fieldInfo["fetchVal"] != $fieldInfo["curVal"]) {
                     if(!isset($this->recordStructureFields->editFields[$fieldName]["readonly"])){
                         $q_fields .= $fieldName . "=";
                         if ($fieldInfo["curVal"] == null) {

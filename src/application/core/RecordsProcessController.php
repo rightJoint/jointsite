@@ -2,9 +2,22 @@
 require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsProcessControllerInterface.php";
 class RecordsProcessController extends Controller implements RecordsProcessControllerInterface
 {
-    public $process_table = "musicTracksToAlb_dt"; //when use RecordsModel by default without loaded custom model
+    public $process_table = null; //when use RecordsModel by default without loaded custom model
     public $process_url;
     public $view_data;
+
+    function __construct(string $loaded_model, string $loaded_view, string $action_name)
+    {
+        parent::__construct($loaded_model, $loaded_view, $action_name);
+        if(isset($this->model->tableName)){
+            $this->process_table = $this->model->tableName;
+        }
+
+        if(!$this->process_table){
+            return jointSite::throwErr("request", "RecordsProcessController throw err: cant set up process_table - null");
+        }
+
+    }
 
     function LoadCntrlLang_custom():string
     {
@@ -24,6 +37,9 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
 
         global $request;
 
+        if(!$this->process_url){
+            return jointSite::throwErr("request", "RecordsProcessController throw err: cant set up process_url - null");
+        }
 
         $pp_exp = explode("/", $this->process_url);
         $pp_cnt = count($pp_exp);
@@ -132,7 +148,7 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
         $this->view->viewFields = $this->model->recordStructureFields->viewFields;
         $this->view->slave_req = $this->makeSlaveRequest();
 
-        $this->prepareViewFields($this->process_path);
+        $this->prepareViewFields($this->process_url);
 
         $this->view->generate();
     }

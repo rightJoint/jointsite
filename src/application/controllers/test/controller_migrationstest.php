@@ -38,7 +38,7 @@ class controller_migrationstest extends RecordsController
 
     function action_createMigrationsTables()
     {
-        if($this->model->createMigrationsTables()){
+        if($this->model->checkMigrationsTables()){
             $this->view->view_data.= "migrations tables created";
         }else{
             $this->view->view_data.= "cant check migrations tables cause cant connect database<br>";
@@ -66,15 +66,17 @@ class controller_migrationstest extends RecordsController
     {
         //echo "jjjjj";
         //exit;
-        $this->model->pdo_query("drop database ".$this->model->conn_db);
-        echo $this->model->log_message;
+        //$this->model->pdo_query("drop database ".$this->model->conn_db);
+       // echo $this->model->log_message;
         //exit;
         $exec_res = $this->model->exec_new_migrations();
-        if($exec_res["count_total"] == $exec_res["count_success"]){
+        if($exec_res["result"] == true){
             $this->view->view_data.= "execNewMigrations: Success, total count = ".$exec_res["count_total"];
-        }else{
+        }elseif(($exec_res["count_total"] != $exec_res["count_success"]) and $exec_res["result"] == false){
             $this->view->view_data.= "execNewMigrations: Fail, total count = ".$exec_res["count_total"].
                 "success count = ".$exec_res["count_success"]." <br> ";
+        }else{
+            $this->view->view_data.= "execNewMigrations: Fail, db conn problem".$exec_res["count_total"]." vs ".$exec_res["count_success"]." <br> ";
         }
         $this->view->generate();
     }

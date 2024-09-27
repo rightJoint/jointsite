@@ -127,7 +127,7 @@ class rsf_migrations_log extends recordStructureFields
         ),
         "migration_log_html" => Array
         (
-            "format" => "log_html",
+            "format" => "text",
         ),
     );
 }

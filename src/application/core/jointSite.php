@@ -341,6 +341,17 @@ class jointSite implements jointSiteInterface
             $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
             $action = "action_".$action_name;
 
+            //global $app_log;
+            //echo "<pre>";
+            //print_r($app_log);
+
+            //echo $loaded_controller;
+            //exit;
+
+            if(isset($js_result["error"]) and $js_result["error"] == true){
+                return false;
+            }
+
             if(method_exists($controller, $action)){
                 $controller->$action();
                 if(isset($js_result["error"]) and $js_result["error"] == true){

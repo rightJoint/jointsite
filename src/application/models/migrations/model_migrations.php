@@ -3,6 +3,7 @@ require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
 class model_migrations extends RecordsModel
 {
     public $tableName = "migrations";
+    public $throw_err_no_conn = false;
 
     function getRecordStructure()
     {
@@ -85,10 +86,15 @@ class model_migrations extends RecordsModel
                     }
                 }
                 $new_lines_cnt = count($new_cmd_lines);
+
                 if($glue_flag){
                     if($new_lines_cnt){
                         if($lines_counter < $lines_cnt){
-                            $new_cmd_lines[$new_lines_cnt-1]["query"] .= ";".$cmd_line;
+                            if(isset($new_cmd_lines[$new_lines_cnt-1]["query"])){
+                                $new_cmd_lines[$new_lines_cnt-1]["query"] .= ";".$cmd_line;
+                            }else{
+                                $new_cmd_lines[$new_lines_cnt-1]["query"] = ";".$cmd_line;
+                            }
                         }
                     }
                 }else {
@@ -105,10 +111,33 @@ class model_migrations extends RecordsModel
 
     function exec_migration($migr_file):array
     {
+        //echo "<br>exec_migration = ".$migr_file;
+
+
+        echo "xtest - exec_new_migrations -> exec_migration: ".$migr_file."<br>";
+
+        //$this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
+        //$this->recordStructureFields->record["status"]["curVal"] = "ok";
+        //$this->updateRecord();
+
+        //$x_migr = new RecordsModel("migrations");
+        //$x_migr->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
+       // $x_migr->copyRecord();
+        //$x_migr->recordStructureFields->record["try_date"]["curVal"] = "2025-09-27 08:00:03";
+        //$x_migr->recordStructureFields->record["status"]["curVal"] = "zbs";
+       // $x_migr->updateRecord();
+        //$x_migr->copyRecord();
+        //echo "<pre>";
+       // print_r($x_migr->recordStructureFields->record);
+
+        //echo 2222;
+        //exit;
+        //exit;
+
+
         $return=array(
             "log" => array(),
             "result" => false,
-            "status" => null,
         );
         $count_q = 0;
         $count_suss = 0;
@@ -116,7 +145,7 @@ class model_migrations extends RecordsModel
 
         $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         if($this->copyRecord()){
-            if($this->recordStructureFields->record["status"]["curVal"] == "new"){
+            if($this->recordStructureFields->record["status"]["curVal"] == "new" or $this->recordStructureFields->record["status"]["curVal"] == "fail" ){
                 if($commands = $this->parse_sql_file(JOINT_SITE_REQUIRE_DIR."/migrations/".$migr_file)){
                     $return["log"][] = "Exec file ".$migr_file;
                     $commands_count = count($commands);
@@ -139,42 +168,50 @@ class model_migrations extends RecordsModel
                         }
 
                         if(!$return["result"]){
-                            $return["status"] = "cant exec all migrations";
+                            $return["log"][] = "cant exec all migrations";
                         }
                         $return["log"][] = "Results: total(".$count_q."), success(".$count_suss."), fail(".$count_fail.")";
 
                     }else{
-                        $return["status"] = "no queries in ".$migr_file;
                         $return["log"][] = "no queries in ".$migr_file;
                     }
                 }else{
-                    $return["status"] = "no sql file or no commands (empty migration sql file) ".$migr_file;
                     $return["log"][] = "no sql file or no commands (empty migration sql file) ".$migr_file;
                 }
+                if($return["result"] == true){
+                    $this->recordStructureFields->record["status"]["curVal"] = "SUCCESS";
+                }else{
+                    $this->recordStructureFields->record["status"]["curVal"] = "fail";
+                }
+
             }else{
                 $return["log"][] = "migration status is not new";
             }
+
+
+            $this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
+
+            $this->updateRecord();
+
+
+
         }else{
-            $return["status"] = "cant find migration in the migrations table";
-            $return["log"][] = $return["err"];
+            $return["log"][] = "cant find migration in the migrations table";
         }
 
         $migration_log = new model_migrations_log();
-        $migration_log->getRecordStructure();
+
+        //echo "<pre>";
+        //print_r($migration_log);
+        //exit;
+        //$migration_log->getRecordStructure();
 
         $migration_log->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         $migration_log->recordStructureFields->record["add_date"]["curVal"] = date("Y-m-d H:i:s");
         $migration_log->recordStructureFields->record["migration_log"]["curVal"] = json_encode($return, true);
         $migration_log->insertRecord();
 
-        if($return["result"]){
-            $this->recordStructureFields->record["status"]["curVal"] = "fail";
-        }elseif($count_suss){
-            $this->recordStructureFields->record["status"]["curVal"] = "SUCCESS";
-        }
-        $this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
-
-        $this->updateRecord();
+        //exit;
 
         return $return;
 
@@ -183,30 +220,68 @@ class model_migrations extends RecordsModel
     function exec_new_migrations():array
     {
         $exec_new_result = array(
+            "result" => false,
             "count_total" => 0,
             "count_success" => 0,
         );
 
-        $this->glob_migration_files();
 
-        $list_where = "where status = 'new'";
-        $list_migr = $this->listRecords($list_where, "order by migration_name");
 
-        if($exec_new_result["count_total"] = count($list_migr)){
-            foreach ($list_migr as $migr_num => $migr_data){
-                $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
-                if($this->copyRecord()){
+
+        if($this->checkMigrationsTables()){
+
+
+            echo "xtest - exec_new_migrations -> checkMigrationsTables<br>";
+            //exit;
+
+            $this->glob_migration_files();
+
+            $list_where = "where status in ('new', 'fail')";
+            $list_migr = $this->listRecords($list_where, "order by migration_name");
+
+            echo "xtest - glob_migration_files -> list_migr<br>";
+
+            echo "<pre>";
+            print_r($list_migr);
+            //exit;
+
+            if($exec_new_result["count_total"] = count($list_migr)){
+                foreach ($list_migr as $migr_num => $migr_data){
+
+                    //echo "migr_num=".$migr_num;
+
+
+                    $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
+                    //if($this->copyRecord()){
+                    //echo " copy ok";
+
                     $migr_result = $this->exec_migration($migr_data["migration_name"]);
+                    $exec_new_result["result"] = $migr_result["result"];
+                    //echo "<pre>";
+                    //print_r($migr_result);
+
+
                     if(!$migr_result["result"]){
+                       // $exec_new_result["result"] = false;
+                        //exit;
                         break;
                     }
+
+                    //exit;
                     $exec_new_result["count_success"]++;
-                }else{
-                    break;
+                    //}else{
+                    //    echo " copy fail";
+                    //     exit;
+                    //   break;
+                    //}
+
+
                 }
             }
         }
-
+        echo "xtest - exec_new_migrations -> return=".$exec_new_result["result"]."; ".
+            $exec_new_result["count_total"]." vs ".$exec_new_result["count_success"]."<br>";
+        exit;
         return $exec_new_result;
     }
 
@@ -306,6 +381,36 @@ class model_migrations extends RecordsModel
         return $commands;
     }
 
+    function checkMigrationsTables():bool
+    {
+        $result = false;
+        if($this->connect_database_status){
+            $mirg_commands = $this->parse_sql_file(JOINT_SITE_REQUIRE_DIR."/migrations/2024-05-20-migrations_tables.sql");
+            if($this->pdo_query("SHOW TABLES LIKE 'migrations'")->fetch(PDO::FETCH_ASSOC)){
+                $result = true;
+            }elseif($this->pdo_query($mirg_commands[1]["query"])){
+                $result = true;
+            }
+            if($result){
+                if($this->pdo_query("SHOW TABLES LIKE 'migrations_log'")->fetch(PDO::FETCH_ASSOC)){
+                    $result = true;
+                }elseif($this->pdo_query($mirg_commands[2]["query"])){
+                    $result = true;
+                }
+            }
+        }
+        return $result;
+    }
+
+    function check_database():bool
+    {
+        if($this->connect_server_status){
+            if($this->query("CREATE DATABASE ".$this->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci")){
+                return true;
+            }
+        }
+        return false;
+    }
 
     function deleteRecord()
     {

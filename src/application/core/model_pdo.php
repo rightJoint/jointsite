@@ -11,6 +11,8 @@ class Model_pdo extends PDO
 
     public $connect_database_status = false;
 
+    public $throw_err_no_conn = true;
+
     function __construct()
     {
         $lang_class = $this->load_lang_files();
@@ -20,20 +22,19 @@ class Model_pdo extends PDO
 
     private function connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php"): bool
     {
-        global $js_result;
         $connSettings = $this->set_up_connect_config($sql_db_connect_json);
-        if (!$js_result["error"]) {
-            $this->conn_db = $connSettings["CONN_DB"];
-            try {
-                parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
-                    $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
-                $this->connect_server_status = true;
-                if($this->select_database()){
-                    $this->getRecordStructure();
-                    return true;
-                }
-            } catch (Exception $e) {
-                $this->log_message = $e->getMessage();
+        $this->conn_db = $connSettings["CONN_DB"];
+        try {
+            parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
+                $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
+            $this->connect_server_status = true;
+            if($this->select_database()){
+                $this->getRecordStructure();
+                return true;
+            }
+        } catch (Exception $e) {
+            $this->log_message = $e->getMessage();
+            if($this->throw_err_no_conn){
                 jointSite::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
             }
         }
@@ -68,8 +69,6 @@ class Model_pdo extends PDO
             if ($try_connSettings = json_decode(@file_get_contents($sql_db_connect_json), true)) {
                 $connSettings = $try_connSettings;
             }else{
-
-
                 $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".
                     "PDO object is not initialized, constructor was not called";
                 jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
