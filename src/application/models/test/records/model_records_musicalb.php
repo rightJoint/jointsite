@@ -1,5 +1,4 @@
 <?php
-define("MUSIC_COVERS_DIR", JOINT_SITE_EXEC_DIR."/userdata/music/covers");
 require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
 class model_records_musicalb extends RecordsModel
 {
@@ -18,7 +17,7 @@ class model_records_musicalb extends RecordsModel
         return true;
     }
 
-    function listRecords($where = null, $order = null, $limit = null, $having = null)
+    function listRecords($where = null, $order = null, $limit = null, $having = null):array
     {
         $findList_qry = "select ".$this->tableName.".*, count(".$this->tracksToAlb.".album_id) as countRec   ";
 

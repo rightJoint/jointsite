@@ -74,7 +74,7 @@ class rsf_musicalbums extends recordStructureFields
             "albumImg" => array(
                 "format" => "file",
                 "file_options" => array(
-                    "load_dir" => MUSIC_COVERS_DIR,
+                    "load_dir" => JOINT_SITE_USERS_DIR."/music/covers",
                     "file_type" => "img",
                     "accept" => "jpg,.jpeg,.png",
                 ),
@@ -164,7 +164,7 @@ class rsf_musicalbums extends recordStructureFields
             "albumImg" => array(
                 "format" => "file",
                 "file_options" => array(
-                    "load_dir" => MUSIC_COVERS_DIR,
+                    "load_dir" => JOINT_SITE_USERS_DIR."/music/covers",
                     "file_type" => "img",
                 ),
                 "fieldAliases" => array(

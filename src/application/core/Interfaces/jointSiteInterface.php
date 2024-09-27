@@ -57,7 +57,7 @@ Array
 
     public function load_app_lang();
 
-    public function js_config_dir();
+    public function js_get_env();
 
     public function js_app_exec():bool;
 

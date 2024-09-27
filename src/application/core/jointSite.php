@@ -24,7 +24,7 @@ class jointSite implements jointSiteInterface
         $this->js_ExplodeRequest($JOINT_SITE_EXEC_DIR, $DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
         $this->js_session_key();
-        define("JOINT_SITE_CONF_DIR", $this->js_config_dir());
+        $this->js_get_env();
     }
 
     function js_ExplodeRequest($JOINT_SITE_EXEC_DIR = null, $DOCUMENT_ROOT = null, $REQUEST_URI = null)
@@ -103,13 +103,11 @@ class jointSite implements jointSiteInterface
         $this->lang_map = new $lang_app_name();
     }
 
-    function js_config_dir():string
+    function js_get_env()
     {
-        //return $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/_config"
-
-        $app_config_dir = "";
-        require_once JOINT_SITE_REQUIRE_DIR."/app_config_dir.php";
-        return $app_config_dir;
+        $env = parse_ini_file('.env');
+        define("JOINT_SITE_USERS_DIR", JOINT_SITE_EXEC_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
+        define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
     }
 
     function js_app_exec():bool
@@ -335,18 +333,11 @@ class jointSite implements jointSiteInterface
 
     function js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
     {
-        global $lang_app, $js_result;
+        global $js_result;
 
         if($loaded_controller and $loaded_model and $loaded_view and $action_name){
             $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
             $action = "action_".$action_name;
-
-            //global $app_log;
-            //echo "<pre>";
-            //print_r($app_log);
-
-            //echo $loaded_controller;
-            //exit;
 
             if(isset($js_result["error"]) and $js_result["error"] == true){
                 return false;
@@ -395,28 +386,6 @@ class jointSite implements jointSiteInterface
         }
     }
 
-/*
-    function load_app_lang()
-    {
-
-    }
-
-    function checkAppDir()
-    {
-        global $request;
-
-        if($request["diff_cnt"] > 0){
-            for ($pp =0; $pp< $request["exec_dir_cnt"]; $pp++){
-                if($request["routes"][$pp] != $request["exec_dir"][$pp]){
-                    return false;
-                }
-            }
-            return true;
-        }else{
-            return false;
-        }
-    }
-*/
     static function throwErr($errType, $message):bool
     {
         global $js_result;
