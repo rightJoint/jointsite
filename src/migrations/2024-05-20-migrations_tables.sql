@@ -1,4 +1,4 @@
-create table IF NOT EXISTS migrations (
+create table  IF NOT EXISTS migrations (
                             migration_name varchar(256) not null,
                             status varchar(32) not null,
                             try_date datetime,

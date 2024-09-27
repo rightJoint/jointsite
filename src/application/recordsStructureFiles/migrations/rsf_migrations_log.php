@@ -85,6 +85,13 @@ class rsf_migrations_log extends recordStructureFields
     );
     public $searchFields = Array
     (
+        "add_date" => Array
+        (
+            "format" => "datetime",
+            "sort" => 1,
+            "search" => 1,
+            "sortOrder" => "desc",
+        ),
         "migration_log_id" => Array
         (
             "indexes" => 1,
@@ -96,13 +103,6 @@ class rsf_migrations_log extends recordStructureFields
         "migration_name" => Array
         (
             "format" => "varchar",
-            "sort" => 1,
-            "search" => 1,
-        ),
-
-        "add_date" => Array
-        (
-            "format" => "datetime",
             "sort" => 1,
             "search" => 1,
         ),

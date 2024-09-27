@@ -111,29 +111,6 @@ class model_migrations extends RecordsModel
 
     function exec_migration($migr_file):array
     {
-        //echo "<br>exec_migration = ".$migr_file;
-
-
-        echo "xtest - exec_new_migrations -> exec_migration: ".$migr_file."<br>";
-
-        //$this->recordStructureFields->record["try_date"]["curVal"] = date("Y-m-d H:i:s");
-        //$this->recordStructureFields->record["status"]["curVal"] = "ok";
-        //$this->updateRecord();
-
-        //$x_migr = new RecordsModel("migrations");
-        //$x_migr->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
-       // $x_migr->copyRecord();
-        //$x_migr->recordStructureFields->record["try_date"]["curVal"] = "2025-09-27 08:00:03";
-        //$x_migr->recordStructureFields->record["status"]["curVal"] = "zbs";
-       // $x_migr->updateRecord();
-        //$x_migr->copyRecord();
-        //echo "<pre>";
-       // print_r($x_migr->recordStructureFields->record);
-
-        //echo 2222;
-        //exit;
-        //exit;
-
 
         $return=array(
             "log" => array(),
@@ -156,11 +133,11 @@ class model_migrations extends RecordsModel
                             if($this->pdo_query($q_info["query"])){
                                 $count_suss++;
                                 $return["log"][] = "result: SUCCESS";
-                                $return["result"] = true;
                             }else{
-                                $return["log"][] = "result: FAIL: ";
+                                $return["log"][] = "result: FAIL";
                                 foreach ($this->errorInfo() as $err_num => $err_info){
-                                    $return["log"][] = str_replace("'", "", $err_info);
+                                    $err_info = str_replace(array("\r\n", "\r", "\n", "'"), '',  $err_info);
+                                    $return["log"][] = $err_info;
                                 }
                                 $count_fail++;
                             }
@@ -178,7 +155,8 @@ class model_migrations extends RecordsModel
                 }else{
                     $return["log"][] = "no sql file or no commands (empty migration sql file) ".$migr_file;
                 }
-                if($return["result"] == true){
+                if($commands_count == $count_suss){
+                    $return["result"] = true;
                     $this->recordStructureFields->record["status"]["curVal"] = "SUCCESS";
                 }else{
                     $this->recordStructureFields->record["status"]["curVal"] = "fail";
@@ -201,17 +179,12 @@ class model_migrations extends RecordsModel
 
         $migration_log = new model_migrations_log();
 
-        //echo "<pre>";
-        //print_r($migration_log);
-        //exit;
-        //$migration_log->getRecordStructure();
-
         $migration_log->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         $migration_log->recordStructureFields->record["add_date"]["curVal"] = date("Y-m-d H:i:s");
         $migration_log->recordStructureFields->record["migration_log"]["curVal"] = json_encode($return, true);
-        $migration_log->insertRecord();
-
-        //exit;
+        if(!$migration_log->insertRecord()){
+            echo $migration_log->log_message;
+        }
 
         return $return;
 
@@ -230,58 +203,25 @@ class model_migrations extends RecordsModel
 
         if($this->checkMigrationsTables()){
 
-
-            echo "xtest - exec_new_migrations -> checkMigrationsTables<br>";
-            //exit;
-
             $this->glob_migration_files();
 
             $list_where = "where status in ('new', 'fail')";
             $list_migr = $this->listRecords($list_where, "order by migration_name");
 
-            echo "xtest - glob_migration_files -> list_migr<br>";
-
-            echo "<pre>";
-            print_r($list_migr);
-            //exit;
-
             if($exec_new_result["count_total"] = count($list_migr)){
                 foreach ($list_migr as $migr_num => $migr_data){
-
-                    //echo "migr_num=".$migr_num;
-
-
                     $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_data["migration_name"];
-                    //if($this->copyRecord()){
-                    //echo " copy ok";
-
                     $migr_result = $this->exec_migration($migr_data["migration_name"]);
                     $exec_new_result["result"] = $migr_result["result"];
-                    //echo "<pre>";
-                    //print_r($migr_result);
-
-
-                    if(!$migr_result["result"]){
-                       // $exec_new_result["result"] = false;
-                        //exit;
-                        break;
+                    if($migr_result["result"]){
+                        $exec_new_result["count_success"]++;
                     }
-
-                    //exit;
-                    $exec_new_result["count_success"]++;
-                    //}else{
-                    //    echo " copy fail";
-                    //     exit;
-                    //   break;
-                    //}
-
-
                 }
+            }else{
+             //no new of fail migration
+                $exec_new_result["result"] = true;
             }
         }
-        echo "xtest - exec_new_migrations -> return=".$exec_new_result["result"]."; ".
-            $exec_new_result["count_total"]." vs ".$exec_new_result["count_success"]."<br>";
-        exit;
         return $exec_new_result;
     }
 
@@ -386,6 +326,7 @@ class model_migrations extends RecordsModel
         $result = false;
         if($this->connect_database_status){
             $mirg_commands = $this->parse_sql_file(JOINT_SITE_REQUIRE_DIR."/migrations/2024-05-20-migrations_tables.sql");
+
             if($this->pdo_query("SHOW TABLES LIKE 'migrations'")->fetch(PDO::FETCH_ASSOC)){
                 $result = true;
             }elseif($this->pdo_query($mirg_commands[1]["query"])){
@@ -394,8 +335,8 @@ class model_migrations extends RecordsModel
             if($result){
                 if($this->pdo_query("SHOW TABLES LIKE 'migrations_log'")->fetch(PDO::FETCH_ASSOC)){
                     $result = true;
-                }elseif($this->pdo_query($mirg_commands[2]["query"])){
-                    $result = true;
+                }elseif(!$this->pdo_query($mirg_commands[2]["query"])){
+                    $result = false;
                 }
             }
         }

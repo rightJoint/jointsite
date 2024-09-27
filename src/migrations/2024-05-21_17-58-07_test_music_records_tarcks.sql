@@ -1,4 +1,4 @@
-insert into rjt_musicAlb (
+replace into rjt_musicAlb (
 album_id, albumName, albumAlias, metaDescr, dateOfCr, albumImg, activeFlag, refreshDate, robIndex, created_by)
  values 
 ('9421F54E-EA85-4E3E-8053-B77E895F5B43', 'fav-pop-music-2024', 'fav-pop-music-2024', null, '2024-05-07', null, '1', '2024-05-07', '1', 'DE00211A-0718-41E7-B3FC-C9C0A37BEC5E'), 
@@ -14,7 +14,7 @@ album_id, albumName, albumAlias, metaDescr, dateOfCr, albumImg, activeFlag, refr
 ('0DECEF5A-9EE4-46E3-A413-8312B9C401A8', 'test-album', 'test-album', 'test-album', '2024-05-22', null, '1', '2024-05-22', '1', '7C3B7D9B-A59C-4772-AB31-0898DD2BDB2A'), 
 ('8A021E4E-0030-4558-951D-FE69781B622D', 'random-alb-2', 'random-alb-2', 'random-alb-2', '2024-05-08', null, '1', '2024-05-08', '1', '7C3B7D9B-A59C-4772-AB31-0898DD2BDB2A'), 
 ('EBDA3819-3B78-413D-9F36-103A62AF2CCD', 'album-test', 'album-test', 'album-test', '2024-05-22', null, '1', '2024-05-22', '1', 'B4366FAF-EDDD-46E1-A50A-30ED5AE49D70');
-insert into rjt_musicTracks (
+replace into rjt_musicTracks (
 track_id, track_name, track_artist, track_file, loadDate, sortDate, created_by)
  values 
 ('7CFAA067-38BA-47CD-BA34-1B5B751DF179', 'Flames', 'David Guetta', '7AB96FE4-389E-459D-8499-33B731EF6EDB.mp3', '2023-12-21', null, '826604F6-5D17-4504-BF3F-A748E006F9C0'), 
@@ -50,7 +50,7 @@ track_id, track_name, track_artist, track_file, loadDate, sortDate, created_by)
 ('1042DF09-6582-4752-A7EC-CF0BE9C3BE68', 'I kissed girl', 'Katy Perry', 'E210332C-162B-4361-B086-74724DC9065A.mp3', '2024-04-09', null, '826604F6-5D17-4504-BF3F-A748E006F9C0'), 
 ('82DB889F-7AD0-4082-94C9-64C211789930', 'Dont Worry, Be Happy', 'Bobbi Makferrin', 'E8A30193-80F4-480A-9CCA-1414DCDEB2C1.mp3', '2024-05-21', null, '826604F6-5D17-4504-BF3F-A748E006F9C0'), 
 ('6527727B-26BF-48E2-9D90-8326933C49AC', 'la-la-la', 'Naughty Boy', 'B136272A-551E-4A17-9FDC-587E7B6AAB95.mp3', '2024-05-21', null, 'DE00211A-0718-41E7-B3FC-C9C0A37BEC5E');
-insert into rjt_musicTracksToAlb (
+replace into rjt_musicTracksToAlb (
 track_id, album_id, comment, sortDate, mActive, created_by)
  values 
 ('C1679EB4-EA5F-479D-9CDB-16D2F305F872', '9421F54E-EA85-4E3E-8053-B77E895F5B43', null, '2024-06-02', '1', 'DE00211A-0718-41E7-B3FC-C9C0A37BEC5E'), 

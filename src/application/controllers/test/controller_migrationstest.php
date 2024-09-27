@@ -64,10 +64,9 @@ class controller_migrationstest extends RecordsController
 
     function action_execNewMigrations()
     {
-        //echo "jjjjj";
-        //exit;
+
         //$this->model->pdo_query("drop database ".$this->model->conn_db);
-       // echo $this->model->log_message;
+        //echo $this->model->log_message;
         //exit;
         $exec_res = $this->model->exec_new_migrations();
         if($exec_res["result"] == true){
@@ -76,7 +75,7 @@ class controller_migrationstest extends RecordsController
             $this->view->view_data.= "execNewMigrations: Fail, total count = ".$exec_res["count_total"].
                 "success count = ".$exec_res["count_success"]." <br> ";
         }else{
-            $this->view->view_data.= "execNewMigrations: Fail, db conn problem".$exec_res["count_total"]." vs ".$exec_res["count_success"]." <br> ";
+            $this->view->view_data.= "execNewMigrations: Fail, db conn problem ".$exec_res["count_total"]." vs ".$exec_res["count_success"]." <br> ";
         }
         $this->view->generate();
     }

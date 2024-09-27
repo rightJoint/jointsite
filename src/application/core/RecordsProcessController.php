@@ -279,8 +279,9 @@ class RecordsProcessController extends Controller implements RecordsProcessContr
                 return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
                     " in database ".$this->model->conn_db);
             }
+        }else{
+            return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: connect_database_status = fail");
         }
-        return false;
     }
 
     //if custom view not loaded
