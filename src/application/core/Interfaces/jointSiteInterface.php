@@ -30,7 +30,6 @@ Array
         )
 
     [routes_cnt] => 5                                                       count(routes)
-    [exec_path] => /mirror                                                  its $JOINT_SITE_EXEC_DIR = /mirror
     [exec_dir_cnt] => 2                                                     CASE: 1 in root, 2 on mirror
     [diff_cnt] => 4
 )
@@ -50,8 +49,6 @@ Array
     public function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
 
     public function js_LangReq($acceptable_lang = array("en", "ru", ));
-
-    public function js_session_key();
 
     public function load_app_lang();
 

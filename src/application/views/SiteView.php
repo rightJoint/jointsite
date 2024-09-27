@@ -148,8 +148,6 @@ class SiteView extends View
         foreach ($this->scripts as $script => $scrSrc) {
             echo "<script src='" . $scrSrc . "'></script>";
         }
-        //!!!!!!!!!!!
-        echo "<script>var exec_dir='" . JOINT_SITE_EXEC_DIR . "';</script>";
         echo "</head>";
     }
 

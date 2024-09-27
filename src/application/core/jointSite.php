@@ -22,7 +22,6 @@ class jointSite implements jointSiteInterface
     {
         $this->js_ExplodeRequest($DOCUMENT_ROOT, $REQUEST_URI);
         $this->js_LangReq();
-        $this->js_session_key();
         $this->js_get_env();
     }
 
@@ -35,8 +34,6 @@ class jointSite implements jointSiteInterface
         $request["routes"] = explode('/', $request["routes_path"]);
         $request["exec_dir"] = array(0 => "");
         $request["routes_cnt"] = count($request["routes"]);
-        //!!!!!!!!
-        $request["exec_path"] = JOINT_SITE_EXEC_DIR;
         $request["exec_dir_cnt"] = count($request["exec_dir"]);
         $request["diff_cnt"] = $request["routes_cnt"] - $request["exec_dir_cnt"];
     }
@@ -46,6 +43,7 @@ class jointSite implements jointSiteInterface
         global $request;
         if(isset($request["routes"][$request["exec_dir_cnt"]]) and
             in_array($request["routes"][$request["exec_dir_cnt"]], $acceptable_lang)){
+
 
 
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][$request["exec_dir_cnt"]]);
@@ -61,22 +59,14 @@ class jointSite implements jointSiteInterface
 
         }else{
             /*default lang: ru */
+            echo JOINT_SITE_REQUIRE_DIR;
+            exit;
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
             define("JOINT_SITE_APP_LANG", "ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
         }
-    }
-
-    function js_session_key()
-    {
-
-
-            $s_key = "main";
-
-        //!!!!!!!!
-        define("JS_SAIK", $s_key);
     }
 
     function load_app_lang()

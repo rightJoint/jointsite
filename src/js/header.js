@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
 
     /*goTop*/
-    $("body").append("<img src="+exec_dir+"'/src/img/goTop.png' class='toTop' onclick='goTop()'>");
+    $("body").append("<img src='/src/img/goTop.png' class='toTop' onclick='goTop()'>");
     $(document).scroll(function () {
         var st = $(this).scrollTop();
         if (st > lastScrollTop){
