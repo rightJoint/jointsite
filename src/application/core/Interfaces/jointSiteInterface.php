@@ -1,30 +1,26 @@
 <?php
 interface jointSiteInterface
 {
-    public function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null);
+    public function js_Run();
 
     /*
-        run site on /mirror
-
         $_SERVER["DOCUMENT_ROOT"] = "",
         $_SERVER["REQUEST_URI"] = "/mirror/ru/test/phpmysqladmin/printquery?test=1111"
 
          * global request =
 Array
 (
-    [routes_uri] => /mirror/ru/test/phpmysqladmin/printquery?test=1111      uri with get request, its $_SERVER["REQUEST_URI"]
-    [routes_path] => /mirror/ru/test/phpmysqladmin/printquery               no get request in $_SERVER[REQUEST_URI]
+    [routes_uri] => /ru/test/phpmysqladmin/printquery?test=1111      uri with get request, its $_SERVER["REQUEST_URI"]
+    [routes_path] => /ru/test/phpmysqladmin/printquery               no get request in $_SERVER[REQUEST_URI]
     [routes] => Array
         (
             [0] =>                                                          always zero
-            [1] => mirror
-            [2] => test
-            [3] => phpmysqladmin
-            [4] => printquery
+            [1] => test
+            [2] => phpmysqladmin
+            [3] => printquery
         )
 
-    [routes_cnt] => 5                                                       count(routes)
-    [diff_cnt] => 4
+    [routes_cnt] => 4                                                       count(routes)
 )
         define constants:
         JOINT_SITE_REQUIRE_DIR                                              its $_SERVER["DOCUMENT_ROOT"]
@@ -32,42 +28,12 @@ Array
         JOINT_SITE_APP_LANG                                                 ru or en
         JOINT_SITE_APP_REF                                                  null, /ru or /en
         JOINT_SITE_REQ_ROOT                                                 it routes_uri cut of lang uri to process logic
-                                                                            /mirror/test/phpmysqladmin/printquery?test=1111
-
-        JS_SAIK                                                             main or mirror
+                                                                            /test/phpmysqladmin/printquery?test=1111
 
          */
-    public function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
-
-    public function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null);
-
-    public function js_LangReq($acceptable_lang = array("en", "ru", ));
-
-    public function load_app_lang();
+    public function js_PrepareRequest();
 
     public function js_get_env();
-
-    public function js_app_exec():bool;
-
-    public function set_app_config();
-
-    public function loadControllerFromRequest():string;
-
-    public function load_instance($instance_type):string;
-
-    public function checkAppControllerSettings($controller_name, $default_name="Controller"):bool;
-
-    public function loadModelFromRequest():string;
-
-    public function checkAppModelSettings($model_name, $default_model="Model_pdo"):bool;
-
-    public function loadViewFromRequest():string;
-
-    public function checkAppViewSettings($view_name, $default_name="SiteView"):bool;
-
-    public function getActionFromRequest():string;
-
-    public function js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool;
 
     public function js_HandleResult(bool $result);
 

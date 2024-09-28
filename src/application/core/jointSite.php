@@ -2,9 +2,11 @@
 require_once __DIR__ . "/Interfaces/jointSiteInterface.php";
 class jointSite implements jointSiteInterface
 {
+    public $document_root;
+    public $request_uri;
     public $lang_map;
 
-    function js_Run($DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    function js_Run()
     {
         global $mct, $js_result;
 
@@ -12,37 +14,35 @@ class jointSite implements jointSiteInterface
 
         $mct['start_time'] = microtime(true);
 
-        $this->js_PrepareRequest($DOCUMENT_ROOT, $REQUEST_URI);
-        global $request;
-        //echo "<pre>";
-       // print_r($request);
-        //exit;
+        $this->js_PrepareRequest();
 
-        $this->load_app_lang();
         $result = $this->js_app_exec();
         $this->js_HandleResult($result);
     }
 
-    function js_PrepareRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    public function js_PrepareRequest()
     {
-        $this->js_ExplodeRequest($DOCUMENT_ROOT, $REQUEST_URI);
+        $this->js_ExplodeRequest();
         $this->js_LangReq();
-        $this->js_get_env();
+        $env = $this->js_get_env();
+
+        define("JOINT_SITE_USERS_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
+        define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
+
+        $this->load_app_lang();
     }
 
-    function js_ExplodeRequest($DOCUMENT_ROOT = null, $REQUEST_URI = null)
+    private function js_ExplodeRequest()
     {
-        define("JOINT_SITE_REQUIRE_DIR", $DOCUMENT_ROOT);
+        define("JOINT_SITE_REQUIRE_DIR", $this->document_root);
         global $request;
-        $request["routes_uri"] = $REQUEST_URI;
+        $request["routes_uri"] = $this->request_uri;
         $request["routes_path"] = explode('?', $request["routes_uri"])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
         $request["routes_cnt"] = count($request["routes"]);
-        //!!!!!!!!
-        $request["diff_cnt"] = $request["routes_cnt"] - 1;
     }
 
-    function js_LangReq($acceptable_lang = array("en", "ru", ))
+    private function js_LangReq($acceptable_lang = array("en", "ru", ))
     {
         global $request;
         if(isset($request["routes"][1]) and
@@ -68,21 +68,19 @@ class jointSite implements jointSiteInterface
         }
     }
 
-    function load_app_lang()
+    private function load_app_lang()
     {
         require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
         $lang_app_name = "lang_app";
         $this->lang_map = new $lang_app_name();
     }
 
-    function js_get_env()
+    public function js_get_env():array
     {
-        $env = parse_ini_file('.env');
-        define("JOINT_SITE_USERS_DIR", "/".$env["JOINT_SITE_USERS_DIR"]);
-        define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
+        return parse_ini_file('.env');
     }
 
-    function js_app_exec():bool
+    private function js_app_exec():bool
     {
         /*define constants used default*/
         $this->set_app_config();
@@ -109,7 +107,7 @@ class jointSite implements jointSiteInterface
         return $this->js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name);
     }
 
-    function set_app_config()
+    private function set_app_config()
     {
         define("USE_DEFAULT_CONTROLLER", false);
         define("USE_DEFAULT_MODEL", true);
@@ -117,7 +115,7 @@ class jointSite implements jointSiteInterface
         define("USE_DEFAULT_ACTION", false);
     }
 
-    function loadControllerFromRequest():string
+    private function loadControllerFromRequest():string
     {
         global $request, $app_log, $lang_app;
 
@@ -133,7 +131,7 @@ class jointSite implements jointSiteInterface
         return $controller_name;
     }
 
-    function load_instance($instance_type):string
+    private function load_instance($instance_type):string
     {
         global $request, $app_log;
 
@@ -228,7 +226,7 @@ class jointSite implements jointSiteInterface
         return $result_name;
     }
 
-    function checkAppControllerSettings($controller_name, $default_name="Controller"):bool
+    private function checkAppControllerSettings($controller_name, $default_name="Controller"):bool
     {
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
             return self::throwErr("request", $this->lang_map->app_err["request_controller"]);
@@ -236,7 +234,7 @@ class jointSite implements jointSiteInterface
         return true;
     }
 
-    function loadModelFromRequest():string
+    private function loadModelFromRequest():string
     {
         global $request, $app_log, $lang_app;
 
@@ -256,7 +254,7 @@ class jointSite implements jointSiteInterface
         return $model_name;
     }
 
-    function checkAppModelSettings($model_name, $default_model="Model_pdo"):bool
+    private function checkAppModelSettings($model_name, $default_model="Model_pdo"):bool
     {
         global $lang_app;
         if($model_name == $default_model and !USE_DEFAULT_MODEL){
@@ -265,7 +263,7 @@ class jointSite implements jointSiteInterface
         return true;
     }
 
-    function loadViewFromRequest():string
+    private function loadViewFromRequest():string
     {
         global $request, $app_log, $lang_app;
 
@@ -283,7 +281,7 @@ class jointSite implements jointSiteInterface
         return $view_name;
     }
 
-    function checkAppViewSettings($view_name, $default_name="SiteView"):bool
+    private function checkAppViewSettings($view_name, $default_name="SiteView"):bool
     {
         global $lang_app;
         if($view_name == $default_name and !USE_DEFAULT_VIEW){
@@ -292,7 +290,7 @@ class jointSite implements jointSiteInterface
         return true;
     }
 
-    function getActionFromRequest():string
+    private function getActionFromRequest():string
     {
         global $request, $app_log;
         $action_name = "index";
@@ -303,7 +301,7 @@ class jointSite implements jointSiteInterface
         return $action_name;
     }
 
-    function js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
+    private function js_ExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
     {
         global $js_result;
 
