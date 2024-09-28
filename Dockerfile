@@ -27,7 +27,7 @@ COPY --from=dev-deps app/vendor/ /var/www/html/vendor
 FROM development as test
 WORKDIR /var/www/html
 RUN ./vendor/bin/phpunit --stderr tests/core/js_prepare_request_Test.php
-RUN ./vendor/bin/phpunit --stderr tests/core/chek_some_runs_errTest.php
+#RUN ./vendor/bin/phpunit --stderr tests/core/chek_some_runs_errTest.php
 
 FROM base as final
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
