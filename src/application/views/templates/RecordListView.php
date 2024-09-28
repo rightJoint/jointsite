@@ -13,6 +13,9 @@ class RecordListView extends RecordView
     public $newBtn_qry = null;
     public $hasAccessCreate = true;
     public $slave_req = null;
+    public $onPage_list= array(
+        10, 20, 50, 100
+    );
 
     function __construct()
     {
@@ -130,10 +133,6 @@ class RecordListView extends RecordView
         foreach ($routes as $num => $path){
             $req_uri.=$path."/";
         }
-
-        $this->onPage_list = array(
-            10, 20, 50, 100
-        );
 
         $return_ajax = "<div class='ctrl-line'>";
         if($this->action_log){
@@ -319,7 +318,7 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                            $return_text.= "<a href='".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif($fieldInfo["format"] == "ref"){
                         $urlLink = null;

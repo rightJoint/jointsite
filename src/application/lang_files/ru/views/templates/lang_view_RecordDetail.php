@@ -1,6 +1,9 @@
 <?php
 class lang_view_RecordDetail extends lang_view
 {
+    public $del_confirm_btn = null;
+    public $del_confirm_txt = null;
+
     function update_head_array($options = null)
     {
         if($options["type"] == "detail"){
