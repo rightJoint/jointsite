@@ -1,5 +1,5 @@
 <?php
-class controller_migrationsLog extends RecordsController
+class controller_migrationslog extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";
     function LoadModel_custom($action_name = null): string

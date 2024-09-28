@@ -55,13 +55,6 @@ class rsf_migrations_log extends recordStructureFields
             "url" => "migration_log_id=migration_log_id",
         ),
 
-        "btnEdit" => Array
-        (
-            "replaces" => Array("migration_log_id", ),
-            "format" => "link",
-            "url" => "migration_log_id=migration_log_id",
-        ),
-
         "btnDelete" => Array
         (
             "replaces" => Array("migration_log_id", ),

@@ -25,7 +25,6 @@ class controller_migrationstest extends RecordsController
 
     function action_checkConnectServerStatus()
     {
-        $conn_status = $this->model->connect_database_status;
         if(!$this->model->connect_database_status){
             $this->view->view_data.= "check connect_database_status = fail<br>";
             if($this->model->check_database()){
@@ -38,7 +37,7 @@ class controller_migrationstest extends RecordsController
             $this->view->view_data.= "connect_server_status = ok<br>";
         }
 
-        if($conn_status){
+        if($this->model->connect_database_status){
             $this->view->view_data.= "final connect_database_status = ok<br>";
         }else{
             $this->view->view_data.= "final connect_database_status = fail<br>";
@@ -57,21 +56,13 @@ class controller_migrationstest extends RecordsController
         $this->view->generate();
     }
 
-    function action_migrationsList()
-    {
-        $process_migr_controller = new RecordsController("model_migrations",
-            "View", "index");
-        $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";;
-        $process_migr_controller->records_process();
-    }
-
-    function action_migrationsLog()
-    {
-        $process_migr_controller = new RecordsController("model_migrations_log",
-            "View", "index");
-        $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";;
-        $process_migr_controller->records_process();
-    }
+    //function action_migrationsList()
+    //{
+    //    $process_migr_controller = new RecordsController("model_migrations",
+    //        "View", "index");
+    //    $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";;
+    //    $process_migr_controller->records_process();
+    //}
 
     function action_execNewMigrations()
     {

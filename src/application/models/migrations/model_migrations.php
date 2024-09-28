@@ -347,6 +347,7 @@ class model_migrations extends RecordsModel
     {
         if($this->connect_server_status){
             if($this->query("CREATE DATABASE ".$this->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci")){
+                $this->connect_database_status = true;
                 return true;
             }
         }
