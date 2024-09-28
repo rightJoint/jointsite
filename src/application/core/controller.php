@@ -24,7 +24,7 @@ class Controller implements ControllerInterface
 
         if($custom_view = $this->LoadView_custom($action_name)){
             $loaded_view = $custom_view;
-            $app_log["view"]["model"][] = array(
+            $app_log["load"]["view"][] = array(
                 "try_name" => $custom_model,
                 "try_path" => "Controller __construct LoadModel_custom",
                 "loaded" => true,
