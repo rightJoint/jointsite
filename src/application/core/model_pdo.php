@@ -22,13 +22,19 @@ class Model_pdo extends PDO
 
     private function connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php"): bool
     {
-        $connSettings = $this->set_up_connect_config($sql_db_connect_json);
+        if(getenv('DOCKER_RUN') == "Y"){
+            $connSettings = $this->set_up_connect_docker();
+        }else{
+            $connSettings = $this->set_up_connect_config($sql_db_connect_json);
+        }
+
         $this->conn_db = $connSettings["CONN_DB"];
         try {
             parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
                 $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
             $this->connect_server_status = true;
             if($this->select_database()){
+                //$this->query("drop database docker_db");
                 $this->getRecordStructure();
                 return true;
             }
@@ -82,7 +88,18 @@ class Model_pdo extends PDO
         return $connSettings;
     }
 
-
+    private function set_up_connect_docker():array
+    {
+        $password_file_path = getenv('PASSWORD_FILE_PATH');
+        $db_pass = trim(file_get_contents($password_file_path));
+        $connSettings = array(
+            "CONN_LOC" => getenv('DB_HOST'),
+            "CONN_DB" => getenv('DB_NAME'),
+            "CONN_PW" => $db_pass,
+            "CONN_USER" => getenv('DB_USER'),
+        );
+        return $connSettings;
+    }
 
     /*
      * return PDO or false
