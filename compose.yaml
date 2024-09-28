@@ -13,8 +13,9 @@ services:
     environment:
       - PASSWORD_FILE_PATH=/run/secrets/db-password
       - DB_HOST=db
-      - DB_NAME=js_db
+      - DB_NAME=docker_db
       - DB_USER=root
+      - DOCKER_RUN=Y
     develop:
       watch:
         - action: sync
@@ -32,7 +33,7 @@ services:
       - db-data:/var/lib/mysql
     environment:
       - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db-password
-      - MARIADB_DATABASE=example
+      - MARIADB_DATABASE=docker_db
     expose:
       - 3306
     healthcheck:
