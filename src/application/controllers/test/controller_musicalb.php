@@ -1,5 +1,5 @@
 <?php
-class controller_musicAlb extends RecordsController
+class controller_musicalb extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/musicAlb";
     function LoadModel_custom($action_name = null): string
