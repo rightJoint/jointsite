@@ -47,6 +47,6 @@ class controller_test extends RecordsController
         $this->view->view_data = $view_data;
         $this->view->tableName = $tableName;
         $this->view_data = $this->view->print_select_tbl_panel();
-        $this->records_process();
+        parent::action_index();
     }
 }
