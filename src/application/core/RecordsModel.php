@@ -141,7 +141,8 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
             }
             return $return_listRecords;
         }
-        return jointSite::throwErr("XXX", $this->log_message);
+        jointSite::throwErr("XXX", $this->log_message);
+        return $return_listRecords;
     }
 
     public function copyRecord():bool
