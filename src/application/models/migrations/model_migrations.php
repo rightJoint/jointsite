@@ -215,6 +215,8 @@ class model_migrations extends RecordsModel
                     $exec_new_result["result"] = $migr_result["result"];
                     if($migr_result["result"]){
                         $exec_new_result["count_success"]++;
+                    }else{
+                        break;
                     }
                 }
             }else{
