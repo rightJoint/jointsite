@@ -31,7 +31,7 @@ class controller_migrationstest extends RecordsController
                 $this->view->view_data.= "set up connection = success<br>";
             }else
             {
-                $this->view->view_data.= "unknown err: "."CREATE DATABASE ".$this->model->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci"."<br>";
+                $this->view->view_data.= "unknown err: ".$this->model->log_message."<br>";
             }
         }else{
             $this->view->view_data.= "connect_server_status = ok<br>";

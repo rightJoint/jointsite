@@ -25,6 +25,7 @@ services:
       - "host.docker.internal:host-gateway"
   db:
     image: mariadb
+    container_name: db
     restart: always
     user: root
     secrets:
