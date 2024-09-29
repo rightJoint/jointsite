@@ -1,6 +1,11 @@
 <?php
 //php ./vendor/bin/phpunit tests/exec_migrations_TEST.php
 //php ./vendor/bin/phpunit --stderr tests/exec_migrations_TEST.php
+
+//docker compose run --build --rm server ./vendor/bin/phpunit tests/exec_migrations_TEST.php
+
+//docker build -t php-docker-image-test --progress plain --no-cache --target test .
+//docker build -t php-docker-image-test --progress plain --target test .
 class exec_migrations_TEST extends PHPUnit\Framework\TestCase
 {
     protected $runTestInSeparateProcess = TRUE;
@@ -36,7 +41,7 @@ class exec_migrations_TEST extends PHPUnit\Framework\TestCase
         $this->jointSite->request_uri = "/test/phpmysqladmin/printquery?test=1111";
         $this->jointSite->js_PrepareRequest();
 
-        require_once JOINT_SITE_REQUIRE_DIR."/application/core/Model_pdo.php";
+        require_once JOINT_SITE_REQUIRE_DIR."/application/core/model_pdo.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations_log.php";
