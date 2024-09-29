@@ -1,5 +1,5 @@
 <?php
-class lang_view_jointsite_record_en extends lang_view_products_jointsite_en
+class lang_view_jointsite_record extends lang_view_products_jointsite
 {
     function __construct()
     {
@@ -18,7 +18,7 @@ class lang_view_jointsite_record_en extends lang_view_products_jointsite_en
         $this->product_migration["p1"] = "Queries to create test tables and insert into data in dir <span class='ex-conf'>/migrations</span>";
         $this->prod_test = array(
             "p1" => "Exec migration <span class='ex-conf'>2024-05-21_rj-test-records</span>. ".
-                "<a href='".JOINT_SITE_LANG_REF."/test/records' title='check Record on test'>check how Record work on test</a>. ".
+                "<a href='".JOINT_SITE_APP_REF."/test/records' title='check Record on test'>check how Record work on test</a>. ".
                 "In this example realized three custom tables for music gallery.",
         );
     }

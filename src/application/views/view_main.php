@@ -81,8 +81,8 @@ class view_main extends SiteView
     function print_title()
     {
         echo "<p>".
-            $this->lang_map->branches["site-descr"]."<br>",
-            $this->view_data."</p>";
+            $this->lang_map->branches["site-descr"]."<br>".
+            $this->lang_map->branches["site-descr-1"]."</p>";
     }
 
 }

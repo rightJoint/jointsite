@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"]."/application/views/view_main.php";
+require_once JOINT_SITE_REQUIRE_DIR."/application/views/view_main.php";
 class View_Products_JointSite extends view_main
 {
     public $logo = "/img/popimg/internet.png";

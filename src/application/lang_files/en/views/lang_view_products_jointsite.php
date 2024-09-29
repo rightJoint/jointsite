@@ -1,6 +1,7 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"]."/application/lang_files/views/lang_view_main_en.php");
-class lang_view_products_jointsite_en extends lang_view_main_en
+require_once JOINT_SITE_REQ_LANG."/views/lang_view_main.php";
+//require_once ($_SERVER["DOCUMENT_ROOT"]."/application/lang_files/views/lang_view_main_en.php");
+class lang_view_products_jointsite extends lang_view_main
 {
     function __construct()
     {
