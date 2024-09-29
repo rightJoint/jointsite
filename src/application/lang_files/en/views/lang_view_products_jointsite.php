@@ -11,8 +11,8 @@ class lang_view_products_jointsite extends lang_view_main
         $this->head["title"] = "JointSite - product";
         $this->head["description"] = "JointSite - product: web-application, branches, setup";
 
-        $this->product_custom["p1"] = "Real site fetching from this repository and may track branch that is not described there, ".
-    "fully composed branches are in the list bellow..";
+        $this->product_custom["p1"] = "Это домашний проект, пока используется в целях тестирования технологий, ".
+            "но так же может быть применен для решения реальных задач";
 
         $this->prodmenu = array(
             "h2_сontent" => "Table of content",
