@@ -110,7 +110,7 @@ class Model_pdo extends \PDO
         if($this->connect_database_status){
             try{
                 return $this->query($statement, $mode);
-            }catch (Exception $e) {
+            }catch (\Exception $e) {
                 $this->log_message = $e->getMessage();
                 jointSite::throwErr("connection", "query wrong format: ".$statement);
             }

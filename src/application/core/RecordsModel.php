@@ -2,8 +2,7 @@
 namespace jointSite\core;
 use jointSite\core\Interfaces\RecordsModelInterface;
 use jointSite\recordsStructureFiles\recordStructureFields;
-//require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
-//require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsModelInterface.php";
+
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
     public $tableName = null;
@@ -160,7 +159,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $query_text = substr($query_text, 0, strlen($query_text)-4);
         if($query_res = $this->pdo_query($query_text)){
             if($query_res->rowCount()==1){
-                $result=$query_res->fetch(PDO::FETCH_ASSOC);
+                $result=$query_res->fetch(\PDO::FETCH_ASSOC);
                 foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
                     if(isset($result[$fieldName])){
                         $this->recordStructureFields->record[$fieldName]["curVal"] = $result[$fieldName];

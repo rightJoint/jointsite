@@ -295,15 +295,15 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->view = new \RecordListView();
             }
         }elseif ($type_of_view == "detail"){
-            if(!$this->view instanceof RecordDetailView) {
+            if(!$this->view instanceof \RecordDetailView) {
                 require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordDetailView.php";
-                $this->view = new RecordDetailView();
+                $this->view = new \RecordDetailView();
             }
         }
         elseif (in_array($type_of_view, array("edit", "new", "delete"))){
-            if(!$this->view instanceof RecordEditView) {
+            if(!$this->view instanceof \RecordEditView) {
                 require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordEditView.php";
-                $this->view = new RecordEditView();
+                $this->view = new \RecordEditView();
             }
         }
     }
