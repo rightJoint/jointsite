@@ -1,8 +1,8 @@
 <?php
-namespace jointSite\core;
-use jointSite\core\Interfaces\jointSiteInterface;
-//require_once __DIR__ . "/Interfaces/jointSiteInterface.php";
-class jointSite implements jointSiteInterface
+namespace JointSite\Core;
+use JointSite\Core\Interfaces\JointSiteInterface;
+
+class JointSite implements JointSiteInterface
 {
     public $document_root;
     public $request_uri;

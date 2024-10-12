@@ -1,6 +1,8 @@
 <?php
-namespace jointSite\core;
-use jointSite\core\Interfaces\RecordsControllerInterface;
+
+namespace JointSite\Core\Records;
+use JointSite\Core\Controller;
+use JointSite\Core\Interfaces\RecordsControllerInterface;
 
 class RecordsController extends Controller implements RecordsControllerInterface
 {
@@ -271,7 +273,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
 
         if(!$this->model instanceof RecordsModel) {
-            require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
+            require_once JOINT_SITE_REQUIRE_DIR."/application/Core/Records/RecordsModel.php";
             $this->model = new RecordsModel($this->process_table);
         }
         if($this->model->connect_database_status){

@@ -1,9 +1,9 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use jointSite\core\jointSite;
+use JointSite\Core\JointSite;
 
-$jointSite = new jointSite();
+$jointSite = new JointSite();
 $jointSite->document_root = $_SERVER["DOCUMENT_ROOT"];
 $jointSite->request_uri = $_SERVER["REQUEST_URI"];
 $jointSite->js_Run();

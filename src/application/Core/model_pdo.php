@@ -1,5 +1,5 @@
 <?php
-namespace jointSite\core;
+namespace jointSite\Core;
 class Model_pdo extends \PDO
 {
     public $lang_map = array();

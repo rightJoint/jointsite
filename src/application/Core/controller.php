@@ -1,6 +1,6 @@
 <?php
-namespace jointSite\core;
-use jointSite\core\Interfaces;
+namespace JointSite\Core;
+use JointSite\Core\Interfaces;
 //require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/ControllerInterface.php";
 class Controller implements Interfaces\ControllerInterface
 {

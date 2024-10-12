@@ -1,6 +1,6 @@
 <?php
-namespace jointSite\core\Interfaces;
-interface jointSiteInterface
+namespace JointSite\Core\Interfaces;
+interface JointSiteInterface
 {
     public function js_Run();
 
