@@ -1,4 +1,5 @@
 <?php
+namespace jointSite\core\Interfaces;
 interface ControllerInterface
 {
     //overwrite jointSite $loaded_view

@@ -1,4 +1,5 @@
 <?php
+namespace jointSite\recordsStructureFiles;
 class recordStructureFields
 {
     public $record = null;

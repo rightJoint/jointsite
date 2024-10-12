@@ -1,6 +1,9 @@
 {
     "require-dev": {
         "phpunit/phpunit": "^9.6"
-    }
+    },
+   "autoload": {
+     "psr-4": {"jointSite\\": "src/application"}
+   }
  }
  

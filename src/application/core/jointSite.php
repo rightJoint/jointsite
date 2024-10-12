@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . "/Interfaces/jointSiteInterface.php";
+namespace jointSite\core;
+use jointSite\core\Interfaces\jointSiteInterface;
+//require_once __DIR__ . "/Interfaces/jointSiteInterface.php";
 class jointSite implements jointSiteInterface
 {
     public $document_root;
@@ -121,7 +123,7 @@ class jointSite implements jointSiteInterface
 
         $controller_name = "Controller";
 
-        require_once JOINT_SITE_REQUIRE_DIR."/application/core/controller.php";
+        //require_once JOINT_SITE_REQUIRE_DIR."/application/core/controller.php";
 
         if($new_controller_name = self::load_instance("controller")){
             $controller_name = $new_controller_name;
@@ -243,7 +245,7 @@ class jointSite implements jointSiteInterface
 
         $model_name = $default_model;
 
-        require_once JOINT_SITE_REQUIRE_DIR."/application/core/".strtolower($default_model).".php";
+       // require_once JOINT_SITE_REQUIRE_DIR."/application/core/".strtolower($default_model).".php";
 
         if($new_model_name = $this->load_instance("model")){
             $model_name = $new_model_name;
@@ -366,13 +368,13 @@ class jointSite implements jointSiteInterface
 
     function js_display_err($errType, $message)
     {
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
         require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
-        $controller = new Alerts_controller();
+        $controller = new \Alerts_controller();
         $controller->generateErr($errType, $message);
     }
 }

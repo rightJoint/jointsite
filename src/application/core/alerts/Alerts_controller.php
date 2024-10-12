@@ -1,4 +1,5 @@
 <?php
+use jointSite\core\Controller;
 class Alerts_controller extends Controller
 {
     function __construct()

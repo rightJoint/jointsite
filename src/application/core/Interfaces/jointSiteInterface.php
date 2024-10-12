@@ -1,4 +1,5 @@
 <?php
+namespace jointSite\core\Interfaces;
 interface jointSiteInterface
 {
     public function js_Run();

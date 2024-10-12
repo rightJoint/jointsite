@@ -1,5 +1,6 @@
 <?php
-class Model_pdo extends PDO
+namespace jointSite\core;
+class Model_pdo extends \PDO
 {
     public $lang_map = array();
 
@@ -104,7 +105,7 @@ class Model_pdo extends PDO
     /*
      * return PDO or false
      */
-    function pdo_query($statement, $mode = PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
+    function pdo_query($statement, $mode = \PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
     {
         if($this->connect_database_status){
             try{

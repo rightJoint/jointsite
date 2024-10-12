@@ -1,6 +1,9 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsModelInterface.php";
+namespace jointSite\core;
+use jointSite\core\Interfaces\RecordsModelInterface;
+use jointSite\recordsStructureFiles\recordStructureFields;
+//require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/recordStructureFields.php";
+//require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsModelInterface.php";
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
     public $tableName = null;
@@ -43,7 +46,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         if($datatype_res  = $this->pdo_query("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
             "where table_schema = '". $this->conn_db."' and table_name = '".$this->tableName."'")){
             if($datatype_res->rowCount()){
-                while ($datatype_row = $datatype_res->fetch(PDO::FETCH_ASSOC)){
+                while ($datatype_row = $datatype_res->fetch(\PDO::FETCH_ASSOC)){
 
                     if(!$datatype_row["COLUMN_KEY"]){
 
@@ -86,7 +89,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                     $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
                 }
             }else{
-                return jointSite::throwErr("request", $this->lang_map->table_name_not_found." _".$this->sql_db_name."_: table_name='".$this->tableName."', ".
+                return jointSite::throwErr("request", $this->lang_map->table_name_not_found." _".$this->conn_db."_: table_name='".$this->tableName."', ".
                     "/core/RecordsModel->getRecordStructure");
             }
         }else{
@@ -110,7 +113,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
     public function countRecords($where = null)
     {
-        return $this->pdo_query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(PDO::FETCH_ASSOC)["cnt"];
+        return $this->pdo_query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(\PDO::FETCH_ASSOC)["cnt"];
     }
 
     public function listRecords($where = null, $order = null, $limit = null, $having = null):array
@@ -134,7 +137,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
             if($findList_res->rowCount()){
                 $row_counter = 0;
-                while ($findList_row = $findList_res->fetch(PDO::FETCH_ASSOC)){
+                while ($findList_row = $findList_res->fetch(\PDO::FETCH_ASSOC)){
                     $return_listRecords[$row_counter] = $findList_row;
                     $row_counter++;
                 }

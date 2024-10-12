@@ -1,6 +1,6 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsController.php";
-class controller_test extends RecordsController
+use jointSite\core\RecordsController;
+class controller_test extends \jointSite\core\RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/records";
     public $process_table = "migrations";

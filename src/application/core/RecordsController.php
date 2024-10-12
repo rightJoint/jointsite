@@ -1,5 +1,7 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/RecordsControllerInterface.php";
+namespace jointSite\core;
+use jointSite\core\Interfaces\RecordsControllerInterface;
+
 class RecordsController extends Controller implements RecordsControllerInterface
 {
 
@@ -273,7 +275,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
             $this->model = new RecordsModel($this->process_table);
         }
         if($this->model->connect_database_status){
-            if($this->model->pdo_query("SHOW TABLES LIKE '".$this->process_table."'")->fetch(PDO::FETCH_ASSOC)){
+            if($this->model->pdo_query("SHOW TABLES LIKE '".$this->process_table."'")->fetch(\PDO::FETCH_ASSOC)){
                 return true;
             }else{
                 return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
@@ -288,9 +290,9 @@ class RecordsController extends Controller implements RecordsControllerInterface
     function checkTemplateView($type_of_view)
     {
         if($type_of_view == "list"){
-            if(!$this->view instanceof RecordListView) {
+            if(!$this->view instanceof \RecordListView) {
                 require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordListView.php";
-                $this->view = new RecordListView();
+                $this->view = new \RecordListView();
             }
         }elseif ($type_of_view == "detail"){
             if(!$this->view instanceof RecordDetailView) {
