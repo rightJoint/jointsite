@@ -1,6 +1,10 @@
 <?php
 namespace JointSite\Core;
 use JointSite\Core\Interfaces\JointSiteInterface;
+use JointSite\Core\JointSite_Logger;
+
+
+$JointSite_Logger = new JointSite_Logger();
 
 class JointSite implements JointSiteInterface
 {
