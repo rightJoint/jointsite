@@ -143,12 +143,15 @@ class JointSite implements JointSiteInterface
         if($instance_type == "Controller"){
             $instance_dir = "/Controllers";
             $instance_name = "Controller";
+            $namespace_name = "\Controller";
         }elseif ($instance_type == "Model"){
             $instance_dir = "/Models";
             $instance_name = "Model";
+            $namespace_name = "\Model";
         }elseif ($instance_type == "View"){
             $instance_dir = "/Views";
             $instance_name = "View";
+            $namespace_name = "\Views";
         }else{
             JointSiteLogger::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
         }
@@ -156,21 +159,31 @@ class JointSite implements JointSiteInterface
         $result_name = "";
         $check_dir = null;
         $dir_list = null;
+        $namespace_list = null;
+        $names_list = $instance_type;
         $loaded_index = 0;
 
         for($deep = 1; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
 
             if (!empty($request["routes"][$deep])){
+
+                $names_list.="_".$request["routes"][$deep];
+
+                $request_routes_val = $request["routes"][$deep];
+
+                $namespace_list.="\\$request_routes_val";
                 $dir_list .= $request["routes"][$deep-1]."_";
                 $try_name = $instance_name.$dir_list.$request["routes"][$deep];
 
                 $try_load = array(
-                    "try_name" => $try_name,
-                    "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir.
-                        strtolower($try_name).'.php',
+                    "namespace" => "JointSite\\$namespace_name\\$namespace_list",
+                    "try_name" => $names_list,
+                    "try_path" => JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir.
+                        $try_name.'.php',
                     "loaded" => false,
                 );
+
                 if(file_exists($try_load["try_path"])){
                     //require_once ($try_load["try_path"]);
                     $result_name = $try_load["try_name"];
@@ -186,20 +199,21 @@ class JointSite implements JointSiteInterface
 
                 $check_dir.=$request["routes"][$deep]."/";
                 if (!empty($request["routes"][$deep+1])){
-                    if(!is_dir(JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir)) {
+                    if(!is_dir(JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir)) {
                         $app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
-                            JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir);
+                            JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir);
                         break;
                     }
                 }else{
                     break;
                 }
             }else{
-                $try_name = $instance_name."_main";
+                $try_name = $instance_name."_Main";
                 $try_load = array(
-                    "try_name" => $try_name,
-                    "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".
-                        strtolower($try_name).'.php',
+                    "namespace" => "JointSite\\$namespace_name\\$namespace_list",
+                    "try_name" => $names_list,
+                    "try_path" => JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".
+                        $try_name.'.php',
                     "loaded" => false,
                 );
 
@@ -219,6 +233,17 @@ class JointSite implements JointSiteInterface
 
                 break;
             }
+        }
+
+        /*
+        if($instance_type == "Controller"){
+            echo "<pre>";
+            print_r($app_log["load"]);
+            exit;
+        }*/
+
+        if(!$loaded_index){
+            $loaded_index = 1;
         }
 
         require_once $app_log["load"][$instance_type][$loaded_index-1]["try_path"];
@@ -249,7 +274,7 @@ class JointSite implements JointSiteInterface
             $model_name = $new_model_name;
         }
 
-        $app_log["load"]["model"][] = array("final_model_name" => $model_name);
+        $app_log["load"]["Model"][] = array("final_model_name" => $model_name);
 
         return $model_name;
     }

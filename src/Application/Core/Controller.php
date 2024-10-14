@@ -1,6 +1,7 @@
 <?php
 namespace JointSite\Core;
 use JointSite\Core\Interfaces;
+use JointSite\Core\Model;
 
 class Controller implements Interfaces\ControllerInterface
 {
@@ -16,7 +17,7 @@ class Controller implements Interfaces\ControllerInterface
 
         global $app_log;
         if($custom_model = $this->loadModelCustom($action_name)){
-            $app_log["load"]["model"][] = array(
+            $app_log["load"]["Model"][] = array(
                 "try_name" => $custom_model,
                 "try_path" => "Controller __construct LoadModel_custom",
                 "loaded" => true,
@@ -26,12 +27,16 @@ class Controller implements Interfaces\ControllerInterface
 
         if($custom_view = $this->loadViewCustom($action_name)){
             $loaded_view = $custom_view;
-            $app_log["load"]["view"][] = array(
+            $app_log["load"]["View"][] = array(
                 "try_name" => $custom_model,
                 "try_path" => "Controller __construct LoadModel_custom",
                 "loaded" => true,
             );
         }
+
+
+       // $class = "My\Namespace\\$className";
+       // new $class();
 
         $this->model = new $loaded_model();
         $this->view = new $loaded_view();

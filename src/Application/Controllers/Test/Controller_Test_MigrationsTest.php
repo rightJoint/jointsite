@@ -1,6 +1,6 @@
 <?php
 
-use jointSite\Core\Records\RecordsController;
+use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MigrationsTest extends RecordsController
 {
@@ -11,7 +11,7 @@ class Controller_Test_MigrationsTest extends RecordsController
     {
         if($action_name == "index"){
             require_once JOINT_SITE_REQUIRE_DIR."/Application/Core/Model.php";
-            return "Model";
+            return "JointSite\Core\Model";
         }
         require_once JOINT_SITE_REQUIRE_DIR."/Application/Models/Migrations/Model_MigrationsLog.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/Migrations/Model_Migrations.php";
