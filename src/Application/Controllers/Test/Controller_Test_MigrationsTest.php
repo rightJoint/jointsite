@@ -47,14 +47,6 @@ class Controller_Test_MigrationsTest extends RecordsController
         $this->view->generate();
     }
 
-    //function action_migrationsList()
-    //{
-    //    $process_migr_controller = new RecordsController("model_migrations",
-    //        "View", "index");
-    //    $process_migr_controller->process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";;
-    //    $process_migr_controller->records_process();
-    //}
-
     function action_execNewMigrations()
     {
 

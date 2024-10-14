@@ -1,7 +1,9 @@
 <?php
 
+namespace JointSite\Models\Migrations;
+
 use JointSite\Core\Records\RecordsModel;
-use JointSite\RecordsStructureFiles\migrations\rsf_migrations_log;
+use JointSite\Models\RecordsStructureFiles\Migrations\Rsf_Migrations;
 
 class Model_MigrationsLog extends RecordsModel
 {
