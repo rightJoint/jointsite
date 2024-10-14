@@ -1,5 +1,5 @@
 <?php
-class Alerts_View extends SiteView
+class JointSiteLoggerView extends SiteView
 {
     public $logo = "/img/popimg/error.png";
     public $response_code = 200;

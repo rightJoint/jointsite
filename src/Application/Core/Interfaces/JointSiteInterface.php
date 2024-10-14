@@ -37,8 +37,4 @@ Array
     public function jsGetEnv();
 
     public function jsHandleResult(bool $result);
-
-    public static function throwErr($errType, $message):bool;
-
-    public function js_display_err($errType, $message);
 }

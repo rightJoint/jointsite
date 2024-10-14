@@ -46,7 +46,7 @@ class Model_pdo extends \PDO
         } catch (\Exception $e) {
             $this->log_message = $e->getMessage();
             if($this->throw_err_no_conn){
-                jointSite::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
+                jointSiteLogger::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
             }
         }
         return false;
@@ -82,13 +82,13 @@ class Model_pdo extends \PDO
             }else{
                 $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".
                     "PDO object is not initialized, constructor was not called";
-                jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
+                jointSiteLogger::throwErr("connection", "Model_pdo throw err:".$this->log_message);
             }
         }else{
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
                 "PDO object is not initialized, constructor was not called";
-            jointSite::throwErr("connection", "Model_pdo throw err:".$this->log_message);
+            jointSiteLogger::throwErr("connection", "Model_pdo throw err:".$this->log_message);
         }
         return $connSettings;
     }
@@ -116,10 +116,10 @@ class Model_pdo extends \PDO
                 return $this->query($statement, $mode);
             }catch (\Exception $e) {
                 $this->log_message = $e->getMessage();
-                jointSite::throwErr("connection", "query wrong format: ".$statement);
+                jointSiteLogger::throwErr("connection", "query wrong format: ".$statement);
             }
         }else{
-            jointSite::throwErr("connection", "Model_pdo->pdo_query throw err: no-db-connection");
+            jointSiteLogger::throwErr("connection", "Model_pdo->pdo_query throw err: no-db-connection");
         }
         return false;
     }

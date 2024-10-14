@@ -1,5 +1,5 @@
 <?php
-class Alerts_model
+class JointSiteLoggerModel
 {
     public $lang_map = array();
 

@@ -354,30 +354,7 @@ class JointSite implements JointSiteInterface
         if($result){
             return true;
         }else{
-            $this->js_display_err($js_result["errType"], $js_result["message"]);
+            JointSiteLogger::displayErr($js_result["errType"], $js_result["message"]);
         }
-    }
-
-    static function throwErr($errType, $message):bool
-    {
-        global $js_result;
-        $js_result["error"] = true;
-        $js_result["errType"] = $errType;
-        $js_result["message"][] = array($errType => $message);
-        /*always return false*/
-        return false;
-
-    }
-
-    function js_display_err($errType, $message)
-    {
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
-        $controller = new \Alerts_controller();
-        $controller->generateErr($errType, $message);
     }
 }
