@@ -1,4 +1,7 @@
 <?php
+
+namespace JointSite\Core;
+
 class View
 {
     public $view_data;

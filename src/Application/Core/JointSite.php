@@ -1,6 +1,7 @@
 <?php
 namespace JointSite\Core;
 use JointSite\Core\Interfaces\JointSiteInterface;
+use JointSite\Core\Logger\JointSiteLogger;
 
 //use JointSite\LangFiles\Ru\LangFiles_Ru_App;
 
@@ -150,7 +151,7 @@ class JointSite implements JointSiteInterface
             $instance_dir = "/views";
             $instance_name = "View";
         }else{
-            self::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
+            JointSiteLogger::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
         }
 
         $result_name = "";
@@ -234,7 +235,7 @@ class JointSite implements JointSiteInterface
     private function jsCheckAppControllerSettings($controller_name, $default_name="Controller"):bool
     {
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
-            return self::throwErr("request", $this->lang_map->app_err["request_controller"]);
+            JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_controller"]);
         }
         return true;
     }
@@ -263,7 +264,7 @@ class JointSite implements JointSiteInterface
     {
         global $lang_app;
         if($model_name == $default_model and !USE_DEFAULT_MODEL){
-            self::throwErr("request", $lang_app->app_err["request_model"]);
+            JointSiteLogger::throwErr("request", $lang_app->app_err["request_model"]);
         }
         return true;
     }
@@ -290,7 +291,7 @@ class JointSite implements JointSiteInterface
     {
         global $lang_app;
         if($view_name == $default_name and !USE_DEFAULT_VIEW){
-            self::throwErr("request", $lang_app->app_err["request_view"]);;
+            JointSiteLogger::throwErr("request", $lang_app->app_err["request_view"]);;
         }
         return true;
     }
@@ -326,7 +327,7 @@ class JointSite implements JointSiteInterface
             }
             else{
                 if(!USE_DEFAULT_ACTION){
-                    return self::throwErr("request", $this->lang_map->app_err["request_action"].
+                    JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_action"].
                         "<br>".$loaded_controller."->".$action);
                 }else{
                     $controller->action_index();

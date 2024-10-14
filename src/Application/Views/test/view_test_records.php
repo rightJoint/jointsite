@@ -1,4 +1,7 @@
 <?php
+
+use JointSite\Views\SiteView;
+
 class view_test_records extends SiteView
 {
     public $process_url;

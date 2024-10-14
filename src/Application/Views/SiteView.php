@@ -1,4 +1,8 @@
 <?php
+namespace JointSite\Views;
+
+use JointSite\Core\View;
+
 class SiteView extends View
 {
     public $shortcut_icon = "/img/siteLogo/favicon.png";
@@ -149,12 +153,12 @@ class SiteView extends View
         echo "<header><div class='headerCenter'>";
         echo "<div class='lang-panel'>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "ru") {
+        if (JOINT_SITE_APP_LANG == "Ru") {
             echo "active ";
         }
         echo "rus' href='/Ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "en") {
+        if (JOINT_SITE_APP_LANG == "En") {
             echo "active ";
         }
         echo "en' href='/En".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .

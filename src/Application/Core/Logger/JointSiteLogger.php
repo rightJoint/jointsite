@@ -1,11 +1,14 @@
 <?php
 
-namespace JointSite\Core;
+namespace JointSite\Core\Logger;
 
-//use JointSite\Core\Interfaces\JointSiteInterface;
 use JointSite\Psr\Log\LoggerInterface;
 use JointSite\Psr\Log\LoggerAwareInterface;
 use JointSite\Psr\Log\LogLevel;
+
+use JointSite\Core\Logger\JointSiteLoggerController;
+use JointSite\Core\Logger\JointSiteLoggerModel;
+use JointSite\Core\Logger\JointSiteLoggerView;
 
 class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
 {
@@ -157,12 +160,12 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
     static function displayErr($errType, $message)
     {
         //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
         //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
         //require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
-        require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
-        $controller = new \Alerts_controller();
+        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
+        $controller = new JointSiteLoggerController();
         $controller->generateErr($errType, $message);
     }
 }

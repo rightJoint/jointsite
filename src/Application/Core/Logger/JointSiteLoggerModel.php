@@ -1,4 +1,7 @@
 <?php
+
+namespace jointSite\Core\Logger;
+
 class JointSiteLoggerModel
 {
     public $lang_map = array();
@@ -15,9 +18,9 @@ class JointSiteLoggerModel
 
     function __construct()
     {
-        global $request;
-        require_once (JOINT_SITE_REQ_LANG."/models/lang_model_alerts.php");
-        $lang_name = "lang_model_alerts";
-        $this->lang_map = new $lang_name;
+        require_once(JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_APP_LANG."_Models_AlertsModel.php");
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Models_AlertsModel";
+
+        $this->lang_map = new $return_lang;
     }
 }

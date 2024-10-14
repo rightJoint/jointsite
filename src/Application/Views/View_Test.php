@@ -1,4 +1,7 @@
 <?php
+
+use JointSite\Views\SiteView;
+
 class View_Test extends SiteView
 {
     function __construct()

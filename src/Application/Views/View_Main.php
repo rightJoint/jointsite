@@ -1,4 +1,7 @@
 <?php
+
+use JointSite\Views\SiteView;
+
 class View_Main extends SiteView
 {
     public $current_branch = "record";

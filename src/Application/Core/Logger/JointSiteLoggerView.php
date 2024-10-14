@@ -1,4 +1,8 @@
 <?php
+
+namespace jointSite\Core\Logger;
+use JointSite\Views\SiteView;
+
 class JointSiteLoggerView extends SiteView
 {
     public $logo = "/img/popimg/error.png";
@@ -11,19 +15,21 @@ class JointSiteLoggerView extends SiteView
     {
         parent::__construct();
 
-        $lang_class ="lang_view_alerts";
-        $this->lang_map = new $lang_class;
+        //$lang_class ="lang_view_alerts";
+        //$this->lang_map = new $lang_class;
 
         $this->styles[]= "/css/alerts.css";
     }
 
-    function LoadViewLang_custom()
+    function loadLangViewcustom()
     {
-        require_once (JOINT_SITE_REQ_LANG."/views/lang_view_alerts.php");
-        return "lang_view_alerts";
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_AlertsView.php");
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_AlertsView";
+
+        return $return_lang;
     }
 
-    function print_page_content()
+    function printPageContent()
     {
         echo"<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".

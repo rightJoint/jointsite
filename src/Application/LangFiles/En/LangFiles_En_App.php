@@ -1,7 +1,5 @@
 <?php
 
-namespace JointSite\LangFiles\En;
-
 class LangFiles_En_App
 {
     public $app_err = array(

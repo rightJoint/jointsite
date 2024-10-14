@@ -1,11 +1,15 @@
 <?php
-use jointSite\core\Controller;
+
+namespace JointSite\Core\Logger;
+
+use JointSite\Core\Controller;
+
 class JointSiteLoggerController extends Controller
 {
     function __construct()
     {
-        $this->model = new Alerts_model();
-        $this->view = new Alerts_View();
+        $this->model = new JointSiteLoggerModel();
+        $this->view = new JointSiteLoggerView();
     }
     function generateErr($errType, $message)
     {

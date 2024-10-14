@@ -1,5 +1,9 @@
 <?php
 namespace jointSite\Core;
+
+
+use JointSite\Core\Logger\JointSiteLogger;
+
 class Model_pdo extends \PDO
 {
     public $lang_map = array();
@@ -46,7 +50,7 @@ class Model_pdo extends \PDO
         } catch (\Exception $e) {
             $this->log_message = $e->getMessage();
             if($this->throw_err_no_conn){
-                jointSiteLogger::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
+                JointSiteLogger::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
             }
         }
         return false;

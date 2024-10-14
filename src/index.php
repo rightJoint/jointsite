@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use JointSite\Core\JointSiteLogger;
+use JointSite\Core\Logger\JointSiteLogger;
 $JointSite_Logger = new JointSiteLogger();
 
 use JointSite\Core\JointSite;
