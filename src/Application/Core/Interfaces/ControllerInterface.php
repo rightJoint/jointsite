@@ -3,13 +3,13 @@ namespace jointSite\core\Interfaces;
 interface ControllerInterface
 {
     //overwrite jointSite $loaded_view
-    function LoadView_custom($action_name = null):string;
+    function loadViewCustom($action_name = null):string;
 
     //overwrite jointSite $loaded_model
-    function LoadModel_custom($action_name = null):string;
+    function loadModelCustom($action_name = null):string;
 
     //overwrite default lang_files lang_cntrl
-    function LoadCntrlLang_custom():string;
+    function loadLangControllerCustom():string;
 
     //default action
    // function action_index();

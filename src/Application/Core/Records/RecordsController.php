@@ -23,10 +23,13 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
     }
 
-    function LoadCntrlLang_custom():string
+    function loadLangControllerCustom():string
     {
-        require_once JOINT_SITE_REQ_LANG."/controllers/lang_RecordsController.php";
-        return "lang_RecordsController";
+        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_APP_LANG."_Controllers_RecordsController.php");
+
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Controllers_RecordsController";
+
+        return $return_lang;
     }
 
     private function records_process():bool

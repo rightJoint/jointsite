@@ -16,17 +16,17 @@ class Model_pdo extends \PDO
 
     function __construct()
     {
-        $lang_class = $this->load_lang_files();
+        $lang_class = $this->loadLangModel();
         $this->lang_map = new $lang_class;
-        $this->connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php");
+        $this->connectDb($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php");
     }
 
-    private function connect_db($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php"): bool
+    private function connectDb($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php"): bool
     {
         if(getenv('DOCKER_RUN') == "Y"){
-            $connSettings = $this->set_up_connect_docker();
+            $connSettings = $this->setUpConnectDocker();
         }else{
-            $connSettings = $this->set_up_connect_config($sql_db_connect_json);
+            $connSettings = $this->setUpConnectConfig($sql_db_connect_json);
         }
 
         $this->conn_db = $connSettings["CONN_DB"];
@@ -34,7 +34,7 @@ class Model_pdo extends \PDO
             parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
                 $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
             $this->connect_server_status = true;
-            if($this->select_database()){
+            if($this->selectDatabase()){
 
                 //echo $this->conn_db;
                 //exit;
@@ -57,9 +57,9 @@ class Model_pdo extends \PDO
 
     }
 
-    function select_database():bool
+    function selectDatabase():bool
     {
-        if ($this->pdo_query("use " . $this->conn_db)) {
+        if ($this->pdoQuery("use " . $this->conn_db)) {
             $this->connect_database_status = true;
             return true;
         } else {
@@ -68,7 +68,7 @@ class Model_pdo extends \PDO
         return false;
     }
 
-    private function set_up_connect_config($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php"):array
+    private function setUpConnectConfig($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php"):array
     {
         $connSettings = array(
             "CONN_LOC" => "",
@@ -93,7 +93,7 @@ class Model_pdo extends \PDO
         return $connSettings;
     }
 
-    private function set_up_connect_docker():array
+    private function setUpConnectDocker():array
     {
         $password_file_path = getenv('PASSWORD_FILE_PATH');
         $db_pass = trim(file_get_contents($password_file_path));
@@ -109,7 +109,7 @@ class Model_pdo extends \PDO
     /*
      * return PDO or false
      */
-    function pdo_query($statement, $mode = \PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
+    function pdoQuery($statement, $mode = \PDO::FETCH_ASSOC, $arg3 = null, array $ctorargs = array())
     {
         if($this->connect_database_status){
             try{
@@ -124,13 +124,13 @@ class Model_pdo extends \PDO
         return false;
     }
 
-    function load_lang_files():string
+    function loadLangModel():string
     {
-        require_once JOINT_SITE_REQ_LANG."/models/lang_model.php";
-        return "lang_model";
+        require_once JOINT_SITE_REQ_LANG."/Models/LangFiles_Ru_Models_Model.php";
+        return "LangFiles_".JOINT_SITE_APP_LANG."_Models_Model";
     }
 
-    public function get_data()
+    public function getData()
     {
 
     }

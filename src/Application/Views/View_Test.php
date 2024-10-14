@@ -9,9 +9,9 @@ class View_Test extends SiteView
         //$this->scripts[] = JOINT_SITE_EXEC_DIR."/lib/js/Elegant-Loading-Indicator-jQuery-Preloader/src/js/jquery.preloader.min.js";
     }
 
-    function print_page_content()
+    function printPageContent()
     {
-        parent::print_page_content();
+        parent::printPageContent();
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<div class='test-menu' style='text-align: left'>".
