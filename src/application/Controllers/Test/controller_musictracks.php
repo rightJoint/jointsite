@@ -1,4 +1,7 @@
 <?php
+
+use jointSite\Core\Records\RecordsController;
+
 class controller_musictracks extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/musicTracks";

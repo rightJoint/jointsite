@@ -1,5 +1,7 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
+
+use JointSite\Core\Records\RecordsModel;
+
 class model_records_musicalb extends RecordsModel
 {
     public $tableName = "rjt_musicAlb";

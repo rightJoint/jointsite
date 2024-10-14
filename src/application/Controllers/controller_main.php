@@ -1,5 +1,5 @@
 <?php
-use jointSite\core\Controller;
+use JointSite\Core\Controller;
 class Controller_Main extends Controller
 {
 

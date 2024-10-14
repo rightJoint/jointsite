@@ -1,4 +1,6 @@
 <?php
+use JointSite\Core\Controller;
+
 class Controller_Products extends Controller
 {
     function action_jointsite()
