@@ -92,11 +92,10 @@ class JointSite implements JointSiteInterface
         $this->jsSetAppConfig();
 
         $loaded_model = $this->jsLoadModelFromRequest();
-
-
         if(!$this->jsCheckAppModelSettings($loaded_model)) {
             return false;
         }
+
         $loaded_controller = $this->jsLoadControllerFromRequest();
         if(!$this->jsCheckAppControllerSettings($loaded_controller)){
             return false;
@@ -129,11 +128,11 @@ class JointSite implements JointSiteInterface
 
         //require_once JOINT_SITE_REQUIRE_DIR."/application/core/controller.php";
 
-        if($new_controller_name = self::jsLoadInstance("controller")){
+        if($new_controller_name = self::jsLoadInstance("Controller")){
             $controller_name = $new_controller_name;
         }
 
-        $app_log["load"]["controller"][] = array("final_controller_name" => $controller_name);
+        $app_log["load"]["Controller"][] = array("final_controller_name" => $controller_name);
         return $controller_name;
     }
 
@@ -141,14 +140,14 @@ class JointSite implements JointSiteInterface
     {
         global $request, $app_log;
 
-        if($instance_type == "controller"){
-            $instance_dir = "/controllers";
+        if($instance_type == "Controller"){
+            $instance_dir = "/Controllers";
             $instance_name = "Controller";
-        }elseif ($instance_type == "model"){
-            $instance_dir = "/models";
+        }elseif ($instance_type == "Model"){
+            $instance_dir = "/Models";
             $instance_name = "Model";
-        }elseif ($instance_type == "view"){
-            $instance_dir = "/views";
+        }elseif ($instance_type == "View"){
+            $instance_dir = "/Views";
             $instance_name = "View";
         }else{
             JointSiteLogger::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
@@ -156,11 +155,18 @@ class JointSite implements JointSiteInterface
 
         $result_name = "";
         $check_dir = null;
+        $dir_list = null;
 
         for($deep = 1; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
+
             if (!empty($request["routes"][$deep])){
-                $try_name = $instance_name."_".$request["routes"][$deep];
+                //echo $request["routes"][$deep]."<br>";
+                $dir_list .= $request["routes"][$deep-1]."_";
+                //echo "dir_list=".$dir_list."<br>";
+                $try_name = $instance_name.$dir_list.$request["routes"][$deep];
+
+                //echo "try_name=".$try_name."<br>";
                 $try_load = array(
                     "try_name" => $try_name,
                     "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir.
@@ -176,31 +182,17 @@ class JointSite implements JointSiteInterface
                 }
                 $app_log["load"][$instance_type][] = $try_load;
 
+
+
+
                 $check_dir.=$request["routes"][$deep]."/";
                 if (!empty($request["routes"][$deep+1])){
-                    if(is_dir(JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir)) {
-                        $try_name = $instance_name."_" . $request["routes"][$deep] . "_" . $request["routes"][$deep + 1];
-                        $try_load = array(
-                            "try_name" => $try_name,
-                            "try_path" => JOINT_SITE_REQUIRE_DIR . "/application".$instance_dir."/" .
-                                $check_dir . strtolower($try_name) . '.php',
-                            "loaded" => false,
-                        );
-                        if(file_exists($try_load["try_path"])){
-                            require_once ($try_load["try_path"]);
-                            $result_name = $try_load["try_name"];
-                            $try_load["loaded"] = true;
-                        }else{
-                            $app_log[$instance_type]["deep"] = $deep-1;
-                        }
-                        $app_log["load"][$instance_type][] = $try_load;
-                    }else{
+                    if(!is_dir(JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir)) {
                         $app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
                             JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir);
                         break;
                     }
                 }else{
-
                     break;
                 }
             }else{
@@ -245,13 +237,13 @@ class JointSite implements JointSiteInterface
         global $request, $app_log, $lang_app;
 
         //$default_model = "Model";
-        $default_model = "Model_pdo";
+        $default_model = "Model_Pdo";
 
         $model_name = $default_model;
 
-       // require_once JOINT_SITE_REQUIRE_DIR."/application/core/".strtolower($default_model).".php";
+        require_once JOINT_SITE_REQUIRE_DIR."/Application/Core/".strtolower($default_model).".php";
 
-        if($new_model_name = $this->jsLoadInstance("model")){
+        if($new_model_name = $this->jsLoadInstance("Model")){
             $model_name = $new_model_name;
         }
 
@@ -260,7 +252,7 @@ class JointSite implements JointSiteInterface
         return $model_name;
     }
 
-    private function jsCheckAppModelSettings($model_name, $default_model="Model_pdo"):bool
+    private function jsCheckAppModelSettings($model_name, $default_model="Model_Pdo"):bool
     {
         global $lang_app;
         if($model_name == $default_model and !USE_DEFAULT_MODEL){
@@ -279,7 +271,7 @@ class JointSite implements JointSiteInterface
         require_once JOINT_SITE_REQUIRE_DIR."/application/core/View.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php";
 
-        if($new_view_name = self::jsLoadInstance("view")){
+        if($new_view_name = self::jsLoadInstance("View")){
             $view_name = $new_view_name;
         }
 
@@ -300,8 +292,8 @@ class JointSite implements JointSiteInterface
     {
         global $request, $app_log;
         $action_name = "index";
-        if (!empty($request["routes"][$app_log["controller"]["deep"]+1])){
-            $action_name = $request["routes"][$app_log["controller"]["deep"]+1];
+        if (!empty($request["routes"][$app_log["Controller"]["deep"]+1])){
+            $action_name = $request["routes"][$app_log["Controller"]["deep"]+1];
         }
 
         return $action_name;
@@ -310,11 +302,6 @@ class JointSite implements JointSiteInterface
     private function jsExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
     {
         global $js_result, $app_log;
-
-        echo "<pre>";
-        print_r($app_log);
-
-        exit;
 
         if($loaded_controller and $loaded_model and $loaded_view and $action_name){
             $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);

@@ -1,6 +1,7 @@
 <?php
 namespace JointSite\Core;
 use JointSite\Core\Interfaces;
+use JointSite\Core\Model_Pdo;
 
 class Controller implements Interfaces\ControllerInterface
 {
@@ -32,6 +33,10 @@ class Controller implements Interfaces\ControllerInterface
                 "loaded" => true,
             );
         }
+
+        //echo "<pre>";
+        //print_r($app_log["load"]);
+        //exit;
 
         $this->model = new $loaded_model();
         $this->view = new $loaded_view();

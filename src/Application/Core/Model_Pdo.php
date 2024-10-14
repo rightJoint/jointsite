@@ -1,10 +1,8 @@
 <?php
-namespace jointSite\Core;
-
 
 use JointSite\Core\Logger\JointSiteLogger;
 
-class Model_pdo extends \PDO
+class Model_Pdo extends \PDO
 {
     public $lang_map = array();
 

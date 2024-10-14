@@ -5,11 +5,13 @@ use jointSite\Core\Records\RecordsController;
 class Controller_Test_MigrationsTest extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/migrationstest";
+    public $process_table = "migrations";
 
     function loadModelCustom($action_name = null): string
     {
         if($action_name == "index"){
-            return "Model_pdo";
+            require_once JOINT_SITE_REQUIRE_DIR."/Application/Core/Model.php";
+            return "Model";
         }
         require_once JOINT_SITE_REQUIRE_DIR."/Application/Models/Migrations/Model_MigrationsLog.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/Migrations/Model_Migrations.php";
