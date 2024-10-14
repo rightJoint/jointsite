@@ -2,7 +2,7 @@
 
 use jointSite\Core\Records\RecordsController;
 
-class controller_musictracks extends RecordsController
+class Controller_Test_MusicTracks extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/musicTracks";
     function LoadModel_custom($action_name = null): string

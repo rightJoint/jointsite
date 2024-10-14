@@ -1,7 +1,7 @@
 <?php
 
 use JointSite\Core\Records\RecordsModel;
-use JointSite\recordsStructureFiles\test\rsf_musicalbums;
+use JointSite\RecordsStructureFiles\test\rsf_musicalbums;
 
 class Model_Test_Records_Musicalb extends RecordsModel
 {

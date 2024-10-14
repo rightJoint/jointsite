@@ -4,7 +4,7 @@ namespace JointSite\Core\Records;
 
 use JointSite\Core\Interfaces\RecordsModelInterface;
 use JointSite\Core\Model_pdo;
-use JointSite\recordsStructureFiles\recordStructureFields;
+use JointSite\RecordsStructureFiles\recordStructureFields;
 
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {

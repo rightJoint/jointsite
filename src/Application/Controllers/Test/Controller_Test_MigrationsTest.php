@@ -2,7 +2,7 @@
 
 use jointSite\Core\Records\RecordsController;
 
-class controller_migrationstest extends RecordsController
+class Controller_Test_MigrationsTest extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/migrationstest";
 

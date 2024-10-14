@@ -2,7 +2,7 @@
 
 use jointSite\Core\Records\RecordsController;
 
-class controller_migrationslist extends RecordsController
+class Controller_Test_MigrationsTest_MigrationsList extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsList";
     function LoadModel_custom($action_name = null): string

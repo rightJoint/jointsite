@@ -2,7 +2,7 @@
 
 use JointSite\Core\Records\RecordsModel;
 
-use JointSite\recordsStructureFiles\test\rsf_musictracks;
+use JointSite\RecordsStructureFiles\test\rsf_musictracks;
 
 class Model_Test_Records_Musictracks extends RecordsModel
 {

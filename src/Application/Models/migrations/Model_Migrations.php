@@ -2,7 +2,7 @@
 
 //namespace JointSite\models\migrations;
 use JointSite\Core\Records\RecordsModel;
-use JointSite\recordsStructureFiles\migrations\rsf_migrations;
+use JointSite\RecordsStructureFiles\migrations\rsf_migrations;
 
 class Model_Migrations extends RecordsModel
 {
