@@ -1,6 +1,8 @@
 <?php
 
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
+
+
+
 class model_migrations_log extends RecordsModel
 {
     public $tableName = "migrations_log";

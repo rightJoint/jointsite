@@ -1,6 +1,7 @@
 <?php
 
 use JointSite\Core\Records\RecordsModel;
+use JointSite\recordsStructureFiles\test\rsf_musicalbums;
 
 class model_records_musicalb extends RecordsModel
 {
@@ -14,7 +15,7 @@ class model_records_musicalb extends RecordsModel
     //);
     function getRecordStructure():bool
     {
-        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
+        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
         $this->recordStructureFields = new rsf_musicalbums();
         return true;
     }

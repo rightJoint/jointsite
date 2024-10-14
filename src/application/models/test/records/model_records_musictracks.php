@@ -2,6 +2,8 @@
 
 use JointSite\Core\Records\RecordsModel;
 
+use JointSite\recordsStructureFiles\test\rsf_musictracks;
+
 class model_records_musictracks extends RecordsModel
 {
     public $tableName = "rjt_musicTracks";
@@ -15,10 +17,11 @@ class model_records_musictracks extends RecordsModel
 
     function getRecordStructure()
     {
-        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
+        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
         //require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
         $this->recordStructureFields = new rsf_musictracks();
         $this->recordStructureFields->editFields["track_artist"]["filling"] = $this->fill_artist_list();
+        return true;
     }
 
     function fill_artist_list()

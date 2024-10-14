@@ -1,4 +1,9 @@
 <?php
+
+namespace JointSite\recordsStructureFiles\test;
+
+use JointSite\recordsStructureFiles\recordStructureFields;
+
 class rsf_musictracks extends recordStructureFields
 {
     function __construct()
