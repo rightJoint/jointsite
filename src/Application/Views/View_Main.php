@@ -9,45 +9,45 @@ class View_Main extends SiteView
         $this->styles[] = "/css/main_view.css";
     }
 
-    function set_head_array()
+    function setHeadArray()
     {
-        parent::set_head_array();
+        parent::setHeadArray();
         $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
         $this->lang_map->head["title"] .= " - ".$this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
     }
 
-    function LoadViewLang_custom()
+    function LoadLangViewCustom()
     {
         require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts.php");
         $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts";
         return $return_lang;
     }
 
-    function print_page_content()
+    function printPageContent()
     {
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>".
             "<div class='contentBlock-wrap'>".
             "<section class='prod-about'>";
 
-        echo $this->print_title();
+        echo $this->printTitle();
 
         echo "</section>";
-        $this->print_branches_block();
+        $this->printBranchesBlock();
 
         echo    "</div></div></div>";
     }
 
-    function print_branches_block()
+    function printBranchesBlock()
     {
         echo "<div class='branches-block'>";
         echo "<h3>".$this->lang_map->product_custom["h3-2"]."</h3>";
 
-        $this->print_branch("record");
+        $this->printBranch("record");
 
         echo "</div>";
     }
 
-    function print_branch($b_name)
+    function printBranch($b_name)
     {
         echo "<div class='branch-block'>".
             "<div class='branch-img'>".
@@ -85,7 +85,7 @@ class View_Main extends SiteView
             "</div>";
     }
 
-    function print_title()
+    function printTitle()
     {
         echo "<p>".
             $this->lang_map->branches["site-descr"]."<br>".

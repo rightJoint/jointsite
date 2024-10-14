@@ -40,17 +40,17 @@ class SiteView extends View
 
     function __construct()
     {
-        $lang_class = $this->LoadViewLang();
+        $lang_class = $this->loadLangView();
         $this->lang_map = new $lang_class;
     }
 
-    function LoadViewLang()
+    function loadLangView()
     {
 
         require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_View.php");
         $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_View";
 
-        if ($custom_lang = $this->LoadViewLang_custom()) {
+        if ($custom_lang = $this->loadLangViewcustom()) {
             $return_lang = $custom_lang;
         }
 
@@ -58,7 +58,7 @@ class SiteView extends View
 
     }
 
-    function LoadViewLang_custom()
+    function LoadLangViewCustom()
     {
         return false;
     }
@@ -67,7 +67,7 @@ class SiteView extends View
     {
         header("Content-Type: ".$this->header_content_type);
 
-        $this->set_head_array();
+        $this->setHeadArray();
         if ($this->metrik_block) {
             if (file_exists(JOINT_SITE_CONF_DIR . "/yandexmetrika.php")) {
                 require_once JOINT_SITE_CONF_DIR . "/yandexmetrika.php";
@@ -82,18 +82,18 @@ class SiteView extends View
 
         echo "<!DOCTYPE html>" .
             "<html lang='en-Us'>";
-        $this->print_head();
-        $this->print_body();
-        $this->print_mkt();
+        $this->printHead();
+        $this->printBody();
+        $this->printMkt();
         echo "</html>";
     }
 
-    function set_head_array()
+    function setHeadArray()
     {
 
     }
 
-    function print_head()
+    function printHead()
     {
         echo "<head>" .
             "<meta http-equiv='content-type' content='text/html; charset=utf-8'/>" .
@@ -119,7 +119,7 @@ class SiteView extends View
         echo "</head>";
     }
 
-    function print_mkt()
+    function printMkt()
     {
         global $mct;
         $mct["end_time"] = microtime(true);
@@ -129,21 +129,21 @@ class SiteView extends View
             strval($mct['end_time'] - $mct['start_time']) . "</span>')</script>";
     }
 
-    public function print_body()
+    public function printBody()
     {
         echo "<body>" .
             "<div class='page-wrap'>";
-        $this->print_header();
-        $this->print_page_content();
-        $this->print_footer();
+        $this->printHeader();
+        $this->printPageContent();
+        $this->printFooter();
         echo "</div>";
 
-        $this->print_modals();
+        $this->printModals();
 
         echo "</body>";
     }
 
-    public function print_header()
+    public function printHeader()
     {
         global $request;
         echo "<header><div class='headerCenter'>";
@@ -188,7 +188,7 @@ class SiteView extends View
         echo $header_add_styles;
     }
 
-    public function print_footer()
+    public function printFooter()
     {
         echo "<div class='contentBlock-frame dark ft'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>" .
@@ -204,12 +204,12 @@ class SiteView extends View
             "</div></div></div>";
     }
 
-    public function print_page_content()
+    public function printPageContent()
     {
         echo $this->view_data;
     }
 
-    public function print_modals()
+    public function printModals()
     {
         $this->modalMenu();
     }
@@ -266,12 +266,12 @@ class SiteView extends View
         echo "</div></div></div></div>";
     }
 
-    function print_products_menu()
+    function printProductsMenu()
     {
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
-        $jointsite_menu = $this->print_menu_items("branches", "/products/jointsite", JOINT_SITE_APP_REF);
+        $jointsite_menu = $this->printMenuItems("branches", "/products/jointsite", JOINT_SITE_APP_REF);
 
         if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
@@ -292,7 +292,7 @@ class SiteView extends View
             "</div>";
     }
 
-    function print_menu_items($block_name, $disp_url = null, $disp_lang = null)
+    function printMenuItems($block_name, $disp_url = null, $disp_lang = null)
     {
         global $request;
         $disp_url_ref = $disp_lang.$disp_url;
