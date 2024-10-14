@@ -68,8 +68,6 @@ class Model_Pdo extends \PDO
             $this->connect_database_status = true;
             return true;
         } else {
-            echo "selectDatabase-2=".$this->conn_db;
-            exit;
             $this->log_message = $this->lang_map->conn_err["conn_problem"];
         }
         return false;
@@ -133,7 +131,7 @@ class Model_Pdo extends \PDO
 
     function loadLangModel():string
     {
-        require_once JOINT_SITE_REQ_LANG."/Models/LangFiles_Ru_Models_Model.php";
+        require_once JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_APP_LANG."_Models_Model.php";
         return "LangFiles_".JOINT_SITE_APP_LANG."_Models_Model";
     }
 

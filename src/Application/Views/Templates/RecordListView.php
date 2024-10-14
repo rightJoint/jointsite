@@ -30,23 +30,22 @@ class RecordListView extends RecordView
         $this->scripts[] = "/js/records.js";
     }
 
-    function LoadViewLang_custom()
+    function LoadLangViewCustom()
     {
-        require_once JOINT_SITE_REQ_LANG."/views/templates/lang_view_RecordsList.php";
-        $lang_name = "lang_view_RecordsList";
-        return $lang_name;
+        require_once JOINT_SITE_REQ_LANG."/Views/Templates\LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordsList.php";
+        return "LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordsList";
     }
 
     function set_head_array()
     {
-        parent::set_head_array();
+        parent::setHeadArray();
         $this->lang_map->set_head_array(array("h2" => $this->h2));
     }
 
 
-    function print_page_content()
+    function printPageContent()
     {
-        parent::print_page_content();
+        parent::printPageContent();
         echo $this->filterView();
         $this->listView();
     }
@@ -124,7 +123,7 @@ class RecordListView extends RecordView
     {
         return "<span class='found_label'>".$this->lang_map->list_table["found"].
             ": <span>".$this->listCount."</span></span>".
-            $this->pagination_print($this->listCount, $this->curPage, $this->onPage);
+            $this->paginationPrint($this->listCount, $this->curPage, $this->onPage);
     }
 
     function ctrlLine()
@@ -375,7 +374,7 @@ class RecordListView extends RecordView
 
     }
 
-    function pagination_print($recordsCount, $curPage, $onPage, $length=2, $pag_length=2)
+    function paginationPrint($recordsCount, $curPage, $onPage, $length=2, $pag_length=2)
     {
         //$length = 2;        //optional: count cells in table row
         //$pag_length = 2;    //optional:

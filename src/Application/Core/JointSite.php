@@ -3,8 +3,6 @@ namespace JointSite\Core;
 use JointSite\Core\Interfaces\JointSiteInterface;
 use JointSite\Core\Logger\JointSiteLogger;
 
-//use JointSite\LangFiles\Ru\LangFiles_Ru_App;
-
 class JointSite implements JointSiteInterface
 {
     public $document_root;
@@ -67,7 +65,7 @@ class JointSite implements JointSiteInterface
         }else{
             /*default lang: ru */
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/Ru");
-            define("JOINT_SITE_APP_LANG", "Ru");
+            define("JOINT_SITE_APP_LANG", "ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
@@ -139,6 +137,16 @@ class JointSite implements JointSiteInterface
                             "model_name" => "JointSite\Models\Model_Test",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
+                    }elseif(empty($request["routes"][3])) {
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Test\Controller_Test_MigrationsTest",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
                     }elseif($request["routes"][3] == "checkConnectServerStatus"){
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
@@ -171,12 +179,12 @@ class JointSite implements JointSiteInterface
                         );
                     }elseif($request["routes"][3] == "migrationsList"){
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/MigrationsTest/Controller_Test_MigrationsTest_MigrationsList.php";
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
                         $return = array(
                             "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsList",
                             "action_name" => "action_index",
-                            "model_name" => "JointSite\Models\Model_Test",
+                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }elseif($request["routes"][3] == "migrationsLog"){

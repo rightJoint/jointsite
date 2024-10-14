@@ -50,7 +50,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         global $request;
 
         if(!$this->process_url){
-            return jointSite::throwErr("request", "RecordsProcessController throw err: cant set up process_url - null");
+            return JointSiteLogger::throwErr("request", "RecordsProcessController throw err: cant set up process_url - null");
         }
 
         $pp_exp = explode("/", $this->process_url);
@@ -77,7 +77,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->process_detail();
 
             } else {
-                return jointSite::throwErr("request", $this->lang_map->rc_errors["prefix"] .
+                return JointSiteLogger::throwErr("request", $this->lang_map->rc_errors["prefix"] .
                     $this->lang_map->rc_errors["detail"] . ", " .
                     $this->lang_map->rc_errors["model_err"] .
                     $this->model->log_message);
@@ -93,7 +93,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
             } else {
                 $this->model->copyValFromRequest($_GET);
                 if (!$this->model->copyRecord()) {
-                    return jointSite::throwErr("request", $this->model->log_message);
+                    return JointSiteLogger::throwErr("request", $this->model->log_message);
                 }
             }
 
@@ -147,10 +147,10 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->prepareViewFields();
                 $this->view->generate();
             } else {
-                return jointSite::throwErr("request", $this->model->log_message);
+                return JointSiteLogger::throwErr("request", $this->model->log_message);
             }
         } elseif (!$this->doAction_custom($request["routes"][$pp_cnt])) {
-            return jointSite::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
+            return JointSiteLogger::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
         }
         return true;
     }
@@ -288,11 +288,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
             if($this->model->pdoQuery("SHOW TABLES LIKE '".$this->process_table."'")->fetch(\PDO::FETCH_ASSOC)){
                 return true;
             }else{
-                return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
+                return JointSiteLogger::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
                     " in database ".$this->model->conn_db);
             }
         }else{
-            return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: connect_database_status = fail");
+            return JointSiteLogger::throwErr("request", "RecordProcessController->checkRecordModel throw err: connect_database_status = fail");
         }
     }
 
