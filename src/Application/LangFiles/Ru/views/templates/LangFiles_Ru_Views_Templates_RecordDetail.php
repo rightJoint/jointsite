@@ -1,5 +1,5 @@
 <?php
-class lang_view_RecordDetail extends lang_view
+class LangFiles_Ru_Views_Templates_RecordDetail extends LangFiles_Ru_Views_View
 {
     public $del_confirm_btn = null;
     public $del_confirm_txt = null;

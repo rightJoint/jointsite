@@ -1,5 +1,5 @@
 <?php
-class lang_view_main extends lang_view
+class LangFiles_En_Views_MainView extends LangFiles_En_Views_View
 {
     function __construct()
     {

@@ -1,5 +1,5 @@
 <?php
-class lang_view
+class LangFiles_Ru_Views_View
 {
     public $head = array(
         "description" => "Web сайт от Right Joint (www.rightjoint.ru)",
