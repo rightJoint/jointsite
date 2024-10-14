@@ -38,6 +38,7 @@ class Model_Pdo extends \PDO
             parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
                 $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
             $this->connect_server_status = true;
+
             if($this->selectDatabase()){
 
                 //echo $this->conn_db;
@@ -63,10 +64,12 @@ class Model_Pdo extends \PDO
 
     function selectDatabase():bool
     {
-        if ($this->pdoQuery("use " . $this->conn_db)) {
+        if ($this->query("use " . $this->conn_db)) {
             $this->connect_database_status = true;
             return true;
         } else {
+            echo "selectDatabase-2=".$this->conn_db;
+            exit;
             $this->log_message = $this->lang_map->conn_err["conn_problem"];
         }
         return false;

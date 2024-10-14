@@ -31,8 +31,9 @@ class JointSite implements JointSiteInterface
         $this->jsLangReq();
         $env = $this->jsGetEnv();
 
-        define("JOINT_SITE_USERS_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
-        define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
+        define("JOINT_SITE_USERS_DIR", $this->document_root."/".$env["JOINT_SITE_USERS_DIR"]);
+        define("JOINT_SITE_CONF_DIR", $this->document_root."/".$env["JOINT_SITE_CONFIG_DIR"]);
+        define("JOINT_SITE_ROOT_DIR", $this->document_root);
 
         $this->jsLoadAppLang();
     }
@@ -150,22 +151,22 @@ class JointSite implements JointSiteInterface
                         );
                     }elseif($request["routes"][3] == "createMigrationsTables"){
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
                         $return = array(
-                            "controller_name" => "JointSite\Controllers\Controller_Test",
-                            "action_name" => "action_index",
-                            "model_name" => "JointSite\Models\Model_Test",
+                            "controller_name" => "JointSite\Controllers\Test\Controller_Test_MigrationsTest",
+                            "action_name" => "action_createMigrationsTables",
+                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }elseif($request["routes"][3] == "execNewMigrations"){
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
                         $return = array(
-                            "controller_name" => "JointSite\Controllers\Controller_Test",
-                            "action_name" => "action_index",
-                            "model_name" => "JointSite\Models\Model_Test",
+                            "controller_name" => "JointSite\Controllers\Test\Controller_Test_MigrationsTest",
+                            "action_name" => "action_execNewMigrations",
+                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }elseif($request["routes"][3] == "migrationsList"){

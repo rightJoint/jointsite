@@ -45,7 +45,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $replaceArr = null;
         $count_keys = 0;
 
-        if($datatype_res  = $this->pdo_query("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
+        if($datatype_res  = $this->pdoQuery("SELECT * from INFORMATION_SCHEMA.COLUMNS ".
             "where table_schema = '". $this->conn_db."' and table_name = '".$this->tableName."'")){
             if($datatype_res->rowCount()){
                 while ($datatype_row = $datatype_res->fetch(\PDO::FETCH_ASSOC)){
@@ -115,7 +115,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
     public function countRecords($where = null)
     {
-        return $this->pdo_query("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(\PDO::FETCH_ASSOC)["cnt"];
+        return $this->pdoQuery("SELECT COUNT(*) as cnt from ".$this->tableName." ".$where)->fetch(\PDO::FETCH_ASSOC)["cnt"];
     }
 
     public function listRecords($where = null, $order = null, $limit = null, $having = null):array
@@ -135,7 +135,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
     public function fetchToArray($findList_qry):array
     {
         $return_listRecords = array();
-        if($findList_res = $this->pdo_query($findList_qry)){
+        if($findList_res = $this->pdoQuery($findList_qry)){
 
             if($findList_res->rowCount()){
                 $row_counter = 0;
@@ -160,7 +160,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
             }
         }
         $query_text = substr($query_text, 0, strlen($query_text)-4);
-        if($query_res = $this->pdo_query($query_text)){
+        if($query_res = $this->pdoQuery($query_text)){
             if($query_res->rowCount()==1){
                 $result=$query_res->fetch(\PDO::FETCH_ASSOC);
                 foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
@@ -227,7 +227,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $queryToInsert .= $queryToInsert_temp;
 
 
-        if($this->pdo_query($queryToInsert)){
+        if($this->pdoQuery($queryToInsert)){
 
             foreach ($this->recordStructureFields->record as $fieldName=>$fieldInfo) {
                 if (isset($fieldInfo["indexes"]) and $fieldInfo["indexes"] == true) {
@@ -293,7 +293,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         $q_where = substr($q_where, 0, strlen($q_where)-4);
         if(strlen($q_fields) > 2){
             $q_fields = substr($q_fields, 0, strlen($q_fields)-2);
-            if($this->pdo_query($query_text.$q_fields.$q_where)){
+            if($this->pdoQuery($query_text.$q_fields.$q_where)){
                 $this->log_message .= $this->lang_map->updateRecord["success"].": ".$date_stamp;
                 return $this->updateCustomFields();
             }else{

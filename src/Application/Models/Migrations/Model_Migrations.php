@@ -3,7 +3,7 @@
 namespace JointSite\Models\Migrations;
 
 use JointSite\Core\Records\RecordsModel;
-use JointSite\RecordsStructureFiles\migrations\rsf_migrations;
+use JointSite\Models\RecordsStructureFiles\Migrations\Rsf_Migrations;
 
 class Model_Migrations extends RecordsModel
 {
@@ -12,8 +12,7 @@ class Model_Migrations extends RecordsModel
 
     function getRecordStructure()
     {
-        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations.php";
-        $this->recordStructureFields = new  rsf_migrations();
+        $this->recordStructureFields = new  Rsf_Migrations();
     }
 
     function glob_migration_files()
@@ -136,7 +135,7 @@ class Model_Migrations extends RecordsModel
                         $return["log"][] = "count(".$commands_count.")";
                         foreach ($commands as $q_num => $q_info){
                             $return["log"][] = "exec No: ".$q_num.", type: ".$q_info["type"];
-                            if($this->pdo_query($q_info["query"])){
+                            if($this->pdoQuery($q_info["query"])){
                                 $count_suss++;
                                 $return["log"][] = "result: SUCCESS";
                             }else{
@@ -333,17 +332,16 @@ class Model_Migrations extends RecordsModel
     {
         $result = false;
         if($this->connect_database_status){
-            $mirg_commands = $this->parse_sql_file(JOINT_SITE_REQUIRE_DIR."/migrations/2024-05-20-migrations_tables.sql");
-
-            if($this->pdo_query("SHOW TABLES LIKE 'migrations'")->fetch(PDO::FETCH_ASSOC)){
+            $mirg_commands = $this->parse_sql_file(JOINT_SITE_ROOT_DIR."/migrations/2024-05-20-migrations_tables.sql");
+            if($this->pdoQuery("SHOW TABLES LIKE 'migrations'")->fetch(\PDO::FETCH_ASSOC)){
                 $result = true;
-            }elseif($this->pdo_query($mirg_commands[1]["query"])){
+            }elseif($this->pdoQuery($mirg_commands[1]["query"])){
                 $result = true;
             }
             if($result){
-                if($this->pdo_query("SHOW TABLES LIKE 'migrations_log'")->fetch(PDO::FETCH_ASSOC)){
+                if($this->pdoQuery("SHOW TABLES LIKE 'migrations_log'")->fetch(\PDO::FETCH_ASSOC)){
                     $result = true;
-                }elseif(!$this->pdo_query($mirg_commands[2]["query"])){
+                }elseif(!$this->pdoQuery($mirg_commands[2]["query"])){
                     $result = false;
                 }
             }
@@ -354,8 +352,9 @@ class Model_Migrations extends RecordsModel
     function check_database():bool
     {
         if($this->connect_server_status){
-            if($this->query("CREATE DATABASE ".$this->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci")){
-                $this->connect_database_status = true;
+            if($this->connect_database_status){
+                return true;
+            }elseif($this->query("CREATE DATABASE ".$this->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci")) {
                 return true;
             }
         }
