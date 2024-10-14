@@ -1,4 +1,7 @@
 <?php
+
+namespace JointSite\LangFiles\Ru;
+
 class LangFiles_Ru_App
 {
     public $app_err = array(

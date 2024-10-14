@@ -2,6 +2,7 @@
 namespace JointSite\Core;
 use JointSite\Core\Interfaces\JointSiteInterface;
 
+use JointSite\LangFiles\Ru\LangFiles_Ru_App;
 
 class JointSite implements JointSiteInterface
 {
@@ -32,7 +33,7 @@ class JointSite implements JointSiteInterface
         define("JOINT_SITE_USERS_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
         define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
 
-        $this->jsLoadAppLang();
+        //$this->jsLoadAppLang();
     }
 
     private function jsExplodeRequest()
@@ -50,7 +51,7 @@ class JointSite implements JointSiteInterface
         global $request;
         if(isset($request["routes"][1]) and
             in_array($request["routes"][1], $acceptable_lang)){
-            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/".$request["routes"][1]);
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/Application/LangFiles/".$request["routes"][1]);
             define("JOINT_SITE_APP_LANG", $request["routes"][1]);
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
@@ -63,7 +64,7 @@ class JointSite implements JointSiteInterface
 
         }else{
             /*default lang: ru */
-            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/application/lang_files/ru");
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/Application/LangFiles/ru");
             define("JOINT_SITE_APP_LANG", "ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
@@ -73,7 +74,7 @@ class JointSite implements JointSiteInterface
 
     private function jsLoadAppLang()
     {
-        require_once (JOINT_SITE_REQ_LANG."/lang_app.php");
+        require_once (JOINT_SITE_REQ_LANG."/LangFiles_".JOINT_SITE_APP_LANG."_App.php");
         $lang_app_name = "lang_app";
         $this->lang_map = new $lang_app_name();
     }
