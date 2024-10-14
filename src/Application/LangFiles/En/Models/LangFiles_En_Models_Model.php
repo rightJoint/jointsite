@@ -1,5 +1,5 @@
 <?php
-class LangFiles_En_Model
+class LangFiles_En_Models_Model
 {
     public $conn_err = array(
         "file_not_found" =>"file settings conn not found",

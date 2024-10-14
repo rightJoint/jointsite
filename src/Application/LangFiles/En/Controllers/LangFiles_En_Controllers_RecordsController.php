@@ -1,5 +1,5 @@
 <?php
-class LangFiles_En_RecordsController extends lang_cntrl
+class LangFiles_En_Controllers_RecordsController extends LangFiles_En_Controllers_Controller
 {
     public $rc_errors = array(
         "prefix" => "RecordsController error: ",

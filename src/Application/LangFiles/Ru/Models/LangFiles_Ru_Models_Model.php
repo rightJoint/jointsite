@@ -1,5 +1,5 @@
 <?php
-class lang_model
+class LangFiles_Ru_Models_Model
 {
     public $conn_err = array(
         "file_not_found" => "файл настроек БД не найден",

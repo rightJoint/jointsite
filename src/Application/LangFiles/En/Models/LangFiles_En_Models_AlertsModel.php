@@ -1,5 +1,5 @@
 <?php
-class LangFiles_En_Model_Alerts
+class LangFiles_En_Models_AlertsModel
 {
     public $stack_err = array(
         "notFound" => array(

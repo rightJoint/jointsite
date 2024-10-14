@@ -1,5 +1,5 @@
 <?php
-class LangFiles_En_Model_Record extends lang_model
+class LangFiles_En_Models_RecordModel extends LangFiles_En_Models_Model
 {
     public $updateRecord = array(
         "success" => "updateRecord query success",
