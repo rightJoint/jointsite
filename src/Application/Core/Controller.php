@@ -1,7 +1,7 @@
 <?php
 namespace JointSite\Core;
 use JointSite\Core\Interfaces;
-//require_once JOINT_SITE_REQUIRE_DIR."/application/core/Interfaces/ControllerInterface.php";
+
 class Controller implements Interfaces\ControllerInterface
 {
     public $model;
@@ -50,8 +50,9 @@ class Controller implements Interfaces\ControllerInterface
 
     private function LoadCntrlLang():string
     {
-        require_once (JOINT_SITE_REQ_LANG."/controllers/lang_cntrl.php");
-        $return_lang = "lang_cntrl";
+        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_APP_LANG."_Controllers_Controller.php");
+
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Controllers_Controller";
 
         if($custom_lang = $this->LoadCntrlLang_custom()){
             $return_lang = $custom_lang;

@@ -40,54 +40,22 @@ class SiteView extends View
 
     function __construct()
     {
-        global $request;
-        $lang_class = $this->LoadViewLang($request);
+        $lang_class = $this->LoadViewLang();
         $this->lang_map = new $lang_class;
     }
 
-    function LoadViewLang($request = null)
+    function LoadViewLang()
     {
-        require_once(JOINT_SITE_REQ_LANG."/views/lang_view.php");
-        $return_lang = "lang_view";
 
-        if (!$request) {
-            global $request;
-        }
-
-
-        if (!empty($request["routes"][1])) {
-            $try_name = "lang_view" . $request["routes"][1];
-            $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
-            if (file_exists($try_path)) {
-                require_once($try_path);
-                $return_lang = $try_name;
-            }
-            if (!empty($request["routes"][2])) {
-                $try_name = "lang_view_" . $request["routes"][1] . "_" .
-                    $request["routes"][2];
-                $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
-
-                if (file_exists($try_path)) {
-                    require_once($try_path);
-                    $return_lang = $try_name;
-                }
-            }
-        } else {
-            $try_name = "lang_view_main";
-
-            $try_path = JOINT_SITE_REQ_LANG."/views/" . strtolower($try_name) . '.php';
-            if (file_exists($try_path)) {
-                require_once($try_path);
-                $return_lang = $try_name;
-            }
-        }
-
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_View.php");
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_View";
 
         if ($custom_lang = $this->LoadViewLang_custom()) {
             $return_lang = $custom_lang;
         }
 
         return $return_lang;
+
     }
 
     function LoadViewLang_custom()
@@ -184,12 +152,12 @@ class SiteView extends View
         if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/Ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/En".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .

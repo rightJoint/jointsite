@@ -2,7 +2,7 @@
 namespace JointSite\Core;
 use JointSite\Core\Interfaces\JointSiteInterface;
 
-use JointSite\LangFiles\Ru\LangFiles_Ru_App;
+//use JointSite\LangFiles\Ru\LangFiles_Ru_App;
 
 class JointSite implements JointSiteInterface
 {
@@ -33,7 +33,7 @@ class JointSite implements JointSiteInterface
         define("JOINT_SITE_USERS_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_USERS_DIR"]);
         define("JOINT_SITE_CONF_DIR", JOINT_SITE_REQUIRE_DIR."/".$env["JOINT_SITE_CONFIG_DIR"]);
 
-        //$this->jsLoadAppLang();
+        $this->jsLoadAppLang();
     }
 
     private function jsExplodeRequest()
@@ -46,7 +46,7 @@ class JointSite implements JointSiteInterface
         $request["routes_cnt"] = count($request["routes"]);
     }
 
-    private function jsLangReq($acceptable_lang = array("en", "ru", ))
+    private function jsLangReq($acceptable_lang = array("En", "Ru", ))
     {
         global $request;
         if(isset($request["routes"][1]) and
@@ -65,7 +65,7 @@ class JointSite implements JointSiteInterface
         }else{
             /*default lang: ru */
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/Application/LangFiles/ru");
-            define("JOINT_SITE_APP_LANG", "ru");
+            define("JOINT_SITE_APP_LANG", "Ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
             define("JOINT_SITE_APP_REF", null);
@@ -75,7 +75,8 @@ class JointSite implements JointSiteInterface
     private function jsLoadAppLang()
     {
         require_once (JOINT_SITE_REQ_LANG."/LangFiles_".JOINT_SITE_APP_LANG."_App.php");
-        $lang_app_name = "lang_app";
+        $lang_app_name = "LangFiles_".JOINT_SITE_APP_LANG."_App";
+        //$lang_app_name = "LangFiles_Ru_App";
         $this->lang_map = new $lang_app_name();
     }
 
@@ -230,7 +231,7 @@ class JointSite implements JointSiteInterface
         return $result_name;
     }
 
-    private function checkAppControllerSettings($controller_name, $default_name="Controller"):bool
+    private function jsCheckAppControllerSettings($controller_name, $default_name="Controller"):bool
     {
         if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
             return self::throwErr("request", $this->lang_map->app_err["request_controller"]);

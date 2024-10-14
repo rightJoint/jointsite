@@ -1,6 +1,6 @@
 <?php
-require_once JOINT_SITE_REQ_LANG."/views/lang_view_main.php";
-class lang_view_products_jointsite extends lang_view_main
+require_once JOINT_SITE_REQ_LANG."/Views/LangFiles_Ru_Views_MainView.php";
+class LangFiles_Ru_Views_JointSiteProducts extends LangFiles_Ru_Views_MainView
 {
     function __construct()
     {

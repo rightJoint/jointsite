@@ -1,6 +1,6 @@
 <?php
 
-namespace JointSite\LangFiles\Ru;
+//namespace JointSite\LangFiles\Ru;
 
 class LangFiles_Ru_App
 {

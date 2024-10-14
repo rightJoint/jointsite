@@ -1,5 +1,5 @@
 <?php
-class view_main extends SiteView
+class View_Main extends SiteView
 {
     public $current_branch = "record";
 
@@ -14,6 +14,13 @@ class view_main extends SiteView
         parent::set_head_array();
         $this->lang_map->head["h1"] = $this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
         $this->lang_map->head["title"] .= " - ".$this->lang_map->menu_blocks["branches"]["menu_items"][$this->current_branch]["aliasMenu"];
+    }
+
+    function LoadViewLang_custom()
+    {
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts.php");
+        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts";
+        return $return_lang;
     }
 
     function print_page_content()

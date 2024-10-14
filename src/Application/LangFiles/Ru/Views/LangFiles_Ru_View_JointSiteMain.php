@@ -1,5 +1,5 @@
 <?php
-class lang_view_jointsite_main extends lang_view_products_jointsite
+class LangFiles_Ru_View_JointSiteMain extends LangFiles_Ru_Views_JointSiteProducts
 {
     function __construct()
     {

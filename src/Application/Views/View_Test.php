@@ -1,5 +1,5 @@
 <?php
-class view_test extends SiteView
+class View_Test extends SiteView
 {
     function __construct()
     {
