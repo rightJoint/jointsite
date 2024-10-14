@@ -43,8 +43,12 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
 
         //used in all processed views
-        require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
+        require_once JOINT_SITE_REQUIRE_DIR."/Views/Templates/RecordView.php";
 
+
+        echo "PPPP";
+        exit;
+        
         global $request;
 
         if(!$this->process_url){
@@ -279,11 +283,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
 
         if(!$this->model instanceof RecordsModel) {
-            require_once JOINT_SITE_REQUIRE_DIR."/application/Core/Records/RecordsModel.php";
+            require_once JOINT_SITE_REQUIRE_DIR."/Core/Records/RecordsModel.php";
             $this->model = new RecordsModel($this->process_table);
         }
         if($this->model->connect_database_status){
-            if($this->model->pdo_query("SHOW TABLES LIKE '".$this->process_table."'")->fetch(\PDO::FETCH_ASSOC)){
+            if($this->model->pdoQuery("SHOW TABLES LIKE '".$this->process_table."'")->fetch(\PDO::FETCH_ASSOC)){
                 return true;
             }else{
                 return jointSite::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.

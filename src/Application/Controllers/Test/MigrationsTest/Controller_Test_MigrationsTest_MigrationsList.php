@@ -1,5 +1,7 @@
 <?php
 
+namespace JointSite\Controllers\Test\MigrationsTest;
+
 use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MigrationsTest_MigrationsList extends RecordsController

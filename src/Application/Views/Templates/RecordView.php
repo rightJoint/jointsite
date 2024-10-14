@@ -1,6 +1,9 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/View.php";
-require_once JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php";
+
+namespace JointSite\Views\Templates;
+
+use JointSite\Views\SiteView;
+
 class RecordView extends SiteView
 {
 

@@ -3,6 +3,7 @@
 namespace JointSite\Core\Records;
 
 use JointSite\Core\Interfaces\RecordsModelInterface;
+use JointSite\Core\Logger\JointSiteLogger;
 use JointSite\Core\Model_pdo;
 use JointSite\RecordsStructureFiles\recordStructureFields;
 
@@ -36,7 +37,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
     {
 
         if(!$this->tableName){
-            return jointSite::throwErr("XXX", $this->lang_map->table_name_rm_err);
+            return JointSiteLogger::throwErr("XXX", $this->lang_map->table_name_rm_err);
         }
 
         $this->recordStructureFields = new  recordStructureFields();

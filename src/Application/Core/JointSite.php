@@ -170,11 +170,11 @@ class JointSite implements JointSiteInterface
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }elseif($request["routes"][3] == "migrationsList"){
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/MigrationsTest/Controller_Test_MigrationsTest_MigrationsList.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
                         $return = array(
-                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsList",
                             "action_name" => "action_index",
                             "model_name" => "JointSite\Models\Model_Test",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
