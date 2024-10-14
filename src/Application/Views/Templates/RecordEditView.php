@@ -1,4 +1,9 @@
 <?php
+
+namespace JointSite\Views\Templates;
+
+use JointSite\Views\Templates\RecordView;
+
 class RecordEditView extends RecordView
 {
     public $logo = "/img/popimg/edit-icon.png";

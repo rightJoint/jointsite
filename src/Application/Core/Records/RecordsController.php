@@ -5,7 +5,9 @@ namespace JointSite\Core\Records;
 use JointSite\Core\Controller;
 use JointSite\Core\Interfaces\RecordsControllerInterface;
 use JointSite\Core\Logger\JointSiteLogger;
-use jointSite\Core\Logger\JointSiteLoggerView;
+use JointSite\Views\Templates\RecordListView;
+use JointSite\Views\Templates\RecordDetailView;
+use JointSite\Views\Templates\RecordEditView;
 
 class RecordsController extends Controller implements RecordsControllerInterface
 {
@@ -45,10 +47,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
         //used in all processed views
         require_once JOINT_SITE_REQUIRE_DIR."/Views/Templates/RecordView.php";
 
-
-        echo "PPPP";
-        exit;
-        
         global $request;
 
         if(!$this->process_url){
@@ -302,20 +300,17 @@ class RecordsController extends Controller implements RecordsControllerInterface
     function checkTemplateView($type_of_view)
     {
         if($type_of_view == "list"){
-            if(!$this->view instanceof \RecordListView) {
-                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordListView.php";
-                $this->view = new \RecordListView();
+            if(!$this->view instanceof RecordListView) {
+                $this->view = new RecordListView();
             }
         }elseif ($type_of_view == "detail"){
-            if(!$this->view instanceof \RecordDetailView) {
-                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordDetailView.php";
-                $this->view = new \RecordDetailView();
+            if(!$this->view instanceof RecordDetailView) {
+                $this->view = new RecordDetailView();
             }
         }
         elseif (in_array($type_of_view, array("edit", "new", "delete"))){
-            if(!$this->view instanceof \RecordEditView) {
-                require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordEditView.php";
-                $this->view = new \RecordEditView();
+            if(!$this->view instanceof RecordEditView) {
+                $this->view = new RecordEditView();
             }
         }
     }

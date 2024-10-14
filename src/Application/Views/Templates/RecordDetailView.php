@@ -1,4 +1,9 @@
 <?php
+
+namespace JointSite\Views\Templates;
+
+use JointSite\Views\Templates\RecordView;
+
 class RecordDetailView extends RecordView
 {
     public $record;

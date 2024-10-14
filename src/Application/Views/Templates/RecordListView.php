@@ -1,4 +1,9 @@
 <?php
+
+namespace JointSite\Views\Templates;
+
+use JointSite\Views\Templates\RecordView;
+
 class RecordListView extends RecordView
 {
     public $process_url;
