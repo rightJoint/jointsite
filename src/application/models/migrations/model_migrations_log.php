@@ -1,7 +1,7 @@
 <?php
 
-
-
+use JointSite\Core\Records\RecordsModel;
+use JointSite\recordsStructureFiles\migrations\rsf_migrations_log;
 
 class model_migrations_log extends RecordsModel
 {
@@ -9,7 +9,7 @@ class model_migrations_log extends RecordsModel
 
     function getRecordStructure()
     {
-        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations_log.php";
+        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations_log.php";
         $this->recordStructureFields = new  rsf_migrations_log();
     }
 

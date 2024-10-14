@@ -1,4 +1,9 @@
 <?php
+
+namespace JointSite\recordsStructureFiles\migrations;
+
+use JointSite\recordsStructureFiles\recordStructureFields;
+
 class rsf_migrations extends recordStructureFields
 {
 

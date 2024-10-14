@@ -1,5 +1,8 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/RecordsModel.php";
+
+use JointSite\Core\Records\RecordsModel;
+use JointSite\recordsStructureFiles\migrations\rsf_migrations;
+
 class model_migrations extends RecordsModel
 {
     public $tableName = "migrations";
@@ -7,7 +10,7 @@ class model_migrations extends RecordsModel
 
     function getRecordStructure()
     {
-        require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations.php";
+        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations.php";
         $this->recordStructureFields = new  rsf_migrations();
     }
 
@@ -119,6 +122,7 @@ class model_migrations extends RecordsModel
         $count_q = 0;
         $count_suss = 0;
         $count_fail = 0;
+        $commands_count = 0;
 
         $this->recordStructureFields->record["migration_name"]["curVal"] = $migr_file;
         if($this->copyRecord()){
