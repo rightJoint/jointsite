@@ -3,6 +3,8 @@
 namespace JointSite\Core\Records;
 use JointSite\Core\Controller;
 use JointSite\Core\Interfaces\RecordsControllerInterface;
+use JointSite\Core\Logger\JointSiteLogger;
+use jointSite\Core\Logger\JointSiteLoggerView;
 
 class RecordsController extends Controller implements RecordsControllerInterface
 {
@@ -19,7 +21,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
 
         if(!$this->process_table){
-            return jointSite::throwErr("request", "RecordsProcessController throw err: cant set up process_table - null");
+            JointSiteLogger::throwErr("request", "RecordsProcessController throw err: cant set up process_table - null");
         }
     }
 

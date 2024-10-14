@@ -1,4 +1,6 @@
 <?php
+use JointSite\Views\SiteView;
+
 class view_migrationstest extends SiteView
 {
     function print_page_content()

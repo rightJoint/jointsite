@@ -309,7 +309,12 @@ class JointSite implements JointSiteInterface
 
     private function jsExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
     {
-        global $js_result;
+        global $js_result, $app_log;
+
+        echo "<pre>";
+        print_r($app_log);
+
+        exit;
 
         if($loaded_controller and $loaded_model and $loaded_view and $action_name){
             $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
