@@ -1,5 +1,9 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/core/model.php";
-class Model_main extends Model
+
+namespace JointSite\Models;
+
+use JointSite\Core\Model;
+
+class Model_Main extends Model
 {
 }

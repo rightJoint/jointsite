@@ -1,4 +1,7 @@
 <?php
+
+namespace JointSite\Views\Test;
+
 use JointSite\Views\SiteView;
 
 class View_Test_MigrationsTest extends SiteView

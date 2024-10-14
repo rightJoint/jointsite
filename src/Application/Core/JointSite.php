@@ -39,7 +39,7 @@ class JointSite implements JointSiteInterface
 
     private function jsExplodeRequest()
     {
-        define("JOINT_SITE_REQUIRE_DIR", $this->document_root);
+        define("JOINT_SITE_REQUIRE_DIR", $this->document_root."/Application");
         global $request;
         $request["routes_uri"] = $this->request_uri;
         $request["routes_path"] = explode('?', $request["routes_uri"])[0];
@@ -47,12 +47,12 @@ class JointSite implements JointSiteInterface
         $request["routes_cnt"] = count($request["routes"]);
     }
 
-    private function jsLangReq($acceptable_lang = array("En", "Ru", ))
+    private function jsLangReq($acceptable_lang = array("en", "ru", ))
     {
         global $request;
-        if(isset($request["routes"][1]) and
-            in_array($request["routes"][1], $acceptable_lang)){
-            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/Application/LangFiles/".$request["routes"][1]);
+        if(isset($request["routes"][1]) and in_array($request["routes"][1], $acceptable_lang)){
+
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/".ucfirst($request["routes"][1]));
             define("JOINT_SITE_APP_LANG", $request["routes"][1]);
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
@@ -65,7 +65,7 @@ class JointSite implements JointSiteInterface
 
         }else{
             /*default lang: ru */
-            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/Application/LangFiles/ru");
+            define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/Ru");
             define("JOINT_SITE_APP_LANG", "Ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
@@ -91,25 +91,9 @@ class JointSite implements JointSiteInterface
         /*define constants used default*/
         $this->jsSetAppConfig();
 
-        $loaded_model = $this->jsLoadModelFromRequest();
-        if(!$this->jsCheckAppModelSettings($loaded_model)) {
-            return false;
-        }
+        $app_instances = self::jsLoadInstances();
 
-        $loaded_controller = $this->jsLoadControllerFromRequest();
-        if(!$this->jsCheckAppControllerSettings($loaded_controller)){
-            return false;
-        }
-
-        $loaded_view = $this->jsLoadViewFromRequest();
-        if(!$this->jsCheckAppViewSettings($loaded_view)){
-            return false;
-        }
-
-        global $app_log;
-
-        $app_log["action"] = $action_name = $this->jsGetActionFromRequest();
-        return $this->jsExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name);
+        return $this->jsExecAction($app_instances);
     }
 
     private function jsSetAppConfig()
@@ -120,243 +104,145 @@ class JointSite implements JointSiteInterface
         define("USE_DEFAULT_ACTION", false);
     }
 
-    private function jsLoadControllerFromRequest():string
-    {
-        global $request, $app_log, $lang_app;
-
-        $controller_name = "Controller";
-
-        //require_once JOINT_SITE_REQUIRE_DIR."/application/core/controller.php";
-
-        if($new_controller_name = self::jsLoadInstance("Controller")){
-            $controller_name = $new_controller_name;
-        }
-
-        $app_log["load"]["Controller"][] = array("final_controller_name" => $controller_name);
-        return $controller_name;
-    }
-
-    private function jsLoadInstance($instance_type):string
+    private function jsLoadInstances():array
     {
         global $request, $app_log;
 
-        if($instance_type == "Controller"){
-            $instance_dir = "/Controllers";
-            $instance_name = "Controller";
-            $namespace_name = "\Controller";
-        }elseif ($instance_type == "Model"){
-            $instance_dir = "/Models";
-            $instance_name = "Model";
-            $namespace_name = "\Model";
-        }elseif ($instance_type == "View"){
-            $instance_dir = "/Views";
-            $instance_name = "View";
-            $namespace_name = "\Views";
-        }else{
-            JointSiteLogger::throwErr("XXX", "load_instance: unknown type (".$instance_type.")");
-        }
+        $return = array(
+            "controller_name" => "",
+            "action_name" => "",
+            "model_name" => "",
+            "view_name" => "",
+        );
 
-        $result_name = "";
-        $check_dir = null;
-        $dir_list = null;
-        $namespace_list = null;
-        $names_list = $instance_type;
-        $loaded_index = 0;
-
-        for($deep = 1; $deep <= $request["routes"]; $deep++){
-            $app_log[$instance_type]["deep"] = $deep;
-
-            if (!empty($request["routes"][$deep])){
-
-                $names_list.="_".$request["routes"][$deep];
-
-                $request_routes_val = $request["routes"][$deep];
-
-                $namespace_list.="\\$request_routes_val";
-                $dir_list .= $request["routes"][$deep-1]."_";
-                $try_name = $instance_name.$dir_list.$request["routes"][$deep];
-
-                $try_load = array(
-                    "namespace" => "JointSite\\$namespace_name\\$namespace_list",
-                    "try_name" => $names_list,
-                    "try_path" => JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir.
-                        $try_name.'.php',
-                    "loaded" => false,
-                );
-
-                if(file_exists($try_load["try_path"])){
-                    //require_once ($try_load["try_path"]);
-                    $result_name = $try_load["try_name"];
-                    $loaded_index = $deep;
-                    $try_load["loaded"] = true;
-                }else{
-                    $app_log[$instance_type]["deep"] = $deep-1;
-                }
-                $app_log["load"][$instance_type][] = $try_load;
-
-
-
-
-                $check_dir.=$request["routes"][$deep]."/";
-                if (!empty($request["routes"][$deep+1])){
-                    if(!is_dir(JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir)) {
-                        $app_log["load"][$instance_type][] = array("stop_on_empty_dir" =>
-                            JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".$check_dir);
-                        break;
+        if(!empty($request["routes"][1])){
+            if($request["routes"][1] == "test"){
+                if(empty($request["routes"][2])){
+                    require_once JOINT_SITE_REQUIRE_DIR."/Controllers/Controller_Test.php";
+                    require_once JOINT_SITE_REQUIRE_DIR."/Models/Model_Test.php";
+                    require_once JOINT_SITE_REQUIRE_DIR."/Views/View_Test.php";
+                    $return = array(
+                        "controller_name" => "JointSite\Controllers\Controller_Test",
+                        "action_name" => "action_index",
+                        "model_name" => "JointSite\Models\Model_Test",
+                        "view_name" => "JointSite\Views\View_Test",
+                    );
+                }elseif($request["routes"][2] == "migrationstest"){
+                    if(empty($request["routes"][2])) {
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }elseif($request["routes"][3] == "checkConnectServerStatus"){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Test\Controller_Test_MigrationsTest",
+                            "action_name" => "action_checkConnectServerStatus",
+                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }elseif($request["routes"][3] == "createMigrationsTables"){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }elseif($request["routes"][3] == "execNewMigrations"){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }elseif($request["routes"][3] == "migrationsList"){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }elseif($request["routes"][3] == "migrationsLog"){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Models\Model_Test",
+                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                        );
+                    }else{
+                        JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-3)");
                     }
                 }else{
-                    break;
+                    JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-2)");
                 }
             }else{
-                $try_name = $instance_name."_Main";
-                $try_load = array(
-                    "namespace" => "JointSite\\$namespace_name\\$namespace_list",
-                    "try_name" => $names_list,
-                    "try_path" => JOINT_SITE_REQUIRE_DIR."/Application".$instance_dir."/".
-                        $try_name.'.php',
-                    "loaded" => false,
-                );
-
-                if(file_exists($try_load["try_path"])){
-                    //require_once ($try_load["try_path"]);
-                    $result_name = $try_load["try_name"];
-                    $loaded_index = $deep;
-                    $try_load["loaded"] = true;
-                }else{
-
-                    return "";
-                }
-
-
-                $app_log["load"][$instance_type][] = $try_load;
-
-
-                break;
+                JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-1)");
             }
+        }else{
+            //Main
+            require_once JOINT_SITE_REQUIRE_DIR."/Controllers/Controller_Main.php";
+            require_once JOINT_SITE_REQUIRE_DIR."/Models/Model_Main.php";
+            require_once JOINT_SITE_REQUIRE_DIR."/Views/View_Main.php";
+            $return = array(
+                "controller_name" => "JointSite\Controllers\Controller_Main",
+                "action_name" => "action_index",
+                "model_name" => "JointSite\Models\Model_Main",
+                "view_name" => "JointSite\Views\View_Main",
+            );
         }
 
-        /*
-        if($instance_type == "Controller"){
-            echo "<pre>";
-            print_r($app_log["load"]);
-            exit;
-        }*/
-
-        if(!$loaded_index){
-            $loaded_index = 1;
-        }
-
-        require_once $app_log["load"][$instance_type][$loaded_index-1]["try_path"];
-
-        return $result_name;
+        return $return;
     }
 
-    private function jsCheckAppControllerSettings($controller_name, $default_name="Controller"):bool
+    private function jsExecAction($app_instances):bool
     {
-        if($controller_name == $default_name and !USE_DEFAULT_CONTROLLER){
-            JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_controller"]);
-        }
-        return true;
-    }
+        global $js_result;
 
-    private function jsLoadModelFromRequest():string
-    {
-        global $request, $app_log, $lang_app;
-
-        //$default_model = "Model";
-        $default_model = "Model_Pdo";
-
-        $model_name = $default_model;
-
-        require_once JOINT_SITE_REQUIRE_DIR."/Application/Core/".strtolower($default_model).".php";
-
-        if($new_model_name = $this->jsLoadInstance("Model")){
-            $model_name = $new_model_name;
+        if(isset($js_result["error"]) and $js_result["error"] == true){
+            return false;
         }
 
-        $app_log["load"]["Model"][] = array("final_model_name" => $model_name);
+        $controller = new $app_instances["controller_name"]($app_instances["model_name"],
+            $app_instances["view_name"],
+            $app_instances["action_name"]);
 
-        return $model_name;
-    }
+        $action = $app_instances["action_name"];
 
-    private function jsCheckAppModelSettings($model_name, $default_model="Model_Pdo"):bool
-    {
-        global $lang_app;
-        if($model_name == $default_model and !USE_DEFAULT_MODEL){
-            JointSiteLogger::throwErr("request", $lang_app->app_err["request_model"]);
-        }
-        return true;
-    }
-
-    private function jsLoadViewFromRequest():string
-    {
-        global $request, $app_log, $lang_app;
-
-        $default_name = "SiteView";
-        $view_name = $default_name;
-
-        require_once JOINT_SITE_REQUIRE_DIR."/application/core/View.php";
-        require_once JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php";
-
-        if($new_view_name = self::jsLoadInstance("View")){
-            $view_name = $new_view_name;
-        }
-
-        $app_log["load"]["view"][] = array("final_view_name" => $view_name);
-        return $view_name;
-    }
-
-    private function jsCheckAppViewSettings($view_name, $default_name="SiteView"):bool
-    {
-        global $lang_app;
-        if($view_name == $default_name and !USE_DEFAULT_VIEW){
-            JointSiteLogger::throwErr("request", $lang_app->app_err["request_view"]);;
-        }
-        return true;
-    }
-
-    private function jsGetActionFromRequest():string
-    {
-        global $request, $app_log;
-        $action_name = "index";
-        if (!empty($request["routes"][$app_log["Controller"]["deep"]+1])){
-            $action_name = $request["routes"][$app_log["Controller"]["deep"]+1];
-        }
-
-        return $action_name;
-    }
-
-    private function jsExecAction($loaded_controller, $loaded_model, $loaded_view, $action_name):bool
-    {
-        global $js_result, $app_log;
-
-        if($loaded_controller and $loaded_model and $loaded_view and $action_name){
-            $controller = new $loaded_controller($loaded_model, $loaded_view, $action_name);
-            $action = "action_".$action_name;
-
+        if(method_exists($controller, $action)){
+            $controller->$action();
             if(isset($js_result["error"]) and $js_result["error"] == true){
                 return false;
             }
-
-            if(method_exists($controller, $action)){
-                $controller->$action();
+        }
+        else{
+            if(!USE_DEFAULT_ACTION){
+                JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_action"].
+                    "<br>".$app_instances["controller_name"]."->".$action);
+            }else{
+                $controller->action_index();
                 if(isset($js_result["error"]) and $js_result["error"] == true){
                     return false;
                 }
             }
-            else{
-                if(!USE_DEFAULT_ACTION){
-                    JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_action"].
-                        "<br>".$loaded_controller."->".$action);
-                }else{
-                    $controller->action_index();
-                    if(isset($js_result["error"]) and $js_result["error"] == true){
-                        return false;
-                    }
-                }
-            }
-        }else{
-            return false;
         }
         return true;
     }

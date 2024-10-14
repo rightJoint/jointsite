@@ -1,6 +1,7 @@
 <?php
 
-//namespace JointSite\models\migrations;
+namespace JointSite\Models\Migrations;
+
 use JointSite\Core\Records\RecordsModel;
 use JointSite\RecordsStructureFiles\migrations\rsf_migrations;
 

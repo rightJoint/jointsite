@@ -1,5 +1,7 @@
 <?php
 
+namespace JointSite\Views;
+
 use JointSite\Views\SiteView;
 
 class View_Main extends SiteView

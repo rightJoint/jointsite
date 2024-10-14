@@ -153,15 +153,15 @@ class SiteView extends View
         echo "<header><div class='headerCenter'>";
         echo "<div class='lang-panel'>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "Ru") {
+        if (JOINT_SITE_APP_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='/Ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "En") {
+        if (JOINT_SITE_APP_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='/En".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .

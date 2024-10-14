@@ -1,7 +1,8 @@
 <?php
+
 namespace JointSite\Core;
+
 use JointSite\Core\Interfaces;
-use JointSite\Core\Model;
 
 class Controller implements Interfaces\ControllerInterface
 {
@@ -73,7 +74,7 @@ class Controller implements Interfaces\ControllerInterface
 
     function action_index()
     {
-        $this->view->view_data = $this->model->get_data();
+        $this->view->view_data = $this->model->getData();
         $this->view->generate();
     }
 }

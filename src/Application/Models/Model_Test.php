@@ -1,4 +1,7 @@
 <?php
+
+namespace JointSite\Models;
+
 class Model_Test
 {
     public function getData()
