@@ -35,11 +35,15 @@ class Model_pdo extends \PDO
                 $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
             $this->connect_server_status = true;
             if($this->select_database()){
-                //$this->query("drop database docker_db");
+
+                //echo $this->conn_db;
+                //exit;
+                //$this->query("drop database js_db");
+                //exit;
                 $this->getRecordStructure();
                 return true;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->log_message = $e->getMessage();
             if($this->throw_err_no_conn){
                 jointSite::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
@@ -55,7 +59,7 @@ class Model_pdo extends \PDO
 
     function select_database():bool
     {
-        if ($this->query("use " . $this->conn_db)) {
+        if ($this->pdo_query("use " . $this->conn_db)) {
             $this->connect_database_status = true;
             return true;
         } else {

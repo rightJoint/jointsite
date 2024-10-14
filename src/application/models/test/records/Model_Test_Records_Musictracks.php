@@ -4,7 +4,7 @@ use JointSite\Core\Records\RecordsModel;
 
 use JointSite\recordsStructureFiles\test\rsf_musictracks;
 
-class model_records_musictracks extends RecordsModel
+class Model_Test_Records_Musictracks extends RecordsModel
 {
     public $tableName = "rjt_musicTracks";
 

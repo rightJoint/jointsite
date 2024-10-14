@@ -3,7 +3,7 @@
 use JointSite\Core\Records\RecordsModel;
 use JointSite\recordsStructureFiles\migrations\rsf_migrations_log;
 
-class model_migrations_log extends RecordsModel
+class Model_MigrationsLog extends RecordsModel
 {
     public $tableName = "migrations_log";
 

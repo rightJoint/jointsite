@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"]."/application/recordsStructureFiles/test/rsf_musictrackstoalb.php";
-class model_records_musictrackstoalb extends RecordsModel
+class Model_Test_Records_Musictrackstoalb extends RecordsModel
 {
     public $tableName = "rjt_musicTracksToAlb";
 

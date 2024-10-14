@@ -8,6 +8,9 @@ class controller_migrationstest extends RecordsController
 
     function LoadModel_custom($action_name = null): string
     {
+        if($action_name == "index"){
+            return "Model_pdo";
+        }
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations_log.php";
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations.php";
 

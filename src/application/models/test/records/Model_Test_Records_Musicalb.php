@@ -3,7 +3,7 @@
 use JointSite\Core\Records\RecordsModel;
 use JointSite\recordsStructureFiles\test\rsf_musicalbums;
 
-class model_records_musicalb extends RecordsModel
+class Model_Test_Records_Musicalb extends RecordsModel
 {
     public $tableName = "rjt_musicAlb";
 

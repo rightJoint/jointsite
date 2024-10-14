@@ -1,9 +1,10 @@
 <?php
 
+//namespace JointSite\models\migrations;
 use JointSite\Core\Records\RecordsModel;
 use JointSite\recordsStructureFiles\migrations\rsf_migrations;
 
-class model_migrations extends RecordsModel
+class Model_Migrations extends RecordsModel
 {
     public $tableName = "migrations";
     public $throw_err_no_conn = false;
