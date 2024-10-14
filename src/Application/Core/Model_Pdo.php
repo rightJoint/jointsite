@@ -1,5 +1,7 @@
 <?php
 
+namespace JointSite\Core;
+
 use JointSite\Core\Logger\JointSiteLogger;
 
 class Model_Pdo extends \PDO

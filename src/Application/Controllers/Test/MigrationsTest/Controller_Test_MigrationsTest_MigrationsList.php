@@ -1,6 +1,6 @@
 <?php
 
-use jointSite\Core\Records\RecordsController;
+use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MigrationsTest_MigrationsList extends RecordsController
 {

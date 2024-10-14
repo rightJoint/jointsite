@@ -1,7 +1,7 @@
 <?php
 class Model_Test
 {
-    public function get_data()
+    public function getData()
     {
         return array(
             "en" => "application test success, model passed data - this text",

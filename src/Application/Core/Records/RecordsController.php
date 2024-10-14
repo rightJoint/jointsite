@@ -1,6 +1,7 @@
 <?php
 
 namespace JointSite\Core\Records;
+
 use JointSite\Core\Controller;
 use JointSite\Core\Interfaces\RecordsControllerInterface;
 use JointSite\Core\Logger\JointSiteLogger;

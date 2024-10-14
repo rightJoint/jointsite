@@ -156,17 +156,15 @@ class JointSite implements JointSiteInterface
         $result_name = "";
         $check_dir = null;
         $dir_list = null;
+        $loaded_index = 0;
 
         for($deep = 1; $deep <= $request["routes"]; $deep++){
             $app_log[$instance_type]["deep"] = $deep;
 
             if (!empty($request["routes"][$deep])){
-                //echo $request["routes"][$deep]."<br>";
                 $dir_list .= $request["routes"][$deep-1]."_";
-                //echo "dir_list=".$dir_list."<br>";
                 $try_name = $instance_name.$dir_list.$request["routes"][$deep];
 
-                //echo "try_name=".$try_name."<br>";
                 $try_load = array(
                     "try_name" => $try_name,
                     "try_path" => JOINT_SITE_REQUIRE_DIR."/application".$instance_dir."/".$check_dir.
@@ -174,8 +172,9 @@ class JointSite implements JointSiteInterface
                     "loaded" => false,
                 );
                 if(file_exists($try_load["try_path"])){
-                    require_once ($try_load["try_path"]);
+                    //require_once ($try_load["try_path"]);
                     $result_name = $try_load["try_name"];
+                    $loaded_index = $deep;
                     $try_load["loaded"] = true;
                 }else{
                     $app_log[$instance_type]["deep"] = $deep-1;
@@ -205,8 +204,9 @@ class JointSite implements JointSiteInterface
                 );
 
                 if(file_exists($try_load["try_path"])){
-                    require_once ($try_load["try_path"]);
+                    //require_once ($try_load["try_path"]);
                     $result_name = $try_load["try_name"];
+                    $loaded_index = $deep;
                     $try_load["loaded"] = true;
                 }else{
 
@@ -220,6 +220,8 @@ class JointSite implements JointSiteInterface
                 break;
             }
         }
+
+        require_once $app_log["load"][$instance_type][$loaded_index-1]["try_path"];
 
         return $result_name;
     }
