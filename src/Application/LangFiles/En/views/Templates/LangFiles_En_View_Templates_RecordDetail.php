@@ -1,5 +1,6 @@
 <?php
-class lang_view_RecordDetail extends lang_view
+class LangFiles_En_View_Templates_RecordDetail
+    extends lang_view
 {
     function update_head_array($options)
     {

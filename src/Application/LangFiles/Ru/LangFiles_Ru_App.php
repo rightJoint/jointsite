@@ -1,5 +1,5 @@
 <?php
-class lang_app
+class LangFiles_Ru_App
 {
     public $app_err = array(
         "request_model" => "Ошибка приложения: модель, неверный путь",

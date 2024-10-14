@@ -2,7 +2,7 @@
 namespace JointSite\Core\Interfaces;
 interface JointSiteInterface
 {
-    public function js_Run();
+    public function jsRun();
 
     /*
         $_SERVER["DOCUMENT_ROOT"] = "",
@@ -32,11 +32,11 @@ Array
                                                                             /test/phpmysqladmin/printquery?test=1111
 
          */
-    public function js_PrepareRequest();
+    public function jsPrepareRequest();
 
-    public function js_get_env();
+    public function jsGetEnv();
 
-    public function js_HandleResult(bool $result);
+    public function jsHandleResult(bool $result);
 
     public static function throwErr($errType, $message):bool;
 

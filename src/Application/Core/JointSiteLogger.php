@@ -7,7 +7,7 @@ use JointSite\Psr\Log\LoggerInterface;
 use JointSite\Psr\Log\LoggerAwareInterface;
 use JointSite\Psr\Log\LogLevel;
 
-class JointSite_Logger implements LoggerInterface, LoggerAwareInterface
+class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
 {
     public function setLogger(LoggerInterface $logger)
     {

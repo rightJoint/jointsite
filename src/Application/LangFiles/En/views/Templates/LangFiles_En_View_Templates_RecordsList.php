@@ -1,5 +1,5 @@
 <?php
-class lang_view_RecordsList extends lang_view
+class LangFiles_En_View_Templates_RecordsList extends lang_view
 {
     public $list_table = array(
         "found" => "Found",

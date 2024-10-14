@@ -1,5 +1,5 @@
 <?php
-class lang_view_RecordEdit extends lang_view
+class En_Lang_View_Templates_RecordEdit extends lang_view
 {
     public $view_submit_val = "Update";
     public $view_submit_val_new = "New";
