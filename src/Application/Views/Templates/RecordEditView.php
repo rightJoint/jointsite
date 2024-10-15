@@ -19,10 +19,8 @@ class RecordEditView extends RecordView
 
     function loadLangViewCustom()
     {
-        require_once(JOINT_SITE_REQ_LANG."/Views/Templates/LangFiles_".JOINT_SITE_APP_LANG."_Templates_RecordEdit.php");
-        return "LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordEdit";
-        //require_once JOINT_SITE_REQ_LANG."/views/templates/lang_view_RecordEdit.php";
-        //return "lang_view_RecordEdit";
+        require_once(JOINT_SITE_REQ_LANG."/Views/Templates/LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordEdit.php");
+        return "LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordEdit";
     }
 
     function setHeadArray()

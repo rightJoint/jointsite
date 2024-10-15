@@ -59,9 +59,14 @@ class JointSite implements JointSiteInterface
     private function jsLangReq($acceptable_lang = array("en", "ru", ))
     {
         global $request;
-        if(isset($request["routes"][1]) and in_array($request["routes"][1], $acceptable_lang)){
-
+        if(isset($request["routes"][1]) and in_array(strtolower($request["routes"][1]), $acceptable_lang)){
+            /*shortcut to lang_files*/
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/".ucfirst($request["routes"][1]));
+            /*wildcard for namespaces*/
+            define("JOINT_SITE_NS_LANG", ucfirst($request["routes"][1]));
+
+
+
             define("JOINT_SITE_APP_LANG", $request["routes"][1]);
             define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
@@ -74,7 +79,12 @@ class JointSite implements JointSiteInterface
 
         }else{
             /*default lang: ru */
+            /*shortcut to lang_files*/
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/Ru");
+            /*wildcard for namespaces*/
+            define("JOINT_SITE_NS_LANG", "Ru");
+
+
             define("JOINT_SITE_APP_LANG", "ru");
             define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));

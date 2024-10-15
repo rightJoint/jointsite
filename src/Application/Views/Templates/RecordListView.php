@@ -32,8 +32,8 @@ class RecordListView extends RecordView
 
     function LoadLangViewCustom()
     {
-        require_once JOINT_SITE_REQ_LANG."/Views/Templates\LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordsList.php";
-        return "LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordsList";
+        require_once JOINT_SITE_REQ_LANG."/Views/Templates\LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordsList.php";
+        return "LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordsList";
     }
 
     function set_head_array()
@@ -190,7 +190,7 @@ class RecordListView extends RecordView
             "</div>".
             "<div class='new-block'>";
         if($this->hasAccessCreate){
-            $return_ajax.="<a href='".$this->process_url."/newview".$this->format_slave_req().$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
+            $return_ajax.="<a href='".$this->process_url."/newview".$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
         }
 
         $return_ajax.="</div>".
