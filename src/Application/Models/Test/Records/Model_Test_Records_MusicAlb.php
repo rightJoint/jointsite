@@ -1,9 +1,11 @@
 <?php
 
-use JointSite\Core\Records\RecordsModel;
-use JointSite\RecordsStructureFiles\test\rsf_musicalbums;
+namespace JointSite\Models\Test\Records;
 
-class Model_Test_Records_Musicalb extends RecordsModel
+use JointSite\Core\Records\RecordsModel;
+use JointSite\Models\RecordsStructureFiles\Test\Rsf_MusicAlbums;
+
+class Model_Test_Records_MusicAlb extends RecordsModel
 {
     public $tableName = "rjt_musicAlb";
 
@@ -15,8 +17,7 @@ class Model_Test_Records_Musicalb extends RecordsModel
     //);
     function getRecordStructure():bool
     {
-        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musicalbums.php";
-        $this->recordStructureFields = new rsf_musicalbums();
+        $this->recordStructureFields = new Rsf_MusicAlbums();
         return true;
     }
 
@@ -37,7 +38,7 @@ class Model_Test_Records_Musicalb extends RecordsModel
     {
         return $this->query("select count(*) as cnt from (SELECT ".$this->tableName.".album_id, count(".$this->tracksToAlb.".album_id) as countRec from ".$this->tableName." ".
             "left join ".$this->tracksToAlb." on ".$this->tableName.".album_id = ".$this->tracksToAlb.".album_id ".
-            $where." group by ".$this->tableName.".album_id ".$having.") xxx")->fetch(PDO::FETCH_ASSOC)["cnt"];
+            $where." group by ".$this->tableName.".album_id ".$having.") xxx")->fetch(\PDO::FETCH_ASSOC)["cnt"];
     }
     function deleteRecord()
     {

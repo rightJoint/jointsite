@@ -295,6 +295,30 @@ class JointSite implements JointSiteInterface
                         "model_name" => "JointSite\Core\Records\RecordsModel",
                         "view_name" => "JointSite\Views\Test\View_Test_Records",
                     );
+                }elseif ($request["routes_ns"][2] == "musicAlb") {
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MusicAlb.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Models/Test/Records/Model_Test_Records_MusicAlb.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Views/SiteView.php";
+
+                    $return = array(
+                        "controller_name" => "JointSite\Controllers\Test\Controller_Test_MusicAlb",
+                        "action_name" => "action_index",
+                        "model_name" => "JointSite\Models\Test\Records\Model_Test_Records_MusicAlb",
+                        "view_name" => "JointSite\Views\SiteView",
+                    );
+                }elseif ($request["routes_ns"][2] == "musicTracks") {
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Controller_Test.php";
+                    //require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+
+                    $return = array(
+                        "controller_name" => "JointSite\Controllers\Controller_Test",
+                        "action_name" => "action_records",
+                        "model_name" => "JointSite\Core\Records\RecordsModel",
+                        "view_name" => "JointSite\Views\Test\View_Test_Records",
+                    );
+                }elseif ($request["routes_ns"][2] == "musicTracksToAlb") {
+                    $this->logger->error("route in test not found", $this->logger->logger_context);
                 }else{
                     $this->logger->error("route in test not found", $this->logger->logger_context);
                 }

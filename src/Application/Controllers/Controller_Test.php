@@ -32,6 +32,8 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
             jointSite::throwErr("request", "no table in database");
         }
 
+        $this->model->tableName = $tableName;
+
         if($use_custon_table){
             $this->process_url.="/".$tableName;
             $this->process_table = $tableName;
@@ -40,7 +42,8 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
         $this->view->view_data = $view_data;
         $this->view->tableName = $tableName;
         $this->view_data = $this->view->print_select_tbl_panel();
-
+        $this->model->tableName = $tableName;
+        $this->model->getRecordStructure();
         parent::action_index();
     }
 }

@@ -292,7 +292,7 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $urlLink .="&".$this->slave_req;
+                            //$urlLink .="&".$this->slave_req;
                             if ($fieldName == "btnDetail"){
                                 $return_text.= "<a href='".$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".
