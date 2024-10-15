@@ -266,20 +266,40 @@ class JointSite implements JointSiteInterface
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/MigrationsTest/Controller_Test_MigrationsTest_MigrationsLog.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+
+                        $view_name = "JointSite\Views\Test\View_Test_MigrationsTest";
+
+                        if(isset($request["routes_ns"][4]) and $request["routes_ns"][4] == "detailview"){
+                            require_once JOINT_SITE_REQUIRE_DIR . "/Views/Migrations/View_Migrations_MigrationLogDetail.php";
+                            $view_name = "JointSite\Views\Migrations\View_Migrations_MigrationLogDetail";
+                        }
+
                         $return = array(
                             "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsLog",
                             "action_name" => "action_index",
                             "model_name" => "JointSite\Models\Migrations\Model_MigrationsLog",
-                            "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
+                            "view_name" => $view_name,
                         );
                     }else{
-                        $this->logger->error("route in migrationstest not found", $this->logger_context);
+                        $this->logger->error("route in migrationstest not found", $this->logger->logger_context);
                     }
+                }elseif ($request["routes_ns"][2] == "records"){
+
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Controller_Test.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+
+                    $return = array(
+                        "controller_name" => "JointSite\Controllers\Controller_Test",
+                        "action_name" => "action_records",
+                        "model_name" => "JointSite\Models\Migrations\Model_MigrationsLog",
+                        "view_name" => "JointSite\Views\Test\View_Test_Records",
+                    );
                 }else{
-                    $this->logger->error("route in test not found", $this->logger_context);
+                    $this->logger->error("route in test not found", $this->logger->logger_context);
                 }
             }else{
-                $this->logger->error("route in root not found", $this->logger_context);
+                $this->logger->error("route in root not found", $this->logger->logger_context);
             }
         }else{
             //Main

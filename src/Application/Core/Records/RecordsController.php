@@ -279,8 +279,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
             if($this->model->pdoQuery("SHOW TABLES LIKE '".$this->process_table."'")->fetch(\PDO::FETCH_ASSOC)){
                 return true;
             }else{
-                return JointSiteLogger::throwErr("request", "RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
-                    " in database ".$this->model->conn_db);
+                return $this->logger->emergency("RecordProcessController->checkRecordModel throw err: cant find target table = ".$this->process_table.
+                    " in database ".$this->model->conn_db, $this->logger->logger_context);
             }
         }else{
             return JointSiteLogger::throwErr("request", "RecordProcessController->checkRecordModel throw err: connect_database_status = fail");

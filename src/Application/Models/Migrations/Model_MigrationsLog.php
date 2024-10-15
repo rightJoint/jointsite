@@ -3,7 +3,7 @@
 namespace JointSite\Models\Migrations;
 
 use JointSite\Core\Records\RecordsModel;
-use JointSite\Models\RecordsStructureFiles\Migrations\Rsf_Migrations;
+use JointSite\Models\RecordsStructureFiles\Migrations\Rsf_MigrationsLog;
 
 class Model_MigrationsLog extends RecordsModel
 {
@@ -12,7 +12,7 @@ class Model_MigrationsLog extends RecordsModel
     function getRecordStructure()
     {
         //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/migrations/rsf_migrations_log.php";
-        $this->recordStructureFields = new  rsf_migrations_log();
+        $this->recordStructureFields = new  Rsf_MigrationsLog();
     }
 
     function filterWhere($method = "POST", $REQ_ARR = null)

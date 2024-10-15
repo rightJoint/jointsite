@@ -1,8 +1,10 @@
 <?php
 
+namespace JointSite\Views\Test;
+
 use JointSite\Views\SiteView;
 
-class view_test_records extends SiteView
+class View_Test_Records extends SiteView
 {
     public $process_url;
     public $tableName;
@@ -23,13 +25,13 @@ class view_test_records extends SiteView
         $this->table_selector = array(
             "en" => "Table selector",
             "ru" => "Выбор таблицы",
-        )[JOINT_SITE_APP_LANG];
+        )[JOINT_SITE_LW_LANG];
 
         $return_text = "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>".
             "<div class='table-selector'><label for='table-selector'>".$this->table_selector.": </label>".
             "<select name='table-selector' id='table-selector' ".
-            "onchange='let new_loc_table=&quot;".JOINT_SITE_APP_REF."/test/records/&quot;+this.options[this.selectedIndex].text; 
+            "onchange='let new_loc_table=&quot;".JOINT_SITE_SL_LANG."/test/records/&quot;+this.options[this.selectedIndex].text; 
            window.location.href = new_loc_table'>";
         if($this->view_data){
             while ($table_row = $this->view_data->fetch()){

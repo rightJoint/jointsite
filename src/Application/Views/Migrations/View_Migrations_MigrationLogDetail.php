@@ -1,7 +1,10 @@
 <?php
-require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordView.php";
-require_once JOINT_SITE_REQUIRE_DIR."/application/views/templates/RecordDetailView.php";
-class view_migrationLog_detail extends RecordDetailView
+
+namespace JointSite\Views\Migrations;
+
+use JointSite\Views\Templates\RecordDetailView;
+
+class View_Migrations_MigrationLogDetail extends RecordDetailView
 {
     function getTnputType($fieldNname, $fieldOption = array(
         "format" => null,
@@ -23,8 +26,8 @@ class view_migrationLog_detail extends RecordDetailView
             }
             $label_print .= ">";
 
-            if(isset($fieldOption["fieldAliases"][JOINT_SITE_APP_LANG])){
-                $label_print .= $fieldOption["fieldAliases"][JOINT_SITE_APP_LANG];
+            if(isset($fieldOption["fieldAliases"][JOINT_SITE_LW_LANG])){
+                $label_print .= $fieldOption["fieldAliases"][JOINT_SITE_LW_LANG];
             }else{
                 $label_print .= $fieldNname;
             }

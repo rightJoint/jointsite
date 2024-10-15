@@ -3,9 +3,12 @@
 namespace JointSite\Core;
 
 use JointSite\Core\Interfaces;
+use JointSite\Core\Logger\JointSiteLoggerTrait;
 
 class Controller implements Interfaces\ControllerInterface
 {
+    use JointSiteLoggerTrait;
+
     public $model;
     public $view;
 
@@ -13,6 +16,9 @@ class Controller implements Interfaces\ControllerInterface
 
     function __construct(string $loaded_model, string $loaded_view, string $action_name)
     {
+
+        $this->setLogger("JointSite\Core\Controller");
+
         $lang_class = $this->loadLangController();
         $this->lang_map = new $lang_class;
 

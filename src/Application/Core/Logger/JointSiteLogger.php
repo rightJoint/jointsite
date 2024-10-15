@@ -9,11 +9,10 @@ use JointSite\Psr\Log\LogLevel;
 
 class JointSiteLogger implements LoggerInterface
 {
-    /*
-    public function setLogger(LoggerInterface $logger)
-    {
 
-    }*/
+    public $logger_context;
+
+
     /**
      * System is unusable.
      *
