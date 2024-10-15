@@ -18,7 +18,7 @@ class Controller_Test_MigrationsTest extends RecordsController
     {
         if(!$this->model->connect_database_status){
             $this->view->view_data.= "check connect_database_status = fail<br>";
-            if($this->model->check_database()){
+            if($this->model->checkDatabase()){
                 $this->view->view_data.= "set up connection = success<br>";
             }else
             {

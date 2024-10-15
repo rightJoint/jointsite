@@ -350,12 +350,13 @@ class Model_Migrations extends RecordsModel
         return $result;
     }
 
-    function check_database():bool
+    function checkDatabase():bool
     {
         if($this->connect_server_status){
             if($this->connect_database_status){
                 return true;
             }elseif($this->query("CREATE DATABASE ".$this->conn_db." CHARACTER SET utf8 COLLATE utf8_general_ci")) {
+                $this->connect_database_status = true;
                 return true;
             }
         }
