@@ -1,10 +1,11 @@
 <?php
 
+namespace JointSite\Models\Test\Records;
+
 use JointSite\Core\Records\RecordsModel;
+use JointSite\Models\RecordsStructureFiles\Test\Rsf_MusicTracks;
 
-use JointSite\RecordsStructureFiles\test\rsf_musictracks;
-
-class Model_Test_Records_Musictracks extends RecordsModel
+class Model_Test_Records_MusicTracks extends RecordsModel
 {
     public $tableName = "rjt_musicTracks";
 
@@ -17,9 +18,7 @@ class Model_Test_Records_Musictracks extends RecordsModel
 
     function getRecordStructure()
     {
-        //require_once JOINT_SITE_REQUIRE_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
-        //require_once $_SERVER["DOCUMENT_ROOT"].JOINT_SITE_EXEC_DIR."/application/recordsStructureFiles/test/rsf_musictracks.php";
-        $this->recordStructureFields = new rsf_musictracks();
+        $this->recordStructureFields = new Rsf_MusicTracks();
         $this->recordStructureFields->editFields["track_artist"]["filling"] = $this->fill_artist_list();
         return true;
     }
@@ -30,7 +29,7 @@ class Model_Test_Records_Musictracks extends RecordsModel
         $qry = "select track_artist from ".$this->tableName." group by track_artist order by track_artist";
         $res = $this->query($qry);
         if($res->rowCount()){
-            while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+            while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
                 $return[$row["track_artist"]] = $row["track_artist"];
             }
         }

@@ -1,5 +1,7 @@
 <?php
 
+namespace jointSite\Controllers\Test;
+
 use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MusicTracks extends RecordsController

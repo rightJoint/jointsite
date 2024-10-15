@@ -307,15 +307,15 @@ class JointSite implements JointSiteInterface
                         "view_name" => "JointSite\Views\SiteView",
                     );
                 }elseif ($request["routes_ns"][2] == "musicTracks") {
-                    require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Controller_Test.php";
-                    //require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
-                    require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MusicTracks.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Models/Test/Records/Model_Test_Records_MusicTracks.php";
+                    require_once JOINT_SITE_REQUIRE_DIR . "/Views/SiteView.php";
 
                     $return = array(
-                        "controller_name" => "JointSite\Controllers\Controller_Test",
-                        "action_name" => "action_records",
-                        "model_name" => "JointSite\Core\Records\RecordsModel",
-                        "view_name" => "JointSite\Views\Test\View_Test_Records",
+                        "controller_name" => "JointSite\Controllers\Test\Controller_Test_MusicTracks",
+                        "action_name" => "action_index",
+                        "model_name" => "JointSite\Models\Test\Records\Model_Test_Records_MusicTracks",
+                        "view_name" => "JointSite\Views\SiteView",
                     );
                 }elseif ($request["routes_ns"][2] == "musicTracksToAlb") {
                     $this->logger->error("route in test not found", $this->logger->logger_context);
