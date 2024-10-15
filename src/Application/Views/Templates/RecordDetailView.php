@@ -8,7 +8,6 @@ class RecordDetailView extends RecordView
 {
     public $record;
     public $viewFields = null;
-    public $slave_req = null;
 
     public $logo = "/img/popimg/eye-icon.png";
 
@@ -56,7 +55,7 @@ class RecordDetailView extends RecordView
 
         echo "<div class='edit-record-frame'>";
         if ($this->h2) {
-            echo "<h2><a href='".$this->process_url."?".$this->slave_req."'>" . $this->h2 . "</a></h2>";
+            echo "<h2><a href='".$this->process_url."'>" . $this->h2 . "</a></h2>";
         }
         echo "<form class='editForm' method='post'>";
         if($this->type=="delete"){

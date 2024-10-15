@@ -25,18 +25,18 @@ class RecordEditView extends RecordView
         //return "lang_view_RecordEdit";
     }
 
-    function set_head_array()
+    function setHeadArray()
     {
-        parent::set_head_array();
+        parent::setHeadArray();
         $this->lang_map->update_head_array(array(
             "type" => $this->type,
             "h2" => $this->h2,
         ));
     }
 
-    function print_page_content()
+    function printPageContent()
     {
-        parent::print_page_content();
+        parent::printPageContent();
         $this->printEditView();
     }
 
@@ -45,7 +45,7 @@ class RecordEditView extends RecordView
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>" . "<div class='edit-record-frame'>";
         if ($this->h2) {
-            echo "<h2><a href='".$this->process_url.$this->format_slave_req()."'>" . $this->h2 . "</a></h2>";
+            echo "<h2><a href='".$this->process_url."'>" . $this->h2 . "</a></h2>";
         }
         echo "<form class='editForm' method='post' enctype='multipart/form-data'>";
 

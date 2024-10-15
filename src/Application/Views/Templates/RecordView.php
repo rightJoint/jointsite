@@ -11,7 +11,6 @@ class RecordView extends SiteView
     public $h2 = null;
     public $process_url = null;
     public $record = null;
-    public $slave_req = null;
 
     public $shortcut_icon = "/img/popimg/admin-logo.png";
 
@@ -187,14 +186,5 @@ class RecordView extends SiteView
         );
 
 
-    }
-
-    function format_slave_req():string
-    {
-        if(!$this->slave_req){
-            return "";
-        }else{
-            return "?".$this->slave_req;
-        }
     }
 }
