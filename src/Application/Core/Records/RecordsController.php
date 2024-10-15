@@ -24,7 +24,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
 
         if(!$this->process_table){
-            JointSiteLogger::throwErr("request", "RecordsProcessController throw err: cant set up process_table - null");
+            $this->logger->error("RecordsProcessController throw err: cant set up process_table - null", $this->logger->logger_context);
         }
     }
 
@@ -65,10 +65,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->process_detail();
 
             } else {
-                return JointSiteLogger::throwErr("request", $this->lang_map->rc_errors["prefix"] .
+                $this->logger->emergency($this->lang_map->rc_errors["prefix"] .
                     $this->lang_map->rc_errors["detail"] . ", " .
                     $this->lang_map->rc_errors["model_err"] .
-                    $this->model->log_message);
+                    $this->model->log_message,
+                $this->logger->logger_context);
             }
 
         } elseif ($request["routes_ns"][$pp_cnt] == "editview") {
@@ -80,7 +81,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
             } else {
                 $this->model->copyValFromRequest($_GET);
                 if (!$this->model->copyRecord()) {
-                    return JointSiteLogger::throwErr("request", $this->model->log_message);
+                    $this->logger->emergency($this->model->log_message,
+                        $this->logger->logger_context);
                 }
             }
 
@@ -132,7 +134,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->prepareViewFields();
                 $this->view->generate();
             } else {
-                return JointSiteLogger::throwErr("request", $this->model->log_message);
+                $this->logger->debug($this->model->log_message, $this->logger->logger_context);
             }
         } elseif (!$this->doAction_custom($request["routes_ns"][$pp_cnt])) {
             return $this->logger->debug("no custom actions in RecordsController: ".$request["routes_ns"][$pp_cnt], $this->logger->logger_context);

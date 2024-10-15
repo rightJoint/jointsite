@@ -94,12 +94,12 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                     $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];
                 }
             }else{
-                return jointSite::throwErr("request", $this->lang_map->table_name_not_found." _".$this->conn_db."_: table_name='".$this->tableName."', ".
-                    "/core/RecordsModel->getRecordStructure");
+                $this->logger->alert($this->lang_map->table_name_not_found." _".$this->conn_db."_: table_name='".$this->tableName."', ".
+                "/core/RecordsModel->getRecordStructure", $this->logger->logger_context);
             }
         }else{
-            return jointSite::throwErr("request", "RecordsModel throw err: ".$this->lang_map->table_name_not_found.": db_name '".$this->sql_db_name."'".
-                " table_name='".$this->tableName."'");
+            $this->logger->alert("RecordsModel throw err: ".$this->lang_map->table_name_not_found.": db_name '".$this->sql_db_name."'".
+                " table_name='".$this->tableName."'", $this->logger->logger_context);
         }
 
         if($count_keys){
@@ -149,7 +149,9 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
             }
             return $return_listRecords;
         }
-        jointSite::throwErr("XXX", $this->log_message);
+
+        $this->logger->alert($this->log_message, $this->logger->logger_context);
+
         return $return_listRecords;
     }
 

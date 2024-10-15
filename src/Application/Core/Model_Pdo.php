@@ -92,13 +92,13 @@ class Model_Pdo extends \PDO
             }else{
                 $this->log_message = $this->lang_map->conn_err["file_not_valid"].": ".
                     "PDO object is not initialized, constructor was not called";
-                jointSiteLogger::throwErr("connection", "Model_pdo throw err:".$this->log_message);
+                $this->logger->alert("Model_pdo throw err:".$this->log_message, $this->logger->logger_context);
             }
         }else{
             $this->log_message = $this->lang_map->conn_err["file_not_found"].": ".
                 $sql_db_connect_json.
                 "PDO object is not initialized, constructor was not called";
-            jointSiteLogger::throwErr("connection", "Model_pdo throw err:".$this->log_message);
+            $this->logger->alert("Model_pdo throw err:".$this->log_message, $this->logger->logger_context);
         }
         return $connSettings;
     }
@@ -129,7 +129,7 @@ class Model_Pdo extends \PDO
                 $this->logger->alert("query wrong format: ".$statement, $this->logger->logger_context);
             }
         }else{
-            jointSiteLogger::throwErr("connection", "Model_pdo->pdo_query throw err: no-db-connection");
+            $this->logger->alert("Model_pdo->pdo_query throw err: no-db-connection", $this->logger->logger_context);
         }
         return false;
     }

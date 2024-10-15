@@ -29,7 +29,7 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
             //one more query cause fetch
             $view_data = $this->model->query("SHOW TABLES");
         }else{
-            jointSite::throwErr("request", "no table in database");
+            $this->logger->emergency("no table in database", $this->logger->logger_context);
         }
 
         $this->model->tableName = $tableName;

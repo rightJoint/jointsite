@@ -32,6 +32,6 @@ class controller_api extends RecordsController
         }else{
             $access_err = "token file ".JOINT_SITE_CONF_DIR."/api/access_token.txt not exist";
         }
-        return jointSite::throwErr("access", "denied in rest api contoller cause ".$access_err);
+        return $this->logger->warning("denied in rest api contoller cause ".$access_err, $this->logger->logger_context);
     }
 }
