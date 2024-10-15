@@ -131,8 +131,8 @@ class Model_Pdo extends \PDO
 
     function loadLangModel():string
     {
-        require_once JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_APP_LANG."_Models_Model.php";
-        return "LangFiles_".JOINT_SITE_APP_LANG."_Models_Model";
+        require_once JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_NS_LANG."_Models_Model.php";
+        return "LangFiles_".JOINT_SITE_NS_LANG."_Models_Model";
     }
 
     public function getData()

@@ -172,8 +172,8 @@ class RecordListView extends RecordView
                     }
                 }
 
-                if(isset($fieldData["fieldAliases"][JOINT_SITE_APP_LANG])){
-                    $option_text = $fieldData["fieldAliases"][JOINT_SITE_APP_LANG];
+                if(isset($fieldData["fieldAliases"][JOINT_SITE_LW_LANG])){
+                    $option_text = $fieldData["fieldAliases"][JOINT_SITE_LW_LANG];
                 }else{
                     $option_text = $fieldName;
                 }
@@ -226,8 +226,8 @@ class RecordListView extends RecordView
                     $return_text.= $this->lang_map->list_table["cell_del"];
                 }elseif ($fieldName == "btnDetail"){
                     $return_text.= $this->lang_map->list_table["cell_view"];
-                }elseif(isset($fieldInfo["fieldAliases"][JOINT_SITE_APP_LANG])){
-                    $return_text.= $fieldInfo["fieldAliases"][JOINT_SITE_APP_LANG];
+                }elseif(isset($fieldInfo["fieldAliases"][JOINT_SITE_LW_LANG])){
+                    $return_text.= $fieldInfo["fieldAliases"][JOINT_SITE_LW_LANG];
                 }else{
                     $return_text.= $fieldName;
                 }

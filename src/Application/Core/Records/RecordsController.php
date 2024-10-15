@@ -162,11 +162,13 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
     function process_list()
     {
+        /*
         if ($this->model->modelAliases[JOINT_SITE_APP_LANG]) {
             $this->view->h2 = $this->model->modelAliases[JOINT_SITE_APP_LANG];
         } else {
             $this->view->h2 = $this->model->tableName;
         }
+        */
 
         $this->view->list_frame_id = $this->model->tableName;
 
@@ -307,8 +309,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
     function prepareViewFields()
     {
         $this->view->record = $this->model->recordStructureFields->record;
-        if($this->model->modelAliases[JOINT_SITE_APP_LANG]){
-            $this->view->h2=$this->model->modelAliases[JOINT_SITE_APP_LANG];
+        if($this->model->modelAliases[JOINT_SITE_LW_LANG]){
+            $this->view->h2=$this->model->modelAliases[JOINT_SITE_LW_LANG];
         }else{
             $this->view->h2 = $this->model->tableName;
         }

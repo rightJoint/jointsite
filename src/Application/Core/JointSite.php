@@ -67,7 +67,7 @@ class JointSite implements JointSiteInterface
             /*wildcard for lang_arrays*/
             define("JOINT_SITE_LW_LANG", strtolower($request["routes"][1]));
             /*wildcard for hrefs contains slash*/
-            define("JOINT_SITE_SL_LANG", strtolower($request["routes"][1]));
+            define("JOINT_SITE_SL_LANG", "/".strtolower($request["routes"][1]));
             /*wildcard for hrefs parts after lang*/
             $pos_lang = strpos($request["routes_uri"], JOINT_SITE_SL_LANG);
             define("JOINT_SITE_LP_LANG",
@@ -190,7 +190,7 @@ class JointSite implements JointSiteInterface
 
         if(!empty($request["routes_ns"][1])){
             if($request["routes_ns"][1] == "test"){
-                if(empty($request["routes"][2])){
+                if(empty($request["routes_ns"][2])){
                     require_once JOINT_SITE_REQUIRE_DIR."/Controllers/Controller_Test.php";
                     require_once JOINT_SITE_REQUIRE_DIR."/Models/Model_Test.php";
                     require_once JOINT_SITE_REQUIRE_DIR."/Views/View_Test.php";
@@ -269,7 +269,7 @@ class JointSite implements JointSiteInterface
                         $return = array(
                             "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsLog",
                             "action_name" => "action_index",
-                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
+                            "model_name" => "JointSite\Models\Migrations\Model_MigrationsLog",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }else{

@@ -238,20 +238,15 @@ class SiteView extends View
         if (JOINT_SITE_LW_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='/ru".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_LP_LANG."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
         if (JOINT_SITE_LW_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='/en".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_LP_LANG."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
-        if(JOINT_SITE_SL_LANG){
-            $home_ref = JOINT_SITE_SL_LANG;
-        }else{
-            $home_ref = "/";
-        }
-        echo "<a href='" . $home_ref . "' title='";
+        echo "<a href='" . JOINT_SITE_SL_LANG . "' title='";
         if (!isset($request["routes"][1])) {
             echo $this->lang_map->modalmenu["ref_on_home_title"];
         } else {
