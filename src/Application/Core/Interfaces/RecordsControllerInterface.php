@@ -18,8 +18,6 @@ interface RecordsControllerInterface
 
     public function process_list();
 
-    public function makeSlaveRequest();
-
     public function exec_list($reqArr = null):array;
 
     public function exec_detail($reqArr = null):array;

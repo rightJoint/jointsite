@@ -86,7 +86,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
         } elseif ($request["routes"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
             $this->view->view_data = $this->view_data;
-            $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and $_POST["submit"] == $this->view->lang_map->view_submit_val) {
                 $this->view->action_log = $this->exec_edit($_POST);
                 $this->model->copyCustomFields();
@@ -106,7 +105,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
             $this->checkTemplateView("new");
             $this->view->view_data = $this->view_data;
             $this->view->type = "new";
-            $this->view->slave_req = $this->makeSlaveRequest();
             if (isset($_POST["submit"]) and
                 $_POST["submit"] == $this->view->lang_map->view_submit_val_new) {
                 $this->view->action_log = $this->exec_new($_POST);
@@ -134,7 +132,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->checkTemplateView("delete");
                 $this->view->view_data = $this->view_data;
                 $this->view->type = "delete";
-                $this->view->slave_req = $this->makeSlaveRequest();
 
                 if (isset($_POST["submit"]) and
                     ($_POST["submit"] == $this->view->lang_map->view_submit_val_del)) {
@@ -158,7 +155,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
     function process_detail()
     {
         $this->view->viewFields = $this->model->recordStructureFields->viewFields;
-        $this->view->slave_req = $this->makeSlaveRequest();
 
         $this->prepareViewFields($this->process_url);
 
@@ -188,7 +184,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->listCount = $list_records["count"];
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $list_records["list"];
-        $this->view->slave_req = $this->makeSlaveRequest();
 
         if (isset($_POST["applyFilterRec"])) {
             $listJson = array(
@@ -202,11 +197,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
             $this->view->searchFields = $this->model->recordStructureFields->searchFields;
             $this->view->generate();
         }
-    }
-
-    function makeSlaveRequest()
-    {
-
     }
 
     function doAction_custom(string $action_name)

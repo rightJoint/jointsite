@@ -28,11 +28,4 @@ class controller_records extends controller_api
     {
         $this->records_process(JOINT_SITE_APP_REF."/api/records/users_dt", "migration_log", null);
     }
-
-    function makeSlaveRequest()
-    {
-        $slave_req = "rest_access_token=111";
-        return $slave_req;
-    }
-
 }
