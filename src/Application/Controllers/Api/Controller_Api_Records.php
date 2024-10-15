@@ -7,34 +7,59 @@ use JointSite\Core\Records\RecordsModel;
 
 class Controller_Api_Records extends Controller
 {
+    function checkAccessController():bool
+    {
+        if(file_exists(JOINT_SITE_CONF_DIR."/api/access_token.txt")){
+
+            $rest_access_token = null;
+
+            if(isset($_GET["rest_access_token"]) and $_GET["rest_access_token"] !=null){
+                $rest_access_token = $_GET["rest_access_token"];
+            }elseif (isset($_POST["rest_access_token"]) and $_POST["rest_access_token"] !=null){
+                $rest_access_token = $_POST["rest_access_token"];
+            }
+
+            if($rest_access_token!= null and
+                $rest_access_token == trim(file_get_contents(JOINT_SITE_CONF_DIR."/api/access_token.txt"))){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function action_index()
     {
-        global $request;
+        if($this->checkAccessController()){
+            global $request;
 
-        $this->model = new RecordsModel();
-        $this->view->header_content_type = "application/json; charset=utf-8";
+            $this->model = new RecordsModel();
+            $this->view->header_content_type = "application/json; charset=utf-8";
 
-        $this->model->tableName = $request["routes_ns"][3];
-        if($this->model->getRecordStructure()){
+            $this->model->tableName = $request["routes_ns"][3];
+            if($this->model->getRecordStructure()){
 
-            switch ($_SERVER['REQUEST_METHOD']) {
-                case "GET":
-                    $this->listRecords();
-                    break;
-                case "POST":
-                    $this->updateRecord();
-                    break;
-                case 'PUT':
-                    $this->putRecord();
-                    break;
-                case 'DELETE':
-                    $this->deleteRecord();
-                    break;
+                switch ($_SERVER['REQUEST_METHOD']) {
+                    case "GET":
+                        $this->listRecords();
+                        break;
+                    case "POST":
+                        $this->updateRecord();
+                        break;
+                    case 'PUT':
+                        $this->putRecord();
+                        break;
+                    case 'DELETE':
+                        $this->deleteRecord();
+                        break;
+                }
+            }else{
+                $this->logger->alert("Controller_Api_Records throw err: cant find table db_name '".$this->model->conn_db."'".
+                    " table_name='".$this->model->tableName."'", $this->logger->logger_context);
+                echo "fail";
             }
         }else{
-            $this->logger->alert("Controller_Api_Records throw err: cant find table db_name '".$this->model->conn_db."'".
-                " table_name='".$this->model->tableName."'", $this->logger->logger_context);
-            echo "fail";
+            $this->view->generateJson(array("result" => false, "info" => "Controller_Api_Records->checkAccessController ".
+            "return false"));
         }
     }
 
