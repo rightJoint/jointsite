@@ -265,7 +265,7 @@ class SiteView extends View
             "</div>" .
             "</div>";
 
-        $this->print_products_menu();
+        $this->printProductsMenu();
 
         echo "</div></div></div></div>";
     }
