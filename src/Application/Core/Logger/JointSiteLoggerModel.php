@@ -21,8 +21,8 @@ class JointSiteLoggerModel
 
     function __construct()
     {
-        require_once(JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_APP_LANG."_Models_AlertsModel.php");
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Models_AlertsModel";
+        require_once(JOINT_SITE_REQ_LANG."/Models/LangFiles_".JOINT_SITE_NS_LANG."_Models_AlertsModel.php");
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Models_AlertsModel";
 
         $this->lang_map = new $return_lang;
     }

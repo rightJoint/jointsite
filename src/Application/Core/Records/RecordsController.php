@@ -30,9 +30,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
     function loadLangControllerCustom():string
     {
-        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_APP_LANG."_Controllers_RecordsController.php");
-
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Controllers_RecordsController";
+        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_NS_LANG."_Controllers_RecordsController.php");
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Controllers_RecordsController";
 
         return $return_lang;
     }

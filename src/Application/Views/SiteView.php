@@ -240,7 +240,7 @@ class SiteView extends View
         }
         echo "rus' href='/ru".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_SL_LANG == "en") {
+        if (JOINT_SITE_LW_LANG == "en") {
             echo "active ";
         }
         echo "en' href='/en".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
