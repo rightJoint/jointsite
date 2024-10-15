@@ -62,7 +62,7 @@ class SiteView extends View
 
     }
 
-    function LoadLangViewCustom()
+    function loadLangViewCustom()
     {
         return false;
     }

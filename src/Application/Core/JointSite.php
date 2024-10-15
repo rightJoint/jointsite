@@ -113,6 +113,57 @@ class JointSite implements JointSiteInterface
         define("USE_DEFAULT_ACTION", false);
     }
 
+    private function jsExecAction($app_instances):bool
+    {
+        global $js_result;
+
+        if(isset($js_result["error"]) and $js_result["error"] == true){
+            return false;
+        }
+
+        $controller = new $app_instances["controller_name"]($app_instances["model_name"],
+            $app_instances["view_name"],
+            $app_instances["action_name"]);
+
+        $action = $app_instances["action_name"];
+
+        if(method_exists($controller, $action)){
+            $controller->$action();
+            if(isset($js_result["error"]) and $js_result["error"] == true){
+                return false;
+            }
+        }
+        else{
+            if(!USE_DEFAULT_ACTION){
+                $this->logger->info("request", $this->lang_map->app_err["request_action"].
+                    "<br>".$app_instances["controller_name"]."->".$action);
+            }else{
+                $controller->action_index();
+                if(isset($js_result["error"]) and $js_result["error"] == true){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    function jsHandleResult(bool $result)
+    {
+        global $js_result, $app_log;
+        /*
+         *
+         * $js_result["error"]                                      :bool, true if err occurs
+         * $js_result["errType"]                                    type last thrown err
+         * $js_result["message"][] = array($errType => $message);   list err
+         */
+
+        if($result){
+            return true;
+        }else{
+            $this->logger->displayErr($js_result["errType"], $js_result["message"]);
+        }
+    }
+
     //find routes and return instances names
     private function jsLoadInstances():array
     {
@@ -192,6 +243,7 @@ class JointSite implements JointSiteInterface
                         require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/MigrationsTest/Controller_Test_MigrationsTest_MigrationsList.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
+
                         $return = array(
                             "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsList",
                             "action_name" => "action_index",
@@ -199,13 +251,13 @@ class JointSite implements JointSiteInterface
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }elseif($request["routes"][3] == "migrationsLog"){
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/Controller_Test_MigrationsTest.php";
-                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Test/MigrationsTest/Controller_Test_MigrationsTest_MigrationsLog.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                         require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
                         $return = array(
-                            "controller_name" => "JointSite\Controllers\Controller_Test",
+                            "controller_name" => "JointSite\Controllers\Test\MigrationsTest\Controller_Test_MigrationsTest_MigrationsLog",
                             "action_name" => "action_index",
-                            "model_name" => "JointSite\Models\Model_Test",
+                            "model_name" => "JointSite\Models\Migrations\Model_Migrations",
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }else{
@@ -231,56 +283,5 @@ class JointSite implements JointSiteInterface
         }
 
         return $return;
-    }
-
-    private function jsExecAction($app_instances):bool
-    {
-        global $js_result;
-
-        if(isset($js_result["error"]) and $js_result["error"] == true){
-            return false;
-        }
-
-        $controller = new $app_instances["controller_name"]($app_instances["model_name"],
-            $app_instances["view_name"],
-            $app_instances["action_name"]);
-
-        $action = $app_instances["action_name"];
-
-        if(method_exists($controller, $action)){
-            $controller->$action();
-            if(isset($js_result["error"]) and $js_result["error"] == true){
-                return false;
-            }
-        }
-        else{
-            if(!USE_DEFAULT_ACTION){
-                $this->logger->info("request", $this->lang_map->app_err["request_action"].
-                    "<br>".$app_instances["controller_name"]."->".$action);
-            }else{
-                $controller->action_index();
-                if(isset($js_result["error"]) and $js_result["error"] == true){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    function jsHandleResult(bool $result)
-    {
-        global $js_result, $app_log;
-        /*
-         *
-         * $js_result["error"]                                      :bool, true if err occurs
-         * $js_result["errType"]                                    type last thrown err
-         * $js_result["message"][] = array($errType => $message);   list err
-         */
-
-        if($result){
-            return true;
-        }else{
-            $this->logger->displayErr($js_result["errType"], $js_result["message"]);
-        }
     }
 }

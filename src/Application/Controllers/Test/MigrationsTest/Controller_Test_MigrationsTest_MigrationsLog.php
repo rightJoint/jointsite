@@ -5,6 +5,8 @@ use jointSite\Core\Records\RecordsController;
 class Controller_Test_MigrationsTest_MigrationsLog extends RecordsController
 {
     public $process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";
+
+    /*
     function LoadModel_custom($action_name = null): string
     {
         require_once JOINT_SITE_REQUIRE_DIR."/application/models/migrations/model_migrations_log.php";
@@ -21,4 +23,5 @@ class Controller_Test_MigrationsTest_MigrationsLog extends RecordsController
         }
         return "";
     }
+    */
 }

@@ -23,24 +23,24 @@ class RecordDetailView extends RecordView
         $this->scripts[] = "/js/records.js";
     }
 
-    function LoadViewLang_custom()
+    function loadLangViewCustom()
     {
-        require_once JOINT_SITE_REQ_LANG."/views/templates/lang_view_RecordDetail.php";
-        return "lang_view_RecordDetail";
+        require_once(JOINT_SITE_REQ_LANG."/Views/Templates/LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordDetail.php");
+        return "LangFiles_".JOINT_SITE_APP_LANG."_Views_Templates_RecordDetail";
     }
 
-    function set_head_array()
+    function setHeadArray()
     {
-        parent::set_head_array();
+        parent::setHeadArray();
         $this->lang_map->update_head_array(array(
             "type" => $this->type,
             "h2" => $this->h2,
         ));
     }
 
-    function print_page_content()
+    function printPageContent()
     {
-        parent::print_page_content();
+        parent::printPageContent();
         echo "<div class='contentBlock-frame'><div class='contentBlock-center'>" .
             "<div class='contentBlock-wrap'>";
 
