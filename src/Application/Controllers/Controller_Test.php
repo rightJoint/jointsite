@@ -6,7 +6,7 @@ use JointSite\Core\Records\RecordsController;
 
 class Controller_Test extends \JointSite\Core\Records\RecordsController
 {
-    public $process_url = JOINT_SITE_SL_LANG."/test/records";
+    public $process_url = "/test/records";
     public $process_table = "migrations";
 
     function action_index()
@@ -16,22 +16,14 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
 
     function action_records()
     {
-        $view_data = $this->model->query("SHOW TABLES");
 
-        $rec_url_expl = explode("/", $this->process_url);
-        $rec_url_cnt = count($rec_url_expl);
+        $view_data = $this->model->query("SHOW TABLES");
         global $request;
 
-        if(JOINT_SITE_SL_LANG!=null){
-            $rec_url_cnt--;
-        }
-
         $use_custon_table = false;
-        if(isset($request["routes"][$rec_url_cnt]) and $request["routes"][$rec_url_cnt]!= null){
-            $tableName = $request["routes"][$rec_url_cnt];
+        if(isset($request["routes_ns"][3]) and $request["routes_ns"][3]!= null){
+            $tableName = $request["routes_ns"][3];
             $use_custon_table = true;
-            //echo "YYYY=".$tableName;
-            //exit;
         }elseif ($table_row = $view_data->fetch()){
             $tableName =  $table_row[0];
             //one more query cause fetch
@@ -48,6 +40,7 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
         $this->view->view_data = $view_data;
         $this->view->tableName = $tableName;
         $this->view_data = $this->view->print_select_tbl_panel();
+
         parent::action_index();
     }
 }

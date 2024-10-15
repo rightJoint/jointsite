@@ -16,10 +16,6 @@ interface RecordsControllerInterface
 
     public function process_detail();
 
-    public function process_list();
-
-    public function exec_list($reqArr = null):array;
-
     public function exec_detail($reqArr = null):array;
 
     public function exec_edit($reqArr):array;

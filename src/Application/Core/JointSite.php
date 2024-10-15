@@ -286,13 +286,13 @@ class JointSite implements JointSiteInterface
                 }elseif ($request["routes_ns"][2] == "records"){
 
                     require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Controller_Test.php";
-                    require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
+                    //require_once JOINT_SITE_REQUIRE_DIR . "/Models/Migrations/Model_Migrations.php";
                     require_once JOINT_SITE_REQUIRE_DIR . "/Views/Test/View_Test_MigrationsTest.php";
 
                     $return = array(
                         "controller_name" => "JointSite\Controllers\Controller_Test",
                         "action_name" => "action_records",
-                        "model_name" => "JointSite\Models\Migrations\Model_MigrationsLog",
+                        "model_name" => "JointSite\Core\Records\RecordsModel",
                         "view_name" => "JointSite\Views\Test\View_Test_Records",
                     );
                 }else{

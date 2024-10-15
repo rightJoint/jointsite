@@ -69,7 +69,7 @@ class SiteView extends View
 
     function generate()
     {
-        header("Content-Type: ".$this->header_content_type);
+        //header("Content-Type: ".$this->header_content_type);
 
         $this->setHeadArray();
         if ($this->metrik_block) {

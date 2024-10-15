@@ -5,7 +5,7 @@ namespace JointSite\Core\Records;
 use JointSite\Core\Interfaces\RecordsModelInterface;
 use JointSite\Core\Logger\JointSiteLogger;
 use JointSite\Core\Model_pdo;
-use JointSite\RecordsStructureFiles\RecordStructureFields;
+use JointSite\Models\RecordsStructureFiles\RecordStructureFields;
 
 class RecordsModel extends Model_pdo implements RecordsModelInterface
 {
@@ -23,6 +23,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
         if($tableName and !$this->tableName){
             $this->tableName = $tableName;
         }
+
         parent::__construct();
     }
 
@@ -35,12 +36,12 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
 
     public function getRecordStructure()
     {
+        $this->recordStructureFields = new  RecordStructureFields();
 
         if(!$this->tableName){
-            return JointSiteLogger::throwErr("XXX", $this->lang_map->table_name_rm_err);
+            //return $this->logger->emergency($this->lang_map->table_name_rm_err, $this->logger->logger_context);
+            return false;
         }
-
-        $this->recordStructureFields = new  recordStructureFields();
 
         $replaceUrl = null;
         $replaceArr = null;
@@ -72,7 +73,8 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                             $this->recordStructureFields->record[$datatype_row["COLUMN_NAME"]]["auto_increment"] = true;
                         }
                     }else{
-                        return jointSite::throwErr("XXX", "unknown key type in model->getRecordStructure");
+                        return $this->logger->emergency("unknown key type in model->getRecordStructure",
+                            $this->logger->logger_comtext);
                     }
 
                     $this->recordStructureFields->editFields[$datatype_row["COLUMN_NAME"]]["format"] = $datatype_row["DATA_TYPE"];

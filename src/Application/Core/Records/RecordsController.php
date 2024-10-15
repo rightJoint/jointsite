@@ -43,32 +43,21 @@ class RecordsController extends Controller implements RecordsControllerInterface
             return false;
         }
 
-        //used in all processed views
-        require_once JOINT_SITE_REQUIRE_DIR."/Views/Templates/RecordView.php";
-
         global $request;
-
-        if(!$this->process_url){
-            return JointSiteLogger::throwErr("request", "RecordsProcessController throw err: cant set up process_url - null");
-        }
 
         $pp_exp = explode("/", $this->process_url);
         $pp_cnt = count($pp_exp);
 
-        if(JOINT_SITE_SL_LANG){
-            $pp_cnt--;
-        }
-
-        if (!isset($request["routes"][$pp_cnt]) or
-            $request["routes"][$pp_cnt] == null or
-            $request["routes"][$pp_cnt] == "listview") {
+        if (!isset($request["routes_ns"][$pp_cnt]) or
+            $request["routes_ns"][$pp_cnt] == null or
+            $request["routes_ns"][$pp_cnt] == "listview") {
             $this->checkTemplateView("list");
             $this->view->process_url = $this->process_url;
             $this->view->view_data = $this->view_data;
 
-            $this->process_list();
+            $this->processList();
 
-        } elseif ($request["routes"][$pp_cnt] == "detailview") {
+        } elseif ($request["routes_ns"][$pp_cnt] == "detailview") {
             $this->checkTemplateView("detail");
             $this->view->view_data = $this->view_data;
             $this->view->action_log = $this->exec_detail($_GET);
@@ -82,7 +71,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                     $this->model->log_message);
             }
 
-        } elseif ($request["routes"][$pp_cnt] == "editview") {
+        } elseif ($request["routes_ns"][$pp_cnt] == "editview") {
             $this->checkTemplateView("edit");
             $this->view->view_data = $this->view_data;
             if (isset($_POST["submit"]) and $_POST["submit"] == $this->view->lang_map->view_submit_val) {
@@ -100,7 +89,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
             $this->prepareViewFields();
 
             $this->view->generate();
-        } elseif ($request["routes"][$pp_cnt] == "newview") {
+        } elseif ($request["routes_ns"][$pp_cnt] == "newview") {
             $this->checkTemplateView("new");
             $this->view->view_data = $this->view_data;
             $this->view->type = "new";
@@ -125,7 +114,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
             $this->view->generate();
 
-        } elseif ($request["routes"][$pp_cnt] == "deleteview") {
+        } elseif ($request["routes_ns"][$pp_cnt] == "deleteview") {
             $this->model->copyValFromRequest($_GET);
             if ($this->model->copyRecord()) {
                 $this->checkTemplateView("delete");
@@ -145,8 +134,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
             } else {
                 return JointSiteLogger::throwErr("request", $this->model->log_message);
             }
-        } elseif (!$this->doAction_custom($request["routes"][$pp_cnt])) {
-            return JointSiteLogger::throwErr("stab", "no custom actions in RecordsController: ".$request["routes"][$pp_cnt]);
+        } elseif (!$this->doAction_custom($request["routes_ns"][$pp_cnt])) {
+            return $this->logger->debug("no custom actions in RecordsController: ".$request["routes_ns"][$pp_cnt], $this->logger->logger_context);
         }
         return true;
     }
@@ -160,16 +149,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->generate();
     }
 
-    function process_list()
+    function processList()
     {
-        /*
-        if ($this->model->modelAliases[JOINT_SITE_APP_LANG]) {
-            $this->view->h2 = $this->model->modelAliases[JOINT_SITE_APP_LANG];
-        } else {
-            $this->view->h2 = $this->model->tableName;
-        }
-        */
-
         $this->view->list_frame_id = $this->model->tableName;
 
         if (isset($_POST["curPage"])) {
@@ -180,7 +161,16 @@ class RecordsController extends Controller implements RecordsControllerInterface
             $this->view->onPage = $_POST["onPage"];
         }
 
-        $list_records = $this->exec_list($_POST);
+
+        $this->model->copyValFromRequest($_POST);
+        $sup_cond = $this->model->filterWhere($_POST);
+
+        $list_records = array(
+            "count" => $this->model->countRecords($sup_cond["where"], $sup_cond["having"]),
+            "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"], $sup_cond["having"]),
+        );
+
+
 
         $this->view->listCount = $list_records["count"];
         $this->view->listFields = $this->model->recordStructureFields->listFields;
@@ -192,6 +182,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 "pgView" => $this->view->listPgView(),
                 "jsCtrlPanel" => $this->view->scriptListViewCrtlPannel(),
             );
+
+            //echo "<pre>";
+            //print_r($listJson["pgView"]);
+            //exit;
+
             $this->view->generateJson($listJson);
         } else {
 
@@ -203,18 +198,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
     function doAction_custom(string $action_name)
     {
         return false;
-    }
-
-    public function exec_list($reqArr = null):array
-    {
-        $this->checkRecordModel();
-        $this->model->copyValFromRequest($reqArr);
-        $sup_cond = $this->model->filterWhere($reqArr);
-
-        return array(
-            "count" => $this->model->countRecords($sup_cond["where"], $sup_cond["having"]),
-            "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"], $sup_cond["having"]),
-        );
     }
 
     public function exec_detail($reqArr = null):array
@@ -283,7 +266,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                     " in database ".$this->model->conn_db, $this->logger->logger_context);
             }
         }else{
-            return JointSiteLogger::throwErr("request", "RecordProcessController->checkRecordModel throw err: connect_database_status = fail");
+            return $this->logger->emergency("request", $this->logger->logger_context);
         }
     }
 

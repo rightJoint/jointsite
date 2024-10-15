@@ -3,9 +3,12 @@
 namespace JointSite\Core;
 
 use JointSite\Core\Logger\JointSiteLogger;
+use JointSite\Core\Logger\JointSiteLoggerTrait;
 
 class Model_Pdo extends \PDO
 {
+    use JointSiteLoggerTrait;
+
     public $lang_map = array();
 
     public $log_message = null;
@@ -20,6 +23,8 @@ class Model_Pdo extends \PDO
 
     function __construct()
     {
+        $this->setLogger("JointSite\Core\Model_Pdo");
+
         $lang_class = $this->loadLangModel();
         $this->lang_map = new $lang_class;
         $this->connectDb($sql_db_connect_json = JOINT_SITE_CONF_DIR . "/db_conn.php");
@@ -51,7 +56,7 @@ class Model_Pdo extends \PDO
         } catch (\Exception $e) {
             $this->log_message = $e->getMessage();
             if($this->throw_err_no_conn){
-                JointSiteLogger::throwErr("connection", "Model_pdo throw err cant connect:" . $this->log_message);
+                $this->logger->alert("Model_pdo throw err cant connect:" . $this->log_message, $this->logger->lo);
             }
         }
         return false;
@@ -121,7 +126,7 @@ class Model_Pdo extends \PDO
                 return $this->query($statement, $mode);
             }catch (\Exception $e) {
                 $this->log_message = $e->getMessage();
-                jointSiteLogger::throwErr("connection", "query wrong format: ".$statement);
+                $this->logger->alert("query wrong format: ".$statement, $this->logger->logger_context);
             }
         }else{
             jointSiteLogger::throwErr("connection", "Model_pdo->pdo_query throw err: no-db-connection");
