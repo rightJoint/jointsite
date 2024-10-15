@@ -56,7 +56,7 @@ class Model_Pdo extends \PDO
         } catch (\Exception $e) {
             $this->log_message = $e->getMessage();
             if($this->throw_err_no_conn){
-                $this->logger->alert("Model_pdo throw err cant connect:" . $this->log_message, $this->logger->lo);
+                $this->logger->alert("Model_pdo throw err cant connect:" . $this->log_message, $this->logger->logger_context);
             }
         }
         return false;

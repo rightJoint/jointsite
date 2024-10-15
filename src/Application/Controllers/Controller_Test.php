@@ -16,34 +16,37 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
 
     function action_records()
     {
+        if($view_data = $this->model->pdoQuery("SHOW TABLES")){
+            global $request;
 
-        $view_data = $this->model->query("SHOW TABLES");
-        global $request;
+            $use_custon_table = false;
+            if(isset($request["routes_ns"][3]) and $request["routes_ns"][3]!= null){
+                $tableName = $request["routes_ns"][3];
+                $use_custon_table = true;
+            }elseif ($table_row = $view_data->fetch()){
+                $tableName =  $table_row[0];
+                //one more query cause fetch
+                $view_data = $this->model->query("SHOW TABLES");
+            }else{
+                $this->logger->emergency("no table in database", $this->logger->logger_context);
+            }
 
-        $use_custon_table = false;
-        if(isset($request["routes_ns"][3]) and $request["routes_ns"][3]!= null){
-            $tableName = $request["routes_ns"][3];
-            $use_custon_table = true;
-        }elseif ($table_row = $view_data->fetch()){
-            $tableName =  $table_row[0];
-            //one more query cause fetch
-            $view_data = $this->model->query("SHOW TABLES");
+            $this->model->tableName = $tableName;
+
+            if($use_custon_table){
+                $this->process_url.="/".$tableName;
+                $this->process_table = $tableName;
+            }
+            $this->view->process_url = $this->process_url;
+            $this->view->view_data = $view_data;
+            $this->view->tableName = $tableName;
+            $this->view_data = $this->view->print_select_tbl_panel();
+            $this->model->tableName = $tableName;
+            $this->model->getRecordStructure();
+            parent::action_index();
         }else{
-            $this->logger->emergency("no table in database", $this->logger->logger_context);
+            $this->logger->emergency("cant find tables or database", $this->logger->logger_context);
         }
 
-        $this->model->tableName = $tableName;
-
-        if($use_custon_table){
-            $this->process_url.="/".$tableName;
-            $this->process_table = $tableName;
-        }
-        $this->view->process_url = $this->process_url;
-        $this->view->view_data = $view_data;
-        $this->view->tableName = $tableName;
-        $this->view_data = $this->view->print_select_tbl_panel();
-        $this->model->tableName = $tableName;
-        $this->model->getRecordStructure();
-        parent::action_index();
     }
 }
