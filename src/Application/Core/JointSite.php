@@ -172,7 +172,9 @@ class JointSite implements JointSiteInterface
         if($result){
             return true;
         }else{
-            $this->logger->displayErr($js_result["errType"], $js_result["message"]);
+            if(!isset($js_result["view_generateJson_called"])){
+                $this->logger->displayErr($js_result["errType"], $js_result["message"]);
+            }
         }
     }
 
@@ -321,6 +323,25 @@ class JointSite implements JointSiteInterface
                     $this->logger->error("route in test not found", $this->logger->logger_context);
                 }else{
                     $this->logger->error("route in test not found", $this->logger->logger_context);
+                }
+            }elseif($request["routes_ns"][1] == "api"){
+                if(isset($request["routes_ns"][2]) and $request["routes_ns"][2] == "records"){
+                    if(isset($request["routes_ns"][3]) and $request["routes_ns"][3] !== null){
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Controllers/Api/Controller_Api_Records.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/Model.php";
+                        require_once JOINT_SITE_REQUIRE_DIR . "/Core/View.php";
+
+                        $return = array(
+                            "controller_name" => "JointSite\Controllers\Api\Controller_Api_Records",
+                            "action_name" => "action_index",
+                            "model_name" => "JointSite\Core\Model",
+                            "view_name" => "JointSite\Core\View",
+                        );
+                    }else{
+                        $this->logger->error("no table for api records", $this->logger->logger_context);
+                    }
+                }else{
+                    $this->logger->error("route in api not found", $this->logger->logger_context);
                 }
             }else{
                 $this->logger->error("route in root not found", $this->logger->logger_context);
