@@ -3,19 +3,17 @@
 namespace JointSite\Core\Logger;
 
 use JointSite\Psr\Log\LoggerInterface;
-use JointSite\Psr\Log\LoggerAwareInterface;
 use JointSite\Psr\Log\LogLevel;
 
-use JointSite\Core\Logger\JointSiteLoggerController;
-use JointSite\Core\Logger\JointSiteLoggerModel;
-use JointSite\Core\Logger\JointSiteLoggerView;
 
-class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
+
+class JointSiteLogger implements LoggerInterface
 {
+    /*
     public function setLogger(LoggerInterface $logger)
     {
 
-    }
+    }*/
     /**
      * System is unusable.
      *
@@ -25,8 +23,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function emergency($message, array $context = array())
     {
-        echo "emergency";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::EMERGENCY;
+        $js_result["message"][] = array(LogLevel::EMERGENCY => $message);
+        return false;
     }
 
     /**
@@ -41,8 +42,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function alert($message, array $context = array())
     {
-        echo "alert";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::ALERT;
+        $js_result["message"][] = array(LogLevel::ALERT => $message);
+        return false;
     }
 
     /**
@@ -56,8 +60,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function critical($message, array $context = array())
     {
-        echo "critical";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::CRITICAL;
+        $js_result["message"][] = array(LogLevel::CRITICAL => $message);
+        return false;
     }
 
     /**
@@ -70,8 +77,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function error($message, array $context = array())
     {
-        echo "error";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::ERROR;
+        $js_result["message"][] = array(LogLevel::ERROR => $message);
+        return false;
     }
 
     /**
@@ -86,8 +96,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function warning($message, array $context = array())
     {
-        echo "warning";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::WARNING;
+        $js_result["message"][] = array(LogLevel::WARNING => $message);
+        return false;
     }
 
     /**
@@ -99,8 +112,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function notice($message, array $context = array())
     {
-        echo "notice";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::NOTICE;
+        $js_result["message"][] = array(LogLevel::NOTICE => $message);
+        return false;
     }
 
     /**
@@ -114,8 +130,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function info($message, array $context = array())
     {
-        echo "info";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::INFO;
+        $js_result["message"][] = array(LogLevel::INFO => $message);
+        return false;
     }
 
     /**
@@ -127,8 +146,11 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function debug($message, array $context = array())
     {
-        echo "debug";
-        exit;
+        global $js_result;
+        $js_result["error"] = true;
+        $js_result["errType"] = LogLevel::DEBUG;
+        $js_result["message"][] = array(LogLevel::DEBUG => $message);
+        return false;
     }
 
     /**
@@ -141,31 +163,38 @@ class JointSiteLogger implements LoggerInterface, LoggerAwareInterface
      */
     public function log($level, $message, array $context = array())
     {
-        echo "log";
-        exit;
-    }
-
-
-    static function throwErr($errType, $message):bool
-    {
-        global $js_result;
-        $js_result["error"] = true;
-        $js_result["errType"] = $errType;
-        $js_result["message"][] = array($errType => $message);
-        /*always return false*/
-        return false;
 
     }
 
     static function displayErr($errType, $message)
     {
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/controller.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_controller.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/Alerts_model.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/View.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/views/SiteView.php");
-        //require_once (JOINT_SITE_REQUIRE_DIR."/application/core/alerts/alerts_view.php");
-        $controller = new JointSiteLoggerController();
-        $controller->generateErr($errType, $message);
+        if(isset($_GET["errType"])){
+            $errType = $_GET["errType"];
+            if(isset($_GET["message"])){
+                $message = $_GET["message"];
+            }
+        }
+
+        $view = new JointSiteLoggerView();
+        $model = new JointSiteLoggerModel();
+
+        $view->lang_map->head["h1"] = $model->lang_map->stack_err[$errType]["h1"];
+        $view->lang_map->head["title"] = $model->lang_map->stack_err[$errType]["title"];
+        $view->lang_map->head["description"] = $view->view_data =
+            $model->lang_map->stack_err[$errType]["description"];
+        $view->response_code = $model->response_codes[$errType];
+
+        //view modal menu active to display sign in forms
+        if($view->response_code == 403){
+            $view->active_modal_menu = true;
+        }
+
+        $view->alert_message = $message;
+
+        if($view->response_code != 200){
+            http_response_code($view->response_code);
+        }
+
+        $view->generate();
     }
 }

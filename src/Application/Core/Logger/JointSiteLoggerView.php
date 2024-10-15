@@ -14,10 +14,6 @@ class JointSiteLoggerView extends SiteView
     function __construct()
     {
         parent::__construct();
-
-        //$lang_class ="lang_view_alerts";
-        //$this->lang_map = new $lang_class;
-
         $this->styles[]= "/css/alerts.css";
     }
 

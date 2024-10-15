@@ -2,18 +2,21 @@
 
 namespace jointSite\Core\Logger;
 
+use jointSite\Psr\Log\LogLevel;
+
 class JointSiteLoggerModel
 {
     public $lang_map = array();
 
     public $response_codes = array(
-        "notFound" => 404,
-        "stab" =>  200,
-        "access" => 403,
-        "connection" =>503,
-        "request" => 400,
-        "config" => 200,
-        "XXX" =>  200,
+        LogLevel::ERROR => 404,
+        LogLevel::DEBUG =>  200,
+        LogLevel::WARNING => 403,
+        LogLevel::CRITICAL =>503,
+        LogLevel::ALERT => 400,
+        LogLevel::EMERGENCY => 200,
+        LogLevel::NOTICE =>  200,
+        LogLevel::INFO =>  200,
     );
 
     function __construct()

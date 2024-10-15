@@ -1,6 +1,6 @@
 <?php
 
-namespace jointSite\Log;
+namespace JointSite\Psr\Log;
 
 /**
  * Describes log levels.

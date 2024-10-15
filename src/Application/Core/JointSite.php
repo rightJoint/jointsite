@@ -1,13 +1,23 @@
 <?php
+
 namespace JointSite\Core;
+
 use JointSite\Core\Interfaces\JointSiteInterface;
-use JointSite\Core\Logger\JointSiteLogger;
+use JointSite\Core\Logger\JointSiteLoggerTrait;
 
 class JointSite implements JointSiteInterface
 {
+
+    use JointSiteLoggerTrait;
+
     public $document_root;
     public $request_uri;
     public $lang_map;
+
+    public function __construct()
+    {
+        $this->setLogger("Core\JointSite");
+    }
 
     function jsRun()
     {
@@ -103,6 +113,7 @@ class JointSite implements JointSiteInterface
         define("USE_DEFAULT_ACTION", false);
     }
 
+    //find routes and return instances names
     private function jsLoadInstances():array
     {
         global $request, $app_log;
@@ -198,13 +209,13 @@ class JointSite implements JointSiteInterface
                             "view_name" => "JointSite\Views\Test\View_Test_MigrationsTest",
                         );
                     }else{
-                        JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-3)");
+                        $this->logger->error("route in migrationstest not found", $this->logger_context);
                     }
                 }else{
-                    JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-2)");
+                    $this->logger->error("route in test not found", $this->logger_context);
                 }
             }else{
-                JointSiteLogger::throwErr("XXX", "load_instance: unknown type (xxx-1)");
+                $this->logger->error("route in root not found", $this->logger_context);
             }
         }else{
             //Main
@@ -244,7 +255,7 @@ class JointSite implements JointSiteInterface
         }
         else{
             if(!USE_DEFAULT_ACTION){
-                JointSiteLogger::throwErr("request", $this->lang_map->app_err["request_action"].
+                $this->logger->info("request", $this->lang_map->app_err["request_action"].
                     "<br>".$app_instances["controller_name"]."->".$action);
             }else{
                 $controller->action_index();
@@ -269,7 +280,7 @@ class JointSite implements JointSiteInterface
         if($result){
             return true;
         }else{
-            JointSiteLogger::displayErr($js_result["errType"], $js_result["message"]);
+            $this->logger->displayErr($js_result["errType"], $js_result["message"]);
         }
     }
 }
