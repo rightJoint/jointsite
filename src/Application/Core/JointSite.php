@@ -64,18 +64,15 @@ class JointSite implements JointSiteInterface
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/".ucfirst($request["routes"][1]));
             /*wildcard for namespaces*/
             define("JOINT_SITE_NS_LANG", ucfirst($request["routes"][1]));
-
-
-
-            define("JOINT_SITE_APP_LANG", $request["routes"][1]);
-            define("JOINT_SITE_APP_REF", "/".JOINT_SITE_APP_LANG);
-            $pos_lang = strpos($request["routes_uri"], JOINT_SITE_APP_REF);
-            define("JOINT_SITE_REQ_ROOT",
-                substr($request["routes_uri"], $pos_lang+1 + strlen(JOINT_SITE_APP_LANG),
+            /*wildcard for lang_arrays*/
+            define("JOINT_SITE_LW_LANG", strtolower($request["routes"][1]));
+            /*wildcard for hrefs contains slash*/
+            define("JOINT_SITE_SL_LANG", strtolower($request["routes"][1]));
+            /*wildcard for hrefs parts after lang*/
+            $pos_lang = strpos($request["routes_uri"], JOINT_SITE_SL_LANG);
+            define("JOINT_SITE_LP_LANG",
+                substr($request["routes_uri"], $pos_lang + strlen(JOINT_SITE_SL_LANG),
                     strlen($request["routes_uri"])));
-            unset($request["routes"][1]);
-            $request["routes"] = array_values($request["routes"]);
-            $request["routes_cnt"] --;
 
         }else{
             /*default lang: ru */
@@ -83,19 +80,20 @@ class JointSite implements JointSiteInterface
             define("JOINT_SITE_REQ_LANG", JOINT_SITE_REQUIRE_DIR."/LangFiles/Ru");
             /*wildcard for namespaces*/
             define("JOINT_SITE_NS_LANG", "Ru");
-
-
-            define("JOINT_SITE_APP_LANG", "ru");
-            define("JOINT_SITE_REQ_ROOT", substr($request["routes_uri"], 0,
+            /*wildcard for lang_arrays*/
+            define("JOINT_SITE_LW_LANG", strtolower($request["routes"][1]));
+            /*wildcard for hrefs contains slash*/
+            define("JOINT_SITE_SL_LANG", "");
+            /*wildcard for hrefs parts after lang*/
+            define("JOINT_SITE_LP_LANG", substr($request["routes_uri"], 0,
                 strlen($request["routes_uri"])));
-            define("JOINT_SITE_APP_REF", null);
         }
     }
 
     private function jsLoadAppLang()
     {
-        require_once (JOINT_SITE_REQ_LANG."/LangFiles_".JOINT_SITE_APP_LANG."_App.php");
-        $lang_app_name = "LangFiles_".JOINT_SITE_APP_LANG."_App";
+        require_once (JOINT_SITE_REQ_LANG."/LangFiles_".JOINT_SITE_NS_LANG."_App.php");
+        $lang_app_name = "LangFiles_".JOINT_SITE_NS_LANG."_App";
         //$lang_app_name = "LangFiles_Ru_App";
         $this->lang_map = new $lang_app_name();
     }

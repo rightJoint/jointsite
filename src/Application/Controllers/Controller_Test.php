@@ -6,7 +6,7 @@ use JointSite\Core\Records\RecordsController;
 
 class Controller_Test extends \JointSite\Core\Records\RecordsController
 {
-    public $process_url = JOINT_SITE_APP_REF."/test/records";
+    public $process_url = JOINT_SITE_SL_LANG."/test/records";
     public $process_table = "migrations";
 
     function action_index()
@@ -22,7 +22,7 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
         $rec_url_cnt = count($rec_url_expl);
         global $request;
 
-        if(JOINT_SITE_APP_REF!=null){
+        if(JOINT_SITE_SL_LANG!=null){
             $rec_url_cnt--;
         }
 

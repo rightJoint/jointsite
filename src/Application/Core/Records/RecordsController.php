@@ -56,7 +56,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $pp_exp = explode("/", $this->process_url);
         $pp_cnt = count($pp_exp);
 
-        if(JOINT_SITE_APP_REF){
+        if(JOINT_SITE_SL_LANG){
             $pp_cnt--;
         }
 

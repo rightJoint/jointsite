@@ -18,7 +18,7 @@ class lang_view_jointsite_main extends lang_view_products_jointsite
         $this->product_config["p2"] =  "At this branch custom settings not required.";
 
         $this->prod_test = array(
-            "p1" => "<a href='".JOINT_SITE_APP_REF."/test/main' ".
+            "p1" => "<a href='".JOINT_SITE_SL_LANG."/test/main' ".
                 "title='Как работает на тесте'>Check how this app work</a>, but there is not much to test.",
 
         );

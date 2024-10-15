@@ -19,8 +19,8 @@ class JointSiteLoggerView extends SiteView
 
     function loadLangViewcustom()
     {
-        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_AlertsView.php");
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_AlertsView";
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_NS_LANG."_Views_AlertsView.php");
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Views_AlertsView";
 
         return $return_lang;
     }

@@ -4,7 +4,7 @@ use jointSite\Core\Records\RecordsController;
 
 class Controller_Test_MigrationsTest_MigrationsLog extends RecordsController
 {
-    public $process_url = JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog";
+    public $process_url = JOINT_SITE_SL_LANG."/test/migrationstest/migrationsLog";
 
     /*
     function LoadModel_custom($action_name = null): string

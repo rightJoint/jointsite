@@ -6,7 +6,7 @@ use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MigrationsTest extends RecordsController
 {
-    public $process_url = JOINT_SITE_APP_REF."/test/migrationstest";
+    public $process_url = JOINT_SITE_SL_LANG."/test/migrationstest";
     public $process_table = "migrations";
 
     function action_index()

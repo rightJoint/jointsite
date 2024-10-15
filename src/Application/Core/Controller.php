@@ -35,10 +35,6 @@ class Controller implements Interfaces\ControllerInterface
             );
         }
 
-
-       // $class = "My\Namespace\\$className";
-       // new $class();
-
         $this->model = new $loaded_model();
         $this->view = new $loaded_view();
         $this->view->controller_action = $action_name;
@@ -56,9 +52,9 @@ class Controller implements Interfaces\ControllerInterface
 
     private function loadLangController():string
     {
-        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_APP_LANG."_Controllers_Controller.php");
+        require_once (JOINT_SITE_REQ_LANG."/Controllers/LangFiles_".JOINT_SITE_NS_LANG."_Controllers_Controller.php");
 
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Controllers_Controller";
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Controllers_Controller";
 
         if($custom_lang = $this->loadLangControllerCustom()){
             $return_lang = $custom_lang;

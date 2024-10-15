@@ -95,7 +95,7 @@ class Rsf_Migrations extends RecordStructureFields
             "indexes" => 1,
             "format" => "link",
             "replaces" => Array("migration_name", ),
-            "url" => JOINT_SITE_APP_REF."/test/migrationstest/migrationsLog?migration_name=migration_name",
+            "url" => JOINT_SITE_SL_LANG."/test/migrationstest/migrationsLog?migration_name=migration_name",
         ),
         "status" => Array
         (

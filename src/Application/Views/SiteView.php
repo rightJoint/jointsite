@@ -51,8 +51,8 @@ class SiteView extends View
     function loadLangView()
     {
 
-        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_View.php");
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_View";
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_NS_LANG."_Views_View.php");
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Views_View";
 
         if ($custom_lang = $this->loadLangViewcustom()) {
             $return_lang = $custom_lang;
@@ -153,15 +153,15 @@ class SiteView extends View
         echo "<header><div class='headerCenter'>";
         echo "<div class='lang-panel'>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "ru") {
+        if (JOINT_SITE_LW_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_LP_LANG."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "en") {
+        if (JOINT_SITE_LW_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_LP_LANG."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>";
         echo "<div class='menuBtn hi-icon-effect-1 hi-icon-effect-1a'>" .
             "<span class='hi-icon hi-icon-mobile menu'><span class='hi-text'>" .
@@ -235,19 +235,19 @@ class SiteView extends View
             "<div class='modal-line' style='position: relative; min-height: 3.8em' >" .
             "<div class='lang-panel mp'>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "ru") {
+        if (JOINT_SITE_LW_LANG == "ru") {
             echo "active ";
         }
-        echo "rus' href='/ru".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
+        echo "rus' href='/ru".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltextrus . "'><span>Рус</span></a>" .
             "<a class='lang-cntrl ";
-        if (JOINT_SITE_APP_LANG == "en") {
+        if (JOINT_SITE_SL_LANG == "en") {
             echo "active ";
         }
-        echo "en' href='/en".JOINT_SITE_REQ_ROOT."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
+        echo "en' href='/en".JOINT_SITE_SL_LANG."' title='" . $this->lang_map->langpaneltexten . "'><span>En</span></a>" .
             "</div>" .
             "<div class='mm-htl'>";
-        if(JOINT_SITE_APP_REF){
-            $home_ref = JOINT_SITE_APP_REF;
+        if(JOINT_SITE_SL_LANG){
+            $home_ref = JOINT_SITE_SL_LANG;
         }else{
             $home_ref = "/";
         }
@@ -275,7 +275,7 @@ class SiteView extends View
         $menuStyle = "style='display: none'";
         $folded_style = "folded";
 
-        $jointsite_menu = $this->printMenuItems("branches", "/products/jointsite", JOINT_SITE_APP_REF);
+        $jointsite_menu = $this->printMenuItems("branches", "/products/jointsite", JOINT_SITE_SL_LANG);
 
         if ($jointsite_menu["is_valid_path"]) {
             $menuStyle = null;
@@ -284,7 +284,7 @@ class SiteView extends View
 
         echo "<div class='modal-line prod'>".
             "<div class='modal-line-img'><img src='/img/popimg/internet.png'></div>".
-            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_APP_REF."/products/jointsite' ".
+            "<div class='modal-line-text'><a class='m-l-blue' href='".JOINT_SITE_SL_LANG."/products/jointsite' ".
             "title='".$this->lang_map->prod_titles_in_menu["jointSite"]["title"]."'>".
             $this->lang_map->prod_titles_in_menu["jointSite"]["text"]."</a><sup>".
             $this->lang_map->prod_titles_in_menu["jointSite"]["sup"]."</sup>".

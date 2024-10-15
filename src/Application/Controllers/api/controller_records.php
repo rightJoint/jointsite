@@ -1,7 +1,7 @@
 <?php
 class controller_records extends controller_api
 {
-    public $process_path = JOINT_SITE_APP_REF."/api/records";
+    public $process_path = JOINT_SITE_SL_LANG."/api/records";
     public $default_table = "migrations_log";
 
     function __construct($loaded_model, $loaded_view, $action_name)
@@ -17,7 +17,7 @@ class controller_records extends controller_api
 
     function action_index()
     {
-        $this->process_path = JOINT_SITE_APP_REF."/api/records";
+        $this->process_path = JOINT_SITE_SL_LANG."/api/records";
         $this->default_table = "migrations_log";
 
         parent::action_index();
@@ -26,6 +26,6 @@ class controller_records extends controller_api
 
     function action_users_dt()
     {
-        $this->records_process(JOINT_SITE_APP_REF."/api/records/users_dt", "migration_log", null);
+        $this->records_process(JOINT_SITE_SL_LANG."/api/records/users_dt", "migration_log", null);
     }
 }

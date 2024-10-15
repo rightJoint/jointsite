@@ -23,8 +23,8 @@ class View_Main extends SiteView
 
     function LoadLangViewCustom()
     {
-        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts.php");
-        $return_lang = "LangFiles_".JOINT_SITE_APP_LANG."_Views_JointSiteProducts";
+        require_once(JOINT_SITE_REQ_LANG."/Views/LangFiles_".JOINT_SITE_NS_LANG."_Views_JointSiteProducts.php");
+        $return_lang = "LangFiles_".JOINT_SITE_NS_LANG."_Views_JointSiteProducts";
         return $return_lang;
     }
 
@@ -60,7 +60,7 @@ class View_Main extends SiteView
             "</div>".
             "<div class='branch-main'>".
             "<div class='branch-title'>".
-            "<a href='".JOINT_SITE_APP_REF."/products/jointsite/".$b_name."' ".
+            "<a href='".JOINT_SITE_SL_LANG."/products/jointsite/".$b_name."' ".
             "title='".$this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["altText"]."'>".
             $this->lang_map->menu_blocks["branches"]["menu_items"][$b_name]["aliasMenu"].
             "</a>".
