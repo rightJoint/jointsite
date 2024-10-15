@@ -3,7 +3,6 @@
 namespace JointSite\Core\Records;
 
 use JointSite\Core\Interfaces\RecordsModelInterface;
-use JointSite\Core\Logger\JointSiteLogger;
 use JointSite\Core\Model_pdo;
 use JointSite\Models\RecordsStructureFiles\RecordStructureFields;
 
@@ -507,11 +506,11 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
                     $upload_dir.= $f_expd[$i]."/";
                 }
 
-                if(!is_dir($_SERVER["DOCUMENT_ROOT"].$upload_dir)){
-                    mkdir($_SERVER["DOCUMENT_ROOT"].$upload_dir, 0777, true);
+                if(!is_dir(JOINT_SITE_ROOT_DIR.$upload_dir)){
+                    mkdir(JOINT_SITE_ROOT_DIR.$upload_dir, 0777, true);
                 }
 
-                $moved = @move_uploaded_file($_FILES[$field_name]['tmp_name'], $_SERVER["DOCUMENT_ROOT"].
+                $moved = @move_uploaded_file($_FILES[$field_name]['tmp_name'], JOINT_SITE_ROOT_DIR.
                     $imgLink);
                 if($moved) {
                     return true;
@@ -546,7 +545,7 @@ class RecordsModel extends Model_pdo implements RecordsModelInterface
             for($i = 0; $i < count($f_expd)-1; $i++){
                 $upload_dir.= $f_expd[$i]."/";
             }
-            if(@unlink(               $_SERVER["DOCUMENT_ROOT"].$fileLink)){
+            if(@unlink(               JOINT_SITE_ROOT_DIR.$fileLink)){
                 return true;
             }else{
                 $this->log_message .= $this->lang_map->file_err["unlink_err"];

@@ -25,7 +25,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::EMERGENCY;
-        $js_result["message"][] = array(LogLevel::EMERGENCY => $message);
+        $js_result["message"][] = array(LogLevel::EMERGENCY => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -44,7 +44,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::ALERT;
-        $js_result["message"][] = array(LogLevel::ALERT => $message);
+        $js_result["message"][] = array(LogLevel::ALERT => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -62,7 +62,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::CRITICAL;
-        $js_result["message"][] = array(LogLevel::CRITICAL => $message);
+        $js_result["message"][] = array(LogLevel::CRITICAL => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -79,7 +79,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::ERROR;
-        $js_result["message"][] = array(LogLevel::ERROR => $message);
+        $js_result["message"][] = array(LogLevel::ERROR => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -98,7 +98,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::WARNING;
-        $js_result["message"][] = array(LogLevel::WARNING => $message);
+        $js_result["message"][] = array(LogLevel::WARNING => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -114,7 +114,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::NOTICE;
-        $js_result["message"][] = array(LogLevel::NOTICE => $message);
+        $js_result["message"][] = array(LogLevel::NOTICE => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -132,7 +132,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::INFO;
-        $js_result["message"][] = array(LogLevel::INFO => $message);
+        $js_result["message"][] = array(LogLevel::INFO => $context["component_name"].": ".$message);
         return false;
     }
 
@@ -148,7 +148,7 @@ class JointSiteLogger implements LoggerInterface
         global $js_result;
         $js_result["error"] = true;
         $js_result["errType"] = LogLevel::DEBUG;
-        $js_result["message"][] = array(LogLevel::DEBUG => $message);
+        $js_result["message"][] = array(LogLevel::DEBUG => $context["component_name"].": ".$message);
         return false;
     }
 

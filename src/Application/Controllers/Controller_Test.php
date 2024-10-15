@@ -24,7 +24,8 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
                 $tableName = $request["routes_ns"][3];
                 $use_custon_table = true;
             }elseif ($table_row = $view_data->fetch()){
-                $tableName =  $table_row[0];
+                $tr_key = key($table_row);
+                $tableName =  $table_row[$tr_key];
                 //one more query cause fetch
                 $view_data = $this->model->query("SHOW TABLES");
             }else{
@@ -40,7 +41,7 @@ class Controller_Test extends \JointSite\Core\Records\RecordsController
             $this->view->process_url = $this->process_url;
             $this->view->view_data = $view_data;
             $this->view->tableName = $tableName;
-            $this->view_data = $this->view->print_select_tbl_panel();
+            $this->view_data = $this->view->printSelectTblPanel();
             $this->model->tableName = $tableName;
             $this->model->getRecordStructure();
             parent::action_index();

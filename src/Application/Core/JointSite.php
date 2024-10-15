@@ -39,7 +39,7 @@ class JointSite implements JointSiteInterface
         $this->jsLangReq();
         $env = $this->jsGetEnv();
 
-        define("JOINT_SITE_USERS_DIR", $this->document_root."/".$env["JOINT_SITE_USERS_DIR"]);
+        define("JOINT_SITE_USERS_DIR", "/".$env["JOINT_SITE_USERS_DIR"]);
         define("JOINT_SITE_CONF_DIR", $this->document_root."/".$env["JOINT_SITE_CONFIG_DIR"]);
         define("JOINT_SITE_ROOT_DIR", $this->document_root);
 
