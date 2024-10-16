@@ -6,6 +6,6 @@ use JointSite\Core\Records\RecordsController;
 
 class Controller_Test_MusicAlb extends RecordsController
 {
-    public $process_url = JOINT_SITE_SL_LANG."/test/musicAlb";
+    public $process_url = "/test/musicAlb";
 
 }
