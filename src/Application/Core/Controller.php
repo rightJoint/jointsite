@@ -22,38 +22,9 @@ class Controller implements Interfaces\ControllerInterface
         $lang_class = $this->loadLangController();
         $this->lang_map = new $lang_class;
 
-        global $app_log;
-        if($custom_model = $this->loadModelCustom($action_name)){
-            $app_log["load"]["Model"][] = array(
-                "try_name" => $custom_model,
-                "try_path" => "Controller __construct LoadModel_custom",
-                "loaded" => true,
-            );
-            $loaded_model = $custom_model;
-        }
-
-        if($custom_view = $this->loadViewCustom($action_name)){
-            $loaded_view = $custom_view;
-            $app_log["load"]["View"][] = array(
-                "try_name" => $custom_model,
-                "try_path" => "Controller __construct LoadModel_custom",
-                "loaded" => true,
-            );
-        }
-
         $this->model = new $loaded_model();
         $this->view = new $loaded_view();
         $this->view->controller_action = $action_name;
-    }
-
-    function loadViewCustom($action_name = null):string
-    {
-        return "";
-    }
-
-    function loadModelCustom($action_name = null):string
-    {
-        return "";
     }
 
     private function loadLangController():string

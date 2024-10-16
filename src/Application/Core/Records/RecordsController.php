@@ -4,7 +4,6 @@ namespace JointSite\Core\Records;
 
 use JointSite\Core\Controller;
 use JointSite\Core\Interfaces\RecordsControllerInterface;
-use JointSite\Core\Logger\JointSiteLogger;
 use JointSite\Views\Templates\RecordListView;
 use JointSite\Views\Templates\RecordDetailView;
 use JointSite\Views\Templates\RecordEditView;
@@ -136,7 +135,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
             } else {
                 $this->logger->debug($this->model->log_message, $this->logger->logger_context);
             }
-        } elseif (!$this->doAction_custom($request["routes_ns"][$pp_cnt])) {
+        } else {
             return $this->logger->debug("no custom actions in RecordsController: ".$request["routes_ns"][$pp_cnt], $this->logger->logger_context);
         }
         return true;
@@ -172,8 +171,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
             "list" => $this->model->listRecords($sup_cond["where"], $sup_cond["order"], $sup_cond["limit"], $sup_cond["having"]),
         );
 
-
-
         $this->view->listCount = $list_records["count"];
         $this->view->listFields = $this->model->recordStructureFields->listFields;
         $this->view->listRecords = $list_records["list"];
@@ -184,22 +181,12 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 "pgView" => $this->view->listPgView(),
                 "jsCtrlPanel" => $this->view->scriptListViewCrtlPannel(),
             );
-
-            //echo "<pre>";
-            //print_r($listJson["pgView"]);
-            //exit;
-
             $this->view->generateJson($listJson);
         } else {
 
             $this->view->searchFields = $this->model->recordStructureFields->searchFields;
             $this->view->generate();
         }
-    }
-
-    function doAction_custom(string $action_name)
-    {
-        return false;
     }
 
     public function exec_detail($reqArr = null):array
@@ -301,7 +288,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
         $this->view->process_url = $this->process_url;
     }
-
+/*
     function action_filldatalist()
     {
         $req_where = json_decode($_GET["where"], true);
@@ -323,7 +310,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
         $this->view->generateJson($list_return);
     }
-
+*/
     function action_index()
     {
         $this->records_process();
