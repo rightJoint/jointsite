@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - v2-record
+      - v3-record
 
 jobs:
   build:
