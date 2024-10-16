@@ -20,7 +20,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 COPY ./src/Application /var/www/html/Application
 COPY ./src/css /var/www/html/css
-COPY ./src/db /var/www/html/db
+COPY ./db /var/www/html/db
 COPY ./src/img /var/www/html/img
 COPY ./src/js /var/www/html/js
 COPY ./src/lib /var/www/html/lib
