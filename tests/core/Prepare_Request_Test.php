@@ -1,8 +1,7 @@
 <?php
 //php ./vendor/bin/phpunit tests/core/Prepare_Request_Test.php
-//php ./vendor/bin/phpunit --stderr tests/core/Prepare_Request_Test.php
-//php ./vendor/bin/phpunit --debug tests/core/Prepare_Request_Test.php
-//php ./vendor/bin/phpunit --verbose -c tests/core/Prepare_Request_Test.php
+//docker compose run --build --rm server ./vendor/bin/phpunit tests/core/Prepare_Request_Test.php
+//docker build -t php-docker-image-test --progress plain --no-cache --target test .
 
 class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 {
@@ -33,7 +32,7 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
     function testRequestDefault()
     {
-        global $request;
+        global $request, $env;
 
         $this->JointSite->request_uri = "/test/migrationstest/migrationsList?xxx=yyy";
         $this->JointSite->jsPrepareRequest();
@@ -51,8 +50,8 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
         $this->assertSame($result_req, $request);
 
-        $this->assertEquals("/users_data", JOINT_SITE_USERS_DIR);
-        $this->assertEquals($this->JointSite->document_root."/__testconfig", JOINT_SITE_CONF_DIR);
+        $this->assertEquals("/".$env["JOINT_SITE_USERS_DIR"], JOINT_SITE_USERS_DIR);
+        $this->assertEquals($this->JointSite->document_root."/".$env["JOINT_SITE_CONFIG_DIR"], JOINT_SITE_CONF_DIR);
         $this->assertEquals($this->JointSite->document_root, JOINT_SITE_ROOT_DIR);
 
         $this->assertEquals($this->JointSite->document_root."/Application/LangFiles/Ru", JOINT_SITE_REQ_LANG);
@@ -64,7 +63,7 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
     function testRequestEn()
     {
-        global $request;
+        global $request, $env;
 
         $this->JointSite->request_uri = "/en/test/migrationstest/migrationsList?xxx=yyy";
         $this->JointSite->jsPrepareRequest();
@@ -82,8 +81,8 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
         $this->assertSame($result_req, $request);
 
-        $this->assertEquals("/users_data", JOINT_SITE_USERS_DIR);
-        $this->assertEquals($this->JointSite->document_root."/__testconfig", JOINT_SITE_CONF_DIR);
+        $this->assertEquals("/".$env["JOINT_SITE_USERS_DIR"], JOINT_SITE_USERS_DIR);
+        $this->assertEquals($this->JointSite->document_root."/".$env["JOINT_SITE_CONFIG_DIR"], JOINT_SITE_CONF_DIR);
         $this->assertEquals($this->JointSite->document_root, JOINT_SITE_ROOT_DIR);
 
         $this->assertEquals($this->JointSite->document_root."/Application/LangFiles/En", JOINT_SITE_REQ_LANG);
@@ -95,7 +94,7 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
     function testRequestRu()
     {
-        global $request;
+        global $request, $env;
 
         $this->JointSite->request_uri = "/ru/test/migrationstest/migrationsList?xxx=yyy";
         $this->JointSite->jsPrepareRequest();
@@ -113,8 +112,8 @@ class Prepare_Request_Test extends PHPUnit\Framework\TestCase
 
         $this->assertSame($result_req, $request);
 
-        $this->assertEquals("/users_data", JOINT_SITE_USERS_DIR);
-        $this->assertEquals($this->JointSite->document_root."/__testconfig", JOINT_SITE_CONF_DIR);
+        $this->assertEquals("/".$env["JOINT_SITE_USERS_DIR"], JOINT_SITE_USERS_DIR);
+        $this->assertEquals($this->JointSite->document_root."/".$env["JOINT_SITE_CONFIG_DIR"], JOINT_SITE_CONF_DIR);
         $this->assertEquals($this->JointSite->document_root, JOINT_SITE_ROOT_DIR);
 
         $this->assertEquals($this->JointSite->document_root."/Application/LangFiles/Ru", JOINT_SITE_REQ_LANG);
