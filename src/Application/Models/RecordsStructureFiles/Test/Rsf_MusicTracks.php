@@ -2,9 +2,9 @@
 
 namespace JointSite\Models\RecordsStructureFiles\Test;
 
-use JointSite\Models\RecordsStructureFiles\recordStructureFields;
+use JointSite\Models\RecordsStructureFiles\RecordStructureFields;
 
-class Rsf_MusicTracks extends recordStructureFields
+class Rsf_MusicTracks extends RecordStructureFields
 {
     function __construct()
     {

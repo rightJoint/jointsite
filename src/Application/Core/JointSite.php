@@ -129,8 +129,8 @@ class JointSite implements JointSiteInterface
             }
         }
 
-        $this->logger->info("request", $this->lang_map->app_err["request_action"].
-            "<br>".$app_instances["controller_name"]."->".$action);
+        $this->logger->info($this->lang_map->app_err["request_action"].
+            "<br>".$app_instances["controller_name"]."->".$action, $this->logger->logger_context);
 
         return true;
     }

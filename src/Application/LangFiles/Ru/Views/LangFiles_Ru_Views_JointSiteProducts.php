@@ -2,6 +2,11 @@
 require_once JOINT_SITE_REQ_LANG."/Views/LangFiles_Ru_Views_MainView.php";
 class LangFiles_Ru_Views_JointSiteProducts extends LangFiles_Ru_Views_MainView
 {
+    public $prodmenu = array();
+    public $product_deploy = array();
+    public $product_migration = array();
+    public $product_config = array();
+
     function __construct()
     {
         parent::__construct();

@@ -3,10 +3,10 @@
 namespace JointSite\Core\Records;
 
 use JointSite\Core\Interfaces\RecordsModelInterface;
-use JointSite\Core\Model_pdo;
+use JointSite\Core\Model_Pdo;
 use JointSite\Models\RecordsStructureFiles\RecordStructureFields;
 
-class RecordsModel extends Model_pdo implements RecordsModelInterface
+class RecordsModel extends Model_Pdo implements RecordsModelInterface
 {
     public $tableName = null;
 

@@ -32,7 +32,7 @@ class RecordListView extends RecordView
 
     function LoadLangViewCustom()
     {
-        require_once JOINT_SITE_REQ_LANG."/Views/Templates\LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordsList.php";
+        require_once JOINT_SITE_REQ_LANG."/Views/Templates/LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordsList.php";
         return "LangFiles_".JOINT_SITE_NS_LANG."_Views_Templates_RecordsList";
     }
 
