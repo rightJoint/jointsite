@@ -1,6 +1,9 @@
 <?php
 class LangFiles_En_Views_MainView extends LangFiles_En_Views_View
 {
+    public $branches = array();
+    public $product_custom = array();
+
     function __construct()
     {
         $this->branches = array(

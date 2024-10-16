@@ -4,6 +4,11 @@ require_once JOINT_SITE_REQ_LANG."/Views/LangFiles_En_Views_MainView.php";
 
 class LangFiles_En_Views_JointSiteProducts extends LangFiles_En_Views_MainView
 {
+    public $prodmenu = array();
+    public $product_deploy = array();
+    public $product_migration = array();
+    public $product_config = array();
+
     function __construct()
     {
         parent::__construct();
@@ -58,9 +63,6 @@ class LangFiles_En_Views_JointSiteProducts extends LangFiles_En_Views_MainView
             "example-text-2" => "Setup up dir <span class='ex-conf'>/mirror</span> to run into another app at /mirror url",
             "mirror_dir" => "/mirror",
             "mirror_base" => "mirror"
-        );
-        $this->prod_test = array(
-            "p1" => "For test functionality this app attends url <span class='ex-conf'>/test</span>."
         );
     }
 }
