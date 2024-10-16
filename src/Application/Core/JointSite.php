@@ -29,7 +29,9 @@ class JointSite implements JointSiteInterface
 
         $this->jsPrepareRequest();
 
-        $result = $this->jsAppExec();
+        $app_instances = self::jsLoadInstances();
+        $result = $this->jsExecAction($app_instances);
+
         $this->jsHandleResult($result);
     }
 
@@ -53,7 +55,6 @@ class JointSite implements JointSiteInterface
         $request["routes_uri"] = $this->request_uri;
         $request["routes_path"] = explode('?', $request["routes_uri"])[0];
         $request["routes"] = explode('/', $request["routes_path"]);
-        $request["routes_cnt"] = count($request["routes"]);
     }
 
     private function jsLangReq($acceptable_lang = array("en", "ru", ))
@@ -107,24 +108,6 @@ class JointSite implements JointSiteInterface
         return parse_ini_file('.env');
     }
 
-    private function jsAppExec():bool
-    {
-        /*define constants used default*/
-        $this->jsSetAppConfig();
-
-        $app_instances = self::jsLoadInstances();
-
-        return $this->jsExecAction($app_instances);
-    }
-
-    private function jsSetAppConfig()
-    {
-        define("USE_DEFAULT_CONTROLLER", false);
-        define("USE_DEFAULT_MODEL", true);
-        define("USE_DEFAULT_VIEW", true);
-        define("USE_DEFAULT_ACTION", false);
-    }
-
     private function jsExecAction($app_instances):bool
     {
         global $js_result;
@@ -145,17 +128,10 @@ class JointSite implements JointSiteInterface
                 return false;
             }
         }
-        else{
-            if(!USE_DEFAULT_ACTION){
-                $this->logger->info("request", $this->lang_map->app_err["request_action"].
-                    "<br>".$app_instances["controller_name"]."->".$action);
-            }else{
-                $controller->action_index();
-                if(isset($js_result["error"]) and $js_result["error"] == true){
-                    return false;
-                }
-            }
-        }
+
+        $this->logger->info("request", $this->lang_map->app_err["request_action"].
+            "<br>".$app_instances["controller_name"]."->".$action);
+
         return true;
     }
 
