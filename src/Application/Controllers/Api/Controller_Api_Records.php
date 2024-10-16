@@ -55,7 +55,6 @@ class Controller_Api_Records extends Controller
             }else{
                 $this->logger->alert("Controller_Api_Records throw err: cant find table db_name '".$this->model->conn_db."'".
                     " table_name='".$this->model->tableName."'", $this->logger->logger_context);
-                echo "fail";
             }
         }else{
             $this->view->generateJson(array("result" => false, "info" => "Controller_Api_Records->checkAccessController ".
