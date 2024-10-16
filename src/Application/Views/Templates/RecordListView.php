@@ -190,7 +190,7 @@ class RecordListView extends RecordView
             "</div>".
             "<div class='new-block'>";
         if($this->hasAccessCreate){
-            $return_ajax.="<a href='".$this->process_url."/newview".$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
+            $return_ajax.="<a href='".JOINT_SITE_SL_LANG.$this->process_url."/newview".$this->newBtn_qry."' class='newRecLink'>".$this->lang_map->list_table["new"]."</a>";
         }
 
         $return_ajax.="</div>".
@@ -294,18 +294,18 @@ class RecordListView extends RecordView
                             }
                             //$urlLink .="&".$this->slave_req;
                             if ($fieldName == "btnDetail"){
-                                $return_text.= "<a href='".$this->process_url."/detailview?".
+                                $return_text.= "<a href='".JOINT_SITE_SL_LANG.$this->process_url."/detailview?".
                                     $urlLink."' class='list-btn'>".
                                     "<img src='/img/popimg/eye-icon.png'></a>";
                             }elseif ($fieldName == "btnEdit"){
                                 if(!isset($row["btnEdit"]) or $row["btnEdit"]!="disabled"){
-                                    $return_text.= "<a href='".$this->process_url."/editview?".
+                                    $return_text.= "<a href='".JOINT_SITE_SL_LANG.$this->process_url."/editview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='/img/popimg/edit-icon.png'></a>";
                                 }
                             }elseif ($fieldName == "btnDelete"){
                                 if(!isset($row["btnDelete"]) or $row["btnDelete"]!="disabled"){
-                                    $return_text.= "<a href='".$this->process_url."/deleteview?".
+                                    $return_text.= "<a href='".JOINT_SITE_SL_LANG.$this->process_url."/deleteview?".
                                         $urlLink."' class='list-btn'>".
                                         "<img src='/img/popimg/drop-icon.png'></a>";
                                 }
@@ -322,7 +322,7 @@ class RecordListView extends RecordView
                                     $urlLink = $urlLink_1.$urlLink_3;
                                 }
                             }
-                            $return_text.= "<a href='".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                            $return_text.= "<a href='".JOINT_SITE_SL_LANG.$urlLink."' title='edit'>".$row[$fieldName]."</a>";
                         }
                     }elseif($fieldInfo["format"] == "ref"){
                         $urlLink = null;
@@ -332,7 +332,7 @@ class RecordListView extends RecordView
                                 $urlLink = str_replace($replace, $row[$replace], $urlLink);
                             }
                         }
-                        $return_text.= "<a href='".$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
+                        $return_text.= "<a href='".JOINT_SITE_SL_LANG.$this->process_url."/".$urlLink."' title='edit'>".$row[$fieldName]."</a>";
 
                     }elseif (($fieldInfo["format"] == "varchar") or ($fieldInfo["format"] =="text")){
                         if(isset($fieldInfo["maxLength"]) and isset($row[$fieldName]) and  $fieldInfo["maxLength"] < strlen($row[$fieldName]) ){
