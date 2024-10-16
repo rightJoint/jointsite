@@ -17,6 +17,7 @@ RUN --mount=type=bind,source=./composer.json,target=composer.json \
 FROM php:8.2-apache as base
 RUN a2enmod rewrite
 RUN docker-php-ext-install pdo pdo_mysql
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 COPY ./src/Application /var/www/html/Application
 COPY ./src/css /var/www/html/css
 COPY ./src/db /var/www/html/db
@@ -28,7 +29,7 @@ COPY ./src/.env /var/www/html
 COPY ./src/.htaccess /var/www/html
 COPY ./src/index.php /var/www/html
 COPY ./composer_docker.json /var/www/html/composer.json
-COPY ./composer.phar /var/www/html
+#COPY ./composer.phar /var/www/html
 COPY ./src/__config /var/www/html/__config
 
 
@@ -37,7 +38,7 @@ COPY ./tests /var/www/html/tests
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 COPY --from=dev-deps app/vendor/ /var/www/html/vendor
 #RUN "cd /var/www/html; php composer.phar dump-autoload"
-RUN php composer.phar dump-autoload
+RUN composer dump-autoload
 
 FROM development as test
 WORKDIR /var/www/html
