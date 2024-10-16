@@ -50,6 +50,7 @@ FROM base as final
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=prod-deps app/vendor/ /var/www/html/vendor
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN chown -R www-data:www-data /var/www
 USER www-data
 
 
