@@ -100,18 +100,20 @@ class View_JointSite_About extends View_JointSite
             '<p></p>'.
             '</section>'.
             '<section>'.
-            '<p>Программирование</p>'.
+            '<p>Rest api record, Rest api module</p>'.
             '</section>'.
             '<section>'.
             '<p>Программирование</p>'.
+            '<p>как программировать view</p>'.
+            '<p>ссылка ка программировать модель подробнее о модели</p>'.
             '</section>'.
             '<section>'.
             '<h2>Что с этим делать</h2>'.
             '<p>Кнопка донат</p>'.
-            '</section>'.
-            '<section>'.
-
             '</section>';
+            //'<section>'.
+
+            //'</section>';
 
     }
 }
