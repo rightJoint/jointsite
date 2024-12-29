@@ -17,18 +17,6 @@ class Exec_Migrations_TEST extends PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        global $env;
-        $env = parse_ini_file('.env');
-
-        $this->JointSite = $this->getMockBuilder('JointSite\Core\JointSite')
-            ->onlyMethods(array("jsGetEnv"))
-            //->setConstructorArgs(['2021-03-08'])
-            ->getMock();
-        $this->JointSite->expects($this->once())
-            ->method('jsGetEnv')
-            ->willReturn($env);
-
-        $this->JointSite->document_root = $env["JOINT_SITE_TEST_ROOT"];
 
     }
 
@@ -37,34 +25,40 @@ class Exec_Migrations_TEST extends PHPUnit\Framework\TestCase
 
     }
 
-    function testExecMigration()
+    function testExecMigrations()
     {
-        $this->JointSite->request_uri = "/test/phpmysqladmin/printquery?test=1111";
-        $this->JointSite->jsPrepareRequest();
+        global $jointAppResponse;
 
-        $migrations_model = new Model_Migrations();
+        $jointAppResponse = new \JointApp\JointAppResponse();
+        $docRoot = 'C:\OSPanel\domains\x-site.local';
+        $configDir = 'C:\OSPanel\domains\x-site.local\src\__config';
+        $model = new JointApp\Models\Migrations\Model_Migrations($docRoot, $configDir);
 
         $update_rsf = false;
-        if(!$migrations_model->connect_database_status){
-            $migrations_model->checkDatabase();
+        if(!$model->connect_database_status){
+            $model->checkDatabase();
             $update_rsf = true;
         }
+        $this->assertEquals($model->connect_database_status, true);
 
-        $this->assertEquals($migrations_model->connect_database_status, true);
-
-        if($migrations_model->connect_database_status){
+        if($model->connect_database_status){
             if($update_rsf){
-                $migrations_model = new Model_Migrations();
+                $model = new JointApp\Models\Migrations\Model_Migrations($docRoot, $configDir);;
+            }
+            $exec_res = $model->exec_new_migrations();
+
+            if($exec_res['result'] == true){
+                echo 'execNewMigrations: Success'."\n".
+                    'count_total = '.$exec_res['count_total'].' vs count_success = '.$exec_res['count_success']."\n";
+            }elseif(($exec_res["count_total"] != $exec_res["count_success"]) and $exec_res["result"] == false){
+                echo 'execNewMigrations: Fail, total count = '.$exec_res['count_total'].
+                    'success count = '.$exec_res['count_success'];
+            }else{
+                echo 'execNewMigrations: Fail, db conn problem '."\n".$exec_res['count_total'].' vs '.$exec_res['count_success'];
             }
 
-            $exec_res = $migrations_model->exec_new_migrations();
+            $this->assertEquals($exec_res["count_total"], $exec_res["count_success"]);
+            $this->assertEquals($exec_res["result"], true);
         }
-
-        echo "count_total = ".$exec_res["count_total"]." vs count_success = ".$exec_res["count_success"]."\n";
-
-        echo $migrations_model->conn_db;
-
-        $this->assertEquals($exec_res["count_total"], $exec_res["count_success"]);
-        $this->assertEquals($exec_res["result"], true);
     }
 }
