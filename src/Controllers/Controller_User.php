@@ -206,59 +206,14 @@ class Controller_User extends Controller //extends RecordsController
                         ), true, "default");
 
                     $this->view->modalMenuActive = false;
-
-                    //$ntf = ModelFactory::createFromExistModel('JointApp\Notifications\NotificationMailModel', $this->model);
-                    //$ntf->a
-
-                    //$ntf = new NotificationMailModel($this->docRoot, $this->c)
-
-                    //echo 'send-ntf';
+                    $this->view->registerResult = true;
+                    $this->view->validCode = $this->model->record['vldCode']['curVal'];
                 }else{
                     echo 'Controller_User actionPostSignUp createSiteUser unknown error';
                 }
-            }
-            //exit;
-
-            /*
-
-            if(!$occur_err){
-                $signUp_message = $this->langMap->signUn_message["complete"];
-
-                $this->model->create_site_user($_POST["login"], $_POST["password"], $_POST["email"]);
-
-                $UserNtf_model = new NotificationMailModel();
-
-                $UserNtf_model->AddNtf("welcomeFromSiteForUser", "user",
-                    $this->model->rsf->record["user_id"]["curVal"], json_encode(
-                        array(
-                            "accLogin" => $this->model->rsf->record["accLogin"]["curVal"],
-                            "accAlias" => $this->model->rsf->record["accAlias"]["curVal"],
-                            "accPass" => $_POST["password"],
-                            "validCode" => $this->model->rsf->record["vldCode"]["curVal"],
-                            "baseUrl" => "/",
-                            "userEmail" => $this->model->rsf->record["eMail"]["curVal"],
-                        )
-                    ), true, "default");
-                $UserNtf_model->AddNtf("newUserOnSite-site", "group",
-                    "67A5CC8E-5EBF-46FD-9A37-4BE80DA17681", json_encode(
-                        array(
-                            "accLogin" => $this->model->rsf->record["accLogin"]["curVal"],
-                            "accAlias" => $this->model->rsf->record["accAlias"]["curVal"],
-                        )
-                    ), true, "default");
-
-
-                $this->view->active_modal_menu = false;
             }else{
-                $signUp_message = $this->langMap->signUn_message["error"];
+                $this->view->registerResult = false;
             }
-
-        }
-
-        $this->view->signUp_message = $signUp_message;
-            */
-
-
         }
         $this->view->switchForm = 'signUp';
     }
