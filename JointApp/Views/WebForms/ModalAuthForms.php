@@ -103,7 +103,7 @@ class ModalAuthForms
         $return.= '<div class="modal-line">'.
             '<div class="modal-line-text">'.
             '<a class="m-l-blue title" href="#siteSignUp">'.
-            $this->langForms->signInForm->form_title.
+            $this->langForms->signUpForm->form_title.
             '</a>'.
             '<input type="submit" name="auth_signIn" value="'.$this->langForms->signInForm->submit_btn.'"></div>'.
             '<div class="modal-line-img"></div>'.
@@ -203,7 +203,7 @@ class ModalAuthForms
             '<div class="modal-line">'.
             '<div class="modal-line-text">'.
             '<a class="m-l-blue title" href="#siteSignIn">'.
-            $this->langForms->signUpForm->form_title.
+            $this->langForms->signInForm->form_title.
             '</a>'.
             '<input type="submit" name="auth_signUp" value="'.$this->langForms->signUpForm->submit_btn. '"></div>'.
             '<div class="modal-line-img"></div>'.
