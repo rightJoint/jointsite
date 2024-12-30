@@ -18,24 +18,25 @@ class Controller_Test_MigrationsTest extends RecordsController
     function checkConnectServerStatus()
     {
 
+        $contentBefore = '';
         if(!$this->model->connect_database_status){
-            $this->view->putPageContentBefore('check connect_database_status = fail');
+            $contentBefore.='check connect_database_status = fail<br>';
             if($this->model->checkDatabase()){
-                $this->view->putPageContentBefore('set up connection = success');
+                $contentBefore.='set up connection = success<br>';
             }else
             {
-                $this->view->putPageContentBefore('unknown err: '.$this->model->log_message);
+                $contentBefore.='unknown err: '.$this->model->log_message;
             }
         }else{
-            $this->view->putPageContentBefore('connect_server_status = ok');
+            $contentBefore.='connect_server_status = ok<br>';
         }
 
         if($this->model->connect_database_status){
-            $this->view->putPageContentBefore('final connect_database_status = ok');
+            $contentBefore.='final connect_database_status = ok';
         }else{
-            $this->view->putPageContentBefore('final connect_database_status = fail');
+            $contentBefore.='final connect_database_status = fail';
         }
-
+        $this->view->putPageContentBefore($contentBefore);
     }
 
     function createMigrationsTables()
@@ -50,7 +51,7 @@ class Controller_Test_MigrationsTest extends RecordsController
     function execNewMigrations()
     {
 
-        //$this->model->pdo_query("drop database ".$this->model->conn_db);
+        //$this->model->pdoQuery("drop database ".$this->model->conn_db);
         //echo $this->model->log_message;
         //exit;
         $exec_res = $this->model->exec_new_migrations();
