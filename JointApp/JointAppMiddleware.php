@@ -22,6 +22,8 @@ class JointAppMiddleware implements MiddlewareInterface
             ->withQueryParams($REQ_ARR)
             ->withParsedBody($_POST);
 
+        $this->request->getUploadedFiles();
+
         return $handler->handle($this->request);
     }
 }
