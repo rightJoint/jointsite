@@ -1,0 +1,43 @@
+<?php
+
+namespace Src\Controllers;
+
+use JointApp\Controllers\Records\RecordsController;
+use Src\Views\Test\View_Test_Records;
+
+class Controller_Test extends RecordsController
+{
+    function action_records()
+    {
+        if($this->view->listTables = $this->model->fetchToArray("SHOW TABLES")){
+            $firstTable = $this->view->listTables[0];
+            $k = key($firstTable);
+            $this->view->selectorTableName = $firstTable[$k];
+        }else{
+            $this->logger->emergency("cant find tables or database", $this->logger->logger_context);
+        }
+    }
+
+    function getViewSelectTblPanel()
+    {
+        $viewPannelLangMap_name = View_Test_Records::loadLangView($this->view->docRoot, $this->view->langLw);
+
+        $viewPannelLangMap_class = new $viewPannelLangMap_name();
+        $view_panel = new View_Test_Records($this->view->docRoot, $this->view->langLw);
+
+        $langPageContent = $viewPannelLangMap_class::getLangPageContent();
+
+        if($view_panel->listTables = $this->model->fetchToArray("SHOW TABLES")){
+            $view_panel->selectorTableName = $this->model->tableName;
+            $this->view->putPageContentBefore($view_panel->printSelectTblPanel(
+                $langPageContent->tblSelectorText,
+                $this->view->langSl,
+                $view_panel->listTables,
+                $this->model->tableName)
+            );
+        }else{
+            $this->logger->emergency("cant find tables or database", $this->logger->logger_context);
+        }
+
+    }
+}
