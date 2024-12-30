@@ -150,10 +150,10 @@ class Model_Test_Tables extends Model_Pdo
 
 
 
-            if(!is_dir($this->docRoot.'/Tables')){
-                mkdir($this->docRoot.'/Tables', 0777, true);
+            if(!is_dir($this->docRoot.self::PATH_TO_DB_UPLOAD)){
+                mkdir($this->docRoot.self::PATH_TO_DB_UPLOAD, 0777, true);
             }
-            if(!file_put_contents($this->docRoot.'/Tables'.'/'.$file, $queryToInsert)){
+            if(!file_put_contents($this->docRoot.self::PATH_TO_DB_UPLOAD.'/'.$file, $queryToInsert)){
                 $return['err'].= $tableName."--> ".$this->langMap->admin_mlm["upload_table"]["write"];
             }else{
                 $return['log'].= $tableName."--> ".$this->langMap->admin_mlm["upload_table"]["success"]."<br>";
