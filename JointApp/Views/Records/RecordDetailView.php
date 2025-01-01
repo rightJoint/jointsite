@@ -81,7 +81,13 @@ class RecordDetailView extends RecordView
         }
 
         foreach ($viewParams->viewFields as $fieldName => $fieldData) {
-            $htmlInput = self::getInputType($fieldName, $fieldData, $viewParams->fieldAliases[$fieldName]);
+            if(isset($viewParams->fieldAliases[$fieldName])){
+                $name_input = $viewParams->fieldAliases[$fieldName];
+            }else{
+                $name_input = $fieldName;
+            }
+
+            $htmlInput = self::getInputType($fieldName, $fieldData, $name_input);
             $detailForm.= $htmlInput->getHtml();
         }
         $detailForm.= '</form>'.

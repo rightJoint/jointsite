@@ -68,7 +68,12 @@ class RecordEditView extends RecordView
         $pageContent.= '<form class="editForm" method="post" enctype="multipart/form-data">';
 
         foreach ($viewParams->editFields as $fieldName => $fieldData) {
-            $htmlInput = self::getInputType($fieldName, $fieldData, $viewParams->fieldAliases[$fieldName]);
+            if(isset($viewParams->fieldAliases[$fieldName])){
+                $name_input = $viewParams->fieldAliases[$fieldName];
+            }else{
+                $name_input = $fieldName;
+            }
+            $htmlInput = self::getInputType($fieldName, $fieldData, $name_input);
             $pageContent.= $htmlInput->getHtml();
         }
         $pageContent.= '<div class="submit-line">';

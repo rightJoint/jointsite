@@ -100,7 +100,13 @@ class RecordListView extends RecordView
             if(count($viewParams->searchFields)){
                 foreach ($viewParams->searchFields as $fieldName=>$fieldData){
                     if(isset($fieldData['search']) and $fieldData['search'] == true){
-                        $htmlInput = self::getInputType($fieldName, $fieldData, $viewParams->fieldAliases[$fieldName]);
+                        if(isset($viewParams->fieldAliases[$fieldName])){
+                            $name_input = $viewParams->fieldAliases[$fieldName];
+                        }else{
+                            $name_input = $fieldName;
+                        }
+
+                        $htmlInput = self::getInputType($fieldName, $fieldData, $name_input);
                         $return_text.=$htmlInput->getHtml();
                     }
                 }
