@@ -1,0 +1,330 @@
+<?php
+
+namespace JointApp\Controllers\Migrations;
+
+use JointApp\Controllers\Records\RecordsController;
+use JointApp\JointAppRequest;
+use JointApp\Views\Migrations\Migrations_Top_Panel;
+
+class Controller_MigrationsList extends RecordsController
+{
+    protected bool $execNewMigrations = false;
+    protected bool $execMigration = false;
+    protected string $sqlFileName = '';
+
+    protected bool $globMigrationsFiles = false;
+
+    public function prepareListFields():void
+    {
+        $this->listFields = Array
+        (
+            "btnDetail" => Array
+            (
+                "replaces" => Array("migration_name", ),
+                "format" => "link",
+                "url" => "migration_name=migration_name",
+            ),
+
+            "btnEdit" => Array
+            (
+                "replaces" => Array("migration_name", ),
+                "format" => "link",
+                "url" => "migration_name=migration_name",
+            ),
+
+            "btnDelete" => Array
+            (
+                "replaces" => Array("migration_name", ),
+                "format" => "link",
+                "url" => "migration_name=migration_name",
+            ),
+            "migration_name" => Array
+            (
+                "pri" => 1,
+                "format" => "link",
+                "replaces" => Array("migration_name", ),
+                "url" => "/test/migrations/migrationsLog?migration_name=migration_name",
+            ),
+            "status" => Array
+            (
+                "format" => "varchar",
+            ),
+
+            "try_date" => Array
+            (
+                "format" => "datetime",
+            ),
+
+            "add_date" => Array
+            (
+                "format" => "datetime",
+            ),
+
+            "migr_file" => Array
+            (
+                "format" => "tinyint",
+            ),
+        );
+        $this->view->logo = '/img/popimg/migrations.png';
+    }
+
+    public function prepareEditFields(): void
+    {
+        $this->editFields = Array
+        (
+            "migration_name" => Array
+            (
+                "pri" => 1,
+                "format" => "varchar",
+                "readonly" => true,
+                'curVal' => '',
+            ),
+            "status" => Array
+            (
+                "format" => "varchar",
+                'curVal' => '',
+            ),
+
+            "try_date" => Array
+            (
+                "format" => "datetime",
+                'curVal' => '',
+            ),
+
+            "add_date" => Array
+            (
+                "format" => "datetime",
+                'curVal' => '',
+            ),
+
+            "migr_file" => Array
+            (
+                "format" => "tinyint",
+                'curVal' => '',
+            ),
+        );
+
+        if($this->view->type == 'new'){
+            $this->editFields['migration_name']['readonly'] = false;
+            $this->editFields['add_date']['curVal'] = date('Y-m-d H:i:s');
+            $this->editFields['add_date']['readonly'] = true;
+            $this->editFields['status']['curVal'] = 'new';
+            $this->editFields['try_date']['readonly'] = true;
+            $this->editFields['status']['readonly'] = true;
+            $this->editFields['migr_file']['readonly'] = true;
+        }
+
+        $this->view->logo = '/img/popimg/migrations.png';
+    }
+
+    public function prepareViewFields(): void
+    {
+        $this->viewFields = Array
+        (
+            "migration_name" => Array
+            (
+                "pri" => 1,
+                "format" => "varchar",
+                "readonly" => 1,
+            ),
+            "status" => Array
+            (
+                "format" => "varchar",
+                "readonly" => 1,
+            ),
+
+            "try_date" => Array
+            (
+                "format" => "datetime",
+                "readonly" => 1,
+            ),
+
+            "add_date" => Array
+            (
+                "format" => "datetime",
+                "readonly" => 1,
+            ),
+        );
+
+        foreach ($this->model->record as $fN=>$fOpt){
+            if(strpos(' '.$fN, 'cmd_')){
+                $this->view->viewFields[$fN]['format'] = 'text';
+                $this->view->viewFields[$fN]['readonly'] = 1;
+                $this->view->viewFields[$fN]['style'] = array(
+                    'class' => 'wd100',
+                );
+            }
+        }
+    }
+
+    public function prepareSearchFields(): void
+    {
+        $this->searchFields = Array
+        (
+            "migration_name" => Array
+            (
+                "pri" => 1,
+                "format" => "varchar",
+                "sort" => 1,
+                "search" => 1,
+                "sortOrder" => "DESC",
+            ),
+            "status" => Array
+            (
+                "format" => "varchar",
+                "sort" => 1,
+                "search" => 1,
+            ),
+
+            "try_date" => Array
+            (
+                "format" => "datetime",
+                "sort" => 1,
+                "search" => 1,
+            ),
+
+            "add_date" => Array
+            (
+                "format" => "datetime",
+                "sort" => 1,
+                "search" => 1,
+            ),
+
+            "migr_file" => Array
+            (
+                "format" => "tinyint",
+                "sort" => 1,
+                "search" => 1,
+            ),
+        );
+    }
+
+    public function updateEditFieldsFromRecord(): bool
+    {
+        $counter = 1;
+        $addNew = true;
+        foreach ($this->model->record as $fN=>$fOpt){
+            if(strpos(' '.$fN, 'cmd_')){
+                if(strpos(' '.$fN, 'new') and empty($this->model->record[$fN]['curVal'])){
+                    $addNew = false;
+                }
+                $counter++;
+                $this->editFields[$fN]['format'] = 'text';
+                $this->editFields[$fN]['style'] = array(
+                    'class' => 'wd100',
+                );
+            }
+        }
+
+
+        if($addNew){
+            $this->editFields['cmd_'.$counter.'_new'] = array(
+                'format' => 'text',
+                'custom' => 1,
+                'style'=> array(
+                    'class' => 'wd100',
+                ),
+            );
+            $this->view->fieldAliases['cmd_'.$counter.'_new'] = 'cmd_'.$counter.'_new';
+        }
+
+
+        return parent::updateEditFieldsFromRecord();
+    }
+
+    public function updateModelRecordFromRequest():void
+    {
+        foreach ($this->requestParams as $p => $v) {
+            if (strpos(' ' . $p, 'cmd_')) {
+                $this->model->record[$p] = array(
+                    'type' => 'text',
+                    'custom' => true,
+                    'use_table_name' => 'no-db',
+                    'curVal' => $v,
+                );
+            }
+        }
+        parent::updateModelRecordFromRequest();
+    }
+
+    public function afterUpdateRecord():void
+    {
+        foreach ($this->model->record as $k => $v){
+            if (strpos(' ' . $k, 'cmd_')) {
+                unset($this->model->record[$k]);
+            }
+        }
+
+        foreach ($this->editFields as $k => $v){
+            if (strpos(' ' . $k, 'cmd_')) {
+                unset($this->editFields[$k]);
+            }
+        }
+
+        $this->model->copyRecord();
+        $this->updateEditFieldsFromRecord();
+    }
+
+    public function listTopPanel():void
+    {
+        $panelView = new Migrations_Top_Panel();
+        $this->view->putPageContentBefore($panelView->listTopPanel());
+    }
+
+    function detailTopPanel()
+    {
+        $panelView = new Migrations_Top_Panel();
+        $this->view->putPageContentBefore($panelView->editTopPanel($this->sqlFileName));
+    }
+
+    public function controllerFilterBody($bodyParams = []):void
+    {
+        parent::controllerFilterBody($bodyParams);
+        if(isset($bodyParams['exec_all_migrations']) and $bodyParams['exec_all_migrations'] == 'exec-new-migrations'){
+            $this->execNewMigrations = true;
+        }
+        if(isset($bodyParams['glob_migr_files']) and $bodyParams['glob_migr_files'] == 'glob-migr-files'){
+            $this->globMigrationsFiles = true;
+        }
+        if(isset($bodyParams['exec_migration']) and $bodyParams['exec_migration'] == 'exec-migration'){
+            $this->execMigration = true;
+        }
+        if(isset($bodyParams['exec_migr_file'])){
+            $this->sqlFileName = $bodyParams['exec_migr_file'];
+        }
+        //echo '<pre>';
+        //print_r($bodyParams);
+        if(isset($bodyParams['migration_name'])){
+            //echo $bodyParams['migration_name'];
+            //exit;
+            $this->sqlFileName = $bodyParams['migration_name'];
+        }
+    }
+
+    public function controllerFilterQuery($queryParams = []):void
+    {
+        parent::controllerFilterParams($queryParams); // TODO: Change the autogenerated stub
+        if(isset($queryParams['migration_name'])){
+            $this->sqlFileName = $queryParams['migration_name'];
+        }
+    }
+
+
+    public function topPanelActions():void
+    {
+        if($this->execNewMigrations){
+            $exec_res = $this->model->exec_new_migrations();
+            $this->logger->redirect($this->httpRef);
+        }
+        if($this->execMigration){
+            $this->model->exec_migration($this->sqlFileName);
+            $this->logger->redirect($this->httpRef);
+        }
+        if($this->globMigrationsFiles){
+            $this->model->glob_migration_files();
+            $this->logger->redirect($this->httpRef);
+        }
+    }
+
+
+}
