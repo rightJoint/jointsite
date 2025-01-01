@@ -19,6 +19,8 @@ class Controller_Components_MusicAlb extends ModuleController
 
     public string $moduleName = 'musicalb';
 
+    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
@@ -105,4 +107,162 @@ class Controller_Components_MusicAlb extends ModuleController
         $this->view->putPageContentAfter($addAfterText);
     }
 
+    public function prepareListFields(): void
+    {
+        $this->listFields = array(
+            'btnDetail' => array(
+                'replaces' => ['album_id'],
+                'format' => 'link',
+                'url' => 'album_id=album_id',
+            ),
+            'btnEdit' => array(
+                'replaces' => ['album_id'],
+                'format' => 'link',
+                'url' => 'album_id=album_id',
+            ),
+            'btnDelete' => array(
+                'replaces' => ['album_id'],
+                'format' => 'link',
+                'url' => 'album_id=album_id',
+            ),
+            'album_id' => array(
+                'format' => 'varchar',
+            ),
+            'albumName' => array(
+                'format' => 'varchar',
+            ),
+            'albumAlias' => array(
+                'format' => 'varchar',
+            ),
+            'metaDescr' => array(
+                'format' => 'varchar',
+            ),
+            'dateOfCr' => array(
+                'format' => 'date',
+            ),
+            'albumImg' => array(
+                'format' => 'file',
+                'file_options' => array(
+                    "load_dir" => self::MUSIC_ALB_DIR,
+                    "file_type" => "img",
+                ),
+            ),
+            'activeFlag' => array(
+                'format' => 'tinyint',
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+            ),
+            'robIndex' => array(
+                'format' => 'tinyint',
+            ),
+            'created_by' => array(
+                'format' => 'varchar',
+            ),
+        );
+    }
+
+    public function prepareEditFields(): void
+    {
+        $this->editFields = array(
+            'album_id' => array(
+                'pri' => 1,
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+            'albumName' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+            'albumAlias' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+            'metaDescr' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+            'dateOfCr' => array(
+                'format' => 'date',
+                'curVal' => '',
+            ),
+            'albumImg' => array(
+                'format' => 'file',
+                'file_options' => array(
+                    "load_dir" => self::MUSIC_ALB_DIR,
+                    'file_type' => 'img',
+                    'accept' => '.jpg, .jpeg, .bmp, .git, .png',
+                ),
+                'with_name' => 'GUID',
+                'curVal' => '',
+            ),
+            'activeFlag' => array(
+                'format' => 'tinyint',
+                'curVal' => '',
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+            ),
+            'robIndex' => array(
+                'format' => 'tinyint',
+                'curVal' => '',
+            ),
+            'created_by' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+        );
+    }
+
+    public function prepareSearchFields(): void
+    {
+        $this->searchFields = array(
+            'album_id' => array(
+                'format' => 'varchar',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'albumName' => array(
+                'format' => 'varchar',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'albumAlias' => array(
+                'format' => 'varchar',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'metaDescr' => array(
+                'format' => 'varchar',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'dateOfCr' => array(
+                'format' => 'date',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'activeFlag' => array(
+                'format' => 'tinyint',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'robIndex' => array(
+                'format' => 'tinyint',
+                'sort' => 1,
+                'search' => 1,
+            ),
+            'created_by' => array(
+                'format' => 'varchar',
+                'sort' => 1,
+                'search' => 1,
+            ),
+        );
+    }
 }
