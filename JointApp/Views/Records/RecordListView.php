@@ -274,7 +274,8 @@ class RecordListView extends RecordView
                     }
                     $return_text.= '>';
 
-                    /*if ($fieldInfo['format'] == 'file'){
+                    if ($fieldInfo['format'] == 'file'){
+
                         if($row[$fieldName]){
                             if($fieldInfo['file_options']['file_type'] == 'img'){
                                 $imgLink = null;
@@ -303,7 +304,7 @@ class RecordListView extends RecordView
                                     $row[$fieldName];
                             }
                         }
-                    }else*/if($fieldInfo['format'] == 'link'){
+                    }elseif($fieldInfo['format'] == 'link'){
                         if(in_array($fieldName, array('btnDetail', 'btnEdit', 'btnDelete'))){
                             $urlLink = null;
                             if($fieldInfo['replaces']){
