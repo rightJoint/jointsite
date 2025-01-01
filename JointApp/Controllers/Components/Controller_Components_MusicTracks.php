@@ -12,6 +12,8 @@ class Controller_Components_MusicTracks extends ModuleController
 
     public string $moduleName = 'musictracks';
 
+    const MUSIC_TRACKS_DIR = '/musicData/tracklist';
+
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
@@ -131,8 +133,23 @@ class Controller_Components_MusicTracks extends ModuleController
                 'accept' => '/.{1,}/'
             ),
             'track_file' => array(
+                "format" => "file",
+                "fieldAliases" => array(
+                    "en" => "play file",
+                    "rus" => "Файл мелодии",
+                ),
+                "file_options" => array(
+                    "load_dir" => self::MUSIC_TRACKS_DIR,
+                    //"file_type" => "img",
+                    "accept" => ".mp3",
+                ),
+
+                "with_name" => "GUID",
+                'curVal' => '',
+                /*
                 'format' => 'varchar',
                 'curVal' => '',
+                */
             ),
             'loadDate' => array(
                 'format' => 'date',
