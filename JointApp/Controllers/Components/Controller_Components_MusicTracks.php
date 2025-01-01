@@ -134,22 +134,12 @@ class Controller_Components_MusicTracks extends ModuleController
             ),
             'track_file' => array(
                 "format" => "file",
-                "fieldAliases" => array(
-                    "en" => "play file",
-                    "rus" => "Файл мелодии",
-                ),
                 "file_options" => array(
                     "load_dir" => self::MUSIC_TRACKS_DIR,
-                    //"file_type" => "img",
                     "accept" => ".mp3",
                 ),
-
                 "with_name" => "GUID",
                 'curVal' => '',
-                /*
-                'format' => 'varchar',
-                'curVal' => '',
-                */
             ),
             'loadDate' => array(
                 'format' => 'date',
