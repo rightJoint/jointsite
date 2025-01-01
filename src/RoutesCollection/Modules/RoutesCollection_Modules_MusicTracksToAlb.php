@@ -8,7 +8,7 @@ use JointApp\Router\JointSiteRoute;
 
 trait RoutesCollection_Modules_MusicTracksToAlb
 {
-    //GET: /siteman/musicalb
+    //GET: /siteman/musictrackstoalb
     static function getRoute_ModuleMusicTracksToAlb($routes_ns):JointSiteRoute
     {
         $route = (new JointSiteRoute())
@@ -16,51 +16,41 @@ trait RoutesCollection_Modules_MusicTracksToAlb
             //array('processUri' => '/test/migrations/migrationsList')
             )
             ->withModel('JointApp\Models\Components\Model_Components_MusicTracksToAlb');
-/*
-        if(!isset($routes_ns[3])){
-            $route
-                //->withAction('listTopPanel')
-                ->withAction('actionModuleStat')
-                ->withView('JointApp\Views\Module\ModuleStatView');
-        }
 
-        return $route;
-*/
-
-        //GET: /siteman/musicalb.../listview
+        //GET: /siteman/musictrackstoalb.../listview
         if(!isset($routes_ns[3]) or strtolower($routes_ns[3]) == 'listview'){
             $route
                 ->withAction('getListView')
                 ->withView('JointApp\Views\Modules\ModuleListView');
         }
-        //GET: /siteman/musicalb/detailview
+        //GET: /siteman/musictrackstoalb/detailview
         elseif (strtolower($routes_ns[3]) == 'detailview'){
             $route
                 //->withAction('detailTopPanel')
                 ->withAction('getDetailView')
-                ->withView('JointApp\Views\Records\RecordDetailView');
+                ->withView('JointApp\Views\Modules\ModuleDetailView');
         }
-        //GET: /siteman/musicalb/editview
+        //GET: /siteman/musictrackstoalb/editview
         elseif (strtolower($routes_ns[3]) == 'editview'){
             $route
                 //->withAction('detailTopPanel')
                 ->withAction('getEditView')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
-        //GET: /siteman/musicalb/newview
+        //GET: /siteman/musictrackstoalb/newview
         elseif (strtolower($routes_ns[3]) == 'newview'){
             $route->withAction('getNewView')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
-        //GET: /siteman/users/newview
+        //GET: /siteman/musictrackstoalb/newview
         elseif (strtolower($routes_ns[3]) == 'deleteview'){
             $route->withAction('getDeleteView')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
         return  $route;
     }
 
-    //POST: /siteman/users
+    //POST: /siteman/musictrackstoalb
     static function postRoute_ModuleMusicTracksToAlb($routes_ns):JointSiteRoute
     {
         $route = (new JointSiteRoute())
@@ -69,33 +59,30 @@ trait RoutesCollection_Modules_MusicTracksToAlb
             )
             ->withModel('JointApp\Models\Components\Model_Components_MusicTracksToAlb');
 
-        //POST: /siteman/musicalb..listview
+        //POST: /siteman/musictrackstoalb..listview
         if (!isset($routes_ns[3]) or strtolower($routes_ns[3]) == 'listview') {
             $route
                 ->withAction('applyFilterView')
                 ->withView('JointApp\Views\Modules\ModuleListView')
                 ->responseFormat('json');
         }
-        //POST: /siteman/musicalb/editview
+        //POST: /siteman/musictrackstoalb/editview
         elseif (strtolower($routes_ns[3]) == 'editview') {
             $route
-                //->withAction('detailTopPanel')
                 ->withAction('postEditView')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
-        //POST: /siteman/musicalb/deleteview
+        //POST: /siteman/musictrackstoalb/deleteview
         elseif (strtolower($routes_ns[3]) == 'deleteview') {
             $route
                 ->withAction('postDeleteView')
-                //->withAction('getViewSelectTblPanel')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
-        //POST: /siteman/musicalb/newview
+        //POST: /siteman/musictrackstoalb/newview
         elseif (strtolower($routes_ns[3]) == 'newview') {
             $route
                 ->withAction('postNewView')
-                //->withAction('getViewSelectTblPanel')
-                ->withView('JointApp\Views\Records\RecordEditView');
+                ->withView('JointApp\Views\Modules\ModuleEditView');
         }
         return $route;
     }
