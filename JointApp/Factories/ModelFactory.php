@@ -14,6 +14,7 @@ class ModelFactory
             return new $modelName();
         }else{
             $model = new $modelName($request->docRoot, $request->configDir, $modelParams, $request->langLw);
+            $model->files = $request->getUploadedFiles();
             return $model;
         }
     }
