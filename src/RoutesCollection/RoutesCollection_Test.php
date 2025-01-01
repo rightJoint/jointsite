@@ -43,6 +43,17 @@ trait RoutesCollection_Test
         elseif (strtolower($routes_ns[2]) == 'email') {
             return self::getRoute_TestEmail($routes_ns);
         }
+        //GET: /test/files
+        elseif (strtolower($routes_ns[2]) == 'files') {
+            $route = new JointSiteRoute();
+            $route
+                ->withController('Src\Controllers\Controller_Test')
+                ->withAction('actionFiles')
+                ->withModel('Src\Models\Test\Model_Test')
+                ->withView('Src\Views\Test\View_Test_Files');
+            return $route;
+            //return self::getRoute_TestEmail($routes_ns);
+        }
         return $route;
     }
 
@@ -67,6 +78,17 @@ trait RoutesCollection_Test
         }
         elseif (strtolower($routes_ns[2]) == 'email') {
             return self::postRoute_TestEmail($routes_ns);
+        }
+        //POST: /test/files
+        elseif (strtolower($routes_ns[2]) == 'files') {
+            $route = new JointSiteRoute();
+            $route
+                ->withController('Src\Controllers\Controller_Test')
+                ->withAction('actionFiles')
+                ->withModel('Src\Models\Test\Model_Test')
+                ->withView('Src\Views\Test\View_Test_Files');
+            return $route;
+            //return self::getRoute_TestEmail($routes_ns);
         }
     }
 
@@ -366,7 +388,7 @@ trait RoutesCollection_Test
                 ->withModel("JointApp\Models\Records\RecordsModel", array('tableName' => $routes_ns[3]));
 
             //POST: test/records/...tableName.../listview
-            if (!isset(records[4]) or $routes_ns[4] == 'listview') {
+            if (!isset($routes_ns[4]) or $routes_ns[4] == 'listview') {
                 $route
                     ->withAction('applyFilterView')
                     //->withAction('getViewSelectTblPanel')
