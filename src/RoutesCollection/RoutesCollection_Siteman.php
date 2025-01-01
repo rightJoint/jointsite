@@ -46,7 +46,7 @@ trait RoutesCollection_Siteman
             $route = self::getRoute_ModuleMusicTracksToAlb($routes_ns);
         }
         elseif (strtolower($routes_ns[2]) == 'musictracks'){
-            $route = self::getRoute_ModuleMusicTracksToAlb($routes_ns);
+            $route = self::getRoute_ModuleMusicTracks($routes_ns);
         }
         elseif (strtolower($routes_ns[2]) == 'groups'){
             $route = self::getRoute_ModuleGroups($routes_ns);
@@ -81,7 +81,7 @@ trait RoutesCollection_Siteman
             $route = self::postRoute_ModuleMusicTracksToAlb($routes_ns);
         }
         elseif (strtolower($routes_ns[2]) == 'musictracks') {
-            $route = self::postRoute_ModuleMusicTracksToAlb($routes_ns);
+            $route = self::postRoute_ModuleMusicTracks($routes_ns);
         }
         elseif (strtolower($routes_ns[2]) == 'groups'){
             $route = self::postRoute_ModuleGroups($routes_ns);
