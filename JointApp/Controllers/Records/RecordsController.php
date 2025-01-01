@@ -478,6 +478,10 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->updateModelRecordFromRequest();
                 if($this->view->actionResult = $this->updateEditFieldsFromRecord()){
                     $this->view->actionResult = $this->model->updateRecord();
+
+                    //fields format file need update
+                    $this->updateEditFieldsFromRecord();
+
                     $this->afterUpdateRecord();
                     $this->view->logMessage = $this->model->log_message;
                 }else{
