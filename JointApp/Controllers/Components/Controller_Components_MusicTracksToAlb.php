@@ -12,6 +12,13 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
     public string $processUri = '/siteman/musictrackstoalb';
     public string $moduleName = 'musictrackstoalb';
 
+    public function loadBindComponents(): void
+    {
+        $this->bindComponents = array(
+            'musicalb' => [],
+            'musictracks' => [],
+        );
+    }
 
     public function getEditView(): void
     {
