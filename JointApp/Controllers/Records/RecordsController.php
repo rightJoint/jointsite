@@ -97,7 +97,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     }
 
     //create view->viewFields
-    public function prepareViewViewFields():void
+    public function prepareViewFields():void
     {
         foreach ($this->model->record as $fieldName => $fieldOpt){
             $this->view->viewFields[$fieldName]['readonly'] = 1;
@@ -444,7 +444,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->prepareEditFields();
         $this->updateModelRecordFromRequest();
         if($this->model->copyRecord()){
-            $this->prepareViewViewFields();
+            $this->prepareViewFields();
             $this->updateViewFieldsFromRecord();
             $this->prepareViewParams();
         }else{
@@ -505,7 +505,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
     public function getDeleteView():void
     {
-        $this->prepareViewViewFields();
+        $this->prepareViewFields();
         $this->prepareEditFields();
         $this->updateModelRecordFromRequest();
         if($this->model->copyRecord()){

@@ -87,7 +87,7 @@ class Controller_Components_NtfList extends ModuleController
         //exit;
     }
 
-    public function prepareViewViewFields(): void
+    public function prepareViewFields(): void
     {
         $this->view->viewFields = array(
             'ntf_id' => array(
