@@ -183,7 +183,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
             }
             if(isset($fOpt['accept'])){
                 if(!preg_match($fOpt['accept'], $this->editFields[$fName]['curVal'])){
-                    $this->view->logMessage .= $fName.' doesnt match accept pattern; ';
+                    $fName_p = $fName;
+                    if(isset($this->langMap->fieldAliases[$fName])){
+                        $fName_p = $this->langMap->fieldAliases[$fName];
+                    }
+                    $this->view->logMessage .= $fName_p.' '.$this->langMap->editF_accept_err.'; ';
                     $return = false;
                 }
             }
