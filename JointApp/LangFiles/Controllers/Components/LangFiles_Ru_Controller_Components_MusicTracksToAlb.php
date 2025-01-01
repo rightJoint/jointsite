@@ -5,7 +5,7 @@ class LangFiles_Ru_Controller_Components_MusicTracksToAlb extends LangFiles_Ru_C
     public function __construct()
     {
         parent::__construct();
-        $this->moduleAlias = 'Список трэков';
+        $this->moduleAlias = 'Трэки в альбом';
         $this->fieldAliases = array(
             //'track_id' => 'id',
             'track_name' => 'трэк',

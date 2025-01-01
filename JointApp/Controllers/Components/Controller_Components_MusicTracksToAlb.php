@@ -135,5 +135,49 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
         );
     }
 
+    public function prepareEditFields(): void
+    {
+        $this->editFields = array(
+            'track_id' => array(
+                'pri' => 1,
+                'format' => 'findSelect',
+                'returnKey' => 'track_name',
+                'callBack_uri' => $this->processUri.'/filltrackname',
+                'curVal' => '',
+                'findVal' => '',
+            ),
+            'album_id' => array(
+                'pri' => 1,
+                'format' => 'findSelect',
+                'returnKey' => 'albName',
+                'callBack_uri' => $this->processUri.'/fillalbname',
+                'curVal' => '',
+                'findVal' => '',
+            ),
+            'comment' => array(
+                'format' => 'text',
+                'curVal' => '',
+            ),
+            'sortDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+            ),
+            'mActive' => array(
+                'format' => 'tinyint',
+                'curVal' => '',
+            ),
+            'created_by' => array(
+                'format' => 'hidden',
+                'curVal' => '',
+            ),
+            'created_alias' => array(
+                'format' => 'varchar',
+                'custom' => true,
+                'readonly' => true,
+                'curVal' => '',
+            ),
+        );
+    }
+
 
 }
