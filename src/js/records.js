@@ -60,14 +60,9 @@ $.fn["recordsPgBlock"] = function (url, slave_req) {
                         setRelative: true
                     });
 
-                    console.log(filterSerialazed)
-                    console.log(url+"/listview")
-
                     $.post(url+"/listview", filterSerialazed, function (data) {
-                        console.log(data)
-                        var responce = JSON.parse(data);
-                        $(list_table).html(responce.listView);
-                        $(pagination).html(responce.pgView);
+                        $(list_table).html(data.viewData.listView);
+                        $(pagination).html(data.viewData.pgView);
                         $(list_table).preloader("remove");
 
                         call_after_pg();
@@ -100,12 +95,15 @@ function applyFilterForm()
         setRelative: true
     });
     $.post("", filterSerialazed, function (data) {
-        var responce=JSON.parse(data);
-        $(".list_table").html(responce.listView);
-        $(".pagination").html(responce.pgView);
-         $(".list_table").preloader("remove");
-        $(".list_table").after(responce.jsCtrlPanel);
-        call_after_FilterForm();
+        if(data.result){
+            $(".list_table").html(data.viewData.listView);
+            $(".pagination").html(data.viewData.pgView);
+            $(".list_table").preloader("remove");
+            $(".list_table").after(data.viewData.jsCtrlPanel);
+            call_after_FilterForm();
+        }else{
+            alert(data.log);
+        }
     });
 
 }
