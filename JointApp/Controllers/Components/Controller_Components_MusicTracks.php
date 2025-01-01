@@ -111,5 +111,55 @@ class Controller_Components_MusicTracks extends ModuleController
         );
     }
 
+    public function prepareEditFields(): void
+    {
+        $this->editFields = array(
+            'track_id' => array(
+                'pri' => 1,
+                'format' => 'varchar',
+                'curVal' => '',
+                'readonly' => true,
+            ),
+            'track_name' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+                'accept' => '/.{1,}/'
+            ),
+            'track_artist' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+                'accept' => '/.{1,}/'
+            ),
+            'track_file' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+            ),
+            'loadDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+                'readonly' => true,
+            ),
+            'sortDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+                'accept' => '/.{1,}/'
+            ),
+            'created_by' => array(
+                'format' => 'hidden',
+                'curVal' => '',
+                'readonly' => true,
+            ),
+            'created_alias' => array(
+                'format' => 'varchar',
+                'readonly' => true,
+                'curVal' => '',
+            ),
+        );
+
+        if($this->view->type == 'new'){
+            $this->editFields['loadDate']['curVal'] = date('Y-m-d');
+            $this->editFields['sortDate']['curVal'] = date('Y-m-d');
+        }
+    }
 
 }

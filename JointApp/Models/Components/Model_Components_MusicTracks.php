@@ -43,6 +43,20 @@ class Model_Components_MusicTracks extends ModuleModel
                 'format' => 'varchar',
                 'custom' => false,
             ),
+            'created_alias' => array(
+                'format' => 'varchar',
+                'custom' => true,
+            ),
         );
+    }
+
+    public function copyCustomFields(): bool
+    {
+        $findCreatedAlias_qry = 'select accAlias from users_dt where created_by="'.$this->record['created_by']['curVal'].'"';
+        $findCreatedAlias_arr = $this->fetchToArray($findCreatedAlias_qry);
+        if(count($findCreatedAlias_arr)){
+            $this->record['created_alias']['curVal'] = $findCreatedAlias_arr[0]['accAlias'];
+        }
+        return true;
     }
 }

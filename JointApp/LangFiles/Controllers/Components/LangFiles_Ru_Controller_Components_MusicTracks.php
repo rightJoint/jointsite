@@ -15,6 +15,7 @@ class LangFiles_Ru_Controller_Components_MusicTracks extends LangFiles_Ru_Contro
             'loadDate' => 'Дт.загр',
             'sortDate' => 'Дт. сорт',
             'created_by' => 'создал',
+            'created_alias' => 'создал',
         );
 
     }
