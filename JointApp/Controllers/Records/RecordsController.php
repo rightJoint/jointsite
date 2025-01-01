@@ -15,6 +15,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     public $editFields = [];
     public $listFields = [];
     public $searchFields = [];
+    public $viewFields = [];
     /*3-controllerFilterBody or controllerFilterQuery----------------------*/
     protected bool $applyFilterRecord = false;
     protected string $submitText = '';
@@ -100,8 +101,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
     public function prepareViewFields():void
     {
         foreach ($this->model->record as $fieldName => $fieldOpt){
-            $this->view->viewFields[$fieldName]['readonly'] = 1;
-            $this->view->viewFields[$fieldName]['format'] = $fieldOpt['format'];
+            $this->viewFields[$fieldName]['readonly'] = 1;
+            $this->viewFields[$fieldName]['format'] = $fieldOpt['format'];
         }
     }
 
@@ -445,6 +446,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->updateModelRecordFromRequest();
         if($this->model->copyRecord()){
             $this->prepareViewFields();
+            $this->view->viewFields = $this->viewFields;
             $this->updateViewFieldsFromRecord();
             $this->prepareViewParams();
         }else{
