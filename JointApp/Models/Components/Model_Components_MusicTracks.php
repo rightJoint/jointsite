@@ -28,8 +28,13 @@ class Model_Components_MusicTracks extends ModuleModel
                 'custom' => false,
             ),
             'track_file' => array(
-                'format' => 'varchar',
+                'format' => 'file',
                 'custom' => false,
+                'file_options' => array(
+                    'accept' => 'mp3',
+                    'load_dir' => '/ddd-test/tracks/track_file',
+                    'replaces' => ['track_file'],
+                ),
             ),
             'loadDate' => array(
                 'format' => 'date',
