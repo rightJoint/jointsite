@@ -196,7 +196,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     }
 
     //set up view fields
-    protected function prepareViewFields():void
+    protected function prepareViewParams():void
     {
         $this->view->curPage = $this->viewCurPage;
         $this->view->onPage = $this->viewOnPage;
@@ -245,7 +245,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->listFields = $this->listFields;
         $this->view->listRecords = $this->model->listRecords($qBuilderList);
         $this->view->searchFields = $this->searchFields;
-        $this->prepareViewFields();
+        $this->prepareViewParams();
     }
 
 
@@ -446,7 +446,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         if($this->model->copyRecord()){
             $this->prepareViewViewFields();
             $this->updateViewFieldsFromRecord();
-            $this->prepareViewFields();
+            $this->prepareViewParams();
         }else{
             $this->logger->emergency($this->model->log_message,
                 $this->logger->logger_context);
@@ -461,7 +461,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         if ($this->model->copyRecord()) {
             $this->updateEditFieldsFromRecord();
             $this->view->editFields = $this->editFields;
-            $this->prepareViewFields();
+            $this->prepareViewParams();
         }else{
             $this->logger->emergency($this->model->log_message,
                 $this->logger->logger_context);
@@ -493,7 +493,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->view->logMessage = $this->model->log_message;
             }
             $this->view->editFields = $this->editFields;
-            $this->prepareViewFields();
+            $this->prepareViewParams();
         }
     }
 
@@ -511,7 +511,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         if($this->model->copyRecord()){
             $this->view->type = "delete";
             $this->updateEditFieldsFromRecord();
-            $this->prepareViewFields();
+            $this->prepareViewParams();
             $this->view->editFields = $this->editFields;
         }else{
             $this->logger->emergency($this->model->log_message,
@@ -533,7 +533,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                     $this->view->logMessage = $this->model->log_message;
                     $this->view->actionResult = false;
                     $this->view->editFields = $this->editFields;
-                    $this->prepareViewFields();
+                    $this->prepareViewParams();
                 }
             } else {
                 $this->logger->debug($this->model->log_message, $this->logger->logger_context);
@@ -547,7 +547,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->prepareEditFields();
         $this->view->editFields = $this->editFields;
 
-        $this->prepareViewFields();
+        $this->prepareViewParams();
     }
 
     public function postNewView():void
@@ -581,6 +581,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
             //}
         }
         $this->view->editFields = $this->editFields;
-        $this->prepareViewFields();
+        $this->prepareViewParams();
     }
 }
