@@ -2,10 +2,9 @@
 
 class LangFiles_Ru_Controller_Components_MusicTracks extends LangFiles_Ru_Controller_Records
 {
-    public $fieldAliases = [];
-
     public function __construct()
     {
+        parent::__construct();
         $this->moduleAlias = 'Список трэков';
         $this->fieldAliases = array(
             'track_id' => 'id',

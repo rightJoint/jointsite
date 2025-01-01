@@ -2,10 +2,9 @@
 
 class LangFiles_Ru_Controller_Components_Groups extends LangFiles_Ru_Controller_Records
 {
-    public $fieldAliases = [];
-
     public function __construct()
     {
+        parent::__construct();
         $this->moduleAlias = 'Группы пользователей';
         $this->fieldAliases = array(
             'group_id' => 'id',
