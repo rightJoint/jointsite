@@ -33,6 +33,12 @@ class Controller_Components_MusicTracks extends ModuleController
     public function prepareSearchFields(): void
     {
         $this->searchFields = array(
+            'loadDate' => array(
+                'format' => 'date',
+                'search' => 1,
+                'sort' => 1,
+                'sortOrder' => 'DESC',
+            ),
             'track_id' => array(
                 'format' => 'varchar',
                 'search' => 1,
@@ -50,11 +56,6 @@ class Controller_Components_MusicTracks extends ModuleController
             ),
             'track_file' => array(
                 'format' => 'varchar',
-                'search' => 1,
-                'sort' => 1,
-            ),
-            'loadDate' => array(
-                'format' => 'date',
                 'search' => 1,
                 'sort' => 1,
             ),
