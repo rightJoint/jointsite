@@ -4,9 +4,7 @@ namespace JointApp\Models\Records;
 
 use JointApp\Interfaces\RecordsModelInterface;
 use JointApp\JointAppQueryBuilder;
-use JointApp\JointAppRequest;
 use JointApp\Models\Model_Pdo;
-use JointApp\Models\RecordsStructureFiles\RecordStructureFields;
 
 class RecordsModel extends Model_Pdo implements RecordsModelInterface
 {
@@ -160,10 +158,10 @@ class RecordsModel extends Model_Pdo implements RecordsModelInterface
         $queryToInsert .= "insert into ".$this->tableName." (\r";
         foreach ($this->record as $fieldName=>$fieldInfo) {
 
-            if(isset($_FILES[$fieldName]) and isset($this->rsf->editFields[$fieldName]["format"])
-                and $this->rsf->editFields[$fieldName]["format"] == "file"){
+            if(isset($this->files[$fieldName]))
+            {
                 if($this->uploadRecordFile($fieldName, false, true)){
-                    $fieldInfo["curVal"] = $this->rsf->record[$fieldName]["curVal"];
+                    $fieldInfo["curVal"] = $this->record[$fieldName]["curVal"];
                 }
             }
 
@@ -222,8 +220,7 @@ class RecordsModel extends Model_Pdo implements RecordsModelInterface
         $q_fields = "";
         foreach ($this->record as $fieldName=>$fieldInfo) {
             if(!$fieldInfo['custom']){
-                if((isset($_FILES[$fieldName]) and isset($this->editFields[$fieldName]["format"])) and
-                    ($this->editFields[$fieldName]["format"] == "file" and $_FILES[$fieldName])){
+                if(isset($this->files[$fieldName])){
                     if($this->uploadRecordFile($fieldName, false, true)){
                         $fieldInfo["curVal"] = $this->record[$fieldName]["curVal"];
                     }
@@ -302,71 +299,45 @@ class RecordsModel extends Model_Pdo implements RecordsModelInterface
         return false;
     }
 
-
-
-    //move to controller
-    /*
-    function checkEditValues():bool
-    {
-        $return = true;
-        foreach ($this->rsf->editFields as $fName=>$fData){
-            if(!isset($this->rsf->record[$fName]['pri'])
-                and (isset($fData['acceptNull']) and $fData['acceptNull'] == false)
-                and empty($this->rsf->record[$fName]['curVal'])){
-                $this->log_message .= $this->langMap->fieldAliases[$fName].' cant be null or empty;';
-                $return = false;
-            }
-        }
-
-        return $return;
-    }
-    */
-
-    function uploadRecordFile($field_name, $use_file_name = false, $del_fetch_file = true){
-        if(!$_FILES[$field_name]["error"]){
-            $path_parts = pathinfo($_FILES[$field_name]["name"]);
+    function uploadRecordFile(string $fieldName, $originName = false, $del_fetch_file = true){
+        $file = $this->files[$fieldName];
+        if($file->getError() == 0){
+            $path_parts = pathinfo($file->getClientFilename());
             $file_extension = $path_parts["extension"];
-            if(strpos(" ".$this->rsf->editFields[$field_name]["file_options"]["accept"], $file_extension)){
+            if(strpos(" ".$this->record[$fieldName]["file_options"]["accept"], $file_extension)){
                 if($del_fetch_file){
-                    $this->deleteRecordFetchFile($field_name);
+                    $this->deleteRecordFetchFile($fieldName);
                 }
-                if($use_file_name){
-                    $file_name = $path_parts["filename"];
+                if($originName){
+                    $file_name = $path_parts["filename"].".".$file_extension;
                 }else{
-                    $file_name = $this->createGUID();
+                    $file_name = $this->createGUID().'.'.$file_extension;
                 }
 
-                //mk upload folder when replaces
-                $this->rsf->record[$field_name]["curVal"] = $file_name.".".$file_extension;
-                $imgLink = $this->extract_ef_from_replaces($field_name);
+                $this->record[$fieldName]["curVal"] = $file_name;
+                $imgLink = $this->linkFromReplaces($fieldName);
                 $upload_dir = null;
+
                 $f_expd = explode("/", $imgLink);
                 for($i = 0; $i < count($f_expd)-1; $i++){
                     $upload_dir.= $f_expd[$i]."/";
                 }
 
-                if(!is_dir(JOINT_SITE_ROOT_DIR.$upload_dir)){
-                    mkdir(JOINT_SITE_ROOT_DIR.$upload_dir, 0777, true);
+                if(!is_dir($this->docRoot.$upload_dir)){
+                    mkdir($this->docRoot.$upload_dir, 0777, true);
                 }
-
-                $moved = @move_uploaded_file($_FILES[$field_name]['tmp_name'], JOINT_SITE_ROOT_DIR.
-                    $imgLink);
-                if($moved) {
-                    return true;
-                } else {
-                    $this->log_message .= $this->langMap->file_err["mvf_err_load"];
-                    return false;
-                }
+                $file->moveTo($this->docRoot.$imgLink);
+                return true;
             }else{
                 $this->log_message .= $this->langMap->file_err["mvf_err_extension"].": ".$file_extension."; ";
                 return false;
             }
         }else{
 
-            if($_FILES[$field_name]["error"] == 4){
-                if(isset($this->rsf->record[$field_name]["fetchVal"]) and
-                    $this->rsf->record[$field_name]["fetchVal"]!= null){
-                    $this->rsf->record[$field_name]["curVal"] = $this->rsf->record[$field_name]["fetchVal"];
+            if($file->getError() == 4){
+                if(isset($this->record[$fieldName]["fetchVal"]) and
+                    $this->record[$fieldName]["fetchVal"]!= null){
+                    $this->record[$fieldName]["curVal"] = $this->record[$fieldName]["fetchVal"];
                 }
                 return true;
             }else{
@@ -377,14 +348,15 @@ class RecordsModel extends Model_Pdo implements RecordsModelInterface
 
     function deleteRecordFetchFile($field_name)
     {
-        if(isset($this->rsf->record[$field_name]["fetchVal"])){
-            $fileLink = $this->extract_ef_from_replaces($field_name, "fetchVal");
+        if(isset($this->record[$field_name]["fetchVal"])){
+
+            $fileLink = $this->linkFromReplaces($field_name, "fetchVal");
             $upload_dir = null;
             $f_expd = explode("/", $fileLink);
             for($i = 0; $i < count($f_expd)-1; $i++){
                 $upload_dir.= $f_expd[$i]."/";
             }
-            if(@unlink(               JOINT_SITE_ROOT_DIR.$fileLink)){
+            if(@unlink($this->docRoot.$fileLink)){
                 return true;
             }else{
                 $this->log_message .= $this->langMap->file_err["unlink_err"];
@@ -393,19 +365,18 @@ class RecordsModel extends Model_Pdo implements RecordsModelInterface
         }
     }
 
-    function extract_ef_from_replaces($field_name, $state_val = "curVal")
+    function linkFromReplaces($fieldName, $state_val = 'curVal'):string
     {
-        if($this->rsf->editFields[$field_name]["file_options"]["load_dir"] and $this->rsf->record[$field_name][$state_val]){
-            if(isset($this->rsf->editFields[$field_name]["replaces"])){
-                $file_link = $this->rsf->editFields[$field_name]["file_options"]["load_dir"];
-
-                foreach ($this->rsf->editFields[$field_name]["replaces"] as $replace){
-                    $file_link = str_replace($replace, $this->rsf->record[$replace][$state_val], $file_link);
+        $file_link = '';
+        if($this->record[$fieldName]['file_options']['load_dir'] and $this->record[$fieldName][$state_val]){
+            if(isset($this->record[$fieldName]['file_options']['replaces'])){
+                $file_link = $this->record[$fieldName]['file_options']['load_dir'];
+                foreach ($this->record[$fieldName]['file_options']['replaces'] as $replace){
+                    $file_link = str_replace($replace, $this->record[$replace][$state_val], $file_link);
                 }
             }else{
-
-                $file_link = $this->rsf->editFields[$field_name]["file_options"]["load_dir"]."/".
-                    $this->rsf->record[$field_name][$state_val];
+                $file_link = $this->record[$fieldName]['file_options']['load_dir']."/".
+                    $this->record[$fieldName][$state_val];
             }
 
         }else{
