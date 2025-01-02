@@ -27,9 +27,9 @@ class HtmlFileType extends HtmlInputView
                 $this->fieldOptions['file_options']['file_type'] == 'img'){
                 if(isset($this->fieldOptions['replaces'])){
                     $imgLink = $this->fieldOptions['file_options']['load_dir'];
-                    foreach ($this->fieldOptions['replaces'] as $replace){
+                    //foreach ($this->fieldOptions['replaces'] as $replace){
                         //$imgLink = str_replace($replace, $this->record[$replace]['curVal'], $imgLink);
-                    }
+                    //}
                 }else{
                     $imgLink = $this->fieldOptions['file_options']['load_dir'].'/'.$this->fieldOptions['curVal'];
                 }
