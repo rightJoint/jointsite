@@ -96,7 +96,7 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
                 'search' => 1,
                 'use_table_name' => 'musicAlb'
             ),
-            /*
+
             'track_id' => array(
                 'format' => 'varchar',
             ),
@@ -110,7 +110,7 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
                 'sort' => 1,
                 'search' => 1,
             ),
-            */
+
             'sortDate' => array(
                 'format' => 'date',
                 'sort' => 1,
@@ -145,14 +145,16 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
                 'callBack_uri' => $this->processUri.'/filltrackname',
                 'curVal' => '',
                 'findVal' => '',
+                'accept' => '/.{1,}/'
             ),
             'album_id' => array(
                 'pri' => 1,
                 'format' => 'findSelect',
-                'returnKey' => 'albName',
+                'returnKey' => 'albumName',
                 'callBack_uri' => $this->processUri.'/fillalbname',
                 'curVal' => '',
                 'findVal' => '',
+                'accept' => '/.{1,}/'
             ),
             'comment' => array(
                 'format' => 'text',
@@ -179,5 +181,37 @@ class Controller_Components_MusicTracksToAlb extends ModuleController
         );
     }
 
+    public function actionFillTrackName()
+    {
+        $where_json = $_GET['where'];
+        $where_arr = json_decode($where_json, true);
+        $where_key = key($where_arr);
+        $find_qry = 'select '.$_GET['findField'].', '.$_GET['returnKey'].' from musicTracks where '.
+            $where_key.' like "%'.$where_arr[$where_key].'%" order by '.$_GET['returnKey'].' limit 10';
+        $find_arr = $this->model->fetchToArray($find_qry);
+        if(count($find_arr)){
+            $return_arr = $find_arr;
+        }else{
+            $return_arr[0] = [$_GET['findField'] => '', $_GET['returnKey'] => ''];
+        }
+        $this->view->responseJson = $return_arr;
+    }
+
+    public function actionFillAlbName()
+    {
+        $where_json = $_GET['where'];
+        $where_arr = json_decode($where_json, true);
+        $where_key = key($where_arr);
+        $find_qry = 'select '.$_GET['findField'].', '.$_GET['returnKey'].' from musicAlb where '.
+            $where_key.' like "%'.$where_arr[$where_key].'%" order by '.$_GET['returnKey'].' limit 10';
+        $find_arr = $this->model->fetchToArray($find_qry);
+        if(count($find_arr)){
+            $return_arr = $find_arr;
+        }else{
+            $return_arr[0] = [$_GET['findField'] => '', $_GET['returnKey'] => ''];
+        }
+
+        $this->view->responseJson = $return_arr;
+    }
 
 }
