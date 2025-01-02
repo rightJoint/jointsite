@@ -8,12 +8,15 @@ class HtmlFileType extends HtmlInputView
 {
     public function htmlInput()
     {
-        $this->return_input = '<input type="file" '.$this->name_print;
-        if($this->fieldOptions['file_options']['accept']){
-            $this->return_input .= ' accept="'.$this->fieldOptions['file_options']['accept'].'"';
+        $this->return_input = '';
+        if($this->fieldOptions['file_options']['button'] == true){
+            $this->return_input .= '<input type="file" '.$this->name_print;
+            if($this->fieldOptions['file_options']['accept']){
+                $this->return_input .= ' accept="'.$this->fieldOptions['file_options']['accept'].'"';
+            }
+            $this->return_input .='>';
         }
 
-        $this->return_input .='>';
         $cur_val_file = null;
         if($this->fieldOptions['curVal']){
             $cur_val_file = $this->fieldOptions['curVal'];

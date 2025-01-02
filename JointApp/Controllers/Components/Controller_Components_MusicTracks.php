@@ -141,6 +141,7 @@ class Controller_Components_MusicTracks extends ModuleController
                 ),
                 "with_name" => "GUID",
                 'curVal' => '',
+                'button' => true,
             ),
             'loadDate' => array(
                 'format' => 'date',
