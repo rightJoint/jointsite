@@ -16,11 +16,14 @@ class ModuleSubMenu
             '</a>'.
             '</li>';
         foreach ($bindComponents as $cN => $cOpt){
-            $return.= '<li>'.
-                '<a href="/siteman/'.$cN.'" title="'.$modulesMenu->menuItems[$cN]['refTitle'].'">'.
-                $modulesMenu->menuItems[$cN]['refText'].
-                '</a>'.
-                '</li>';
+            if(in_array($cN, $userModules)){
+                $return.= '<li>'.
+                    '<a href="/siteman/'.$cN.'" title="'.$modulesMenu->menuItems[$cN]['refTitle'].'">'.
+                    $modulesMenu->menuItems[$cN]['refText'].
+                    '</a>'.
+                    '</li>';
+            }
+
         }
 
         $return.='</ul></div></div></div></div>';
