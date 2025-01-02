@@ -24,14 +24,14 @@ class Controller_Components_MusicAlb extends ModuleController
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
-            "musictrackstoalb" => array(
-                "relationships" => array(
-                    "album_id" => "album_id",
+            'musictrackstoalb' => array(
+                'relationships' => array(
+                    'album_id' => 'album_id',
                 ),
                 'model' => 'JointApp\Models\Components\Model_Components_MusicTracksToAlb',
                 'controller' => 'JointApp\Controllers\Components\Controller_Components_MusicTracksToAlb',
             ),
-            "musictracks" => [],
+            'musictracks' => [],
         );
     }
 
