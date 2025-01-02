@@ -102,7 +102,13 @@ class ModuleController extends RecordsController
                 $viewParams->fieldAliases = $bindController->langMap->fieldAliases;
                 $viewParams->h2 = $bindController->langMap->moduleAlias;
                 $viewParams->hasAccessCreate = $redordList_view->hasAccessCreate ;
-                $viewParams->slave_req  = 'album_id='.$this->model->record['album_id']['curVal'];
+
+                $viewParams->slave_req = '';
+                foreach ($kOpt['relationships'] as $curTableKey => $bindTableKey){
+                    $viewParams->slave_req.=$bindTableKey.'='.$this->model->record[$curTableKey]['curVal'].'&';
+                }
+
+                $viewParams->slave_req = substr($viewParams->slave_req, 0, strlen($viewParams->slave_req)-1);
                 $viewParams->newBtn_qry  = '?'.$viewParams->slave_req  ;
 
                 $addAfterText.= $redordList_view::listView($viewLang_pageContent->fiterView, $viewParams);
