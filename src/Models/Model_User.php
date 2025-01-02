@@ -92,11 +92,7 @@ class Model_User extends RecordsModel
         $qBuilder->where('usersToGroups_dt.user_id="'.$this->record["user_id"]["curVal"].'"');
         $userToGroups_res = $groupsModel->listRecords($qBuilder);
 
-        //echo '<pre>';
-        //print_r($userToGroups_res);
-        //exit;
 
-        /*
         if(is_array($userToGroups_res) and count($userToGroups_res) > 0){
             foreach ($userToGroups_res as $row_num => $userToGroups_row){
                 $_SESSION["site_user"]["groups"][$userToGroups_row["group_id"]] = array(
@@ -107,7 +103,6 @@ class Model_User extends RecordsModel
                 );
             }
         }
-        */
     }
 
     function checkDoubleLogin($login):bool
