@@ -33,7 +33,7 @@ class HtmlFileType extends HtmlInputView
                 }else{
                     $imgLink = $this->fieldOptions['file_options']['load_dir'].'/'.$this->fieldOptions['curVal'];
                 }
-                $this->return_input .= '<img class="cell-img float-l" src="'.$imgLink.'">';
+                $this->return_input .= '<img class="cell-img float-l" src="'.$imgLink.'" alt="image">';
             }
         }
     }
