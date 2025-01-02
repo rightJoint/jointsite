@@ -553,6 +553,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
         $this->view->type = "new";
         $this->prepareEditFields();
+
+        //update editFields if use request params
         $this->updateModelRecordFromRequest();
         $this->model->copyCustomFields();
         $this->updateEditFieldsFromRecord();
