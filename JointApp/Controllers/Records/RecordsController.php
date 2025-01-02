@@ -183,12 +183,18 @@ class RecordsController extends Controller implements RecordsControllerInterface
                 $this->editFields[$fName]['findVal'] = $this->model->record[$fName]['findVal'];
             }
             if(isset($fOpt['accept'])){
-                if(!preg_match($fOpt['accept'], $this->editFields[$fName]['curVal'])){
-                    $fName_p = $fName;
-                    if(isset($this->langMap->fieldAliases[$fName])){
-                        $fName_p = $this->langMap->fieldAliases[$fName];
+                //check isset field (case when select)
+                if(isset($this->editFields[$fName]['curVal'])){
+                    if(!preg_match($fOpt['accept'], $this->editFields[$fName]['curVal'])){
+                        $fName_p = $fName;
+                        if(isset($this->langMap->fieldAliases[$fName])){
+                            $fName_p = $this->langMap->fieldAliases[$fName];
+                        }
+                        $this->view->logMessage .= $fName_p.' '.$this->langMap->editF_accept_err.'; ';
+                        $return = false;
                     }
-                    $this->view->logMessage .= $fName_p.' '.$this->langMap->editF_accept_err.'; ';
+                }else{
+                    $this->view->logMessage .= $fName.' '.$this->langMap->editF_accept_err.'; ';
                     $return = false;
                 }
             }
@@ -547,6 +553,10 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
         $this->view->type = "new";
         $this->prepareEditFields();
+        $this->updateModelRecordFromRequest();
+        $this->model->copyCustomFields();
+        $this->updateEditFieldsFromRecord();
+
         $this->view->editFields = $this->editFields;
 
         $this->prepareViewParams();
@@ -560,6 +570,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
             $this->updateModelRecordFromRequest();
             //$this->updateEditFieldsFromRecord();
+            $this->model->copyCustomFields();
             if($this->view->actionResult = $this->updateEditFieldsFromRecord())
             {
                 if($this->view->actionResult = $this->model->insertRecord())
