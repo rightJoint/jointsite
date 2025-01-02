@@ -22,6 +22,8 @@ class Controller_Components_Users extends ModuleController
                 "relationships" => array(
                     "user_id" => "user_id",
                 ),
+                'model' => 'JointApp\Models\Components\Model_Components_UsersToGroups',
+                'controller' => 'JointApp\Controllers\Components\Controller_Components_UsersToGroups'
             ),
             "groups" => [],
         );
