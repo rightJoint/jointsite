@@ -14,8 +14,8 @@ class ModulesListView extends SiteView
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []): LangWebViewInterface
     {
-        $name = 'LangFiles_'.self::langNs($viewLang).'_ModulesListView';
-        $loads[] = [$name => $docRoot.'/JointApp/LangFiles/'.$name];
+        $name = 'LangFiles_'.self::langNs($viewLang).'_Views_ModulesListView';
+        $loads[] = [$name => $docRoot.'/JointApp/LangFiles/Views/'.$name];
         return parent::loadLangView($docRoot, $viewLang, $loads);
     }
 
