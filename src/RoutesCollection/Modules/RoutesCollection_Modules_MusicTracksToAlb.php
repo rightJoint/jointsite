@@ -47,6 +47,18 @@ trait RoutesCollection_Modules_MusicTracksToAlb
             $route->withAction('getDeleteView')
                 ->withView('JointApp\Views\Modules\ModuleEditView');
         }
+        //GET: /siteman/musictrackstoalb/filltrackname
+        elseif (strtolower($routes_ns[3]) == 'filltrackname'){
+            $route->withAction('actionFillTrackName')
+                ->withView('JointApp\Views\View')
+                ->responseFormat('json');
+        }
+        //GET: /siteman/musictrackstoalb/fillalbname
+        elseif (strtolower($routes_ns[3]) == 'fillalbname'){
+            $route->withAction('actionFillAlbName')
+                ->withView('JointApp\Views\View')
+                ->responseFormat('json');
+        }
         return  $route;
     }
 
