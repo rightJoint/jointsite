@@ -3,14 +3,11 @@
 
 namespace JointApp\Views;
 
-use JointApp\AuthConfig;
-use JointApp\Controllers\ModulesAccessList;
+
+use JointApp\ModulesAccessList;
 use JointApp\Interfaces\LangWebViewInterface;
 use JointApp\Interfaces\WebViewInterface;
-use JointApp\JointAppRequest;
 use JointApp\Views\WebForms\ModalAuthForms;
-use JointFramework\Clock\JointSiteClockTrait;
-use JointFramework\Logger\JointSiteLogger;
 use JointFramework\Logger\JointSiteLoggerFactory;
 use Psr\Log\LoggerAwareTrait;
 
