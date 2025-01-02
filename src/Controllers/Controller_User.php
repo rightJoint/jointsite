@@ -173,6 +173,33 @@ class Controller_User extends Controller
         }
     }
 
+    public function actionValidateEmail()
+    {
+        if($_GET["code"]){
+            $find_qry = "select vldCode, accLogin, accAlias, validDate from users_dt where vldCode='".$_GET["code"]."'";
+            $find_res = $this->model->query($find_qry);
+            if($find_res->rowCount() == 1){
+                $find_row = $find_res->fetch(PDO::FETCH_ASSOC);
+
+                $view_data = $find_row;
+
+                if($find_row["validDate"]){
+                    $view_data["status"] = false;
+                }else{
+                    $update_qry = "update users_dt set validDate = '".date("Y-m-d H:i:s")."' where vldCode='".$_GET["code"]."'";
+                    $this->model->query($update_qry);
+                    $view_data["status"] = true;
+                }
+
+                $this->view->view_data = $view_data;
+                $this->view->generate();
+            }else{
+                $this->logger->error("validate code doesnt not much any record", $this->logger->logger_context);
+            }
+        }else{
+            $this->logger->error("null validate code", $this->logger->logger_context);
+        }
+    }
 
     public function actionIndex()
     {
