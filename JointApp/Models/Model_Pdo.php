@@ -60,13 +60,12 @@ class Model_Pdo extends \PDO
             $this->langSl = '';
         }
 
+        $langName = $this->loadLangModel();
+        $this->langMap = new $langName;
+
         if($this->checkAccessModel()){
             $this->modelFromParams($modelParams);
-
             $this->connectDb($sql_db_connect_json = $this->configDir.'/db_conn.php');
-
-            $langName = $this->loadLangModel();
-            $this->langMap = new $langName;
         }else{
             $this->logger->warning('check-access-model __construct return false', $this->logger->logger_context);
         }
