@@ -32,7 +32,8 @@ class SiteView extends WebView
     {
         return self::modalMenuJointSite($langModal->jointSiteMenu, $viewParams->langSl, $viewParams->routes_ns).
             self::modalMenuJobInterview($langModal->jobInterviewMenu, $viewParams->langSl, $viewParams->routes_ns).
-            self::modalMenuWebTests($langModal->webTestMenu, $viewParams->langSl, $viewParams->routes_ns);
+            self::modalMenuWebTests($langModal->webTestMenu, $viewParams->langSl, $viewParams->routes_ns).
+            self::modalMenuMusic($langModal->musicMenu, $viewParams->langSl);
     }
 
     private static function modalMenuJointSite(\stdClass $jointSiteMenu, string $langSl = '', $routes_ns = ['', '']):string
@@ -120,4 +121,14 @@ class SiteView extends WebView
     }
 
 
+    private static function modalMenuMusic(\stdClass $musicMenu, string $langSl = ''):string
+    {
+        return '<div class="modal-line">'.
+            '<div class="modal-line-img"><img src="/img/popimg/music-logo.png"></div>'.
+            '<div class="modal-line-text"><a class="m-l-blue" href="'.$langSl.'/music/album/my-fav-music" '.
+            'title="'.$musicMenu->link_title.'">'.
+            $musicMenu->link_text.
+            '</a></div>'.
+            '</div>';
+    }
 }
