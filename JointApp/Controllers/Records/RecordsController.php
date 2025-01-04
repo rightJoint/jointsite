@@ -208,7 +208,12 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->curPage = $this->viewCurPage;
         $this->view->onPage = $this->viewOnPage;
         $this->view->list_frame_id = $this->model->tableName;
-        $this->view->h2 = $this->model->tableName;
+        if(isset($this->langMap->moduleAlias)){
+            $this->view->h2 = $this->langMap->moduleAlias;
+        }else{
+            $this->view->h2 = $this->model->tableName;
+        }
+
         $this->view->process_url = $this->processUri;
         if(isset($this->langMap->fieldAliases)){
             $this->view->fieldAliases = $this->langMap->fieldAliases;
