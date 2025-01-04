@@ -327,7 +327,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     public function filterWhere():JointAppQueryBuilder
     {
         $qBuilder = new JointAppQueryBuilder();
-        $return_order = null;
+        $return_order = '';
 
         foreach ($this->searchFields as $fName=>$fData){
             $useFieldName = $fName;
