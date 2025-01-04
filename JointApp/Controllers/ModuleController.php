@@ -52,9 +52,6 @@ class ModuleController extends RecordsController
         $this->view->bindComponents = $this->bindComponents;
 
         $this->view->moduleName = $this->moduleName;
-        if(isset($this->langMap->moduleAlias)){
-            $this->view->h2 = $this->langMap->moduleAlias;
-        }
     }
 
     public function getDetailView(): void
