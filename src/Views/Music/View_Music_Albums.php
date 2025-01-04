@@ -7,7 +7,7 @@ use JointApp\Interfaces\LangWebViewInterface;
 class View_Music_Albums extends View_Music
 {
 
-    public string $logo= '/img/music/albums.png';
+    public string $logo= '/img/popimg/albums.png';
     public string $shortcutIcon = '/img/popimg/music-logo.png';
     public $hasAccessCreate = false;
 
