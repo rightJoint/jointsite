@@ -14,7 +14,8 @@ class View_Music extends RecordListView
     public $playAlb = null;
     public $trackList = null;
 
-    const MUSIC_TRACKS_DIR = '/sss/';
+    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
 
     public string $logo = '/img/popimg/music-logo.png';
     public string $shortcutIcon = '/img/popimg/music-logo.png';
@@ -66,7 +67,7 @@ class View_Music extends RecordListView
             '<div class="alb-name">'.$album['albumName'].'</div>'.
             '<div class="alb-cover"><a href="/music/album/'.$album['albumAlias'].'" title="play album">';
         if($album['albumImg']!=null){
-            $return_text .='<img src="'.self::MUSIC_TRACKS_DIR.'/'.$album['albumImg'].'">';
+            $return_text .='<img src="'.self::MUSIC_ALB_DIR.'/'.$album['albumImg'].'">';
         }else{
             $return_text .='<img src="/img/popimg/avatar-default.png" alt="no-cover">';
         }
