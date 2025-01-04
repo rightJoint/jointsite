@@ -29,9 +29,6 @@ class View_Music_Albums extends View_Music
 
     public static function listViewTable($langFilterView, \stdClass $viewParams = null)
     {
-        //echo '<pre>';
-        //print_r($langFilterView);
-        //exit;
         $return_text = null;
 
         if($viewParams->listRecords) {
