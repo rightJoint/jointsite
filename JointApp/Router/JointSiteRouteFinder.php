@@ -11,6 +11,7 @@ use Psr\Log\LoggerAwareTrait;
 use Src\RoutesCollection\RoutesCollection_JointSite;
 use Src\RoutesCollection\RoutesCollection_Api;
 use Src\RoutesCollection\RoutesCollection_Main;
+use Src\RoutesCollection\RoutesCollection_Music;
 use Src\RoutesCollection\RoutesCollection_Siteman;
 use Src\RoutesCollection\RoutesCollection_Test;
 use Src\RoutesCollection\RoutesCollection_FullStackJobInterview;
@@ -27,6 +28,7 @@ class JointSiteRouteFinder
     use RoutesCollection_Api;
     use RoutesCollection_Siteman;
     use RoutesCollection_User;
+    use RoutesCollection_Music;
 
     private $context = 'RouteFinder';
 
