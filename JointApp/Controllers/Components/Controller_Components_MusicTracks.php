@@ -12,7 +12,7 @@ class Controller_Components_MusicTracks extends ModuleController
 
     public string $moduleName = 'musictracks';
 
-    const MUSIC_TRACKS_DIR = '/musicData/tracklist';
+    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
 
     public function loadBindComponents(): void
     {
@@ -214,7 +214,7 @@ class Controller_Components_MusicTracks extends ModuleController
                 'readonly' => true,
                 'file_options' => array(
                     'accept' => 'mp3',
-                    'load_dir' => '/ddd-test/tracks/track_file',
+                    'load_dir' => self::MUSIC_TRACKS_DIR.'/track_file',
                     'replaces' => ['track_file'],
                     'button' => false,
                 ),

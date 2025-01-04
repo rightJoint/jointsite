@@ -12,6 +12,8 @@ class Model_Components_MusicAlb extends ModuleModel
     public string $tableName = 'musicAlb';
     public string $moduleName = 'musicalb';
 
+    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+
     public function getRecordStructure()
     {
         $this->record = array(
@@ -40,7 +42,7 @@ class Model_Components_MusicAlb extends ModuleModel
                 'format' => 'file',
                 'file_options' => array(
                     'accept' => '.jpg, .jpeg, .bmp, .git, .png',
-                    'load_dir' => '/ddd-test/albCovers/albumImg',
+                    'load_dir' => self::MUSIC_ALB_DIR.'/albumImg',
                     'replaces' => ['albumImg'],
                 ),
                 'custom' => false,

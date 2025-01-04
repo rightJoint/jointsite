@@ -12,6 +12,8 @@ class Model_Components_MusicTracks extends ModuleModel
     public string $moduleName = 'musictracks';
     public string $tableName = 'musicTracks';
 
+    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
+
     public function getRecordStructure()
     {
         $this->record = array(
@@ -33,7 +35,7 @@ class Model_Components_MusicTracks extends ModuleModel
                 'custom' => false,
                 'file_options' => array(
                     'accept' => 'mp3',
-                    'load_dir' => '/ddd-test/tracks/track_file',
+                    'load_dir' => self::MUSIC_TRACKS_DIR.'/track_file',
                     'replaces' => ['track_file'],
                 ),
             ),
