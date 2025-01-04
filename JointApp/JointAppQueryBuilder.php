@@ -40,49 +40,49 @@ class JointAppQueryBuilder
         return $query;
     }
 
-    public function select($selectFields):JointAppQueryBuilder
+    public function select(string $selectFields):JointAppQueryBuilder
     {
         $this->select = $selectFields;
         return $this;
     }
 
-    public function from($fromTable):JointAppQueryBuilder
+    public function from(string $fromTable):JointAppQueryBuilder
     {
         $this->from = $fromTable;
         return $this;
     }
 
-    public function join($joinTables):JointAppQueryBuilder
+    public function join(string $joinTables):JointAppQueryBuilder
     {
         $this->join = $joinTables;
         return $this;
     }
 
-    public function where($whereConditions):JointAppQueryBuilder
+    public function where(string $whereConditions):JointAppQueryBuilder
     {
         $this->where = $whereConditions;
         return $this;
     }
 
-    public function groupBy($groupFields):JointAppQueryBuilder
+    public function groupBy(string $groupFields):JointAppQueryBuilder
     {
         $this->groupBy = $groupFields;
         return $this;
     }
 
-    public function having($havingConditions):JointAppQueryBuilder
+    public function having(string $havingConditions):JointAppQueryBuilder
     {
         $this->having = $havingConditions;
         return $this;
     }
 
-    public function order($sortOrderFields):JointAppQueryBuilder
+    public function order(string $sortOrderFields):JointAppQueryBuilder
     {
         $this->order = $sortOrderFields;
         return $this;
     }
 
-    public function limit($limitRecords):JointAppQueryBuilder
+    public function limit(string $limitRecords):JointAppQueryBuilder
     {
         $this->limit = $limitRecords;
         return $this;
