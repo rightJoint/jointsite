@@ -125,7 +125,7 @@ class SiteView extends WebView
     {
         return '<div class="modal-line">'.
             '<div class="modal-line-img"><img src="/img/popimg/music-logo.png"></div>'.
-            '<div class="modal-line-text"><a class="m-l-blue" href="'.$langSl.'/music/album/my-fav-music" '.
+            '<div class="modal-line-text"><a class="m-l-blue" href="'.$langSl.'/music/playalbum/my-fav-music" '.
             'title="'.$musicMenu->link_title.'">'.
             $musicMenu->link_text.
             '</a></div>'.
