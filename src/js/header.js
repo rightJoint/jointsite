@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
 
     /*goTop*/
-    $("body").append("<img src='/src/img/goTop.png' class='toTop' onclick='goTop()'>");
+    $("body").append("<img src='/img/goTop.png' class='toTop' onclick='goTop()'>");
     $(document).scroll(function () {
         var st = $(this).scrollTop();
         if (st > lastScrollTop){
@@ -42,6 +42,18 @@ $(document).ready(function() {
             }
         }
         lastScrollTop = st;
+    });
+
+    $("form.auth-form a.title").click(function (){
+        if($(this).attr("href") == "#siteSignUp"){
+            $("form.auth-form.signUp").removeClass("disp-none");
+            $("form.auth-form.signIn").addClass("disp-none");
+        }
+        if($(this).attr("href") == "#siteSignIn"){
+            $("form.auth-form.signUp").addClass("disp-none");
+            $("form.auth-form.signIn").removeClass("disp-none");
+        }
+
     });
 })
 
