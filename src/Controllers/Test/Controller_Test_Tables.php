@@ -1,0 +1,149 @@
+<?php
+
+
+namespace Src\Controllers\Test;
+
+
+use JointApp\Controllers\Controller;
+
+class Controller_Test_Tables extends Controller
+{
+    public string $prefixTag = '';
+    public string $dateTag = '';
+    public string $tableName = '';
+    public string $dwlTable = '';
+
+    const TABLE_EXT_FILE = '.php';
+
+    public function loadLangController(): string
+    {
+        parent::loadLangController();
+        $name = 'LangFiles_'.$this->langNs.'_Controller_Test_Tables';
+        require_once $this->docRoot.'/LangFiles/Controllers/Test/'.$name.'.php';
+        return $name;
+    }
+
+    public function controllerFilterQuery($queryParams = []): void
+    {
+        if(isset($queryParams['prefixTag'])){
+            $this->prefixTag = $queryParams['prefixTag'];
+        }
+        if(isset($queryParams['dateTag'])){
+            $this->dateTag = $queryParams['dateTag'];
+        }
+        if(isset($queryParams['tableName'])){
+            $this->tableName = $queryParams['tableName'];
+        }
+        if(isset($queryParams['dwlTable'])){
+            $this->dwlTable = $queryParams['dwlTable'];
+        }
+    }
+
+    public function actionMain()
+    {
+        $this->model->glob_create_tables();
+        $this->model->get_tables_from_db();
+        $this->model->glob_load_tables();
+
+        $this->view->tablesList = $this->model->tables["tables"];
+    }
+
+
+    public function actionClearTable()
+    {
+        $this->execTableAction('clear');
+    }
+
+    public function actionDownloadTable()
+    {
+        $this->execTableAction('download');
+    }
+
+    public function actionCreateTable()
+    {
+        $this->execTableAction('create');
+    }
+
+    public function actionUploadTable()
+    {
+        $this->execTableAction('upLoad');
+    }
+
+    public function actionDropTable()
+    {
+        $this->execTableAction('drop');
+    }
+
+    public function actionUploadAll()
+    {
+        $this->execTableAction('upLoadAll');
+    }
+
+    public function actionRefreshTables()
+    {
+        $this->execTableAction('refreshTables');
+    }
+
+    public function execTableAction(string $actionTable)
+    {
+        $this->view->responseJson['log'] = '';
+        if(isset($actionTable) and $actionTable==="refreshTables"){
+            $this->model->glob_create_tables();
+            $this->model->get_tables_from_db();
+            $this->model->glob_load_tables();
+            $this->view->tables = $this->model->tables["tables"];
+
+            $viewLang = $this->view::loadLangView($this->docRoot, $this->langLw);
+            $langPageContent = $viewLang::getLangPageContent();
+            $this->view->responseJson['tablesList'] = $this->view->printTablesList($langPageContent->tablesLang, $this->model->tables["tables"]);
+        }
+        elseif(isset($actionTable) and $actionTable==="upLoadAll"){
+            $this->model->get_tables_from_db();
+            $this->view->responseJson = $this->model->uploadAllTables($this->prefixTag, $this->dateTag, self::TABLE_EXT_FILE);
+        }elseif (isset($actionTable) and  in_array($actionTable,
+                array('clear', 'download', 'drop', 'create', 'upLoad'))){
+
+            $action = $actionTable.'Table';
+
+            if($actionTable == 'download'){
+                $argum = $this->dwlTable;
+            }else{
+                $argum = $this->tableName;
+            }
+
+            if($actionTable != 'upLoad') {
+                if ($this->model->$action($argum)) {
+                    $this->view->responseJson['err'] = 0;
+                } else {
+                    $this->view->responseJson['err'] = $this->langMap->table_actions[$actionTable] . " " .
+                        $this->langMap->table_actions['tableName'] . " " .
+                        $this->langMap->table_actions['fail'];
+                }
+            }else{
+                $this->view->responseJson = $this->model->uploadTable($this->tableName, $this->prefixTag, $this->dateTag, self::TABLE_EXT_FILE);
+            }
+            $this->model->glob_create_tables($this->tableName);
+            $this->model->get_tables_from_db($this->tableName);
+
+            //case when table deleted and no creation file
+            if(isset($this->model->tables['tables'])){
+                $this->model->glob_load_tables($this->tableName);
+            }
+
+            $trimTableName = $this->tableName;
+
+            $access_table_cell = null;
+            if(isset($this->model->tables['tables'][$trimTableName])){
+                $access_table_cell = $this->model->tables['tables'][$trimTableName];
+            }
+
+            $this->view->responseJson['row'] = $this->view->tableCell($this->tableName, $access_table_cell);
+
+            $this->view->responseJson['log'].=$this->langMap->table_actions['action'].': '.
+                $this->langMap->table_actions[$actionTable].'<br>'.
+                '<ul>'.$this->langMap->table_actions['options'].':<li>'.
+                $this->langMap->table_actions['tableName'].'--> '.$this->tableName.'</li></ul>'.
+                $this->langMap->table_actions['runTime'].': ';
+        }
+    }
+}
