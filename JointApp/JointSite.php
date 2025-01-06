@@ -8,7 +8,7 @@ use JointApp\Interfaces\RequestAdapterInterface;
 use JointApp\Interfaces\ResponseAdapterInterface;
 use JointApp\Router\JointSiteRoute;
 use JointApp\Router\JointSiteRouteFinder;
-use JointApp\Views\WebViewFactory;
+use JointApp\Factories\WebViewFactory;
 use JointFramework\Clock\JointSiteClockTrait;
 use JointFramework\Logger\JointSiteLogger;
 use JointFramework\Logger\JointSiteLoggerFactory;
