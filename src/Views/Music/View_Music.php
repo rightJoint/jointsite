@@ -65,7 +65,7 @@ class View_Music extends RecordListView
     {
         $return_text = '<div class="alb-block">'.
             '<div class="alb-name">'.$album['albumName'].'</div>'.
-            '<div class="alb-cover"><a href="/music/album/'.$album['albumAlias'].'" title="play album">';
+            '<div class="alb-cover"><a href="/music/playalbum/'.$album['albumAlias'].'" title="play album">';
         if($album['albumImg']!=null){
             $return_text .='<img src="'.self::MUSIC_ALB_DIR.'/'.$album['albumImg'].'">';
         }else{
