@@ -1,5 +1,3 @@
 .idea/
-/mirror
-/src/mirror
 /temp
-/src/userdata
+/vendor
