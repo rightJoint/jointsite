@@ -471,6 +471,7 @@ form.auth-form .modal-line{
 }
 form.auth-form .modal-line .modal-line-err{
     position: absolute;
+    height: 1em;
     width: 98%;
     margin: 0 1%;
     left: 0;
