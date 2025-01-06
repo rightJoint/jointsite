@@ -51,6 +51,8 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langPageContent->pageContent = 'вставьте сюда содержание страницы';
         $langPageContent->modulesMenu = self::modulesList();
 
+        $langPageContent->langLw = 'ru';
+
         return $langPageContent;
     }
 
