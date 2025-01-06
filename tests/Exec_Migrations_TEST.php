@@ -30,8 +30,8 @@ class Exec_Migrations_TEST extends PHPUnit\Framework\TestCase
         global $jointAppResponse;
 
         $jointAppResponse = new \JointApp\JointAppResponse();
-        $docRoot = 'C:\OSPanel\domains\x-site.local';
-        $configDir = 'C:\OSPanel\domains\x-site.local\src\__config';
+        $docRoot = 'C:\OSPanel\domains\x-site.web';
+        $configDir = 'C:\OSPanel\domains\x-site.web\src\__config';
         $model = new JointApp\Models\Migrations\Model_Migrations($docRoot, $configDir);
 
         $update_rsf = false;
