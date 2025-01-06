@@ -8,7 +8,7 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
 
-class Request extends Message implements RequestInterface, JointSiteRequestInterface
+class Request extends Message implements RequestInterface
 {
     private $method;
     private string $protocol;
