@@ -19,7 +19,7 @@ class Controller_Components_MusicAlb extends ModuleController
 
     public string $moduleName = 'musicalb';
 
-    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+    const MUSIC_ALB_DIR = '/userdata/music/covers';
 
     public function loadBindComponents(): void
     {

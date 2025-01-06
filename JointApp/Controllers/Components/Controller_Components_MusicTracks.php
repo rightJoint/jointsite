@@ -12,7 +12,7 @@ class Controller_Components_MusicTracks extends ModuleController
 
     public string $moduleName = 'musictracks';
 
-    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
+    const MUSIC_TRACKS_DIR = '/userdata/music/tracks';
 
     public function loadBindComponents(): void
     {

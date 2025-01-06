@@ -14,8 +14,8 @@ class View_Music extends RecordListView
     public $playAlb = null;
     public $trackList = null;
 
-    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
-    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
+    const MUSIC_ALB_DIR = '/userdata/music/covers';
+    const MUSIC_TRACKS_DIR = '/userdata/music/tracks';
 
     public string $logo = '/img/popimg/music-logo.png';
     public string $shortcutIcon = '/img/popimg/music-logo.png';

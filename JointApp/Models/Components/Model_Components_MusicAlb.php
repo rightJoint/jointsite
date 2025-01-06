@@ -12,7 +12,7 @@ class Model_Components_MusicAlb extends ModuleModel
     public string $tableName = 'musicAlb';
     public string $moduleName = 'musicalb';
 
-    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+    const MUSIC_ALB_DIR = '/userdata/music/covers';
 
     public function getRecordStructure()
     {

@@ -13,7 +13,7 @@ class Controller_Music_Alb extends RecordsController
 
     public string $moduleName = 'musicAlb';
 
-    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
+    const MUSIC_ALB_DIR = '/userdata/music/covers';
 
     public function loadLangController():string
     {

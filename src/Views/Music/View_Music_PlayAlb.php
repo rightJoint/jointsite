@@ -14,8 +14,8 @@ class View_Music_PlayAlb extends \Src\Views\Music\View_Music
     public $playAlbList = [];
     public $playAlb = [];
 
-    const MUSIC_ALB_DIR = '/ddd-test/albCovers';
-    const MUSIC_TRACKS_DIR = '/ddd-test/tracks';
+    const MUSIC_ALB_DIR = '/userdata/music/covers';
+    const MUSIC_TRACKS_DIR = '/userdata/music/tracks';
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []): LangWebViewInterface
     {
