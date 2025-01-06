@@ -1,0 +1,116 @@
+.contacts-block{
+    display: inline-block;
+    width: 46%;
+    margin: 1em 2% 1em 2%;
+}
+
+.descr-frame{
+    display: inline-block;
+    width: 46%;
+    margin: 1em 2% 1em 2%;
+    vertical-align: middle;
+}
+.contacts-block img{
+
+}
+
+.cb-img-wrap{
+    display: none;
+}
+
+.cb-img-wrap.active{
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 300px;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+/*
+.yMap-frame{
+
+}
+.yMap-frame img{
+    width: 300px;
+    display: none;
+}
+
+ */
+.descr-frame{
+    text-align: left;
+}
+.descr-line{
+    margin-bottom: 0.5em;
+}
+.descr-line span{
+    font-size: 0.9em;
+    font-weight: bold;
+    color: Gainsboro;
+}
+.descr-line span.fmNm{
+    font-size: 1.1em;
+    color: white;
+    font-weight: normal;
+    vertical-align: middle;
+    margin-left: 0.5em;
+}
+.descr-line img{
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+}
+.locPr-block{
+    margin-top: 1.5em;
+}
+.locPr-block img{
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+    margin-right: 1em;
+}
+.locPr-block img.active{
+    border: 1px solid white;
+}
+@media only screen and (max-width : 1024px)  and (orientation : portrait), only screen and (max-width : 960px){
+    .descr-frame, .contacts-block    {
+        width: 94%;
+        margin: 1em 3%;
+    }
+    .locPr-block    {
+        float: left;
+    }
+    .locPr-block img {
+        height: 2.2em;
+        width: 2.2em;
+    }
+}
+
+.descr-frame .descr-line:not(:first-child) span{
+    color: gray;
+}
+.descr-frame .descr-line a{
+    color: white;
+    text-decoration: none;
+}
+@media only screen and (orientation : portrait){
+    .ref-comment-content{
+        font-size: 1em;
+    }
+    .cb-img-wrap {
+        height: 10em;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width : 640px){
+    .cb-img-wrap {
+        height: 10em;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+}
