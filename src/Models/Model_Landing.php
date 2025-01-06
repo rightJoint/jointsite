@@ -6,11 +6,6 @@ use JointApp\Models\Model_Pdo;
 
 class Model_Landing extends Model_Pdo
 {
-    function getData()
-    {
-        return $this->getServiceList();
-    }
-
     function getServiceList()
     {
         return $this->fetchToArray("select * from srvCards_dt WHERE cardActive is true order by sortDate DESC");
