@@ -23,7 +23,6 @@ class JointSite implements RequestHandlerInterface
 {
 
     use Log\LoggerAwareTrait;
-    use JointSiteClockTrait;
 
     private $context = 'App';
     private JointAppRequest $request;
