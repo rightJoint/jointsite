@@ -7,6 +7,7 @@ namespace JointApp\Router;
 use JointApp\Interfaces\RequestAdapterInterface;
 use JointApp\Interfaces\ResponseAdapterInterface;
 use JointFramework\Logger\JointSiteLoggerFactory;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerAwareTrait;
 use Src\RoutesCollection\RoutesCollection_JointSite;
 use Src\RoutesCollection\RoutesCollection_Api;
@@ -36,13 +37,13 @@ class JointSiteRouteFinder
     public $routes_ns = [];
 
 
-    function __construct(RequestAdapterInterface $request)
+    function __construct(ServerRequestInterface $request)
     {
         $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => __CLASS__]));
         $this->routeFromRequest($request);
     }
 
-    public function routeFromRequest(RequestAdapterInterface $request)
+    public function routeFromRequest(ServerRequestInterface $request)
     {
         $this->method = $request->getMethod();
         $this->routes_ns = $request->routes_ns;

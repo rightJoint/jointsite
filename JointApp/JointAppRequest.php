@@ -8,7 +8,7 @@ use JointApp\Interfaces\RequestAdapterInterface;
 use JointFramework\Http\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
-class JointAppRequest extends ServerRequest implements RequestAdapterInterface
+class JointAppRequest extends ServerRequest
 {
     //dir from require files DOCUMENT_ROOT
     public $docRoot = '';

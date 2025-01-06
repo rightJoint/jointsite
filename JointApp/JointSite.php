@@ -34,7 +34,7 @@ class JointSite implements RequestHandlerInterface
         return $this->Run(self::requestAdapter($request));
     }
 
-    public function Run(RequestAdapterInterface $request):ResponseAdapterInterface
+    public function Run(ServerRequestInterface $request):ResponseAdapterInterface
     {
         session_start();
 
@@ -112,7 +112,7 @@ class JointSite implements RequestHandlerInterface
         return $newView;
     }
 
-    public static function requestAdapter(ServerRequestInterface $request):RequestAdapterInterface
+    public static function requestAdapter(ServerRequestInterface $request):ServerRequestInterface
     {
 
         $jointAppRequest = new JointAppRequest($request->getMethod(), $request->getUri(), [], null, '1.1', $request->getServerParams());
