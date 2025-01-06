@@ -28,13 +28,16 @@ class ModulesAccessList
                 'testgroups-1', 'testgroups-2',
             ),
             'musicalb' => array(
-                'music', 'testgroups-2',
+                //music
+                '532B8184-A552-463C-82D1-70E07E86CEC4',
             ),
             'musictracks' => array(
-                'music', 'testgroups-2',
+                //test
+                'D714A6B0-C37A-49B3-B37D-C0903201212C',
             ),
             'musictrackstoalb' => array(
-                'music', 'testgroups-2',
+                //music
+                '532B8184-A552-463C-82D1-70E07E86CEC4',
             ),
         );
     }
