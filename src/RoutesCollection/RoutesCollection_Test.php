@@ -15,7 +15,7 @@ trait RoutesCollection_Test
             $route
                 ->withController('Src\Controllers\Controller_Test')
                 ->withAction('actionIndex')
-                ->withModel('Src\Models\Test\Model_Test')
+                ->withModel('JointApp\Models\Model\Model')
                 ->withView('Src\Views\Test\View_Test');
         }
         //GET: test/migrations
@@ -49,7 +49,7 @@ trait RoutesCollection_Test
             $route
                 ->withController('Src\Controllers\Controller_Test')
                 ->withAction('actionFiles')
-                ->withModel('Src\Models\Test\Model_Test')
+                ->withModel('Src\Models\Test\Model')
                 ->withView('Src\Views\Test\View_Test_Files');
             return $route;
             //return self::getRoute_TestEmail($routes_ns);
@@ -85,7 +85,7 @@ trait RoutesCollection_Test
             $route
                 ->withController('Src\Controllers\Controller_Test')
                 ->withAction('actionFiles')
-                ->withModel('Src\Models\Test\Model_Test')
+                ->withModel('JointApp\Models\Model\Model')
                 ->withView('Src\Views\Test\View_Test_Files');
             return $route;
             //return self::getRoute_TestEmail($routes_ns);
@@ -101,7 +101,7 @@ trait RoutesCollection_Test
             $route
                 ->withController('Src\Controllers\Test\Controller_Test_MigrationsTest')
                 ->withAction('action_index')
-                ->withModel('Src\Models\Test\Model_Test')
+                ->withModel('JointApp\Models\Model\Model')
                 ->withView('Src\Views\Test\Migrations\View_Test_Migrations');
         }
         //GET: test/migrations/checkconnectserverstatus
