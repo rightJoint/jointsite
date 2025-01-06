@@ -8,7 +8,7 @@ use JointApp\Interfaces\ResponseAdapterInterface;
 use JointFramework\Http\Response;
 use Psr\Log\LogLevel;
 
-class JointAppResponse extends Response implements ResponseAdapterInterface
+class JointAppResponse extends Response
 {
 
     //log err included 200 status codes: DEBUG, NOTICE, INFO

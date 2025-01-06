@@ -34,7 +34,7 @@ class JointSite implements RequestHandlerInterface
         return $this->Run(self::requestAdapter($request));
     }
 
-    public function Run(ServerRequestInterface $request):ResponseAdapterInterface
+    public function Run(ServerRequestInterface $request):ResponseInterface
     {
         session_start();
 
