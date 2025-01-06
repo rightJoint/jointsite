@@ -62,10 +62,12 @@ class HtmlInputView implements HtmlInputViewInterface
 
 
         if(isset($this->fieldOptions['readonly']) and $this->fieldOptions['readonly'] == 1) {
-            if (isset($this->fieldOptions['pri']) and !empty($this->fieldOptions['curVal'])or
-                !isset($this->fieldOptions['pri'])) {
-                $label_class = 'ro';
-            }
+            //echo 'ro-1: '.$this->fieldName.'<br>';
+            //if (isset($this->fieldOptions['pri']) and !empty($this->fieldOptions['curVal'])or
+            //    !isset($this->fieldOptions['pri'])) {
+            // echo 'ro-2: '.$this->fieldName.'<br>';
+            $label_class = 'ro';
+            // }
         }
         if(isset($this->fieldOptions['pri'])){
             $label_class .= ' idx';
@@ -117,10 +119,7 @@ class HtmlInputView implements HtmlInputViewInterface
         $readonly_print = '';
 
         if(isset($this->fieldOptions['readonly']) and $this->fieldOptions['readonly'] == 1){
-            if((isset($this->fieldOptions['pri']) and !empty($this->fieldOptions['curVal'])) or
-                !isset($this->fieldOptions['pri'])){
-                $readonly_print = ' readonly';
-            }
+            $readonly_print = ' readonly';
         }
 
         if($this->fieldOptions['format'] == 'checkbox' or $this->fieldOptions['format'] == 'tinyint'){
