@@ -1,65 +1,117 @@
-section.prod-about p{
+section.js-title{
+
+}
+
+section.js-title h2{
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: midnightblue;
+}
+
+.js-about{
+    width: 97%;
+    margin: 1em 1%;
+}
+.js-about p{
     text-align: center;
     background-color: lightgray;
     border: 1px solid darkgreen;
     color: midnightblue;
-    padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
-.branches-block {
+.js-download{
+    display: table;
     width: 97%;
-    margin: 0 1%;
+    margin: 1em 1%;
 }
-.branches-block h2 {
-    font-size: 1em;
+.js-download-row{
+    display: table-row;
 }
-.branches-block .branch-block {
-    border: 2px solid midnightblue;
-    width: 100%;
-    margin-bottom: 1em;
-}
-.branches-block .branch-block .branch-img{
-    width: 20%;
-    display: inline-block;
-}
-.branches-block .branch-block .branch-img img{
-    height: 5em;
-    width: 5em;
-}
-.branches-block .branch-block .branch-main{
-    vertical-align: top;
-    display: inline-block;
-    width: 80%;
-}
-.branches-block .branch-block .branch-main .branch-title{
-    width: 100%;
-}
-.branches-block .branch-block .branch-main .branch-title a{
-    font-size: 1.2em;
-    margin: 0.5em;
-    color: midnightblue;
-}
-.branches-block .branch-block .branch-main p{
 
+.js-download-image{
+    vert-align: middle;
+    display: table-cell;
+    width: 20%;
+    border: 1px solid gray;
+    background-color: gray;
 }
-.branches-block .branch-block .branch-info {
-    font-size: 0.9em;
-    text-align: left;
-    width: 100%;
-    border-top: 1px solid gray;
+
+.js-download-image img{
+    vertical-align: middle;
+    width: 2em;
 }
-.branches-block .branch-block .branch-info div:not(:last-child) {
-    width: 100%;
+
+.js-download-git{
+    vertical-align: middle;
+    display: table-cell;
+    width: 40%;
+    border: 1px solid gray;
+    background-color: darkgreen;
+}
+
+.js-download-docker{
+    vertical-align: middle;
+    display: table-cell;
+    width: 40%;
+    border: 1px solid gray;
+    background: navy;
+}
+
+.js-download-docker a, .js-download-git a{
+    color: lightcyan;
+}
+
+.js-version{
+    width: 97%;
+    margin: 1em 1%;
+    border: 1px solid gray;
+}
+
+.js-version .js-version-title{
     border-bottom: 1px solid gray;
 }
-.branches-block .branch-block .branch-info .branch-version,
-.branches-block .branch-block .branch-info .branch-get,
-.branches-block .branch-block .branch-info .learn-more,
-.branches-block .branch-block .branch-info .depend{
+
+.js-version .js-version-line{
     width: 100%;
+    border: 1px solid red;
 }
-.branches-block .branch-block .branch-info span{
-    font-weight: bold;
-    margin-right: 1em;
-    margin-left: 0.2em;
+
+.js-version .js-version-line .js-versions-softType{
+    display: inline-block;
+    width: 20%;
+    border-right: 1px solid green;
+}
+
+.js-version .js-version-line .js-versions-softV{
+    display: inline-block;
+    width: 40%;
+    border-right: 1px solid green;
+}
+
+.js-version .js-version-line .js-versions-components{
+    display: inline-block;
+    width: 39%;
+    border-right: 1px solid green;
+}
+
+.contents-tbl{
+
+}
+
+.contents-tbl h2{
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: midnightblue;
+}
+
+.contents-tbl h3{
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: midnightblue;
+}
+
+.contents-tbl ul li{
+    text-align: left;
 }
