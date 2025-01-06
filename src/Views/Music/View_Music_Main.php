@@ -29,9 +29,6 @@ class View_Music_Main extends View_Music
         $addParams->albumsCount = $this->albumsCount;
         $addParams->newTracks = $this->newTracks;
         $addParams->tracksCount = $this->tracksCount;
-        //$addParams->logMessage = $this->logMessage;
-        //$addParams->actionResult = $this->actionResult;
-        //$addParams->editFields = $this->editFields;
         $addViewParams($addParams);
     }
 
