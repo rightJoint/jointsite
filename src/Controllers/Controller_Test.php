@@ -40,4 +40,29 @@ class Controller_Test extends RecordsController
         }
 
     }
+
+    public function actionFiles()
+    {
+        echo 'docRoot='.$this->docRoot.'<br>';
+        $request = $this->getRequest();
+        $files = $request->getUploadedFiles();
+
+        foreach ($files as $fN=>$fD){
+            echo "FN=".$fN.'<br>';
+            foreach ($fD as $file){
+                echo $file->getClientFilename();
+                //echo '<pre>';
+                //print_r($file);
+                $file->moveTo($this->docRoot.'/xxx/'.$file->getClientFilename());
+                echo '<hr>';
+                echo '--------------------------<br>';
+            }
+
+
+        }
+
+        //echo '<pre>';
+        //print_r($files);
+        //$files = $this->req
+    }
 }
