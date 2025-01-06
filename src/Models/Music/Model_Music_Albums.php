@@ -98,7 +98,7 @@ class Model_Music_Albums extends RecordsModel
     public function countRecords(JointAppQueryBuilder $qBuilder):int
     {
         $qBuilder
-            ->select('count(*) as cnt, count('.$this->tracksToAlb.'.album_id) as countRec')
+            ->select('count('.$this->tracksToAlb.'.album_id) as countRec')
             ->from($this->tableName)
             ->join(
                 'left join '.$this->tracksToAlb.' on '.$this->tableName.'.album_id = '.$this->tracksToAlb.'.album_id '
@@ -106,7 +106,7 @@ class Model_Music_Albums extends RecordsModel
             ->groupBy($this->tableName.'.album_id')
             ->having('countRec > 0');
         if($res = $this->pdoQuery($qBuilder->buildQuery())){
-            return $res->fetch(\PDO::FETCH_ASSOC)["cnt"];
+            return $res->rowCount();
         }
 
         return 0;
