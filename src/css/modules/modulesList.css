@@ -1,0 +1,22 @@
+.m-list-container{
+
+}
+.m-list-line{
+    width: 80%;
+    border-bottom: 1px solid silver;
+}
+
+.m-list-container .m-list-line .m-list-img{
+    display: inline-block;
+    width: 30%;
+}
+
+.m-list-container .m-list-line .m-list-img img{
+    height: 2em;
+    width: 2em;
+}
+
+.m-list-container .m-list-line .m-list-name{
+    display: inline-block;
+    width: 70%;
+}

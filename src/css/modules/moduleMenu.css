@@ -1,0 +1,20 @@
+.module-menu{
+    text-align: left;
+    background: lightgoldenrodyellow;
+    border-bottom: 1px solid midnightblue;
+    margin-top: 1em;
+    padding: 0.5em 0;
+}
+.module-menu ul{
+    margin: 0;
+    padding: 0;
+}
+.module-menu ul li{
+    display: inline;
+}
+
+.module-menu ul li a{
+    padding: 0.2em;
+    margin-right: 0.5em;
+    color: midnightblue;
+}
