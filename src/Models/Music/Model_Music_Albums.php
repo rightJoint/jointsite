@@ -111,4 +111,17 @@ class Model_Music_Albums extends RecordsModel
 
         return 0;
     }
+
+    function getAlbTracksList(string $album_id)
+    {
+        $qBuilder =  new JointAppQueryBuilder();
+        $qBuilder
+            ->select('musicTracks.track_name, musicTracks.track_id, '.
+            'musicTracks.track_file, musicTracks.track_artist')
+            ->from('musicTracksToAlb')
+            ->join('inner join musicTracks on musicTracksToAlb.track_id = musicTracks.track_id')
+        ->where('album_id="'.$album_id.'"');
+
+        return $this->fetchToArray($qBuilder->buildQuery());
+    }
 }
