@@ -1,0 +1,21 @@
+.editForm textarea
+{
+    height: 15em;
+    width: 100%;
+}
+
+form.migration-form{
+    margin-top: 1em;
+    width: 100%;
+}
+form.migration-form input[type=submit]{
+    font-size: 1em;
+    margin: 0.2em;
+}
+form.migration-form input[type=submit].exec{
+    background-color: firebrick;
+
+}
+form.migration-form input[type=submit].glob{
+    background-color: lightblue;
+}
