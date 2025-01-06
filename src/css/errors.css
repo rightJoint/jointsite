@@ -1,0 +1,17 @@
+.logger-errors.info, .logger-errors.notice, .logger-errors.debug{
+    width: calc(100% - 10px);
+    border: 5px solid red;
+    padding: 0.2em 0;
+}
+
+.logger-errors.info{
+    background-color: silver;
+}
+
+.logger-errors.notice{
+    background-color: lightblue;
+}
+
+.logger-errors.debug{
+    background-color: lightgreen;
+}
