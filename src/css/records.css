@@ -108,6 +108,8 @@ form.editForm, form.filterForm{
     width: 19%;
     display: inline-block;
     padding-right: 1%;
+    font-size: 0.8em;
+    font-family: "Mona Sans", system-ui, sans-serif;
 }
 .input-line label.ro{
     color: darkgray;
