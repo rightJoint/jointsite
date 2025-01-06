@@ -10,9 +10,9 @@ trait RoutesCollection_Main
     static function getRoute_Main($routes_ns):JointSiteRoute
     {
         return (new JointSiteRoute())
-            ->withController("JointApp\Controllers\Controller")
-            ->withAction("actionIndex")
-            ->withModel("JointApp\Models\Model")
-            ->withView("Src\Views\View_Main");
+            ->withController('Src\Controllers\Controller_Landing')
+            ->withAction('actionIndex')
+            ->withModel('Src\Models\Model_Landing')
+            ->withView('Src\Views\View_Landing');
     }
 }
