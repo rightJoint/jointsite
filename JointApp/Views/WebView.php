@@ -38,6 +38,7 @@ class WebView extends View implements WebViewInterface
     public string $pageContentAfter = '';
     private string $pageFooter = '';
     private string $pageModal = '';
+    private string $pageOrder = '';
 
     //**************HEAD LINKS****************************************/
     //add <meta name="robots" content="noindex">
@@ -334,6 +335,7 @@ class WebView extends View implements WebViewInterface
             $this->pageFooter.
             '</div>'.
             $this->pageModal.
+            $this->pageOrder.
             '</body>'.
             '</html>';
         $this->logger->logEndTime();
@@ -374,6 +376,8 @@ class WebView extends View implements WebViewInterface
         $this->pageFooter = self::printFooter($langMap::getLangFooter());
 
         $this->pageModal = $this->printModal($langMap::getLangModal(), $viewParams);
+
+        $this->pageOrder = $this->printOrder($langMap::getLangOrder(), $viewParams);
     }
 
     private static function printHead(\stdClass $langHead, bool $robotNoIndex = false, string $shortcutIcon = '/img/siteLogo/favicon.png'):string
@@ -394,6 +398,7 @@ class WebView extends View implements WebViewInterface
         $scriptLinks = array(
             '/lib/js/googleapis.js',
             '/js/header.js',
+            '/js/landing/landing-basket.js',
         );
 
         $addScriptLinks = function ($array = []) use (&$scriptLinks){
@@ -486,8 +491,7 @@ class WebView extends View implements WebViewInterface
             $headerText.= 'landing';
         }
         $headerText.= '"><span class="firmName">'.$langHeader->firmName.'</span>'.
-            '<h1>'.$langHeader->h1.'</h1></div></div>'.
-            '</div></header>';
+            '<h1>'.$langHeader->h1.'</h1></div></div>';
         $header_add_styles = '<style>
         .hi-icon-mobile.menu:before {background-image: url('.$logo.');}
         .modal-right .modal-close{
@@ -501,7 +505,30 @@ class WebView extends View implements WebViewInterface
             </style>';
 
         $headerText.= $header_add_styles;
-        return $headerText;
+
+        $headerText.= '<div class="orderBtn hi-icon-effect-1 hi-icon-effect-1a">'.
+        '<span class="hi-icon hi-icon-mobile order ';
+        if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>0){
+            $headerText.= 'buy';
+        }
+        $headerText.= '"><span class="hi-text">'.
+            $langHeader->orderBtnText.
+            '</span></span>'.
+            '</div>';
+
+        $header_order_styles = '<style>    
+            .hi-icon-mobile.order:before {
+    background-image: url("/img/Services/order.png");
+    z-index: 3;
+    position: relative;
+}
+.hi-icon-mobile.order.buy:before {
+    background-image: url("/img/Services/money.png");
+}                
+            </style>';
+
+        $headerText.='</div></header>'.$header_order_styles;
+       return $headerText;
     }
 
     private static function printFooter(\stdClass $langFooter):string
@@ -618,5 +645,117 @@ class WebView extends View implements WebViewInterface
             $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm);
             return $modalAuthForms->printAuthForms();
         }
+    }
+
+    function printOrder(\stdClass $langOrder, \stdClass $viewParams):string
+    {
+        $returnOrder = '<div class="modal order"><div class="overlay"></div><div class="contentBlock-frame">'.
+            '<div class="contentBlock-center"><div class="modal-right"><div class="modal-close"></div></div>'.
+            '<div class="modal-left">'.
+            '<div class="modal-line"><div class="modal-line-img">'.
+            '<img src="/img/Services/logo-free.png"></div>'.
+            '<div class="modal-line-text free"><a href="tel:+7(903)8887772" class="phone" target="_blank">+7 (903) 888-7772</a>'.
+            '<p>'.$langOrder->hire_txt.'</p>'.
+            '<div>'.
+            '</div></div></div>'.
+            '<div class="modal-line"><div class="modal-line-img">'.
+            '<img src="/img/popimg/eMailLogo.png"></div><div class="modal-line-text mail">'.
+            '<a href="mailto:rightjoint@yandex.ru" class="mailto" target="_blank">rightjoint@yandex.ru</a></div></div>'.
+            '<div class="modal-line"><div class="modal-line-img">'.
+            '<img src="/img/Services/telegram.png"></div><div class="modal-line-text">'.
+            '<a href="https://t.me/rightjoint" class="mailto" target="_blank" title="'.$langOrder->telega_t.'">'.
+            't.me/rightjoint</a>'.
+            '</div></div>'.
+            '<form class="auth-form order">'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-text fbm-title ta-right">'.
+            $langOrder->orderForm->leave_app.
+            '<p>'.$langOrder->orderForm->app_txt.'</p>'.
+            '</div>'.
+            '<div class="modal-line-img"><img src="/img/Services/application-logo.png"></div>'.
+            '</div>'.
+            '<div class="modal-line" ';
+        if (isset($_SESSION['basket']['total']) and $_SESSION['basket']['total'] > 0) {
+            $returnOrder .= 'style="position: relative" ';
+        } else {
+            $returnOrder .= 'style="display: none" ';
+        }
+        $data_basket = $this->print_basket();
+        //$data_basket['basket'] = 'data-basket';
+        if($_SESSION['basket']['lang'] == 'en'){
+            $p_curr = '$';
+        }else{
+            $p_curr = 'руб';
+        }
+
+        $returnOrder.= '><div class="modal-line-img">'.
+            '<img src="/img/Services/handsShake-color.png"></div><div class="modal-line-text basket">'.
+            '<div>'.$langOrder->orderForm->basket_txt.': <span>';
+        if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>0){
+            $returnOrder.= $_SESSION['basket']['total'];
+        }
+        $returnOrder.= '</span> '.$p_curr.'.'.
+            '<a href="/?basket-clear=1" onclick="event.preventDefault(); basketDrop();" class="basket-clear" '.
+            'title="'.$langOrder->orderForm->cancel_order.'"><img src="/img/popimg/drop-icon.png"></a></div>'.
+            '</div></div>'.
+            '<div class="modal-basket-list">'.$data_basket['basket'].'</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-text">'.
+            '<input type="text" name="clientName" placeholder="'.$langOrder->orderForm->name_ps.'.." required></div>'.
+            '<div class="modal-line-img"><img src="/img/popimg/avatar-default.png"></div>'.
+            '<div class="modal-line-err"></div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-text">'.
+            '<input type="email" name="clientMail" placeholder="'.$langOrder->orderForm->mail_ps.'.." required></div>'.
+            '<div class="modal-line-img"><img src="/img/popimg/eMailLogo-2.png"></div>'.
+            '<div class="modal-line-err"></div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-text"><input type="text" name="clientPhone" placeholder="'.$langOrder->orderForm->phone_ps.'.."></div>'.
+            '<div class="modal-line-img"><img src="/img/Services/typeNum.png"></div>'.
+            '<div class="modal-line-err"></div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-text"><textarea name="clientSubject" placeholder="'.$langOrder->orderForm->message_ps.'.."></textarea></div>'.
+            '<div class="modal-line-img"><img src="/img/Services/appQuestion.png"></div>'.
+            '<div class="modal-line-err"></div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-err"></div>'.
+            '<div class="modal-line-text ta-right"><input type="submit" name="mo-submit" value="'.$langOrder->orderForm->submit.'" '.
+            'onclick="event.preventDefault(); mkApplication()"></div>'.
+            '<div class="modal-line-img"></div>'.
+            '<input type="hidden" name="feedBack-form-modal" value="newAppl">'.
+            '</div>'.
+            '</form>';
+        $returnOrder.= '</div></div></div></div>';
+
+        return $returnOrder;
+    }
+
+    function print_basket()
+    {
+        $_SESSION['basket']['lang'] = $this->langLw;
+        $return = null;
+
+        if (isset($this->basket_prod) and is_array($this->basket_prod)) {
+            foreach ($this->basket_prod as $num=> $findProd_row){
+                $return.= '<div class="mbl-line"><div class="mbl-line-img"><img src="'.
+                    '/img/Services/images/thumbs/'.$findProd_row['cardAlias'].'.png"></div>'.
+                    '<div class="mbl-line-info">';
+                $return.=$findProd_row['cardName_'.$this->langLw];
+                $val = $_SESSION['basket']['prod'][$findProd_row['cardAlias']];
+                $return.= ' '.$val;
+                $return.=' ('.$findProd_row['unit_'.$this->langLw].')';
+                $return.=' * '.$findProd_row['cardPrice_'.$this->langLw].' = '.($val * $findProd_row['cardPrice_'.$this->langLw]) .
+                    ' ('.$findProd_row['cardCurr_'.$this->langLw].')';
+                $return.='</div></div>';
+            }
+        }
+
+        return array(
+            'basket' => $return,
+        );
     }
 }
