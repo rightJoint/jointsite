@@ -51,5 +51,5 @@ function basketDrop() {
     $(".modal-line-text.basket").parent().hide();
     $(".modal-basket-list").html("");
     $(".orderBtn span").removeClass("buy");
-    $.get("/", "basket-clear=1");
+    $.get("/basket/drop");
 }
