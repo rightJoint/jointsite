@@ -8,6 +8,7 @@ use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracksToAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracks;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_NtfRead;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_Services;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_User;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_Groups;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_UsersToGroups;
@@ -26,6 +27,7 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_NtfTemplates;
     use RoutesCollection_Modules_NtfList;
     use RoutesCollection_Modules_NtfRead;
+    use RoutesCollection_Modules_Services;
 
     static function getRoute_Siteman($routes_ns):JointSiteRoute
     {
@@ -66,6 +68,9 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'ntfread'){
             $route = self::getRoute_ModuleNtfRead($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'services'){
+            $route = self::getRoute_ModuleServices($routes_ns);
+        }
         return $route;
     }
     static function postRoute_Siteman($routes_ns):JointSiteRoute
@@ -100,6 +105,9 @@ trait RoutesCollection_Siteman
         }
         elseif (strtolower($routes_ns[2]) == 'ntfread'){
             $route = self::postRoute_ModuleNtfRead($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'services'){
+            $route = self::postRoute_ModuleServices($routes_ns);
         }
         return $route;
     }
