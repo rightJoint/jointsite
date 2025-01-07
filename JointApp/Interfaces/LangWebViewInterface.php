@@ -13,4 +13,6 @@ interface LangWebViewInterface
     static public function getLangPageContent();
 
     static public function getLangModal();
+
+    static public function getLangOrder();
 }
