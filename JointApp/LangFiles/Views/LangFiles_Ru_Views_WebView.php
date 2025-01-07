@@ -42,6 +42,8 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
             }
         };
 
+        $langHeader->orderBtnText = 'ЗАКАЗ';
+
         return $langHeader;
     }
 
@@ -201,5 +203,31 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $modalSignUpForm->err = $err;
 
         return $modalSignUpForm;
+    }
+
+    static public function getLangOrder():stdClass
+    {
+        $langOrder = new stdClass();
+
+        $langOrder->hire_txt = 'Присматриваю варианты для взаимовыгодного сотрудничества. Готов приступить к работе по договоренности';
+        $langOrder->telega_t = 'связаться по телеграмм';
+
+        $orderForm = new stdClass();
+
+        $orderForm->basket_txt = 'Ваш заказ';
+        $orderForm->leave_app = 'Оставить заявку';
+        $orderForm->cancel_order = 'Отменить заказ';
+        $orderForm->cancel_order = 'Отменить заказ';
+        $orderForm->app_txt = 'Далее вы будете переадресованы на страницу, '.
+            'на которой всегда сможете отследить статус вашей заявки, добавить описание и вложение';
+        $orderForm->name_ps = 'Ваше имя';
+        $orderForm->mail_ps = 'Ваш email';
+        $orderForm->phone_ps = 'Номер телефона';
+        $orderForm->message_ps = 'Сообщение';
+        $orderForm->submit = 'Отправить';
+
+        $langOrder->orderForm = $orderForm;
+
+        return $langOrder;
     }
 }
