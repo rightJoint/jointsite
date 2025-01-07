@@ -64,6 +64,7 @@ class Controller_Components_Services extends ModuleController
             ),
             'longDescr_ru' => array(
                 'format' => 'tinymce',
+                'id' => 'longDescr_ru',
                 'curVal' => '',
                 'style' => array(
                     'class' => 'wd100',
