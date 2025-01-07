@@ -31,7 +31,6 @@ class SiteView extends WebView
     public static function createModalContent(\stdClass $langModal, \stdClass $viewParams):string
     {
         return self::modalMenuJointSite($langModal->jointSiteMenu, $viewParams->langSl, $viewParams->routes_ns).
-            self::modalMenuJobInterview($langModal->jobInterviewMenu, $viewParams->langSl, $viewParams->routes_ns).
             self::modalMenuWebTests($langModal->webTestMenu, $viewParams->langSl, $viewParams->routes_ns).
             self::modalMenuMusic($langModal->musicMenu, $viewParams->langSl);
     }
@@ -60,34 +59,6 @@ class SiteView extends WebView
             '</ul>'.
             '</div>'.
             '</div>';
-        return $returnMenu;
-    }
-
-    private static function modalMenuJobInterview(\stdClass $jobInterviewMenu, string $langSl = '', $routes_ns = ['', '']):string
-    {
-        $menuStyle = 'style="display: none"';
-        $foldedStyle = 'folded';
-
-        $menuItemsTxt = static::printMenuItems($jobInterviewMenu->menuItems, '/full-stack-job-interview', $langSl, $routes_ns);
-
-        if ($menuItemsTxt['is_valid_path']) {
-            $menuStyle = null;
-            $foldedStyle = null;
-        }
-
-        $returnMenu = '<div class="modal-line prod">'.
-            '<div class="modal-line-img"><img src="/img/jobInterview/jobInterview.png"></div>' .
-            '<div class="modal-line-text"><a class="m-l-blue" href="'.$langSl.'/full-stack-job-interview" '.
-            'title="'.$jobInterviewMenu->menuLine['refTitle'].'">'.
-            $jobInterviewMenu->menuLine['refText'].'</a><sup>'.
-            $jobInterviewMenu->menuLine['supText'].'</sup>'.
-            '<span class="opnSubMenu '.$foldedStyle.'">'.$jobInterviewMenu->menuLine['dropText'].'</span>'.
-            '<ul '.$menuStyle.'>'.
-            $menuItemsTxt['text'].
-            '</ul>'.
-            '</div>'.
-            '</div>';
-
         return $returnMenu;
     }
 
