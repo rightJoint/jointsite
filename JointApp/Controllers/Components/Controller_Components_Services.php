@@ -63,8 +63,11 @@ class Controller_Components_Services extends ModuleController
                 'curVal' => '',
             ),
             'longDescr_ru' => array(
-                'format' => 'text',
+                'format' => 'tinymce',
                 'curVal' => '',
+                'style' => array(
+                    'class' => 'wd100',
+                ),
             ),
             'longDescr_en' => array(
                 'format' => 'text',
