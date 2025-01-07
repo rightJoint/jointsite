@@ -143,6 +143,11 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'музыка трэки в альбом',
                 'usage' => false,
             ),
+            'services' => array(
+                'refText' => 'услуги',
+                'refTitle' => 'список и описание услуг',
+                'usage' => true,
+            ),
         );
 
         $modulesMenu->menuLine = array(

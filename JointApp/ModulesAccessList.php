@@ -39,6 +39,10 @@ class ModulesAccessList
                 //music
                 '532B8184-A552-463C-82D1-70E07E86CEC4',
             ),
+            'services' => array(
+                //services
+                'admin-only',
+            ),
         );
     }
 

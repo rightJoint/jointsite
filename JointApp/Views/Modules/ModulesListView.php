@@ -37,6 +37,7 @@ class ModulesListView extends SiteView
             'musicalb' => '/img/modImg/music-logo.png',
             'musictracks' => '/img/modImg/music-logo.png',
             'musictrackstoalb' => '/img/modImg/music-logo.png',
+            'services' => '/img/Services/money.png',
         );
 
         $pageContent =
