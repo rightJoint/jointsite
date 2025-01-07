@@ -32,34 +32,6 @@ class LangFiles_Ru_Views_SiteView extends LangFiles_Ru_Views_WebView
 
         $langModal->jointSiteMenu = $jointSiteMenu;
 
-
-        $jobInterviewMenu = new stdClass();
-        $jobInterviewMenu->menuItems = array(
-            'php' => array(
-                'refText' => 'вопросы по backend php',
-                'refTitle' => 'вопросы на собеседовании по php',
-                'usage' => true,
-            ),
-            'database' => array(
-                'refText' => 'вопросы по базам данных',
-                'refTitle' => 'вопросы на собеседовании по базам данных',
-                'usage' => true,
-            ),
-            'testTasks' => array(
-                'refText' => 'тестовые задания',
-                'refTitle' => 'вопросы на собеседовании по базам данных',
-                'usage' => true,
-            ),
-        );
-        $jobInterviewMenu->menuLine = array(
-            'refText' => 'Full-stack собеседование',
-            'refTitle' => 'подготовка к собеседованию на full-stack разработчика',
-            'supText' => 'php, js, etc',
-            'dropText' => 'q&a',
-        );
-
-        $langModal->jobInterviewMenu = $jobInterviewMenu;
-
         $webTestMenu = new stdClass();
         $webTestMenu->menuItems = array(
             'migrations' => array(

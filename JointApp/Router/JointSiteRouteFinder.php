@@ -4,8 +4,6 @@
 namespace JointApp\Router;
 
 
-use JointApp\Interfaces\RequestAdapterInterface;
-use JointApp\Interfaces\ResponseAdapterInterface;
 use JointFramework\Logger\JointSiteLoggerFactory;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -15,7 +13,6 @@ use Src\RoutesCollection\RoutesCollection_Main;
 use Src\RoutesCollection\RoutesCollection_Music;
 use Src\RoutesCollection\RoutesCollection_Siteman;
 use Src\RoutesCollection\RoutesCollection_Test;
-use Src\RoutesCollection\RoutesCollection_FullStackJobInterview;
 use Src\RoutesCollection\RoutesCollection_User;
 
 class JointSiteRouteFinder
@@ -25,7 +22,6 @@ class JointSiteRouteFinder
     use RoutesCollection_JointSite;
     use RoutesCollection_Main;
     use RoutesCollection_Test;
-    use RoutesCollection_FullStackJobInterview;
     use RoutesCollection_Api;
     use RoutesCollection_Siteman;
     use RoutesCollection_User;
