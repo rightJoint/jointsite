@@ -16,15 +16,15 @@ class Controller_Landing extends Controller
             $this->model->lBasketAdd();
             $this->view->basket_prod = $this->model->basketCalc();
             $modalOrder = $this->view->print_basket();
-            if(isset($_SESSION[JOINT_SITE_LW_LANG]['basket']['total'])){
-                $modalOrder['total'] = $_SESSION[JOINT_SITE_LW_LANG]['basket']['total'];
+            if(isset($_SESSION[$this->langLw]['basket']['total'])){
+                $modalOrder['total'] = $_SESSION[$this->langLw]['basket']['total'];
             }else{
                 $modalOrder['total'] = 0;
             }
 
             $this->view->generateJson($modalOrder);
         }elseif(isset($_GET['basket-clear'])){
-            unset($_SESSION[JOINT_SITE_LW_LANG]['basket']);
+            unset($_SESSION[$this->langLw]['basket']);
         }else{
             $this->view->basket_prod = $this->model->basketCalc();
             $this->view->serviceList = $this->model->getServiceList();

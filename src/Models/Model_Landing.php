@@ -15,31 +15,31 @@ class Model_Landing extends Model_Pdo
     {
         $findProd_qry = "select * from srvCards_dt where cardAlias='".$_GET['lBasketAdd']."' and cardActive is true";
         $findProd_res = $this->query($findProd_qry);
-        if(!isset($_SESSION[$this->langLw]["basket"]["total"])){
-            $_SESSION[$this->langLw]["basket"]["total"] = 0;
+        if(!isset($_SESSION["basket"]["total"])){
+            $_SESSION["basket"]["total"] = 0;
         }
-        if($findProd_row = $findProd_res->fetch(PDO::FETCH_ASSOC)){
-            if(isset($_SESSION[$this->langLw]['basket']['prod'][$findProd_row['cardAlias']])){
-                $_SESSION[$this->langLw]['basket']['prod'][$findProd_row['cardAlias']] += 1;
+        if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
+            if(isset($_SESSION['basket']['prod'][$findProd_row['cardAlias']])){
+                $_SESSION['basket']['prod'][$findProd_row['cardAlias']] += 1;
             }else{
-                $_SESSION[$this->langLw]['basket']['prod'][$findProd_row['cardAlias']] = 1;
+                $_SESSION['basket']['prod'][$findProd_row['cardAlias']] = 1;
             }
 
-            $_SESSION[$this->langLw]["basket"]["total"] +=
-                $findProd_row['cardPrice_'.$_SESSION[$this->langLw]["lang"]];
+            $_SESSION["basket"]["total"] +=
+                $findProd_row['cardPrice_'.$this->langLw];
         }
     }
     function basketCalc(){
         $basket_prod = array();
-        if(isset($_SESSION[$this->langLw]['basket']['total']) and $_SESSION[$this->langLw]['basket']['total']>=1) {
-            $_SESSION[$this->langLw]["basket"]["total"] = 0;
-            foreach ($_SESSION[$this->langLw]['basket']['prod'] as $key => $val) {
+        if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>=1) {
+            $_SESSION["basket"]["total"] = 0;
+            foreach ($_SESSION['basket']['prod'] as $key => $val) {
                 $findProd_qry = "select * from srvCards_dt where cardAlias='" . $key . "'";
                 $findProd_res = $this->query($findProd_qry);
-                if($findProd_row = $findProd_res->fetch(PDO::FETCH_ASSOC)){
+                if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
                     $basket_prod[] = $findProd_row;
-                    $_SESSION[$this->langLw]['basket']['total'] +=
-                        $findProd_row['cardPrice_'.$_SESSION[$this->langLw]['lang']]*$val;
+                    $_SESSION['basket']['total'] +=
+                        $findProd_row['cardPrice_'.$this->langLw]*$val;
                 }
             }
         }
