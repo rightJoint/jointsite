@@ -621,3 +621,15 @@ form.auth-form .modal-line .modal-line-err{
         text-align: center;
     }
 }
+
+form.order .modal-line-text.fbm-title p{
+    font-size: 0.8em;
+    color: PowderBlue;
+    font-weight: normal;
+}
+.modal-basket-list .mbl-line .mbl-line-info {
+    text-align: left;
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+}

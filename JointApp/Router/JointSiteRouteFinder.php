@@ -7,6 +7,7 @@ namespace JointApp\Router;
 use JointFramework\Logger\JointSiteLoggerFactory;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerAwareTrait;
+use Src\RoutesCollection\RoutesCollection_Basket;
 use Src\RoutesCollection\RoutesCollection_JointSite;
 use Src\RoutesCollection\RoutesCollection_Api;
 use Src\RoutesCollection\RoutesCollection_Main;
@@ -26,6 +27,7 @@ class JointSiteRouteFinder
     use RoutesCollection_Siteman;
     use RoutesCollection_User;
     use RoutesCollection_Music;
+    use RoutesCollection_Basket;
 
     private $context = 'RouteFinder';
 

@@ -40,6 +40,8 @@ class WebView extends View implements WebViewInterface
     private string $pageModal = '';
     private string $pageOrder = '';
 
+    public $basket = [];
+
     //**************HEAD LINKS****************************************/
     //add <meta name="robots" content="noindex">
     public $robotNoIndex = false;
@@ -218,6 +220,8 @@ class WebView extends View implements WebViewInterface
 
         $viewParams->authForms = $authForms;
 
+        $viewParams->basket = $this->basket;
+
         $addViewParams($viewParams);
     }
 
@@ -377,7 +381,7 @@ class WebView extends View implements WebViewInterface
 
         $this->pageModal = $this->printModal($langMap::getLangModal(), $viewParams);
 
-        $this->pageOrder = $this->printOrder($langMap::getLangOrder(), $viewParams);
+        $this->pageOrder = $this->printOrder($langMap::getLangOrder(), $viewParams->basket);
     }
 
     private static function printHead(\stdClass $langHead, bool $robotNoIndex = false, string $shortcutIcon = '/img/siteLogo/favicon.png'):string
@@ -507,7 +511,7 @@ class WebView extends View implements WebViewInterface
         $headerText.= $header_add_styles;
 
         $headerText.= '<div class="orderBtn hi-icon-effect-1 hi-icon-effect-1a">'.
-        '<span class="hi-icon hi-icon-mobile order ';
+            '<span class="hi-icon hi-icon-mobile order ';
         if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>0){
             $headerText.= 'buy';
         }
@@ -528,7 +532,7 @@ class WebView extends View implements WebViewInterface
             </style>';
 
         $headerText.='</div></header>'.$header_order_styles;
-       return $headerText;
+        return $headerText;
     }
 
     private static function printFooter(\stdClass $langFooter):string
@@ -647,7 +651,7 @@ class WebView extends View implements WebViewInterface
         }
     }
 
-    function printOrder(\stdClass $langOrder, \stdClass $viewParams):string
+    public static function printOrder(\stdClass $langOrder, array $basket):string
     {
         $returnOrder = '<div class="modal order"><div class="overlay"></div><div class="contentBlock-frame">'.
             '<div class="contentBlock-center"><div class="modal-right"><div class="modal-close"></div></div>'.
@@ -680,9 +684,7 @@ class WebView extends View implements WebViewInterface
         } else {
             $returnOrder .= 'style="display: none" ';
         }
-        $data_basket = $this->print_basket();
-        //$data_basket['basket'] = 'data-basket';
-        if($_SESSION['basket']['lang'] == 'en'){
+        if(isset($_SESSION['basket']) and $_SESSION['basket']['lang'] == 'en'){
             $p_curr = '$';
         }else{
             $p_curr = 'руб';
@@ -698,7 +700,9 @@ class WebView extends View implements WebViewInterface
             '<a href="/?basket-clear=1" onclick="event.preventDefault(); basketDrop();" class="basket-clear" '.
             'title="'.$langOrder->orderForm->cancel_order.'"><img src="/img/popimg/drop-icon.png"></a></div>'.
             '</div></div>'.
-            '<div class="modal-basket-list">'.$data_basket['basket'].'</div>'.
+            '<div class="modal-basket-list">'.
+            self::printBasket($basket, $langOrder->langLw).
+            '</div>'.
             '<div class="modal-line">'.
             '<div class="modal-line-text">'.
             '<input type="text" name="clientName" placeholder="'.$langOrder->orderForm->name_ps.'.." required></div>'.
@@ -734,28 +738,21 @@ class WebView extends View implements WebViewInterface
         return $returnOrder;
     }
 
-    function print_basket()
+    public static function printBasket(array $basket, string $langLw = 'ru'):string
     {
-        $_SESSION['basket']['lang'] = $this->langLw;
-        $return = null;
-
-        if (isset($this->basket_prod) and is_array($this->basket_prod)) {
-            foreach ($this->basket_prod as $num=> $findProd_row){
-                $return.= '<div class="mbl-line"><div class="mbl-line-img"><img src="'.
-                    '/img/Services/images/thumbs/'.$findProd_row['cardAlias'].'.png"></div>'.
-                    '<div class="mbl-line-info">';
-                $return.=$findProd_row['cardName_'.$this->langLw];
-                $val = $_SESSION['basket']['prod'][$findProd_row['cardAlias']];
-                $return.= ' '.$val;
-                $return.=' ('.$findProd_row['unit_'.$this->langLw].')';
-                $return.=' * '.$findProd_row['cardPrice_'.$this->langLw].' = '.($val * $findProd_row['cardPrice_'.$this->langLw]) .
-                    ' ('.$findProd_row['cardCurr_'.$this->langLw].')';
-                $return.='</div></div>';
-            }
+        $return = '';
+        foreach ($basket as $num=> $findProd_row){
+            $return.= '<div class="mbl-line"><div class="mbl-line-img"><img src="'.
+                '/img/Services/images/thumbs/'.$findProd_row['cardAlias'].'.png"></div>'.
+                '<div class="mbl-line-info">';
+            $return.=$findProd_row['cardName_'.$langLw];
+            $val = $_SESSION['basket']['prod'][$findProd_row['cardAlias']];
+            $return.= ' '.$val;
+            $return.=' ('.$findProd_row['unit_'.$langLw].')';
+            $return.=' * '.$findProd_row['cardPrice_'.$langLw].' = '.($val * $findProd_row['cardPrice_'.$langLw]) .
+                ' ('.$findProd_row['cardCurr_'.$langLw].')';
+            $return.='</div></div>';
         }
-
-        return array(
-            'basket' => $return,
-        );
+        return $return;
     }
 }

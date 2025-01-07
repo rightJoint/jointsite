@@ -228,6 +228,8 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
 
         $langOrder->orderForm = $orderForm;
 
+        $langOrder->langLw = 'ru';
+
         return $langOrder;
     }
 }

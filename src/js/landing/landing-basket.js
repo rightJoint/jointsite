@@ -7,12 +7,10 @@ function lBasketAddPop(em) {
         setRelative: true
     });
 
-    $.get("/", "lBasketAdd="+$(em).attr("prod-alias"), function (data) {
-        console.log(data);
-        var response = JSON.parse(data);
+    $.get("/basket/add", "lBasketAdd="+$(em).attr("prod-alias"), function (response) {
         $(em).parent().parent().preloader('remove');
-        $(".modal-line-text.basket span").html(response.total);
-        $(".modal-basket-list").html(response.basket)
+        $(".modal-line-text.basket span").html(response.viewData.total);
+        $(".modal-basket-list").html(response.viewData.basket)
         $(".modal-line-text.basket").parent().show();
         $("#pop-"+$(em).attr("prod-alias")).addClass("active");
         if($(em).parent().parent().parent().parent().find("a").attr("data-lang")=="en"){
@@ -33,9 +31,6 @@ function mkApplication() {
         setRelative: true
     })
     $.post("/applications", $("form.order").serialize(), function (data) {
-        console.log(data);
-        //alert(data);
-        //return;
         var applResponse = JSON.parse(data);
         if(applResponse.fbfa == 1){
             location.replace(applResponse.redirectUrl);

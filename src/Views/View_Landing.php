@@ -147,7 +147,7 @@ class View_Landing extends SiteView
 						data-buy="'.$popServices_row['cardAlias'].'" 
 						data-lang="'.$langLw.'" 
 						data-bought="<div>'.$popServ->btn_buy.' ';
-            if(isset($_SESSION[$langLw]['basket']['prod'][$popServices_row['cardAlias']])){
+            if(isset($_SESSION['basket']['prod'][$popServices_row['cardAlias']])){
                 $return.= $popServ->more_txt;
             }
             $return.= '</div><label>'.$popServices_row['cardPrice_'.$langLw].'</label> '.$popServices_row['cardCurr_'.$langLw].'/'.

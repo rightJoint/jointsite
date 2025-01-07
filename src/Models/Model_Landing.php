@@ -6,17 +6,17 @@ use JointApp\Models\Model_Pdo;
 
 class Model_Landing extends Model_Pdo
 {
-    function getServiceList()
+    function getServiceList():array
     {
-        return $this->fetchToArray("select * from srvCards_dt WHERE cardActive is true order by sortDate DESC");
+        return $this->fetchToArray('select * from srvCards_dt WHERE cardActive is true order by sortDate DESC');
     }
 
-    function lBasketAdd()
+    function lBasketAdd($cardAlias):void
     {
-        $findProd_qry = "select * from srvCards_dt where cardAlias='".$_GET['lBasketAdd']."' and cardActive is true";
+        $findProd_qry = 'select * from srvCards_dt where cardAlias="'.$cardAlias.'" and cardActive is true';
         $findProd_res = $this->query($findProd_qry);
-        if(!isset($_SESSION["basket"]["total"])){
-            $_SESSION["basket"]["total"] = 0;
+        if(!isset($_SESSION['basket']['total'])){
+            $_SESSION['basket']['total'] = 0;
         }
         if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
             if(isset($_SESSION['basket']['prod'][$findProd_row['cardAlias']])){
@@ -25,11 +25,12 @@ class Model_Landing extends Model_Pdo
                 $_SESSION['basket']['prod'][$findProd_row['cardAlias']] = 1;
             }
 
-            $_SESSION["basket"]["total"] +=
+            $_SESSION['basket']['total'] +=
                 $findProd_row['cardPrice_'.$this->langLw];
         }
     }
-    function basketCalc(){
+    function basketCalc():array
+    {
         $basket_prod = array();
         if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>=1) {
             $_SESSION["basket"]["total"] = 0;
