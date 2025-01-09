@@ -1,5 +1,5 @@
 <?php
-class LangFiles_Ru_Controllers_Music_Tracks extends LangFiles_Ru_Controller_Records
+class LangFiles_En_Controllers_Music_Tracks extends LangFiles_En_Controller_Records
 {
     public string $moduleAlias = 'Список трэков';
 
