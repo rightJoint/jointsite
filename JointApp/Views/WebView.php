@@ -83,11 +83,15 @@ class WebView extends View implements WebViewInterface
     public bool $signUpErrLoginReserved = false;
     public bool $signUpErrEMailAccept = false;
 
+    //calc view runTime in tests
+    public int $firstEvent = 0;
+    public int $lastEvent = 0;
+
 
 
     function __construct(string $docRoot, string $viewlang = '')
     {
-        $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => __CLASS__]));
+        $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => get_class($this)]));
 
         $this->docRoot = $docRoot;
 
@@ -316,9 +320,9 @@ class WebView extends View implements WebViewInterface
     }
 
     //create responseText
-    private function createResponseText():void
+    public function createResponseText():void
     {
-        $this->logger->logStartTime();
+        $this->firstEvent = $this->logger->logStartTime();
 
         $this->composePage();
 
@@ -336,7 +340,7 @@ class WebView extends View implements WebViewInterface
             $this->pageModal.
             '</body>'.
             '</html>';
-        $this->logger->logEndTime();
+        $this->lastEvent = $this->logger->logEndTime();
 
         $this->responseText .= $this->printMkt();
     }
@@ -584,7 +588,7 @@ class WebView extends View implements WebViewInterface
 
     public function getViewTime()
     {
-        return $this->logger->calcRuntime();
+        return $this->logger->calcRuntime($this->firstEvent-1, $this->lastEvent-1);
     }
 
     public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm):string
