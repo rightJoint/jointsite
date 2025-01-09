@@ -8,7 +8,7 @@ use JointApp\JointAppRequest;
 class RecordDetailView extends RecordView
 {
     public $record;
-    public $viewFields = null;
+    public $viewFields = [];
 
     public string $logo = '/img/popimg/eye-icon.png';
 
