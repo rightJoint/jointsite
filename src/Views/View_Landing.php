@@ -8,18 +8,8 @@ use JointApp\Interfaces\LangWebViewInterface;
 
 class View_Landing extends SiteView
 {
-    public $serviceList = [];
-
     public string $logo = '/img/siteLogo/rightjoint-logo-400.png';
     public string $shortcutIcon = '/img/siteLogo/favicon.png';
-
-    public function addViewParams($addViewParams)
-    {
-        parent::addViewParams($addViewParams);
-        $addParams = new \stdClass();
-        $addParams->serviceList = $this->serviceList;
-        $addViewParams($addParams);
-    }
 
     public static function addScriptLinks(callable $addScriptLinks): void
     {
