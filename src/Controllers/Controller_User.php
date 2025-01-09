@@ -3,9 +3,9 @@
 namespace Src\Controllers;
 
 use JointApp\Controllers\Controller;
+use JointApp\Factories\MailFactory;
 use JointApp\Factories\ModelFactory;
 use JointApp\JointAppMailer;
-use JointApp\PhpMailerConfig;
 
 
 class Controller_User extends Controller
@@ -124,7 +124,7 @@ class Controller_User extends Controller
 
                     $model_Pdo = ModelFactory::createFromExistModel('JointApp\Models\Model_Pdo', $this->model);
 
-                    $phpMailer = new PhpMailerConfig();
+                    $phpMailer = MailFactory::getMailer($this->getConfigDir());
 
                     $mailer = new JointAppMailer($phpMailer,$model_Pdo);
 
