@@ -31,13 +31,12 @@ function mkApplication() {
         setRelative: true
     })
     $.post("/applications", $("form.order").serialize(), function (data) {
-        var applResponse = JSON.parse(data);
-        if(applResponse.fbfa == 1){
-            location.replace(applResponse.redirectUrl);
+        if(data.viewData.fbfa == 1){
+            location.replace(data.viewData.redirectUrl);
         }else{
-            for(var apllFiedl in applResponse) {
-                if(applResponse[apllFiedl].err == 1){
-                    $("form.order [name="+apllFiedl+"]").parent().parent().find(".modal-line-err").html(applResponse[apllFiedl].info);
+            for(var apllFiedl in data.viewData) {
+                if(data.viewData[apllFiedl].err == 1){
+                    $("form.order [name="+apllFiedl+"]").parent().parent().find(".modal-line-err").html(data.viewData[apllFiedl].info);
                 }else{
                     $("form.order [name="+apllFiedl+"]").parent().parent().find(".modal-line-err").html("");
                 }
