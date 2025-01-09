@@ -8,9 +8,9 @@ use JointApp\Interfaces\LangWebViewInterface;
 
 class View_Music_Main extends View_Music
 {
-    public $newAlbums;
+    public $newAlbums = [];
     public $albumsCount;
-    public $newTracks;
+    public $newTracks = [];
     public $tracksCount;
 
 
@@ -61,5 +61,6 @@ class View_Music_Main extends View_Music
                 return self::printMusicAlbum($albBlock, $album);
             }
         }
+        return '';
     }
 }

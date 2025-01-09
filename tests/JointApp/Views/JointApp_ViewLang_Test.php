@@ -1,8 +1,8 @@
 <?php
-//php ./vendor/bin/phpunit tests/JointApp/Views/ViewLang_Test.php
+//php ./vendor/bin/phpunit tests/JointApp/Views/JointApp_ViewLang_Test.php
 
 
-class ViewLang_Test extends PHPUnit\Framework\TestCase
+class JointApp_ViewLang_Test extends PHPUnit\Framework\TestCase
 {
     public $server_params;
 
@@ -26,10 +26,17 @@ class ViewLang_Test extends PHPUnit\Framework\TestCase
 
             'JointApp\Views\ErrorsView',
 
-            'JointApp\Views\Modules\ModulesListView',
+            'JointApp\Views\Records\RecordView',
+            'JointApp\Views\Records\RecordListView',
+            'JointApp\Views\Records\RecordDetailView',
+            'JointApp\Views\Records\RecordEditView',
 
-            //'JointApp\Views\Records\RecordListView',
-            //'JointApp\Views\Records\RecordDetailView',
+            'JointApp\Views\Modules\ModulesListView',
+            'JointApp\Views\Modules\ModuleListView',
+            'JointApp\Views\Modules\ModuleDetailView',
+            'JointApp\Views\Modules\ModuleEditView',
+
+
 
         );
 

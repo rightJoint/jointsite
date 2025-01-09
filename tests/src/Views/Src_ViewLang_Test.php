@@ -1,8 +1,8 @@
 <?php
-//php ./vendor/bin/phpunit tests/JointApp/Views/ViewLang_Test.php
+//php ./vendor/bin/phpunit tests/src/Views/Src_ViewLang_Test.php
 
 
-class ViewLang_Test extends PHPUnit\Framework\TestCase
+class Src_ViewLang_Test extends PHPUnit\Framework\TestCase
 {
     public $server_params;
 
@@ -21,19 +21,28 @@ class ViewLang_Test extends PHPUnit\Framework\TestCase
         $acceptableLangs = ['', 'en', 'ru',];
 
         $viewCheckList = array(
-            'JointApp\Views\WebView',
-            'JointApp\Views\SiteView',
+            'Src\Views\View_Main',
 
-            'JointApp\Views\ErrorsView',
+            'Src\Views\User\View_User_SignIn',
+            'Src\Views\User\View_User_SignUp',
 
-            'JointApp\Views\Modules\ModulesListView',
+            'Src\Views\Test\View_Test',
+            'Src\Views\Test\View_Test_Records',
+            'Src\Views\Test\View_Test_Tables',
 
-            //'JointApp\Views\Records\RecordListView',
-            //'JointApp\Views\Records\RecordDetailView',
+            'Src\Views\Test\Migrations\View_Test_Migrations',
+            'Src\Views\Test\Migrations\View_Test_Migrations_Connect',
+            'Src\Views\Test\Migrations\View_Test_Migrations_CreateTables',
+            'Src\Views\Test\Migrations\View_Test_Migrations_ExecNew',
 
+            'Src\Views\Music\View_Music',
+            'Src\Views\Music\View_Music_Albums',
+            'Src\Views\Music\View_Music_Main',
+            'Src\Views\Music\View_Music_PlayAlb',
+            'Src\Views\Music\View_Music_Tracks',
         );
 
-        $docRoot = 'C:\OSPanel\domains\x-site.local';
+        $docRoot = 'C:\OSPanel\domains\x-site.local\src';
 
         $totalTime = 0;
         $testCounter = 0;

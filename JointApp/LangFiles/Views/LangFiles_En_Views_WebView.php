@@ -8,7 +8,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langHead = new stdClass();
 
         $langHead->description = 'Web сайт от Right Joint (www.rightjoint.ru)';
-        $langHead->title = 'Web-3 сайт';
+        $langHead->title = 'Web-3 site';
 
         $langHead->updateFromArray = function ($array = []) use (&$langHead){
             if(count($array)){
@@ -25,7 +25,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langHeader = new stdClass();
 
-        $langHeader->langLw = 'ru';
+        $langHeader->langLw = 'en';
 
 
         $langHeader->h1 = 'Web-3 технологии';
@@ -51,7 +51,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langPageContent->pageContent = 'вставьте сюда содержание страницы';
         $langPageContent->modulesMenu = self::modulesList();
 
-        $langPageContent->langLw = 'ru';
+        $langPageContent->langLw = 'en';
 
         return $langPageContent;
     }
@@ -66,7 +66,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langModal = new stdClass();
 
-        $langModal->langLw = 'ru';
+        $langModal->langLw = 'en';
 
         $langModal->homeRefText = 'Главная';
         $langModal->homeRefTile = 'на главную';

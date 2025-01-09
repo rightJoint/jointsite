@@ -1,8 +1,8 @@
 <?php
-//php ./vendor/bin/phpunit tests/JointApp/Controllers/ControllerLang_Test.php
+//php ./vendor/bin/phpunit tests/Src/Controllers/Src_ControllerLang_Test.php
 
 
-class ControllerLang_Test extends PHPUnit\Framework\TestCase
+class Src_ControllerLang_Test extends PHPUnit\Framework\TestCase
 {
     public $server_params;
 
@@ -21,28 +21,18 @@ class ControllerLang_Test extends PHPUnit\Framework\TestCase
         $acceptableLangs = ['', 'en', 'ru',];
 
         $controllerCheckList = array(
-            'JointApp\Controllers\Controller',
+            'Src\Controllers\Controller_Music',
+            'Src\Controllers\Controller_Music_Alb',
+            'Src\Controllers\Controller_Music_Tracks',
+            'Src\Controllers\Controller_Test',
+            'Src\Controllers\Controller_User',
 
-            'JointApp\Controllers\ModuleController',
+            'Src\Controllers\Test\Controller_Test_MigrationsTest',
+            'Src\Controllers\Test\Controller_Test_Tables',
 
-            'JointApp\Controllers\Records\RecordsController',
-
-            'JointApp\Controllers\Migrations\Controller_MigrationsList',
-            'JointApp\Controllers\Migrations\Controller_MigrationsLog',
-
-            'JointApp\Controllers\Components\Controller_Components_Groups',
-            'JointApp\Controllers\Components\Controller_Components_Music',
-            'JointApp\Controllers\Components\Controller_Components_MusicAlb',
-            'JointApp\Controllers\Components\Controller_Components_MusicTracks',
-            'JointApp\Controllers\Components\Controller_Components_MusicTracksToAlb',
-            'JointApp\Controllers\Components\Controller_Components_NtfList',
-            'JointApp\Controllers\Components\Controller_Components_NtfRead',
-            'JointApp\Controllers\Components\Controller_Components_NtfTemplates',
-            'JointApp\Controllers\Components\Controller_Components_Users',
-            'JointApp\Controllers\Components\Controller_Components_UsersToGroups',
         );
 
-        $docRoot = 'C:\OSPanel\domains\x-site.local';
+        $docRoot = 'C:\OSPanel\domains\x-site.local\src';
 
         global $jointAppResponse;
         $jointAppResponse = new \JointApp\JointAppResponse();
