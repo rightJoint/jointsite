@@ -12,7 +12,7 @@ trait RoutesCollection_Main
         return (new JointSiteRoute())
             ->withController('Src\Controllers\Controller_Landing')
             ->withAction('actionIndex')
-            ->withModel('Src\Models\Model_Landing')
+            ->withModel('JointApp\Models\Model')
             ->withView('Src\Views\View_Landing');
     }
 }
