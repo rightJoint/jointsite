@@ -128,6 +128,9 @@ class JointSite implements RequestHandlerInterface
     {
         $logger = new JointSiteLogger();
         if($jointAppResponse->getStatusCode() != 200){
+
+            http_response_code($jointAppResponse->getStatusCode());
+
             if($jointAppResponse->responseFormat == 'text'){
                 self::displayErr($jointSiteRequest);
             }else{
@@ -163,11 +166,9 @@ class JointSite implements RequestHandlerInterface
         global $jointAppResponse, $currentUser;
 
         $view = WebViewFactory::createViewFromRequest($request, 'JointApp\Views\ErrorsView');
-        //$errView = new ErrorsView($request, []);
         if($jointAppResponse->getStatusCode() == 403){
             $view->modalMenuActive = true;
         }
-        //$view->createResponseText();
         echo $view->getResponseText();
     }
 }
