@@ -22,8 +22,12 @@ class ModuleModel extends RecordsModel
 
     public function checkAccessModel(): bool
     {
-
-        $this->accessGroups = ModulesAccessList::getAccessList()[$this->moduleName];
+        $modulesAccessGroups = ModulesAccessList::getAccessList();
+        if(!isset($modulesAccessGroups[$this->moduleName])){
+            $this->logger->warning('checkAccessModel: moduleName is not set in module model',
+                $this->logger->logger_context);
+            return false;
+        }
 
         $user_m = ModulesAccessList::getUserModules();
 
