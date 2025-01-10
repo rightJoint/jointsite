@@ -606,15 +606,16 @@ class WebView extends View implements WebViewInterface
             $user_link_add_class = null;
             $user_link_ref = '/user';
             //if ($this->controller_action == 'user') {
-            $user_link_add_class = ' decnone';
-            $user_link_ref = '#';
+            //$user_link_add_class = ' decnone';
+            $user_link_add_class = '';
+            //$user_link_ref = '#';
             //}
 
             $user.= '"></div>'.
                 '<div class="modal-line-text"><a class="m-l-blue'.$user_link_add_class.'" href="'.$user_link_ref . '" '.
                 'title="'.$modalSignUser->title.'">'.
                 $modalSignUser->siteUser.':</a>'.
-                $currentUser->accAlias.'<sup><a href="/user/cmd?exit=userquit">'.
+                $currentUser->accAlias.'<sup><a href="/user/cmd?exit=userquit" title="'.$modalSignUser->exit_title.'">'.
                 $modalSignUser->exit.'</a></sup></div>'.
                 '</div>';
             return $user;
