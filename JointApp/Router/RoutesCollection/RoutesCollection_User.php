@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Src\RoutesCollection;
+namespace JointApp\Router\RoutesCollection;
 
 use JointApp\Router\JointSiteRoute;
 
@@ -18,23 +18,35 @@ trait RoutesCollection_User
                 ->withAction('actionIndex')
                 ->withView('JointApp\Views\View');
         }
-        if(strtolower($routes_ns[2]) == 'cmd'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionCmd')
-                ->withView('JointApp\Views\View');
+
+        /*
+        //not auth user
+        if(empty($currentUser->id)){
+            if(strtolower($routes_ns[2]) == 'signin'){
+                $route
+                    //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
+                    ->withAction('actionGetSignIn')
+                    ->withView('Src\Views\User\View_User_SignIn');
+            }elseif(strtolower($routes_ns[2]) == 'signup'){
+                $route
+                    //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
+                    ->withAction('actionGetSignUp')
+                    ->withView('Src\Views\User\View_User_SignUp');
+            }
         }
-        elseif(strtolower($routes_ns[2]) == 'signin'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionGetSignIn')
-                ->withView('Src\Views\User\View_User_SignIn');
-        }elseif(strtolower($routes_ns[2]) == 'signup'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionGetSignUp')
-                ->withView('Src\Views\User\View_User_SignUp');
+        //auth user
+        else{
+            //exit, quit user
+            if(strtolower($routes_ns[2]) == 'cmd'){
+                $route
+                    //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
+                    ->withAction('actionCmd')
+                    ->withView('JointApp\Views\View');
+            }
         }
+        */
+
+        //else
         return $route;
     }
 

@@ -36,11 +36,12 @@ class JointApp_ViewLang_Test extends PHPUnit\Framework\TestCase
             'JointApp\Views\Modules\ModuleDetailView',
             'JointApp\Views\Modules\ModuleEditView',
 
-
+            'JointApp\Views\User\View_User_SignIn',
+            'JointApp\Views\User\View_User_SignUp',
 
         );
 
-        $docRoot = 'C:\OSPanel\domains\x-site.local';
+        $docRoot = 'C:/OSPanel/domains/x-site.local';
 
         $totalTime = 0;
         $testCounter = 0;

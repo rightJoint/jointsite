@@ -23,9 +23,6 @@ class Src_ViewLang_Test extends PHPUnit\Framework\TestCase
         $viewCheckList = array(
             'Src\Views\View_Main',
 
-            'Src\Views\User\View_User_SignIn',
-            'Src\Views\User\View_User_SignUp',
-
             'Src\Views\Test\View_Test',
             'Src\Views\Test\View_Test_Records',
             'Src\Views\Test\View_Test_Tables',

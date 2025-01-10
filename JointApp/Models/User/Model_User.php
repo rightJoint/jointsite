@@ -1,10 +1,9 @@
 <?php
 
-namespace Src\Models;
+namespace JointApp\Models\User;
 
 use JointApp\Factories\ModelFactory;
 use JointApp\JointAppQueryBuilder;
-use JointApp\Models\Model_Pdo;
 use JointApp\Models\Records\RecordsModel;
 
 class Model_User extends RecordsModel
