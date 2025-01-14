@@ -126,7 +126,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
             foreach ($this->model->record as $fName=>$fData){
                 if(isset($this->editFields[$fName])){
                     if(isset($this->editFields[$fName]['readonly']) and $this->editFields[$fName]['readonly'] == true) {
-                        $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
+                        if(isset($this->model->record[$fName]['fetchVal'])){
+                            $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
+                        }else{
+                            $this->model->record[$fName]['curVal'] = '';
+                        }
                     }else{
                         if (($fData['format'] == 'checkbox') or ($fData['format'] == 'tinyint')) {
                             if (isset($this->requestParams[$fName]) and $this->requestParams[$fName] == 'on') {
@@ -357,7 +361,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
                 if(isset($fData['group_by_field'])){
                     if($fData['format']=='varchar' || $fData['format'] == 'text'){
-                        $qBuilder->having .= $useFieldName.' like '%'.$this->requestParams[$fName].'%' and ';
+                        $qBuilder->having .= $useFieldName.' like "%'.$this->requestParams[$fName].'%" and ';
                     }elseif($fData['format']=='int'){
                         $qBuilder->having .= $useFieldName.' = '.$this->requestParams[$fName].' and ';
                     }else{

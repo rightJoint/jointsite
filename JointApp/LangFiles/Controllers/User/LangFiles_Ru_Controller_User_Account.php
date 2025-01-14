@@ -4,30 +4,30 @@ class LangFiles_Ru_Controller_User_Account extends LangFiles_Ru_Controller_Recor
     public function __construct()
     {
         $this->userSubMenuItems = array(
-            '' => array(
-                'usage' => 1,
-                'refTitle' => 'user main',
-                'refText' => 'main info',
+            'main' => array(
+                'usage' => 0,
+                'refTitle' => 'Основная информация',
+                'refText' => 'Основное',
             ),
             'notifications' => array(
                 'usage' => 1,
-                'refTitle' => 'read notifications',
-                'refText' => 'notifications',
+                'refTitle' => 'Чтение уведомлений',
+                'refText' => 'Уведомления',
             ),
             'changeEmail' => array(
                 'usage' => 1,
-                'refTitle' => 'change email',
-                'refText' => 'email',
+                'refTitle' => 'сменить email',
+                'refText' => 'Email',
             ),
             'changePassword' => array(
                 'usage' => 1,
-                'refTitle' => 'change password',
-                'refText' => 'password',
+                'refTitle' => 'сменить password',
+                'refText' => 'Пароль',
             ),
             'userGroups' => array(
                 'usage' => 1,
-                'refTitle' => 'groups settings',
-                'refText' => 'groups',
+                'refTitle' => 'настройки групп',
+                'refText' => 'Группы',
             ),
         );
     }
