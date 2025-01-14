@@ -9,34 +9,16 @@ trait RoutesCollection_Applications
 {
     static function getRoute_Applications($routes_ns):JointSiteRoute
     {
-        $route = (new JointSiteRoute())
-            ->withController('Src\Controllers\Controller_Applications')
-            ->withModel('Src\Models\Applications\Model_Applications');
-        if(!isset($routes_ns[2])){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionIndex')
-                ->withView('JointApp\Views\View');
+        $route = new JointSiteRoute();
+        if(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'details'){
+            if(isset($routes_ns[3])){
+                $route
+                    ->withController('Src\Controllers\Controller_Applications', ['application_id' => $routes_ns[3]])
+                    ->withModel('Src\Models\Applications\Model_Applications',)
+                    ->withAction('actionIndex')
+                    ->withView('Src\Views\Applications\View_Applications');
+            }
         }
-        /*
-        if(strtolower($routes_ns[2]) == 'cmd'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionCmd')
-                ->withView('JointApp\Views\View');
-        }
-        elseif(strtolower($routes_ns[2]) == 'signin'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionGetSignIn')
-                ->withView('Src\Views\User\View_User_SignIn');
-        }elseif(strtolower($routes_ns[2]) == 'signup'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionGetSignUp')
-                ->withView('Src\Views\User\View_User_SignUp');
-        }
-        */
         return $route;
     }
 
@@ -46,25 +28,9 @@ trait RoutesCollection_Applications
             ->withController('Src\Controllers\Controller_Applications')
             ->withModel('Src\Models\Applications\Model_Applications');
         $route
-            //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-            ->withAction('mkApplicationModal')
+             ->withAction('mkApplicationModal')
             ->withView('JointApp\Views\View')
         ->responseFormat('json');
-        /*
-        if(isset($routes_ns[2]) and (strtolower($routes_ns[2]) == 'signin')){
-
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionPostSignIn')
-                ->withView('Src\Views\User\View_User_SignIn');
-
-        }elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'signup'){
-            $route
-                //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
-                ->withAction('actionPostSignUp')
-                ->withView('Src\Views\User\View_User_SignUp');
-        }
-        */
         return $route;
     }
 }
