@@ -110,7 +110,7 @@ class JointSite implements RequestHandlerInterface
 
         $newView = $controller->getView();
 
-        if(isInstanceOf('JointApp\Views\SiteView', $newView)){
+        if(is_subclass_of($newView, 'JointApp\Views\SiteView')){
             if($jointSiteRoute->responseFormat != 'json'){
                 $modelLanding = ModelFactory::createModelFromRequest($this->request, 'Src\Models\Model_Landing');
                 $newView->basket = $modelLanding->basketCalc();
