@@ -8,6 +8,8 @@ use JointApp\Models\ModuleModel;
 
 class Model_User_Email extends ModuleModel
 {
+    use UserTrait;
+
     public string $tableName = 'users_dt';
 
     public function checkAccessModel(): bool
