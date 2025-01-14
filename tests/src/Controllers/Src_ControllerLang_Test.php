@@ -25,7 +25,6 @@ class Src_ControllerLang_Test extends PHPUnit\Framework\TestCase
             'Src\Controllers\Controller_Music_Alb',
             'Src\Controllers\Controller_Music_Tracks',
             'Src\Controllers\Controller_Test',
-            'Src\Controllers\Controller_User',
 
             'Src\Controllers\Test\Controller_Test_MigrationsTest',
             'Src\Controllers\Test\Controller_Test_Tables',

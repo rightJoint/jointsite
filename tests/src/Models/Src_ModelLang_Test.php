@@ -20,8 +20,6 @@ class Src_ModelLang_Test extends PHPUnit\Framework\TestCase
         $acceptableLangs = ['', 'en', 'ru',];
 
         $modelsCheckList = array(
-            'Src\Models\Model_User',
-
             'Src\Models\Test\Model_Test_Tables',
         );
 
