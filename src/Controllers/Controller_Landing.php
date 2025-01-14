@@ -7,6 +7,6 @@ class Controller_Landing extends Controller
 {
     function actionIndex()
     {
-
+        $this->view->serviceList = $this->model->getServiceList();
     }
 }
