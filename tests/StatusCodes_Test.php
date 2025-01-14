@@ -34,6 +34,9 @@ class StatusCodes_Test extends PHPUnit\Framework\TestCase
             '/music' => 200,
             '/music/albums' => 200,
             '/music/tracks' => 200,
+
+            '/user/signIn' => 200,
+            '/user/signUp' => 200,
         );
 
         global $jointAppResponse;
