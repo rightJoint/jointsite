@@ -43,6 +43,11 @@ class RecordDetailView extends RecordView
         $addViewParams($addParams);
     }
 
+    public function langHeaderUpdate(callable $updateFromArray)
+    {
+        $updateFromArray(['type' => $this->type, 'tableName' => $this->h2]);
+    }
+
     public static function createPageContent(\stdClass $langPageContent, \stdClass $viewParams):string
     {
         $pageContentText = '<div class="contentBlock-frame"><div class="contentBlock-center">'.
