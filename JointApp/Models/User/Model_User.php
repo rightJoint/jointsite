@@ -1,41 +1,18 @@
 <?php
 
-namespace Src\Models;
+namespace JointApp\Models\User;
 
 use JointApp\Factories\ModelFactory;
 use JointApp\JointAppQueryBuilder;
-use JointApp\Models\Model_Pdo;
 use JointApp\Models\Records\RecordsModel;
 
 class Model_User extends RecordsModel
 {
+    use UserTrait;
+
     public string $tableName = "users_dt";
 
-    public static function checkUserLogin($login):bool
-    {
-        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $login) == 0){
-            return false;
-        }
-        return true;
-    }
 
-    public static function checkUserPassword($password):bool
-    {
-        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $password) == 0){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function checkUserEmail($user_email)
-    {
-        if (filter_var($user_email, FILTER_VALIDATE_EMAIL)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     function copyByLoginOrEmail():bool
     {

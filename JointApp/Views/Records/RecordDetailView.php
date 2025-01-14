@@ -8,7 +8,7 @@ use JointApp\JointAppRequest;
 class RecordDetailView extends RecordView
 {
     public $record;
-    public $viewFields = null;
+    public $viewFields = [];
 
     public string $logo = '/img/popimg/eye-icon.png';
 
@@ -41,6 +41,11 @@ class RecordDetailView extends RecordView
         $addParams->type = $this->type;
         $addParams->viewFields = $this->viewFields;
         $addViewParams($addParams);
+    }
+
+    public function langHeaderUpdate(callable $updateFromArray)
+    {
+        $updateFromArray(['type' => $this->type, 'tableName' => $this->h2]);
     }
 
     public static function createPageContent(\stdClass $langPageContent, \stdClass $viewParams):string

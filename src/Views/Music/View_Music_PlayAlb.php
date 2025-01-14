@@ -12,7 +12,16 @@ class View_Music_PlayAlb extends \Src\Views\Music\View_Music
 
     public $playAlbTracks = [];
     public $playAlbList = [];
-    public $playAlb = [];
+    public $playAlb = ['albumAlias' => 'default album alias',
+        'albumName' => 'default album name',
+        'albumImg' => 'default album albumImg',
+        'countRec' => 'default album countRec',
+        'metaDescr' => 'default album metaDescr',
+        'alb_created' => 'default album alb_created',
+        'dateOfCr' => 'default album dateOfCr',
+        'refreshDate' => 'default album refreshDate',
+
+        ];
 
     const MUSIC_ALB_DIR = '/userdata/music/covers';
     const MUSIC_TRACKS_DIR = '/userdata/music/tracks';

@@ -52,9 +52,13 @@ class Controller implements ControllerInterface
 
         $this->model = $model;
 
+        $this->docRoot = $request->docRoot;
+        $this->langNs = $request->langNs;
+        $langName = $this->loadLangController();
+
         if($this->checkAccessController()){
-            $this->docRoot = $request->docRoot;
-            $this->langNs = $request->langNs;
+
+
             $this->langLw = $request->langLw;
             $this->langSl = $request->langSl;
             $this->routes = $request->routes;
@@ -74,7 +78,7 @@ class Controller implements ControllerInterface
                 $this->controllerFilterQuery($request->getQueryParams());
             }
 
-            $langName = $this->loadLangController();
+
             $this->langMap = new $langName;
 
         }else{

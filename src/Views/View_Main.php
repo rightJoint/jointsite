@@ -8,12 +8,6 @@ use JointApp\Views\SiteView;
 
 class View_Main extends SiteView
 {
-    function __construct(string $docRoot, string $langNs)
-    {
-        parent::__construct($docRoot, $langNs);
-        $this->styles[] = '/css/main_view.css';
-    }
-
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {
         $lang = 'LangFiles_'.self::langNs($viewLang).'_Views_Main';

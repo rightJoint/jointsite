@@ -85,9 +85,10 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langModal->authForms = $authForms;
 
         $modalSignUser = new stdClass();
-        $modalSignUser->title = 'title';
-        $modalSignUser->siteUser = 'text';
-        $modalSignUser->exit = 'exit';
+        $modalSignUser->title = 'кабинет';
+        $modalSignUser->siteUser = 'настройки';
+        $modalSignUser->exit = 'выход';
+        $modalSignUser->exit_title = 'выйти';
 
         $langModal->modalSignUser = $modalSignUser;
 

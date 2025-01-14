@@ -1,14 +1,13 @@
 <?php
 
-namespace Src\Controllers;
+namespace JointApp\Controllers;
 
-use JointApp\Controllers\Controller;
 use JointApp\Factories\MailFactory;
 use JointApp\Factories\ModelFactory;
 use JointApp\JointAppMailer;
 
 
-class Controller_User extends Controller
+class Controller_Auth extends Controller
 {
     public $callSignIn = false;
     public $callSignUp = false;

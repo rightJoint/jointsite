@@ -133,7 +133,7 @@ class HtmlInputView implements HtmlInputViewInterface
 
     public function htmlValue()
     {
-        if ($this->fieldOptions['format'] == 'text') {
+        if ($this->fieldOptions['format'] == 'text' or $this->fieldOptions['format'] == 'email') {
             $value_print = '';
             if($this->fieldOptions['curVal']){
                 $value_print = $this->fieldOptions['curVal'];

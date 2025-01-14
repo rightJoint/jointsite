@@ -22,8 +22,12 @@ class ModuleModel extends RecordsModel
 
     public function checkAccessModel(): bool
     {
-
-        $this->accessGroups = ModulesAccessList::getAccessList()[$this->moduleName];
+        $modulesAccessGroups = ModulesAccessList::getAccessList();
+        if(!isset($modulesAccessGroups[$this->moduleName])){
+            $this->logger->warning('checkAccessModel: moduleName is not set in module model',
+                $this->logger->logger_context);
+            return false;
+        }
 
         $user_m = ModulesAccessList::getUserModules();
 
@@ -97,23 +101,16 @@ class ModuleModel extends RecordsModel
     {
         global $currentUser;
 
-        if(parent::copyRecord()){
-            if($this->access_rules['read_rule']<3){
-                if ($this->access_rules['read_rule'] == 2) {
-                    if($this->record['created_by']['curVal'] == $currentUser->user_id){
-                        return true;
-                    }else{
-                        echo 'case-1';
-                        exit;
-                        //jointSite::throwErr("access", "access denied in ModuleRecordsModel copyRecord on user_id");
-                    }
-                }else{
-                    echo 'case-2';
-                    exit;
-                    //jointSite::throwErr("access", "access denied in ModuleRecordsModel copyRecord on edit_rule: ".$this->access_rules["read_rule"]);
+        if($this->access_rules['read_rule'] == 7){
+            return parent::copyRecord();
+        }elseif ($this->access_rules['read_rule'] == 2){
+            if(parent::copyRecord()){
+                if($this->record['created_by']['curVal'] == $currentUser->user_id){
+                    return true;
                 }
+                unset($this->record);
+                return false;
             }
-            return true;
         }else{
             return false;
         }

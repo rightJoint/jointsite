@@ -13,6 +13,7 @@ use Psr\Log\LoggerAwareTrait;
 
 class WebView extends View implements WebViewInterface
 {
+    const USER_AVATARS_DIR = '/userdata/avatars/';
     use LoggerAwareTrait;
 
     //**************CONSTRUCT PARAMS*********************************/
@@ -86,11 +87,15 @@ class WebView extends View implements WebViewInterface
     public bool $signUpErrLoginReserved = false;
     public bool $signUpErrEMailAccept = false;
 
+    //calc view runTime in tests
+    public int $firstEvent = 0;
+    public int $lastEvent = 0;
+
 
 
     function __construct(string $docRoot, string $viewlang = '')
     {
-        $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => __CLASS__]));
+        $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => get_class($this)]));
 
         $this->docRoot = $docRoot;
 
@@ -321,9 +326,9 @@ class WebView extends View implements WebViewInterface
     }
 
     //create responseText
-    private function createResponseText():void
+    public function createResponseText():void
     {
-        $this->logger->logStartTime();
+        $this->firstEvent = $this->logger->logStartTime();
 
         $this->composePage();
 
@@ -342,7 +347,7 @@ class WebView extends View implements WebViewInterface
             $this->pageOrder.
             '</body>'.
             '</html>';
-        $this->logger->logEndTime();
+        $this->lastEvent = $this->logger->logEndTime();
 
         $this->responseText .= $this->printMkt();
     }
@@ -615,7 +620,7 @@ class WebView extends View implements WebViewInterface
 
     public function getViewTime()
     {
-        return $this->logger->calcRuntime();
+        return $this->logger->calcRuntime($this->firstEvent-1, $this->lastEvent-1);
     }
 
     public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm):string
@@ -626,22 +631,23 @@ class WebView extends View implements WebViewInterface
             $user = '<div class="modal-line">'.
                 '<div class="modal-line-img"><img src="';
             if(!empty($currentUser->photoLink)){
-                $user.= '/'.$currentUser->photoLink;
+                $user.= self::USER_AVATARS_DIR.$currentUser->photoLink;
             }else{
                 $user.= '/img/popimg/avatar-default.png';
             }
             $user_link_add_class = null;
             $user_link_ref = '/user';
             //if ($this->controller_action == 'user') {
-            $user_link_add_class = ' decnone';
-            $user_link_ref = '#';
+            //$user_link_add_class = ' decnone';
+            $user_link_add_class = '';
+            //$user_link_ref = '#';
             //}
 
             $user.= '"></div>'.
                 '<div class="modal-line-text"><a class="m-l-blue'.$user_link_add_class.'" href="'.$user_link_ref . '" '.
                 'title="'.$modalSignUser->title.'">'.
                 $modalSignUser->siteUser.':</a>'.
-                $currentUser->accAlias.'<sup><a href="/user/cmd?exit=userquit">'.
+                $currentUser->accAlias.'<sup><a href="/user/cmd?exit=userquit" title="'.$modalSignUser->exit_title.'">'.
                 $modalSignUser->exit.'</a></sup></div>'.
                 '</div>';
             return $user;
