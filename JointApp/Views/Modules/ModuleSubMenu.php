@@ -10,11 +10,13 @@ class ModuleSubMenu
     {
         $return = '<div class="contentBlock-frame"><div class="contentBlock-center">'.
             '<div class="contentBlock-wrap"><div class="module-menu"><ul>';
-        $return .= '<li>'.
-            '<a href="/siteman/'.$moduleName.'" title="'.$modulesMenu->menuItems[$moduleName]['refTitle'].'">'.
-            $modulesMenu->menuItems[$moduleName]['refText'].
-            '</a>'.
-            '</li>';
+        if(isset($modulesMenu->menuItems[$moduleName])){
+            $return .= '<li>'.
+                '<a href="/siteman/'.$moduleName.'" title="'.$modulesMenu->menuItems[$moduleName]['refTitle'].'">'.
+                $modulesMenu->menuItems[$moduleName]['refText'].
+                '</a>'.
+                '</li>';
+        }
         foreach ($bindComponents as $cN => $cOpt){
             if(in_array($cN, $userModules)){
                 $return.= '<li>'.

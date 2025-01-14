@@ -1,0 +1,30 @@
+.user-sub-menu
+{
+    margin: 1em 0;
+    text-align: left;
+}
+
+.user-sub-menu ul {
+    margin: 0;
+    padding: 0;
+
+    /*display: inline;*/
+}
+
+.user-sub-menu ul li{
+    margin-right: 1em;
+    list-style: none;
+    display: inline;
+}
+
+.user-sub-menu ul li a{
+    color: lavender;
+    background-color: darkgoldenrod;
+    padding: 0.2em;
+    border-radius: 0.2em;
+}
+
+.user-sub-menu ul li a.active{
+    background-color: firebrick;
+    text-decoration: none;
+}

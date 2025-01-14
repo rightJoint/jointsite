@@ -14,7 +14,7 @@ class View_Test_Records extends View_Test
     public $process_url;
 
     //table selector on top of pageContent;
-    public $selectorTableName;
+    public string $selectorTableName = '';
 
     public $table_selector;
 

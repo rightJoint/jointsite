@@ -13,7 +13,7 @@ use Src\RoutesCollection\RoutesCollection_Main;
 use Src\RoutesCollection\RoutesCollection_Music;
 use Src\RoutesCollection\RoutesCollection_Siteman;
 use Src\RoutesCollection\RoutesCollection_Test;
-use Src\RoutesCollection\RoutesCollection_User;
+use JointApp\Router\RoutesCollection\RoutesCollection_User;
 
 class JointSiteRouteFinder
 {

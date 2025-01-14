@@ -3,9 +3,6 @@
 namespace JointFramework\Logger;
 
 use Psr\Log\AbstractLogger;
-
-use JointApp\Errors\JointSiteLoggerModel;
-use JointApp\Errors\JointSiteLoggerView;
 use Psr\Log\LogLevel;
 
 
@@ -47,9 +44,6 @@ class JointSiteLogger extends AbstractLogger
             return $responseCodes[$level];
         };
 
-        // '<pre>';
-        //print_r($context)
-
         if($levelToCode($level) != 200){
             $jointAppResponse = $jointAppResponse->withStatus($levelToCode($level), self::interpolate($message, $context));
         }
@@ -80,10 +74,15 @@ class JointSiteLogger extends AbstractLogger
     public function logStartTime($context = null):int
     {
         global $jointAppResponse;
-        if(isset($jointAppResponse->stopwatch)){
-            $jointAppResponse->stopwatch[] = [$context => ['start' => microtime(true)]];
-            return count($jointAppResponse->stopwatch);
+        if(empty($context)){
+            $logContext = key($this->logger_context);;
+        }else{
+            $logContext = $context;
         }
+
+        $jointAppResponse->stopwatch[] = [$logContext => ['start' => microtime(true)]];
+        return count($jointAppResponse->stopwatch);
+
         return 0;
     }
 
@@ -96,10 +95,10 @@ class JointSiteLogger extends AbstractLogger
         }else{
             $logContext = $context;
         }
-        if(isset($jointAppResponse->stopwatch)){
-            $jointAppResponse->stopwatch[] = [$logContext => ['end' => microtime(true)]];
-            return count($jointAppResponse->stopwatch);
-        }
+
+        $jointAppResponse->stopwatch[] = [$logContext => ['end' => microtime(true)]];
+        return count($jointAppResponse->stopwatch);
+
         return 0;
     }
 
@@ -108,8 +107,6 @@ class JointSiteLogger extends AbstractLogger
         global $jointAppResponse;
 
         if(isset($jointAppResponse->stopwatch)){
-            $lastEvent = count($jointAppResponse->stopwatch)-1;
-
             if($lastEvent == 0){
                 if(count($jointAppResponse->stopwatch)){
                     $lastEvent = count($jointAppResponse->stopwatch) - 1;

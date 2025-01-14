@@ -2,7 +2,7 @@
 //toDo RightJoint -del this view cause used LoggerView
 
 
-namespace Src\Views\User;
+namespace JointApp\Views\User;
 
 use JointApp\Interfaces\LangWebViewInterface;
 use JointApp\Views\SiteView;
@@ -20,7 +20,7 @@ class View_User_SignIn extends SiteView
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {
         $name = 'LangFiles_'.self::langNs($viewLang).'_Views_User_SignIn';
-        $loads[] = [$name => $docRoot.'/LangFiles/Views/User/'.$name];
+        $loads[] = [$name => $docRoot.'/JointApp/LangFiles/Views/User/'.$name];
 
         return parent::loadLangView($docRoot, $viewLang, $loads);
     }
