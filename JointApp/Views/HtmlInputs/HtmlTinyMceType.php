@@ -8,7 +8,12 @@ class HtmlTinyMceType extends HtmlInputView
 {
     public function htmlValue()
     {
-        $this->value_print = $this->fieldOptions['curVal'];
+        //new view case
+        if(isset($this->fieldOptions['curVal'])){
+            $this->value_print = $this->fieldOptions['curVal'];
+        }else{
+            $this->value_print = '';
+        }
     }
 
     public function htmlInput()
