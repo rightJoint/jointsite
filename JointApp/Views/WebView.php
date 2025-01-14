@@ -13,6 +13,7 @@ use Psr\Log\LoggerAwareTrait;
 
 class WebView extends View implements WebViewInterface
 {
+    const USER_AVATARS_DIR = '/userdata/avatars/';
     use LoggerAwareTrait;
 
     //**************CONSTRUCT PARAMS*********************************/
@@ -599,7 +600,7 @@ class WebView extends View implements WebViewInterface
             $user = '<div class="modal-line">'.
                 '<div class="modal-line-img"><img src="';
             if(!empty($currentUser->photoLink)){
-                $user.= '/'.$currentUser->photoLink;
+                $user.= self::USER_AVATARS_DIR.$currentUser->photoLink;
             }else{
                 $user.= '/img/popimg/avatar-default.png';
             }
