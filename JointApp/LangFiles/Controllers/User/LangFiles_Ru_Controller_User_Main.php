@@ -1,6 +1,7 @@
 <?php
 class LangFiles_Ru_Controller_User_Main extends LangFiles_Ru_Controller_User_Account
 {
+
     public function __construct()
     {
         parent::__construct();

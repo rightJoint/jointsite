@@ -40,9 +40,16 @@ class JointApp_ControllerLang_Test extends PHPUnit\Framework\TestCase
             'JointApp\Controllers\Components\Controller_Components_NtfTemplates',
             'JointApp\Controllers\Components\Controller_Components_Users',
             'JointApp\Controllers\Components\Controller_Components_UsersToGroups',
+
+            'JointApp\Controllers\User\Controller_User_Account',
+            'JointApp\Controllers\User\Controller_User_Email',
+            'JointApp\Controllers\User\Controller_User_Groups',
+            'JointApp\Controllers\User\Controller_User_Main',
+            'JointApp\Controllers\User\Controller_User_Notifications',
+            'JointApp\Controllers\User\Controller_User_Password',
         );
 
-        $docRoot = 'C:\OSPanel\domains\x-site.local';
+        $docRoot = 'C:/OSPanel/domains/x-site.local';
 
         global $jointAppResponse;
         $jointAppResponse = new \JointApp\JointAppResponse();

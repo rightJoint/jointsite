@@ -1,12 +1,10 @@
 <?php
 class LangFiles_En_Controller_User_Main extends LangFiles_En_Controller_User_Account
 {
+    public string $h2 = 'User - main info';
     public function __construct()
     {
         parent::__construct();
-
-        $this->h2 = 'User - main info';
-
         $this->fieldAliases = array(
             'user_id' => 'user_id',
             'accLogin' => 'accLogin',

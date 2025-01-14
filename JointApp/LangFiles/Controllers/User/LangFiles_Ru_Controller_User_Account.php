@@ -1,9 +1,9 @@
 <?php
 class LangFiles_Ru_Controller_User_Account extends LangFiles_Ru_Controller_Records
 {
-    public function __construct()
-    {
-        $this->userSubMenuItems = array(
+    public string $h2 = 'заголовок h2';
+
+    public $userSubMenuItems = array(
             'main' => array(
                 'usage' => 0,
                 'refTitle' => 'Основная информация',
@@ -30,5 +30,9 @@ class LangFiles_Ru_Controller_User_Account extends LangFiles_Ru_Controller_Recor
                 'refText' => 'Группы',
             ),
         );
+
+    public function __construct()
+    {
+
     }
 }

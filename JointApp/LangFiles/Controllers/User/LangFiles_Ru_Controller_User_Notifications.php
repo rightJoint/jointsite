@@ -1,11 +1,10 @@
 <?php
 class LangFiles_Ru_Controller_User_Notifications extends LangFiles_Ru_Controller_User_Account
 {
+    public string $h2 = 'Чтение уведомлений';
     public function __construct()
     {
         parent::__construct();
-
-        $this->h2 = 'Пользователь - уведомления';
 
         $this->fieldAliases = array(
             'tHeader' => 'Заголовок',
@@ -15,6 +14,5 @@ class LangFiles_Ru_Controller_User_Notifications extends LangFiles_Ru_Controller
             'send_flag' => 'Отправка',
         );
 
-        $this->h2_read = 'Чтение уведомлений';
     }
 }
