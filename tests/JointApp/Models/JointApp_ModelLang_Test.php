@@ -38,6 +38,13 @@ class JointApp_ModelLang_Test extends PHPUnit\Framework\TestCase
             'JointApp\Models\Components\Model_Components_NtfTemplates',
             'JointApp\Models\Components\Model_Components_User',
             'JointApp\Models\Components\Model_Components_UsersToGroups',
+
+            'JointApp\Models\User\Model_User',
+            'JointApp\Models\User\Model_User_Email',
+            'JointApp\Models\User\Model_User_Groups',
+            'JointApp\Models\User\Model_User_Main',
+            'JointApp\Models\User\Model_User_Notifications',
+            'JointApp\Models\User\Model_User_Password',
         );
 
         $docRoot = 'C:/OSPanel/domains/x-site.local';

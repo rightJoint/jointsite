@@ -38,6 +38,12 @@ class JointApp_ViewLang_Test extends PHPUnit\Framework\TestCase
 
             'JointApp\Views\User\View_User_SignIn',
             'JointApp\Views\User\View_User_SignUp',
+            'JointApp\Views\User\View_User_Main',
+            'JointApp\Views\User\View_User_Email',
+            'JointApp\Views\User\View_User_Groups',
+            'JointApp\Views\User\View_User_NtfDetail',
+            'JointApp\Views\User\View_User_NtfList',
+            'JointApp\Views\User\View_User_Password',
 
         );
 
