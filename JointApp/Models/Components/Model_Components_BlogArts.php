@@ -63,6 +63,14 @@ class Model_Components_BlogArts extends ModuleModel
                 'format' => 'tinyint',
                 'custom' => false,
             ),
+            'pubDate' => array(
+                'format' => 'date',
+                'custom' => false,
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+                'custom' => false,
+            ),
             'created_by' => array(
                 'format' => 'varchar',
                 'custom' => false,

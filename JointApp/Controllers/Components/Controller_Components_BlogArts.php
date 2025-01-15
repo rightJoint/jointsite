@@ -86,6 +86,14 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'tinyint',
                 'curVal' => '',
             ),
+            'pubDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+                'curVal' => '',
+            ),
             'created_by' => array(
                 'format' => 'varchar',
                 'curVal' => '',

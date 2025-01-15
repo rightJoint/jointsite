@@ -47,4 +47,25 @@ class Model_Landing extends Model_Pdo
         return $basket_prod;
     }
 
+    public function getBlogArts()
+    {
+        $findArts_qry = 'select '.
+            'art_id, '.
+            'artCat, '.
+            'artRef, '.
+            'artName_'.$this->langLw.' as artName, '.
+            'artMeta_'.$this->langLw.' as artMeta, '.
+            'artImg, '.
+            'activeFlag, '.
+            'indexFlag, '.
+            'pubDate, '.
+            'refreshDate, '.
+            'created_by '.
+            'from blogArts '.
+        'order by artName desc';
+
+        return $this->fetchToArray($findArts_qry);
+
+    }
+
 }
