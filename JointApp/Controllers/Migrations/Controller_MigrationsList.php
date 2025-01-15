@@ -76,7 +76,6 @@ class Controller_MigrationsList extends RecordsController
             (
                 "pri" => 1,
                 "format" => "varchar",
-                "readonly" => true,
                 'curVal' => '',
             ),
             "status" => Array
@@ -104,17 +103,18 @@ class Controller_MigrationsList extends RecordsController
             ),
         );
 
-        if($this->view->type == 'new'){
-            $this->editFields['migration_name']['readonly'] = false;
-            $this->editFields['add_date']['curVal'] = date('Y-m-d H:i:s');
-            $this->editFields['add_date']['readonly'] = true;
-            $this->editFields['status']['curVal'] = 'new';
-            $this->editFields['try_date']['readonly'] = true;
-            $this->editFields['status']['readonly'] = true;
-            $this->editFields['migr_file']['readonly'] = true;
-        }
-
         $this->view->logo = '/img/popimg/migrations.png';
+    }
+    public function getNewView():void
+    {
+        parent::getNewView();
+
+        $this->view->editFields['add_date']['curVal'] = date('Y-m-d H:i:s');
+        $this->view->editFields['add_date']['readonly'] = true;
+        $this->view->editFields['status']['curVal'] = 'new';
+        $this->view->editFields['status']['readonly'] = true;
+        $this->view->editFields['try_date']['readonly'] = true;
+        $this->view->editFields['migr_file']['readonly'] = true;
     }
 
     public function prepareViewFields(): void
@@ -148,9 +148,9 @@ class Controller_MigrationsList extends RecordsController
 
         foreach ($this->model->record as $fN=>$fOpt){
             if(strpos(' '.$fN, 'cmd_')){
-                $this->view->viewFields[$fN]['format'] = 'text';
-                $this->view->viewFields[$fN]['readonly'] = 1;
-                $this->view->viewFields[$fN]['style'] = array(
+                $this->viewFields[$fN]['format'] = 'text';
+                $this->viewFields[$fN]['readonly'] = 1;
+                $this->viewFields[$fN]['style'] = array(
                     'class' => 'wd100',
                 );
             }
