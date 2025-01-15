@@ -47,6 +47,10 @@ class ModulesAccessList
                 //blogarts
                 'admin-only',
             ),
+            'blogtags' => array(
+                //blogarts
+                'admin-only',
+            ),
         );
     }
 

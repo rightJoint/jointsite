@@ -17,14 +17,14 @@ class Controller_Components_BlogArts extends ModuleController
 
     public function loadBindComponents(): void
     {
-        /*$this->bindComponents = array(
-            "userstogroups" => array(
+        $this->bindComponents = array(
+            /*"userstogroups" => array(
                 "relationships" => array(
                     "user_id" => "user_id",
                 ),
-            ),
-            "users" => [],
-        );*/
+            ),*/
+            "blogtags" => [],
+        );
     }
 
     public function loadLangController():string
