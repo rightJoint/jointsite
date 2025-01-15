@@ -393,4 +393,9 @@ class Model_Migrations extends RecordsModel
 
         return true;
     }
+
+    public function insertCustomFields()
+    {
+        return $this->updateCustomFields();
+    }
 }
