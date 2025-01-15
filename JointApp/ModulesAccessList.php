@@ -43,6 +43,10 @@ class ModulesAccessList
                 //services
                 'admin-only',
             ),
+            'blogarts' => array(
+                //blogarts
+                'admin-only',
+            ),
         );
     }
 
