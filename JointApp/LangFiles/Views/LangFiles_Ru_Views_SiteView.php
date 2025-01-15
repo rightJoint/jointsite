@@ -49,11 +49,6 @@ class LangFiles_Ru_Views_SiteView extends LangFiles_Ru_Views_WebView
                 'refTitle' => 'список, сохраниение, загрузка таблиц',
                 'usage' => true,
             ),
-            'email' => array(
-                'refText' => 'рассылки',
-                'refTitle' => 'тест отправки уведомлений',
-                'usage' => true,
-            ),
         );
         $webTestMenu->menuLine = array(
             'refText' => 'Web-тесты',
