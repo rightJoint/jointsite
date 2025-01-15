@@ -1,6 +1,6 @@
 <?php
 
-class LangFiles_Ru_Controller_Components_Services extends LangFiles_Ru_Controller_Records
+class LangFiles_En_Controller_Components_Services extends LangFiles_En_Controller_Records
 {
     public function __construct()
     {
