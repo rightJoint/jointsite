@@ -151,6 +151,11 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'список и описание услуг',
                 'usage' => true,
             ),
+            'blogarts' => array(
+                'refText' => 'блог',
+                'refTitle' => 'статьи блога',
+                'usage' => true,
+            ),
         );
 
         $modulesMenu->menuLine = array(
