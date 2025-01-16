@@ -1,0 +1,69 @@
+.blog-container{
+    width: 96%;
+    margin-top: 1em;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.blog-container .blog-header{
+    border-bottom: 1px solid silver;
+}
+
+.blog-container .blog-header .blog-header-meta{
+    display: inline-block;
+    width: 80%;
+    vertical-align: middle;
+}
+
+.blog-container .blog-header .blog-header-meta h2{
+    color: midnightblue;
+}
+
+.blog-container .blog-header .blog-header-img{
+    display: inline-block;
+    width: 20%;
+    vertical-align: middle;
+}
+
+.blog-container .blog-header .blog-header-img img{
+    border-radius: 2.5em;
+    height: 5em;
+    width: 5em;
+}
+
+.blog-container .blog-info{
+
+}
+
+.blog-container .blog-info .blog-info-dates{
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+}
+
+.blog-container span.b-em-container{
+    margin-right: 1em;
+    font-size: 0.8em;
+    font-family: "Mona Sans", system-ui, sans-serif;
+    color: midnightblue;
+}
+
+.blog-container span.b-em-value{
+    margin-right: 1em;
+}
+
+.blog-container .blog-info .blog-info-tags{
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+}
+
+.blog-container .blog-info .blog-info-tags span.tag-value{
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.blog-container .art-content{
+    margin-top: 0.5em;
+    text-align: left;
+}

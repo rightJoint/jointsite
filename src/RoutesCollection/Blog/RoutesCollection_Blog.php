@@ -13,7 +13,7 @@ trait RoutesCollection_Blog
         if(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'article'){
             if(isset($routes_ns[3])){
                 $route
-                    ->withController('Src\Controllers\Blog\Controller_Blog_Arts', ['art_id' => $routes_ns[3]])
+                    ->withController('Src\Controllers\Blog\Controller_Blog_Arts', ['artRef' => $routes_ns[3]])
                     ->withModel('Src\Models\Blog\Model_Blog_Arts',)
                     ->withAction('actionIndex')
                     ->withView('Src\Views\Blog\View_Blog_Art');
