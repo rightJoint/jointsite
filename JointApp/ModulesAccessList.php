@@ -51,6 +51,10 @@ class ModulesAccessList
                 //blogarts
                 'admin-only',
             ),
+            'blogtagstoarts' => array(
+                //blogtagstoarts
+                'admin-only',
+            ),
         );
     }
 

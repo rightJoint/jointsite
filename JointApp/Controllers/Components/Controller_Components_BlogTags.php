@@ -18,11 +18,13 @@ class Controller_Components_BlogTags extends ModuleController
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
-            /*"userstogroups" => array(
+            "blogtagstoarts" => array(
                 "relationships" => array(
-                    "user_id" => "user_id",
+                    "tag_id" => "tag_id",
                 ),
-            ),*/
+                'model' => 'JointApp\Models\Components\Model_Components_BlogTagsToArts',
+                'controller' => 'JointApp\Controllers\Components\Controller_Components_BlogTagsToArts',
+            ),
             "blogarts" => [],
         );
     }
@@ -62,9 +64,9 @@ class Controller_Components_BlogTags extends ModuleController
     {
         $this->searchFields = array(
             'tag_id' => array(
-                'format' => 'varchar',
-                'search' => 1,
-                'sort' => 1,
+                'format' => 'hidden',
+                'search' => 0,
+                'sort' => 0,
             ),
             'tag_en' => array(
                 'format' => 'varchar',
@@ -77,9 +79,9 @@ class Controller_Components_BlogTags extends ModuleController
                 'sort' => 1,
             ),
             'created_by' => array(
-                'format' => 'varchar',
-                'search' => 1,
-                'sort' => 1,
+                'format' => 'hidden',
+                'search' => 0,
+                'sort' => 0,
             ),
         );
     }
@@ -104,7 +106,7 @@ class Controller_Components_BlogTags extends ModuleController
                 'url' => 'tag_id=tag_id',
             ),
             'tag_id' => array(
-                'format' => 'varchar',
+                'format' => 'hidden',
             ),
             'tag_en' => array(
                 'format' => 'varchar',
@@ -113,7 +115,7 @@ class Controller_Components_BlogTags extends ModuleController
                 'format' => 'varchar',
             ),
             'created_by' => array(
-                'format' => 'varchar',
+                'format' => 'hidden',
             ),
         );
     }

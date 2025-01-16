@@ -18,12 +18,14 @@ class Controller_Components_BlogArts extends ModuleController
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
-            /*"userstogroups" => array(
+            "blogtagstoarts" => array(
                 "relationships" => array(
-                    "user_id" => "user_id",
+                    "art_id" => "art_id",
                 ),
-            ),*/
-            "blogtags" => [],
+                'model' => 'JointApp\Models\Components\Model_Components_BlogTagsToArts',
+                'controller' => 'JointApp\Controllers\Components\Controller_Components_BlogTagsToArts',
+            ),
+            'blogtags' => [],
         );
     }
 
@@ -221,6 +223,69 @@ class Controller_Components_BlogArts extends ModuleController
             ),
             'created_by' => array(
                 'format' => 'varchar',
+            ),
+        );
+    }
+
+    public function prepareViewFields(): void
+    {
+        $this->viewFields = array(
+            'art_id' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'artCat' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'artRef' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'artName_en' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'artName_ru' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'artMeta_en' => array(
+                'format' => 'text',
+                'readonly' => 1,
+            ),
+            'artMeta_ru' => array(
+                'format' => 'text',
+                'readonly' => 1,
+            ),
+            'artImg' => array(
+                'format' => 'file',
+                'file_options' => array(
+                    "load_dir" => self::ART_COVERS,
+                    'file_type' => 'img',
+                    'button' => false,
+                ),
+                'readonly' => 1,
+            ),
+            'activeFlag' => array(
+                'format' => 'tinyint',
+                'readonly' => 1,
+            ),
+            'indexFlag' => array(
+                'format' => 'tinyint',
+                'readonly' => 1,
+            ),
+            'pubDate' => array(
+                'format' => 'date',
+                'readonly' => 1,
+            ),
+            'refreshDate' => array(
+                'format' => 'date',
+                'readonly' => 1,
+            ),
+            'created_by' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
             ),
         );
     }
