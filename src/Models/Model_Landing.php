@@ -2,6 +2,7 @@
 
 namespace Src\Models;
 
+use JointApp\JointAppQueryBuilder;
 use JointApp\Models\Model_Pdo;
 
 class Model_Landing extends Model_Pdo
@@ -47,7 +48,7 @@ class Model_Landing extends Model_Pdo
         return $basket_prod;
     }
 
-    public function getBlogArts()
+    public function getBlogArts():array
     {
         $findArts_qry = 'select '.
             'art_id, '.
@@ -65,6 +66,37 @@ class Model_Landing extends Model_Pdo
         'order by artName desc';
 
         return $this->fetchToArray($findArts_qry);
+
+    }
+
+    public function getBlogTags(JointAppQueryBuilder $qBuilder):array
+    {
+        $return = [];
+        $qBuilder->select(
+            'blogAtrTags.art_id, '.
+            'blogAtrTags.tag_id, '.
+            'blogTags.tag_'.$this->langLw.' as tagName'
+        )
+            ->from('blogAtrTags')
+            ->join(
+                'inner join blogTags on blogAtrTags.tag_id = blogTags.tag_id'
+            )
+            ->order(
+                'blogAtrTags.art_id'
+            );
+
+        $res = $this->pdoQuery($qBuilder->buildQuery());
+
+        if($res->rowCount()){
+            while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
+                $return[$row['art_id']][] = array(
+                    'tag_id' => $row['tag_id'],
+                    'tagName' => $row['tagName'],
+                );
+
+            }
+        }
+        return $return;
 
     }
 
