@@ -57,11 +57,6 @@ class View_Blog_Art extends SiteView
 
     public static function createPageContent(\stdClass $langPageContent, \stdClass $viewParams): string
     {
-        /*
-        echo '<pre>';
-        print_r($viewParams->artTags);
-        exit;
-        */
         $artTags = '';
 
         for ($i=0; $i<count($viewParams->artTags); $i++){
@@ -90,7 +85,7 @@ class View_Blog_Art extends SiteView
             $artTags.'</div>'.
             '</div>'.
             '<div class="art-content">'.
-            self::printArtContent($langPageContent, $viewParams).
+            static::printArtContent($langPageContent->langArtContent, $viewParams, $langPageContent->langLw).
             '</div>'.
             '</div>'.
             '</div>'.
@@ -100,7 +95,7 @@ class View_Blog_Art extends SiteView
         return $pageContent;
     }
 
-    public static function printArtContent(\stdClass $langPageContent, \stdClass $viewParams): string
+    public static function printArtContent(\stdClass $langArtContent, \stdClass $viewParams, string $langLw): string
     {
         return 'put-art-content-there';
     }
