@@ -15,8 +15,12 @@ trait RoutesCollection_Blog
                 $route
                     ->withController('Src\Controllers\Blog\Controller_Blog_Arts', ['artRef' => $routes_ns[3]])
                     ->withModel('Src\Models\Blog\Model_Blog_Arts',)
-                    ->withAction('actionIndex')
-                    ->withView('Src\Views\Blog\View_Blog_Art');
+                    ->withAction('actionIndex');
+                if(strtolower($routes_ns[3]) == 'joint-pass'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_JointPass');
+                }else{
+                    $route->withView('Src\Views\Blog\View_Blog_Art');
+                }
             }
         }
         return $route;
