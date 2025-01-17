@@ -398,11 +398,14 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }else{
             $qBuilder->limit.='10';
         }
-
+        $sort_table_name = '';
         if(isset($this->requestParams['sortField'])){
 
             if(isset($this->searchFields[$this->requestParams['sortField']]['use_table_name'])){
-                $sort_table_name = $this->searchFields[$this->requestParams['sortField']]['use_table_name'].'.';
+                //group by case
+                if(!empty($this->searchFields[$this->requestParams['sortField']]['use_table_name'])){
+                    $sort_table_name = $this->searchFields[$this->requestParams['sortField']]['use_table_name'].'.';
+                }
 
                 if(isset($this->searchFields[$this->requestParams['sortField']]['use_field_name'])){
                     $sort_field_name = $this->searchFields[$this->requestParams['sortField']]['use_field_name'];
@@ -412,7 +415,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
 
             }elseif (isset($this->searchFields[$this->requestParams['sortField']]['group_by_field'])){
                 $sort_field_name = $this->requestParams['sortField'];
-                $sort_table_name = null;
+                $sort_table_name = '';
             }else{
                 $sort_field_name = $this->requestParams['sortField'];
                 $sort_table_name = $this->model->tableName.'.';
@@ -433,7 +436,12 @@ class RecordsController extends Controller implements RecordsControllerInterface
             }
             if($field_sort_default){
                 if(isset($this->searchFields[$field_sort_default]['use_table_name'])){
-                    $sort_table_name = $this->searchFields[$field_sort_default]['use_table_name'].'.';
+                    //group by case
+                    if(!empty($this->searchFields[$field_sort_default]['use_table_name'])){
+                        $sort_table_name = $this->searchFields[$field_sort_default]['use_table_name'].'.';
+                    }else{
+                        //$this->logger->notice('group by case', $this->logger->logger_context);
+                    }
 
                     if(isset($this->searchFields[$field_sort_default]['use_field_name'])){
                         $sort_field_name = $this->searchFields[$field_sort_default]['use_field_name'];
