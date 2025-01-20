@@ -2,9 +2,9 @@
 
 class LangFiles_En_Controller_Components_NtfTemplates extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Notification templates';
     public function __construct()
     {
-        $this->moduleAlias = 'Notification templates';
         $this->fieldAliases = array(
             'template_id' => 'template id',
             'tName' => 't.name',
@@ -15,7 +15,5 @@ class LangFiles_En_Controller_Components_NtfTemplates extends LangFiles_En_Contr
             'date_created' => 'date_created',
             'created_by' => 'created_by',
         );
-
     }
-
 }

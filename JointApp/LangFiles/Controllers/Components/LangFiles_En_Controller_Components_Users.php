@@ -2,9 +2,10 @@
 
 class LangFiles_En_Controller_Components_Users extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Users';
+
     public function __construct()
     {
-        $this->moduleAlias = 'Users';
         $this->fieldAliases = array(
             'user_id' => 'user id',
             'accLogin' => 'login',

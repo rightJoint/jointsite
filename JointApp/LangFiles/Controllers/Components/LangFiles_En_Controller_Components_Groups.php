@@ -2,10 +2,9 @@
 
 class LangFiles_En_Controller_Components_Groups extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Users groups';
     public function __construct()
     {
-        parent::__construct();
-        $this->moduleAlias = 'Users groups';
         $this->fieldAliases = array(
             'group_id' => 'id',
             'groupAlias_en' => 'Alias_en',

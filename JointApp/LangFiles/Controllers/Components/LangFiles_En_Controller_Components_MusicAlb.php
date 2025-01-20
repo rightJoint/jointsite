@@ -2,10 +2,9 @@
 
 class LangFiles_En_Controller_Components_MusicAlb extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Music albums';
     public function __construct()
     {
-        parent::__construct();
-        $this->moduleAlias = 'Music albums';
         $this->fieldAliases = array(
             'albumAlias' => 'link',
             'albumName' => 'alb.name',
