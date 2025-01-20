@@ -18,6 +18,8 @@ trait RoutesCollection_Blog
                     ->withAction('actionIndex');
                 if(strtolower($routes_ns[3]) == 'joint-pass'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_JointPass');
+                }elseif(strtolower($routes_ns[3]) == 'right-joint-updated'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_RightJointUpdated');
                 }else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
