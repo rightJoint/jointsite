@@ -6,15 +6,15 @@ class LangFiles_En_Views_Templates_RecordsList extends LangFiles_En_Views_SiteVi
         $langPageContent = parent::getLangPageContent();
 
         $list_table = array(
-            "found" => "Найдено",
-            "list_by" => "Показывать по",
-            "sort" => "Сортировка",
-            "new" => "Создать запись",
-            "btn_apply" => "Применить фильтр",
-            "cell_view" => "Смотр.",
-            "cell_del" => "Удал.",
-            "cell_edit" => "Редакт.",
-            "btn_clear" => "Очистить",
+            'found' => 'Found',
+            'list_by' => 'display by',
+            'sort' => 'Sort',
+            'new' => 'New record',
+            'btn_apply' => 'Apply filter',
+            'cell_view' => 'View',
+            'cell_del' => 'Delete',
+            'cell_edit' => 'Edit',
+            'btn_clear' => 'Clear',
         );
 
         $filterView = new stdClass();
@@ -27,7 +27,7 @@ class LangFiles_En_Views_Templates_RecordsList extends LangFiles_En_Views_SiteVi
     static public function getLangHead():stdClass
     {
         $langHead = parent::getLangHead();
-        $langHead->title = 'Список записей в ';
+        $langHead->title = 'Records list in ';
         $langHead->updateFromArray = function ($array = []) use (&$langHead){
             if(isset($array['title'])){
                 $langHead->title.=$array['title'];
@@ -41,7 +41,7 @@ class LangFiles_En_Views_Templates_RecordsList extends LangFiles_En_Views_SiteVi
     {
         $langHead = parent::getLangHeader();
 
-        $langHead->h1 = 'Список записей в ';
+        $langHead->h1 = 'Records list in ';
 
         $langHead->updateFromArray = function ($array = []) use (&$langHead){
             if(isset($array['h1'])){

@@ -5,24 +5,17 @@ class LangFiles_En_Controller_Components_MusicAlb extends LangFiles_En_Controlle
     public function __construct()
     {
         parent::__construct();
-        $this->moduleAlias = 'Альбомы музыки';
+        $this->moduleAlias = 'Music albums';
         $this->fieldAliases = array(
-            //'track_id' => 'id',
-            'albumAlias' => 'ссылка',
-            'albumName' => 'наимен.альб.',
-            'created_by' => 'создал',
-            //'track_file' => 'файл трэка',
-            'dateOfCr' => 'Дт.созд',
-            'albumImg' => 'обложка',
-            'activeFlag' => 'исп.',
-            'refreshDate' => 'обновлено',
-            'robIndex' => 'индек.',
-            //'sortDate' => 'Дт. сорт',
-            //'created_by' => 'создал',
-            'accAlias' => 'создал',
+            'albumAlias' => 'link',
+            'albumName' => 'alb.name',
+            'created_by' => 'created_id',
+            'dateOfCr' => 'created date',
+            'albumImg' => 'cover',
+            'activeFlag' => 'use.',
+            'refreshDate' => 'updated',
+            'robIndex' => 'index',
+            'accAlias' => 'created by',
         );
-
     }
-
-
 }

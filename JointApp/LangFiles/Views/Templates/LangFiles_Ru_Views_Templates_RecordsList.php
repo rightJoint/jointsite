@@ -6,15 +6,15 @@ class LangFiles_Ru_Views_Templates_RecordsList extends LangFiles_Ru_Views_SiteVi
         $langPageContent = parent::getLangPageContent();
 
         $list_table = array(
-            "found" => "Найдено",
-            "list_by" => "Показывать по",
-            "sort" => "Сортировка",
-            "new" => "Создать запись",
-            "btn_apply" => "Применить фильтр",
-            "cell_view" => "Смотр.",
-            "cell_del" => "Удал.",
-            "cell_edit" => "Редакт.",
-            "btn_clear" => "Очистить",
+            'found' => 'Найдено',
+            'list_by' => 'Показывать по',
+            'sort' => 'Сортировка',
+            'new' => 'Создать запись',
+            'btn_apply' => 'Применить фильтр',
+            'cell_view' => 'Смотр.',
+            'cell_del' => 'Удал.',
+            'cell_edit' => 'Редакт.',
+            'btn_clear' => 'Очистить',
         );
 
         $filterView = new stdClass();

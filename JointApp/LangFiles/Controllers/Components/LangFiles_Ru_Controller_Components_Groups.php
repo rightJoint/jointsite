@@ -4,7 +4,6 @@ class LangFiles_Ru_Controller_Components_Groups extends LangFiles_Ru_Controller_
 {
     public function __construct()
     {
-        parent::__construct();
         $this->moduleAlias = 'Группы пользователей';
         $this->fieldAliases = array(
             'group_id' => 'id',

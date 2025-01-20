@@ -2,8 +2,6 @@
 
 class LangFiles_Ru_Controller_Components_Users extends LangFiles_Ru_Controller_Records
 {
-    //public $fieldAliases = [];
-
     public function __construct()
     {
         $this->moduleAlias = 'Пользователи';
@@ -26,8 +24,5 @@ class LangFiles_Ru_Controller_Components_Users extends LangFiles_Ru_Controller_R
             'send_ntf' => 'уведомл',
             'pref_lang' => 'язык',
         );
-
     }
-
-
 }

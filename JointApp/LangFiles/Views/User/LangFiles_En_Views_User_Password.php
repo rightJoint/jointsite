@@ -5,7 +5,7 @@ class LangFiles_En_Views_User_Password extends LangFiles_En_Views_Templates_Reco
     {
         $langHead = parent::getLangHead();
 
-        $langHead->title = 'Сменить пароль';
+        $langHead->title = 'Change password';
         return $langHead;
     }
 
@@ -15,7 +15,7 @@ class LangFiles_En_Views_User_Password extends LangFiles_En_Views_Templates_Reco
 
         $langHeader->updateFromArray = function ($array = []) use (&$langHeader){
             if($array['type'] == 'edit'){
-                $langHeader->h1 = 'Сменить пароль';
+                $langHeader->h1 = 'Change password';
             }
         };
 

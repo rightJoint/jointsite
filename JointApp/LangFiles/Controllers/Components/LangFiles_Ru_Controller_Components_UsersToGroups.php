@@ -2,9 +2,6 @@
 
 class LangFiles_Ru_Controller_Components_UsersToGroups extends LangFiles_Ru_Controller_Records
 {
-    //public $fieldAliases = [];
-
-
     public function __construct()
     {
         $this->moduleAlias = 'Группы пользователей';
@@ -31,8 +28,5 @@ class LangFiles_Ru_Controller_Components_UsersToGroups extends LangFiles_Ru_Cont
             'disable' => 'блокировано',
             'forbidden' => 'запрещено',
         );
-
     }
-
-
 }

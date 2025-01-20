@@ -2,34 +2,31 @@
 
 class LangFiles_En_Controller_Components_UsersToGroups extends LangFiles_En_Controller_Records
 {
-    //public $fieldAliases = [];
-
-
     public function __construct()
     {
-        $this->moduleAlias = 'Группы пользователей';
+        $this->moduleAlias = 'Users groups';
 
         $this->fieldAliases = array(
-            'group_id' => 'ид гр.',
-            'user_id' => 'ид польз',
-            'read_rule' => 'чтение',
-            'create_rule' => 'создание',
-            'edit_rule' => 'редакт.',
-            'delete_rule' => 'удаление',
-            'created_by' => 'создал',
-            'created_user' => 'создал',
-            'send_ntf' => 'уведомл.',
-            'uses_alias' => 'пользователь',
-            'groupAlias' => 'группа',
-            'created_alias' => 'создал',
+            'group_id' => 'group id',
+            'user_id' => 'user id',
+            'read_rule' => 'read',
+            'create_rule' => 'create',
+            'edit_rule' => 'edit',
+            'delete_rule' => 'delete',
+            'created_by' => 'created id',
+            'created_user' => 'created user',
+            'send_ntf' => 'notifications',
+            'uses_alias' => 'alias',
+            'groupAlias' => 'group',
+            'created_alias' => 'created by',
         );
 
         $this->rules = array(
-            'any' => 'любые',
-            'own' => 'свои',
-            'enable' => 'может',
-            'disable' => 'блокировано',
-            'forbidden' => 'запрещено',
+            'any' => 'any',
+            'own' => 'own',
+            'enable' => 'enable',
+            'disable' => 'disable',
+            'forbidden' => 'forbidden',
         );
 
     }

@@ -5,13 +5,6 @@ class LangFiles_Ru_Views_User_NtfDetail extends LangFiles_Ru_Views_Templates_Rec
     {
         $langHead = parent::getLangHead();
         $langHead->title = 'Чтение уведомления';
-        /*
-        $langHead->updateFromArray = function ($array = []) use (&$langHead){
-            if(isset($array['title'])){
-                $langHead->title.=$array['title'];
-            }
-        };
-*/
         return $langHead;
     }
 
@@ -19,9 +12,7 @@ class LangFiles_Ru_Views_User_NtfDetail extends LangFiles_Ru_Views_Templates_Rec
     {
         $langHeader = parent::getLangHeader();
         $langHeader->updateFromArray = function ($array = []) use (&$langHeader){
-            //if($array['type'] == 'edit'){
             $langHeader->h1 = 'Чтение уведомления';
-            //}
         };
         return $langHeader;
     }

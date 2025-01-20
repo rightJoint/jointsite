@@ -2,8 +2,8 @@
 class LangFiles_En_Model
 {
     public $conn_err = array(
-        "file_not_found" => "файл настроек БД не найден",
-        "file_not_valid" => "Файл настроек неправильного формата или пустой",
-        "conn_problem" => "Нет подключения к БД с такими настройками",
+        'file_not_found' => 'settings file database conn not found',
+        'file_not_valid' => 'settings file database conn not valid or empty',
+        'conn_problem' => 'Cant connect database with this settingd',
     );
 }

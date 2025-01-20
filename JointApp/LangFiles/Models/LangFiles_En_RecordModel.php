@@ -2,23 +2,23 @@
 class LangFiles_En_RecordModel extends LangFiles_En_Model
 {
     public $updateRecord = array(
-        "success" => "Обновление записи успешно",
-        "fail" => "Обновление записи неудачно",
-        "nothing" => "Ничего не менялось",
+        'success' => 'Update record success',
+        'fail' => 'Update record fail',
+        'nothing' => 'Nothing changed',
     );
     public $insertRecord = array(
-        "success" => "Добавление записи успешно",
-        "fail" => "Добавление записи неудачно",
+        'success' => 'Create record success',
+        'fail' => 'Create record fail',
     );
     public $copyRecord = array(
-        "fail" => "Копирование записи неудачно",
+        'fail' => 'Copy record fail',
     );
-    public $table_name_rm_err = "Имя таблицы не задано в RecordModel";
-    public $table_name_not_found = "Имя таблицы не найдено в базе данных (МодельЗапись)";
+    public $table_name_rm_err = 'table name does not set RecordModel';
+    public $table_name_not_found = 'table name not found in database (ModelRecord)';
     public $file_err = array(
-        "unlink_err" => "ошибка при удалении в ModuleRecordsModel.php",
-        "mvf_err_extension" => "невозможно загрузить расширение",
-        "mvf_err_load" => "ошибка при загрузке в ModuleRecordsModel.php",
-        "form_h2" => "основная информация",
+        'unlink_err' => 'delete error ModuleRecordsModel.php',
+        'mvf_err_extension' => 'cant load extension file',
+        'mvf_err_load' => 'load error in ModuleRecordsModel.php',
+        'form_h2' => 'main info',
     );
 }

@@ -4,7 +4,6 @@ class LangFiles_Ru_Controller_Components_MusicTracks extends LangFiles_Ru_Contro
 {
     public function __construct()
     {
-        parent::__construct();
         $this->moduleAlias = 'Список трэков';
         $this->fieldAliases = array(
             'track_id' => 'id',
@@ -16,8 +15,5 @@ class LangFiles_Ru_Controller_Components_MusicTracks extends LangFiles_Ru_Contro
             'created_by' => 'создал',
             'created_alias' => 'создал',
         );
-
     }
-
-
 }
