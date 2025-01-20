@@ -2,27 +2,28 @@
 
 class LangFiles_En_Controller_Components_Users extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Users';
+
     public function __construct()
     {
-        $this->moduleAlias = 'Пользователи';
         $this->fieldAliases = array(
-            'user_id' => 'ид',
-            'accLogin' => 'логин',
-            'accAlias' => 'Алиас',
-            'pw_hash' => 'Хэш',
-            'vldCode' => 'код подтв.',
-            'regDate' => 'дт.рег',
-            'netWork' => 'сц.сеть',
-            'validDate' => 'дт. валид.',
-            'photoLink' => 'аватар',
-            'eMail' => 'почта',
-            'birthDay' => 'д.р.',
-            'socProf' => 'проф.ссылка',
-            'blackList' => 'ч.сп',
-            'created_by' => 'создал',
-            'is_admin' => 'админ',
-            'send_ntf' => 'уведомл',
-            'pref_lang' => 'язык',
+            'user_id' => 'user id',
+            'accLogin' => 'login',
+            'accAlias' => 'alias',
+            'pw_hash' => 'hash',
+            'vldCode' => 'vld code',
+            'regDate' => 'reg dt',
+            'netWork' => 'network',
+            'validDate' => 'valid dt',
+            'photoLink' => 'avatar',
+            'eMail' => 'eMail',
+            'birthDay' => 'birthday',
+            'socProf' => 'home ref',
+            'blackList' => 'black list',
+            'created_by' => 'created by',
+            'is_admin' => 'admin',
+            'send_ntf' => 'notifications',
+            'pref_lang' => 'lang',
         );
 
     }

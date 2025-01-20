@@ -5,7 +5,7 @@ class LangFiles_En_Views_User_Email extends LangFiles_En_Views_Templates_RecordE
     {
         $langHead = parent::getLangHead();
 
-        $langHead->title = 'Сменить email';
+        $langHead->title = 'Change email';
         return $langHead;
     }
 
@@ -15,7 +15,7 @@ class LangFiles_En_Views_User_Email extends LangFiles_En_Views_Templates_RecordE
 
         $langHeader->updateFromArray = function ($array = []) use (&$langHeader){
             if($array['type'] == 'edit'){
-                $langHeader->h1 = 'Сменить email';
+                $langHeader->h1 = 'Change email';
             }
         };
 

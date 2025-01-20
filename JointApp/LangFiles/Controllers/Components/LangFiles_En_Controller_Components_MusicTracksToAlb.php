@@ -2,23 +2,14 @@
 
 class LangFiles_En_Controller_Components_MusicTracksToAlb extends LangFiles_En_Controller_Records
 {
+    public string $moduleAlias = 'Tracks to albums';
+
     public function __construct()
     {
-        parent::__construct();
-        $this->moduleAlias = 'Трэки в альбом';
         $this->fieldAliases = array(
-            //'track_id' => 'id',
-            'track_name' => 'трэк',
-            'albumName' => 'альбом',
-            'accAlias' => 'создал',
-            //'track_file' => 'файл трэка',
-            //'loadDate' => 'Дт.загр',
-            //'sortDate' => 'Дт. сорт',
-            //'created_by' => 'создал',
-            //'created_alias' => 'создал',
+            'track_name' => 'track',
+            'albumName' => 'album',
+            'accAlias' => 'created by',
         );
-
     }
-
-
 }

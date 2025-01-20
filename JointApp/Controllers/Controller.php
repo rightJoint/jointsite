@@ -55,6 +55,7 @@ class Controller implements ControllerInterface
         $this->docRoot = $request->docRoot;
         $this->langNs = $request->langNs;
         $langName = $this->loadLangController();
+        $this->langMap = new $langName;
 
         if($this->checkAccessController()){
 
@@ -77,10 +78,6 @@ class Controller implements ControllerInterface
                 $this->requestParams = $request->getQueryParams();
                 $this->controllerFilterQuery($request->getQueryParams());
             }
-
-
-            $this->langMap = new $langName;
-
         }else{
             $this->logger->warning('check-access-controller __construct return false', $this->logger->logger_context);
         }

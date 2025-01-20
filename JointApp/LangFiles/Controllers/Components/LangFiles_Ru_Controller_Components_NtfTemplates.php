@@ -2,10 +2,9 @@
 
 class LangFiles_Ru_Controller_Components_NtfTemplates extends LangFiles_Ru_Controller_Records
 {
-    //public $fieldAliases = [];
+    public string $moduleAlias = 'Шаблоны уведомлений';
     public function __construct()
     {
-        $this->moduleAlias = 'Шаблоны уведомлений';
         $this->fieldAliases = array(
             'template_id' => 'шаблон id',
             'tName' => 'Ш.Наимен',

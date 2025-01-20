@@ -5,13 +5,6 @@ class LangFiles_En_Views_User_Notifications extends LangFiles_En_Views_Templates
     {
         $langHead = parent::getLangHead();
         $langHead->title = '';
-        /*
-        $langHead->updateFromArray = function ($array = []) use (&$langHead){
-            if(isset($array['title'])){
-                $langHead->title.=$array['title'];
-            }
-        };
-*/
         return $langHead;
     }
 
@@ -20,9 +13,7 @@ class LangFiles_En_Views_User_Notifications extends LangFiles_En_Views_Templates
         $langHeader = parent::getLangHeader();
 
         $langHeader->updateFromArray = function ($array = []) use (&$langHeader){
-            //if($array['type'] == 'edit'){
-                $langHeader->h1 = 'Notifications';
-            //}
+            $langHeader->h1 = 'Notifications';
         };
 
         return $langHeader;

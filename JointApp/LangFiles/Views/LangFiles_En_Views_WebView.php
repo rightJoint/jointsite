@@ -7,7 +7,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langHead = new stdClass();
 
-        $langHead->description = 'Web сайт от Right Joint (www.rightjoint.ru)';
+        $langHead->description = 'Web site by Right Joint (www.rightjoint.ru)';
         $langHead->title = 'Web-3 site';
 
         $langHead->updateFromArray = function ($array = []) use (&$langHead){
@@ -28,9 +28,9 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langHeader->langLw = 'en';
 
 
-        $langHeader->h1 = 'Web-3 технологии';
-        $langHeader->firmName = 'РАЙТ ДЖОЙНt';
-        $langHeader->menuBtnText = 'МЕНЮ';
+        $langHeader->h1 = 'Web-3 tech';
+        $langHeader->firmName = 'RIGHT JOINt';
+        $langHeader->menuBtnText = 'MENU';
         $langHeader->langPanelTextRus = 'смотреть на русском';
         $langHeader->langPanelTextEn = 'view in english';
 
@@ -50,7 +50,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     static public function getLangPageContent():stdClass
     {
         $langPageContent = new stdClass();
-        $langPageContent->pageContent = 'вставьте сюда содержание страницы';
+        $langPageContent->pageContent = 'put there page content';
         $langPageContent->modulesMenu = self::modulesList();
 
         $langPageContent->langLw = 'en';
@@ -70,10 +70,10 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
 
         $langModal->langLw = 'en';
 
-        $langModal->homeRefText = 'Главная';
-        $langModal->homeRefTile = 'на главную';
-        $langModal->homeRefDefText = 'Вы уже на главной';
-        $langModal->homeRefDefTitle = 'Развернуть свой Web-3 сайт';
+        $langModal->homeRefText = 'Home';
+        $langModal->homeRefTile = 'home page';
+        $langModal->homeRefDefText = 'You are on main page';
+        $langModal->homeRefDefTitle = 'Deploy your own Web-3 site';
         $langModal->langPanelTextRus = 'смотреть на русском';
         $langModal->langPanelTextEn = 'view in english';
         $langModal->modulesMenu = self::modulesList();
@@ -87,8 +87,8 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $modalSignUser = new stdClass();
         $modalSignUser->title = 'personal page';
         $modalSignUser->siteUser = 'settings';
-        $modalSignUser->exit = 'exit';
-        $modalSignUser->exit_title = 'quit';
+        $modalSignUser->exit = 'quit';
+        $modalSignUser->exit_title = 'exit';
 
         $langModal->modalSignUser = $modalSignUser;
 
@@ -102,48 +102,48 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
 
         $modulesMenu->menuItems = array(
             'users' => array(
-                'refText' => 'пользователи',
-                'refTitle' => 'управление пользователями',
+                'refText' => 'users',
+                'refTitle' => 'manage users',
                 'usage' => true,
             ),
             'groups' => array(
-                'refText' => 'группы',
-                'refTitle' => 'Управление группами',
+                'refText' => 'groups',
+                'refTitle' => 'Manage groups',
                 'usage' => true,
             ),
             'userstogroups' => array(
-                'refText' => 'группы пользователей',
-                'refTitle' => 'Управление группами пользователей',
+                'refText' => 'users groups',
+                'refTitle' => 'Manage users groups',
                 'usage' => false,
             ),
             'ntftemplates' => array(
-                'refText' => 'шаблоны уведомлений',
-                'refTitle' => 'управление шаблонами уведомлениями',
+                'refText' => 'notification templates',
+                'refTitle' => 'Manage notification templates',
                 'usage' => true,
             ),
             'ntflist' => array(
-                'refText' => 'список уведомлений',
-                'refTitle' => 'список уведомлений',
+                'refText' => 'notification list',
+                'refTitle' => 'notification list',
                 'usage' => false,
             ),
             'ntfread' => array(
-                'refText' => 'чтение уведомлений',
-                'refTitle' => 'чтение уведомлений',
+                'refText' => 'notification read',
+                'refTitle' => 'notification read',
                 'usage' => false,
             ),
             'musicalb' => array(
-                'refText' => 'альбомы музыки',
-                'refTitle' => 'управление музыкой',
+                'refText' => 'music albums',
+                'refTitle' => 'manage albus',
                 'usage' => true,
             ),
             'musictracks' => array(
-                'refText' => 'список трэков',
-                'refTitle' => 'музыка - список трэков',
+                'refText' => 'tracks list',
+                'refTitle' => 'music - tracks list',
                 'usage' => false,
             ),
             'musictrackstoalb' => array(
-                'refText' => 'трэки в альбом',
-                'refTitle' => 'музыка трэки в альбом',
+                'refText' => 'tracks to albums',
+                'refTitle' => 'tracks to albums',
                 'usage' => false,
             ),
             'services' => array(
@@ -159,10 +159,10 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         );
 
         $modulesMenu->menuLine = array(
-            'refText' => 'Управление сайтом',
-            'refTitle' => 'Перейти к управлению',
+            'refText' => 'Manage site',
+            'refTitle' => 'Go to admin',
             'supText' => '',
-            'dropText' => 'модули',
+            'dropText' => 'units',
         );
 
         return $modulesMenu;
@@ -171,19 +171,19 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     public static function modalSignInForm():stdClass
     {
         $modalSignInForm = new stdClass();
-        $modalSignInForm->form_title = 'Вход на сайт';
-        $modalSignInForm->placeholder_login = 'Ваш логин...';
-        $modalSignInForm->placeholder_password = 'введите пароль...';
-        $modalSignInForm->submit_btn = 'Войти';
+        $modalSignInForm->form_title = 'Sign In';
+        $modalSignInForm->placeholder_login = 'login...';
+        $modalSignInForm->placeholder_password = 'password...';
+        $modalSignInForm->submit_btn = 'SignIn';
 
         $err = new stdClass();
-        $err->signInErrLogin = 'неправильный логин';
-        $err->signInErrPass = 'неправильный пароль';
-        $err->signInErrLP = 'неправильный логин или пароль';
-        $err->signInErrNotFound = 'пользователь не найден';
-        $err->signInErrEMailValid = 'eMail не подтвержден';
-        $err->signInErrBlackList = 'пользователь в чёрном списке';
-        $err->signInErrWrongPass = 'неправильный пароль';
+        $err->signInErrLogin = 'wrong login';
+        $err->signInErrPass = 'wrong password';
+        $err->signInErrLP = 'wrong login or password';
+        $err->signInErrNotFound = 'user not found';
+        $err->signInErrEMailValid = 'eMail not valid';
+        $err->signInErrBlackList = 'user in black list';
+        $err->signInErrWrongPass = 'wrong password';
         $modalSignInForm->err = $err;
 
         return $modalSignInForm;
@@ -193,19 +193,19 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $modalSignUpForm = new stdClass();
 
-        $modalSignUpForm->form_title = 'Регистрация на сайте';
-        $modalSignUpForm->placeholder_login = 'Придумайте логин...';
-        $modalSignUpForm->placeholder_password = 'пароль...';
-        $modalSignUpForm->placeholder_repeat = 'повторите пароль...';
-        $modalSignUpForm->placeholder_mail = 'Ваш email...';
-        $modalSignUpForm->submit_btn = 'Зарегистрировать';
+        $modalSignUpForm->form_title = 'Sign Up';
+        $modalSignUpForm->placeholder_login = 'make up login...';
+        $modalSignUpForm->placeholder_password = 'make up password...';
+        $modalSignUpForm->placeholder_repeat = 'repeat password...';
+        $modalSignUpForm->placeholder_mail = 'Your email...';
+        $modalSignUpForm->submit_btn = 'SignUp';
 
         $err = new stdClass();
-        $err->signUpErrPassMatch = 'пароли не совпадают';
-        $err->signUpErrPassAccept = 'недопустимый пароль';
-        $err->signUpErrLoginAccept = 'недопустимый логин';
-        $err->signUpErrLoginReserved = 'логин зарезервирован';
-        $err->signUpErrEMailAccept = 'недопустимый eMail';
+        $err->signUpErrPassMatch = 'pass doent match';
+        $err->signUpErrPassAccept = 'password unacceptable';
+        $err->signUpErrLoginAccept = 'login unacceptable';
+        $err->signUpErrLoginReserved = 'login reserved';
+        $err->signUpErrEMailAccept = 'email unacceptable';
         $modalSignUpForm->err = $err;
 
         return $modalSignUpForm;

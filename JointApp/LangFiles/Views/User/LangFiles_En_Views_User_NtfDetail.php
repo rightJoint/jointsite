@@ -4,14 +4,7 @@ class LangFiles_En_Views_User_NtfDetail extends LangFiles_En_Views_Templates_Rec
     public static function getLangHead(): stdClass
     {
         $langHead = parent::getLangHead();
-        $langHead->title = 'Чтение уведомления';
-        /*
-        $langHead->updateFromArray = function ($array = []) use (&$langHead){
-            if(isset($array['title'])){
-                $langHead->title.=$array['title'];
-            }
-        };
-*/
+        $langHead->title = 'Read notification';
         return $langHead;
     }
 
@@ -19,9 +12,7 @@ class LangFiles_En_Views_User_NtfDetail extends LangFiles_En_Views_Templates_Rec
     {
         $langHeader = parent::getLangHeader();
         $langHeader->updateFromArray = function ($array = []) use (&$langHeader){
-            //if($array['type'] == 'edit'){
-            $langHeader->h1 = 'Чтение уведомления';
-            //}
+            $langHeader->h1 = 'Read notification';
         };
         return $langHeader;
     }
