@@ -573,9 +573,9 @@ class WebView extends View implements WebViewInterface
             '</div>'.
             '</div>';
 
-        $pageModals.= self::modalMenuSiteman($langModal->modulesMenu, $viewParams->userModules, $viewParams->langSl = '', $viewParams->routes_ns).
+        $pageModals.= self::modalMenuSiteman($langModal->modulesMenu, $viewParams->userModules, $viewParams->langSl, $viewParams->routes_ns).
             static::createModalContent($langModal, $viewParams).
-            self::modalSignPanel($langModal->modalSignUser, $langModal->authForms, $viewParams->authForms);
+            self::modalSignPanel($langModal->modalSignUser, $langModal->authForms, $viewParams->authForms, $viewParams->langSl);
 
         $pageModals.= '</div></div></div></div>';
         return $pageModals;
@@ -592,7 +592,8 @@ class WebView extends View implements WebViewInterface
         return $this->logger->calcRuntime($this->firstEvent-1, $this->lastEvent-1);
     }
 
-    public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm):string
+    public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm,
+                                          string $langSl = 'ru'):string
     {
         global $currentUser;
 
@@ -621,7 +622,7 @@ class WebView extends View implements WebViewInterface
                 '</div>';
             return $user;
         }else{
-            $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm);
+            $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm, $langSl);
             return $modalAuthForms->printAuthForms();
         }
     }
