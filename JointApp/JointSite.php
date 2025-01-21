@@ -114,6 +114,7 @@ class JointSite implements RequestHandlerInterface
             if($jointSiteRoute->responseFormat != 'json'){
                 $modelLanding = ModelFactory::createModelFromRequest($this->request, 'Src\Models\Model_Landing');
                 $newView->basket = $modelLanding->basketCalc();
+                $newView->popArts = $modelLanding->getPopArts();
             }
         }
 
