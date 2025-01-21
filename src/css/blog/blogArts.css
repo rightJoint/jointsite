@@ -67,3 +67,12 @@
     margin-top: 0.5em;
     text-align: left;
 }
+.blog-container .art-content h3{
+    color: midnightblue;
+    font-family:  Poppins, Arial, Helvetica, sans-serif;
+}
+
+.blog-container .art-content p{
+    color: rgb(54, 54, 54);
+    font-family: Karla, Arial, Helvetica, sans-serif;
+}
