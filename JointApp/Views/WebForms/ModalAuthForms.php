@@ -10,13 +10,14 @@ use JointApp\AuthConfig;
 class ModalAuthForms
 {
     public \stdClass $langForms;
-    public \stdClass $langErrs;
     public \stdClass $paramsFroms;
+    public string $langSl = 'ru';
 
-    function __construct(\stdClass $langForms, \stdClass $paramsFroms)
+    function __construct(\stdClass $langForms, \stdClass $paramsFroms, $langSl = 'ru')
     {
         $this->langForms = $langForms;
         $this->paramsFroms  = $paramsFroms;
+        $this->langSl  = $langSl;
     }
 
     public function printAuthForms():string
@@ -30,7 +31,6 @@ class ModalAuthForms
 
         $return = $this->modalSignInForm($activeSignInFlag).
             $this->modalSignUpForm($activeSignUpFlag);
-        //$return = $this->modalSignUpForm($activeSignUpFlag);
 
         return $return;
 
@@ -44,9 +44,7 @@ class ModalAuthForms
             $add_form_class = 'disp-none';
         }
 
-
-
-        $return = '<form class="auth-form signIn '.$add_form_class.'" method="post" action="/user/signIn">'.
+        $return = '<form class="auth-form signIn '.$add_form_class.'" method="post" action="'.$this->langSl.'/user/signIn">'.
             '<div class="modal-line">'.
             '<div class="modal-line-img"><img src="/img/popimg/user-logo.png"></div>' .
             '<div class="modal-line-text">';
@@ -115,16 +113,6 @@ class ModalAuthForms
 
     function modalSignUpForm(
         bool $activeSignUpFlag = true
-        /*
-        $add_form_class = null, $signUp_err=array(
-        'login_unacceptable' => false,
-        'login_reserved' => false,
-        'pass_unacceptable' => false,
-        'pass_dont_match' => false,
-        'email_unacceptable' => false,
-    )
-    */
-
     ):string
     {
 
@@ -133,11 +121,7 @@ class ModalAuthForms
             $add_form_class = 'disp-none';
         }
 
-        //echo '<pre>';
-        // print_r($this->langForms);
-        //  exit;
-
-        $return = '<form class="auth-form signUp '.$add_form_class.'" method="post" action="/user/signUp">'.
+        $return = '<form class="auth-form signUp '.$add_form_class.'" method="post" action="'.$this->langSl.'/user/signUp">'.
             '<div class="modal-line">'.
             '<div class="modal-line-img"><img src="/img/popimg/checkInNow.png"></div>' .
             '<div class="modal-line-text">';
