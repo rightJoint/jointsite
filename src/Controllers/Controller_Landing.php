@@ -16,6 +16,7 @@ class Controller_Landing extends Controller
 
         $this->view->artTags = $this->model->getBlogTags($qBuilder);
         $this->view->artList = $this->artList;
+        $this->view->popArts = $this->model->getPopArts();;
     }
 
     private function blogTagsQBuilderWhere():JointAppQueryBuilder
@@ -27,7 +28,7 @@ class Controller_Landing extends Controller
 
         $where_in = substr($where_in, 0, strlen($where_in)-2);
         $qBulder = new JointAppQueryBuilder();
-        $qBulder->where('art_id in ('.$where_in.')');
+        $qBulder->where('blogArts.art_id in ('.$where_in.')');
         return $qBulder;
     }
 }

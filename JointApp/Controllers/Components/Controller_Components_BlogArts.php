@@ -88,6 +88,10 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'tinyint',
                 'curVal' => '',
             ),
+            'popFlag' => array(
+                'format' => 'tinyint',
+                'curVal' => '',
+            ),
             'pubDate' => array(
                 'format' => 'date',
                 'curVal' => '',
@@ -157,6 +161,11 @@ class Controller_Components_BlogArts extends ModuleController
                 'search' => 1,
                 'sort' => 1,
             ),
+            'popFlag' => array(
+                'format' => 'tinyint',
+                'search' => 1,
+                'sort' => 1,
+            ),
             'created_by' => array(
                 'format' => 'varchar',
                 'search' => 1,
@@ -221,6 +230,9 @@ class Controller_Components_BlogArts extends ModuleController
             'indexFlag' => array(
                 'format' => 'tinyint',
             ),
+            'popFlag' => array(
+                'format' => 'tinyint',
+            ),
             'created_by' => array(
                 'format' => 'varchar',
             ),
@@ -272,6 +284,10 @@ class Controller_Components_BlogArts extends ModuleController
                 'readonly' => 1,
             ),
             'indexFlag' => array(
+                'format' => 'tinyint',
+                'readonly' => 1,
+            ),
+            'popFlag' => array(
                 'format' => 'tinyint',
                 'readonly' => 1,
             ),

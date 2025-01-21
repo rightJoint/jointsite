@@ -50,22 +50,30 @@ class Model_Landing extends Model_Pdo
 
     public function getBlogArts():array
     {
-        $findArts_qry = 'select '.
-            'art_id, '.
-            'artCat, '.
-            'artRef, '.
-            'artName_'.$this->langLw.' as artName, '.
-            'artMeta_'.$this->langLw.' as artMeta, '.
-            'artImg, '.
-            'activeFlag, '.
-            'indexFlag, '.
-            'pubDate, '.
-            'refreshDate, '.
-            'created_by '.
-            'from blogArts '.
-        'order by artName desc';
+        $qBuilder = new JointAppQueryBuilder();
+        $qBuilder
+            ->select(
+                'art_id, '.
+                'artCat, '.
+                'artRef, '.
+                'artName_'.$this->langLw.' as artName, '.
+                'artMeta_'.$this->langLw.' as artMeta, '.
+                'artImg, '.
+                'activeFlag, '.
+                'indexFlag, '.
+                'pubDate, '.
+                'refreshDate, '.
+                'created_by '
+            )
+            ->from('blogArts')
+            ->where(
+                'activeFlag is true'
+            )
+            ->order(
+                'pubDate desc'
+            );
 
-        return $this->fetchToArray($findArts_qry);
+        return $this->fetchToArray($qBuilder->buildQuery());
 
     }
 
@@ -73,13 +81,14 @@ class Model_Landing extends Model_Pdo
     {
         $return = [];
         $qBuilder->select(
-            'blogAtrTags.art_id, '.
+            'blogArts.art_id, '.
             'blogAtrTags.tag_id, '.
             'blogTags.tag_'.$this->langLw.' as tagName'
         )
-            ->from('blogAtrTags')
+            ->from('blogArts')
             ->join(
-                'inner join blogTags on blogAtrTags.tag_id = blogTags.tag_id'
+                'left join blogAtrTags on blogAtrTags.art_id = blogArts.art_id '.
+                'left join blogTags on blogAtrTags.tag_id = blogTags.tag_id '
             )
             ->order(
                 'blogAtrTags.art_id'
@@ -87,17 +96,63 @@ class Model_Landing extends Model_Pdo
 
         $res = $this->pdoQuery($qBuilder->buildQuery());
 
-        if($res->rowCount()){
-            while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
-                $return[$row['art_id']][] = array(
-                    'tag_id' => $row['tag_id'],
-                    'tagName' => $row['tagName'],
-                );
+        if(!empty($res)){
+            if($res->rowCount()){
+                while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
+                    $return[$row['art_id']][] = array(
+                        'tag_id' => $row['tag_id'],
+                        'tagName' => $row['tagName'],
+                    );
 
+                }
             }
         }
+
         return $return;
 
     }
 
+    public function getPopArts():array
+    {
+        $return = [];
+        $qBuilder = new JointAppQueryBuilder();
+        $qBuilder
+            ->select(
+                'art_id, '.
+                'artCat, '.
+                'artRef, '.
+                'artName_'.$this->langLw.' as artName, '.
+                'artMeta_'.$this->langLw.' as artMeta, '.
+                'activeFlag, '.
+                'indexFlag, '.
+                'pubDate, '.
+                'refreshDate, '.
+                'created_by '
+            )
+            ->from('blogArts')
+            ->where(
+                'activeFlag is true '.
+                'and '.
+                'popFlag is true '
+            )
+            ->order(
+                'pubDate desc'
+            );
+
+        $res = $this->pdoQuery($qBuilder->buildQuery());
+
+        if(!empty($res)){
+            if($res->rowCount()){
+                while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
+                    $return[$row['artRef']] = array(
+                        'refText' => $row['artName'],
+                        'refTitle' => $row['artMeta'],
+                        'usage' => true,
+                    );
+
+                }
+            }
+        }
+        return $return;
+    }
 }

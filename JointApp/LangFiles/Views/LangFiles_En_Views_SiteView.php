@@ -65,6 +65,15 @@ class LangFiles_En_Views_SiteView extends LangFiles_En_Views_WebView
 
         $langModal->musicMenu = $musicMenu;
 
+        $blogMenuLine = array(
+            'refText' => 'Blog',
+            'refTitle' => 'Pop topics',
+            'supText' => 'discuss',
+            'dropText' => 'subj',
+        );
+
+        $langModal->blogMenuLine = $blogMenuLine;
+
         return $langModal;
     }
 }

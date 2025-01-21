@@ -65,6 +65,15 @@ class LangFiles_Ru_Views_SiteView extends LangFiles_Ru_Views_WebView
 
         $langModal->musicMenu = $musicMenu;
 
+        $blogMenuLine = array(
+            'refText' => 'Блог',
+            'refTitle' => 'Популярные темы',
+            'supText' => 'обсуждение',
+            'dropText' => 'темы',
+        );
+
+        $langModal->blogMenuLine = $blogMenuLine;
+
         return $langModal;
     }
 }

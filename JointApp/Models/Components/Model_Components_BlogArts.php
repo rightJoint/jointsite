@@ -63,6 +63,10 @@ class Model_Components_BlogArts extends ModuleModel
                 'format' => 'tinyint',
                 'custom' => false,
             ),
+            'popFlag' => array(
+                'format' => 'tinyint',
+                'custom' => false,
+            ),
             'pubDate' => array(
                 'format' => 'date',
                 'custom' => false,
