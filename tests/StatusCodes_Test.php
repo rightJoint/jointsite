@@ -37,6 +37,15 @@ class StatusCodes_Test extends PHPUnit\Framework\TestCase
 
             '/user/signIn' => 200,
             '/user/signUp' => 200,
+
+            '/jointsite' => 200,
+            '/jointsite/about' => 200,
+            '/jointsite/about/lang' => 200,
+            '/jointsite/about/migrations' => 200,
+            '/jointsite/about/tables' => 200,
+            '/jointsite/about/api' => 200,
+            '/jointsite/about/users' => 200,
+            '/jointsite/about/notifications' => 200,
         );
 
         global $jointAppResponse;
