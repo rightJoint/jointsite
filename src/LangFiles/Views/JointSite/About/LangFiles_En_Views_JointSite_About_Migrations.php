@@ -1,19 +1,19 @@
 <?php
 
-class LangFiles_Ru_Views_JointSite_About_Lang extends LangFiles_Ru_Views_JointSite_About
+class LangFiles_En_Views_JointSite_About_Migrations extends LangFiles_En_Views_JointSite_About
 {
     static public function getLangHead():\stdClass
     {
         $langHead = parent::getLangHead();
-        $langHead->description = 'Языковая оптимизация сайта';
-        $langHead->title = 'Языковая оптимизация сайта';
+        $langHead->description = 'Проведение миграций';
+        $langHead->title = 'Миграции';
         return $langHead;
     }
 
     static public function getLangHeader():stdClass
     {
         $langHeader = parent::getLangHeader();
-        $langHeader->h1 = 'Языковая оптимизация сайта';
+        $langHeader->h1 = 'Миграции';
         return $langHeader;
     }
 

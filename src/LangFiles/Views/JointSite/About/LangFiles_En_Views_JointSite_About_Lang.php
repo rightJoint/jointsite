@@ -1,6 +1,6 @@
 <?php
 
-class LangFiles_Ru_Views_JointSite_About_Lang extends LangFiles_Ru_Views_JointSite_About
+class LangFiles_En_Views_JointSite_About_Lang extends LangFiles_En_Views_JointSite_About
 {
     static public function getLangHead():\stdClass
     {

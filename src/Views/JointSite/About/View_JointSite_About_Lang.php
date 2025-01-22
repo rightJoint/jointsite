@@ -9,8 +9,6 @@ use JointApp\Interfaces\LangWebViewInterface;
 class View_JointSite_About_Lang extends View_JointSite_About
 {
 
-    public string $logo = '/img/siteLogo/rightjoint-logo-400.png';
-
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {
         $name = 'LangFiles_'.self::langNs($viewLang).'_Views_JointSite_About_Lang';

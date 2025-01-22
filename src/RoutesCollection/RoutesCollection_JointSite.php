@@ -53,6 +53,21 @@ trait RoutesCollection_JointSite
             if (strtolower($routes_ns[3]) == 'lang') {
                 $route
                     ->withView('Src\Views\JointSite\About\View_JointSite_About_Lang');
+            }elseif (strtolower($routes_ns[3]) == 'migrations') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Migrations');
+            }elseif (strtolower($routes_ns[3]) == 'tables') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Tables');
+            }elseif (strtolower($routes_ns[3]) == 'api') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Api');
+            }elseif (strtolower($routes_ns[3]) == 'users') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Users');
+            }elseif (strtolower($routes_ns[3]) == 'notifications') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Notifications');
             }
         }
         return $route;

@@ -10,7 +10,7 @@ use Src\Views\JointSite\View_JointSite;
 class View_JointSite_About extends View_JointSite
 {
 
-    public string $logo = '/img/siteLogo/rightjoint-logo-400.png';
+    public string $logo = '/img/siteLogo/rightjoint-logo-png.png';
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {
