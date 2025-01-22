@@ -1,0 +1,19 @@
+.diffTable{
+    text-align: center;
+}
+
+.diffTable table tr td{
+    border: 1px solid silver;
+}
+
+.diffTable table tr.rec td{
+    background: lightgreen;
+}
+
+.diffTable table tr.norm td{
+    background: lightblue;
+}
+
+.diffTable table tr.not-rec td{
+    background: lightcoral;
+}

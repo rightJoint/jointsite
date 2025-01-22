@@ -8,7 +8,33 @@ class LangFiles_Ru_Views_Main extends LangFiles_Ru_Views_SiteView
         $langPageContent->jointSiteMenu = array(
             'about' => array(
                 'refText' => 'назначение',
-                'titleText' => 'фунции сайта',
+                'titleText' => 'функции сайта',
+                'subMenu' => array(
+                    'lang' => array(
+                        'refText' => 'языковая оптимизация',
+                        'titleText' => 'как обеспечивается двуязычность',
+                    ),
+                    'migrations' => array(
+                        'refText' => 'проведение миграций',
+                        'titleText' => 'работа с миграциями',
+                    ),
+                    'tables' => array(
+                        'refText' => 'работа с таблицами',
+                        'titleText' => 'операции с таблицами',
+                    ),
+                    'api' => array(
+                        'refText' => 'rest json api',
+                        'titleText' => 'api rest json',
+                    ),
+                    'users' => array(
+                        'refText' => 'Управление польвователями',
+                        'titleText' => 'Пользователи, группы, доступы',
+                    ),
+                    'notifications' => array(
+                        'refText' => 'уведомления',
+                        'titleText' => 'информирование пользователей и шаблоны уведомлений',
+                    ),
+                ),
             ),
             'deploy' => array(
                 'refText' => 'установка приложения',
