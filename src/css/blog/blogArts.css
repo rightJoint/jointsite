@@ -61,6 +61,7 @@
 .blog-container .blog-info .blog-info-tags span.tag-value{
     font-weight: bold;
     margin-right: 1em;
+    color: rgb(54, 54, 54);
 }
 
 .blog-container .art-content{
