@@ -2,6 +2,7 @@
 class LangFiles_Ru_Controller_User_Notifications extends LangFiles_Ru_Controller_User_Account
 {
     public string $h2 = 'Чтение уведомлений';
+    public string $h2_read = 'Просмотр уведомления';
     public function __construct()
     {
         parent::__construct();

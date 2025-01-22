@@ -160,6 +160,13 @@ trait RoutesCollection_User
                         ->withAction('actionUserSubMenu')
                         ->withAction('actionPostChangeEmail')
                         ->withView('JointApp\Views\User\View_User_Email');
+                }elseif (strtolower($routes_ns[2]) == 'changepassword') {
+                    $route
+                        ->withController('JointApp\Controllers\User\Controller_User_Password')
+                        ->withModel('JointApp\Models\User\Model_User_Password')
+                        ->withAction('actionUserSubMenu')
+                        ->withAction('actionPostChangePassword')
+                        ->withView('JointApp\Views\User\View_User_Password');
                 }
             }
         }
