@@ -61,11 +61,11 @@ class View_JointSite_About extends View_JointSite
     protected static function pageContentJointSite(\stdClass $contentBlock, string $langSl = ''):string
     {
         return '<section>'.
-            'Это тренировочный проект, стоит ли вам его использовать для реальных задач решайте сами. '.
+            'Это тренировочный проект, стоит ли вам его использовать для реальных задач, решайте сами. '.
             'При проектировании были выбраны мне уже знакомые технологии php, js, docker. '.
-            'Было решено делать все самому на нативном php с поддержкой основных psr интерфейсов, нужные мне. '.
+            'Было решено делать все самому на нативном php с поддержкой основных psr интерфейсов, нужные мне '.
             'методы добавлялись постепенно в фреймворк. '.
-            'При приложение задумывалось как мультиязычный сайт для решения широкого круга задач. '.
+            'Приложение задумывалось как мультиязычный сайт для решения широкого круга задач. '.
             'Основные требования были - простота и скорость разработки нового фунционала на основе разработанного каркаса.'.
             '</section>'.
             '<section>'.
@@ -74,7 +74,7 @@ class View_JointSite_About extends View_JointSite
             '<ul>'.
             '<li><a href="'.$langSl.'/jointsite/about/lang" title="как обеспечивается двуязычность">языковая оптимизация</a></li>'.
             '<li><a href="'.$langSl.'/jointsite/about/migrations" title="работа с миграциями">проведение миграций</a></li>'.
-            '<li><a href="'.$langSl.'/jointsite/about/table" title="операции с таблицами">работа с таблицами</a></li>'.
+            '<li><a href="'.$langSl.'/jointsite/about/tables" title="операции с таблицами">работа с таблицами</a></li>'.
             '<li><a href="'.$langSl.'/jointsite/about/api" title="api rest json">rest json api</a></li>'.
             '</ul>'.
             '</section>';
