@@ -50,7 +50,7 @@ class Model_Components_MusicTracksToAlb extends ModuleModel
 
     public function listRecords(JointAppQueryBuilder $qBuilder): array
     {
-
+        $qBuilder = $this->createdByListWhere($qBuilder);
         $qBuilder->select = $this->tableName.'.track_id, '.$this->tableName.'.album_id, '.
             $this->tableName.'.comment, '.$this->tableName.'.sortDate, '.$this->tableName.'.mActive, '.
             $this->tableName.'.created_by, users_dt.accAlias, musicTracks.track_name, musicAlb.albumName ';
@@ -64,6 +64,7 @@ class Model_Components_MusicTracksToAlb extends ModuleModel
 
     public function countRecords(JointAppQueryBuilder $qBuilder): int
     {
+        $qBuilder = $this->createdByListWhere($qBuilder);
         $qBuilder->select = 'COUNT(*) as cnt';
         $qBuilder
             ->from($this->tableName)
