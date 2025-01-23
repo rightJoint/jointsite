@@ -77,11 +77,11 @@ class Controller implements ControllerInterface
             $this->controllerFilterQuery($request->getQueryParams());
         }
 
+        $this->view = $this->checkViewInstance($view);
+
         if(!$this->checkAccessController()){
             $this->logger->warning('check-access-controller __construct return false', $this->logger->logger_context);
         }
-
-        $this->view = $this->checkViewInstance($view);
     }
 
     public function checkAccessController():bool
