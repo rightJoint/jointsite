@@ -57,28 +57,27 @@ class Controller implements ControllerInterface
         $langName = $this->loadLangController();
         $this->langMap = new $langName;
 
-        if($this->checkAccessController()){
+        $this->langLw = $request->langLw;
+        $this->langSl = $request->langSl;
+        $this->routes = $request->routes;
+        $this->routes_ns = $request->routes_ns;
+        $this->configDir = $request->configDir;
 
+        if(isset($request->getServerParams()['HTTP_REFERER'])){
+            $this->httpRef = $request->getServerParams()['HTTP_REFERER'];
+        }
 
-            $this->langLw = $request->langLw;
-            $this->langSl = $request->langSl;
-            $this->routes = $request->routes;
-            $this->routes_ns = $request->routes_ns;
-            $this->configDir = $request->configDir;
-            if(isset($request->getServerParams()['HTTP_REFERER'])){
-                $this->httpRef = $request->getServerParams()['HTTP_REFERER'];
-            }
+        $this->controllerFilterParams($controllerParams);
 
-            $this->controllerFilterParams($controllerParams);
-
-            if($request->getMethod() == 'POST'){
-                $this->requestParams = $request->getParsedBody();
-                $this->controllerFilterBody($request->getParsedBody());
-            }else{
-                $this->requestParams = $request->getQueryParams();
-                $this->controllerFilterQuery($request->getQueryParams());
-            }
+        if($request->getMethod() == 'POST'){
+            $this->requestParams = $request->getParsedBody();
+            $this->controllerFilterBody($request->getParsedBody());
         }else{
+            $this->requestParams = $request->getQueryParams();
+            $this->controllerFilterQuery($request->getQueryParams());
+        }
+
+        if(!$this->checkAccessController()){
             $this->logger->warning('check-access-controller __construct return false', $this->logger->logger_context);
         }
 
