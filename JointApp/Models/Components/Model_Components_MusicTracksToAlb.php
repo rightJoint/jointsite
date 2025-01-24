@@ -59,7 +59,8 @@ class Model_Components_MusicTracksToAlb extends ModuleModel
             ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id '.
                 'left join musicTracks on '.$this->tableName.'.track_id = musicTracks.track_id '.
                 'left join musicAlb on '.$this->tableName.'.album_id = musicAlb.album_id');
-                return $this->fetchToArray($qBuilder->buildQuery());
+
+        return $this->checkListButtons($this->fetchToArray($qBuilder->buildQuery()));
     }
 
     public function countRecords(JointAppQueryBuilder $qBuilder): int
