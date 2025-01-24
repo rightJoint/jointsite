@@ -7,7 +7,7 @@ use JointApp\Router\JointSiteRoute;
 trait RoutesCollection_Api
 {
     /*
-     * api routes
+     * records api routes
      * get:     /api/records/tableName              - list records      (getListRecords)
      * get:     /api/records/tableName/list         - list records      (getListRecords)
      * get:     /api/records/tableName/detail       - detail record     (getDetailRecord)
@@ -27,8 +27,19 @@ trait RoutesCollection_Api
 
         if(!empty($routes_ns[2]) and $routes_ns[2] == 'records') {
             if(!empty($routes_ns[3])){
-                $apiRoute->withController('JointApp\Controllers\Records\RecordsApiController')
-                    ->withModel('JointApp\Models\Records\RecordsModel', array('tableName' => $routes_ns[3]));
+                $apiRoute->withController('\JointApp\Controllers\Records\RecordsApiController')
+                    ->withModel('\JointApp\Models\Records\RecordsModel', array('tableName' => $routes_ns[3]));
+                if(empty($routes_ns[4]) or $routes_ns[4] == 'list'){
+                    $apiRoute->withAction('getListRecords');
+                }elseif ($routes_ns[4] == 'detail'){
+                    $apiRoute->withAction('getDetailRecord');
+                }
+            }
+        }
+        elseif(!empty($routes_ns[2]) and $routes_ns[2] == 'module') {
+            if(!empty($routes_ns[3])){
+                $apiRoute->withController('\JointApp\Controllers\Module\ModuleApiController', ['componentName' => $routes_ns[3]])
+                    ->withModel('\JointApp\Models\Model');
                 if(empty($routes_ns[4]) or $routes_ns[4] == 'list'){
                     $apiRoute->withAction('getListRecords');
                 }elseif ($routes_ns[4] == 'detail'){
@@ -46,8 +57,17 @@ trait RoutesCollection_Api
             ->withView('JointApp\Views\View');
 
         if(!empty($routes_ns[2]) and $routes_ns[2] == 'records') {
-            $apiRoute->withController('JointApp\Controllers\Records\RecordsApiController')
-                ->withModel('JointApp\Models\Records\RecordsModel', array('tableName' => $routes_ns[3]));
+            $apiRoute->withController('\JointApp\Controllers\Records\RecordsApiController')
+                ->withModel('\JointApp\Models\Records\RecordsModel', array('tableName' => $routes_ns[3]));
+            if(!empty($routes_ns[3])){
+                if(empty($routes_ns[4]) or $routes_ns[4] == 'new'){
+                    $apiRoute->withAction('putRecord');
+                }
+            }
+        }
+        elseif(!empty($routes_ns[2]) and $routes_ns[2] == 'module') {
+            $apiRoute->withController('\JointApp\Controllers\Module\ModuleApiController', ['componentName' => $routes_ns[3]])
+                ->withModel('\JointApp\Models\Model');
             if(!empty($routes_ns[3])){
                 if(empty($routes_ns[4]) or $routes_ns[4] == 'new'){
                     $apiRoute->withAction('putRecord');
@@ -72,6 +92,15 @@ trait RoutesCollection_Api
                 }
             }
         }
+        elseif(!empty($routes_ns[2]) and $routes_ns[2] == 'module') {
+        $apiRoute->withController('\JointApp\Controllers\Module\ModuleApiController', ['componentName' => $routes_ns[3]])
+            ->withModel('\JointApp\Models\Model');
+        if(!empty($routes_ns[3])){
+            if(empty($routes_ns[4]) or $routes_ns[4] == 'delete'){
+                $apiRoute->withAction('deleteRecord');
+            }
+        }
+    }
         return $apiRoute;
     }
 
@@ -90,6 +119,15 @@ trait RoutesCollection_Api
                 }
             }
         }
+        elseif(!empty($routes_ns[2]) and $routes_ns[2] == 'module') {
+        $apiRoute->withController('\JointApp\Controllers\Module\ModuleApiController', ['componentName' => $routes_ns[3]])
+            ->withModel('\JointApp\Models\Model');
+        if(!empty($routes_ns[3])){
+            if(empty($routes_ns[4]) or $routes_ns[4] == 'edit'){
+                $apiRoute->withAction('editRecord');
+            }
+        }
+    }
         return $apiRoute;
     }
 }
