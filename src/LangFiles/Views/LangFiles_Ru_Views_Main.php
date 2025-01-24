@@ -23,11 +23,11 @@ class LangFiles_Ru_Views_Main extends LangFiles_Ru_Views_SiteView
                         'titleText' => 'операции с таблицами',
                     ),
                     'api' => array(
-                        'refText' => 'rest json api',
+                        'refText' => 'апи rest json',
                         'titleText' => 'api rest json',
                     ),
                     'users' => array(
-                        'refText' => 'Управление польвователями',
+                        'refText' => 'управление пользователями',
                         'titleText' => 'Пользователи, группы, доступы',
                     ),
                     'notifications' => array(

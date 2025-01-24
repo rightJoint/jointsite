@@ -76,6 +76,8 @@ class View_JointSite_About extends View_JointSite
             '<li><a href="'.$langSl.'/jointsite/about/migrations" title="работа с миграциями">проведение миграций</a></li>'.
             '<li><a href="'.$langSl.'/jointsite/about/tables" title="операции с таблицами">работа с таблицами</a></li>'.
             '<li><a href="'.$langSl.'/jointsite/about/api" title="api rest json">rest json api</a></li>'.
+            '<li><a href="'.$langSl.'/jointsite/about/users" title="Управление пользователями">пользователи и группы</a></li>'.
+            '<li><a href="'.$langSl.'/jointsite/about/notifications" title="Уведомления пользователей">уведомления пользователей</a></li>'.
             '</ul>'.
             '</section>';
     }
