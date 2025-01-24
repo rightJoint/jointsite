@@ -171,8 +171,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
                             if (isset($this->requestParams[$fName])) {
                                 $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
                             } else {
-                                if (isset($this->record[$fName]['fetchVal'])) {
-                                    $this->model->record[$fName]['curVal'] = '';
+                                if (isset($this->model->record[$fName]['fetchVal'])) {
+                                    $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
                                 } else {
                                     $this->model->record[$fName]['curVal'] = null;
                                 }
