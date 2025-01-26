@@ -1,0 +1,62 @@
+.joint-site-menu
+{
+    margin: 2em 0;
+    padding-bottom: 0.2em;
+    text-align: left;
+    border-bottom: 1px solid darkgray;
+}
+
+.joint-site-menu ul
+{
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.joint-site-menu ul li ul
+{
+    display: none;
+}
+
+.joint-site-menu ul li
+{
+    font-weight: bold;
+    position: relative;
+    display: inline;
+    margin-left: 0.2em;
+    margin-right: 1.2em;
+    font-size: 1.1em;
+}
+.joint-site-menu ul li a
+{
+    color: midnightblue;
+}
+
+.joint-site-menu ul li ul
+{
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    background-color: lightgoldenrodyellow;
+}
+.joint-site-menu ul li ul ul
+{
+    border-left: 1px solid silver;
+}
+
+.joint-site-menu ul li ul li
+{
+
+    font-size: 0.9em;
+    width: calc(100% - 1em);
+    /*width: 100%;*/
+    display: inline-block;
+    padding: 0.2em 0;
+    margin-left: 1em;
+    border-bottom: 1px solid silver;
+}
+
+.joint-site-menu ul li ul li a
+{
+    text-decoration: none;
+}
