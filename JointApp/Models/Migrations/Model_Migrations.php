@@ -111,7 +111,12 @@ class Model_Migrations extends RecordsModel
             $this->record['commands']['use_table_name'] = 'non-db';
             $this->record['commands']['custom'] = 1;
 
-            $cmd_lines = explode(';',$this->record['commands']['curVal']);
+            $commands = $this->record['commands']['curVal'];
+            //if(mb_substr($this->record['commands']['curVal'], -1) == ';'){
+            //    $commands = substr($this->record['commands']['curVal'], 0, strlen($this->record['commands']['curVal'])-1);
+            //}
+
+            $cmd_lines = explode(';', $commands);
 
             $new_cmd_lines = array();
 
@@ -132,18 +137,18 @@ class Model_Migrations extends RecordsModel
                 if($glue_flag){
                     if($new_lines_cnt){
                         if($lines_counter < $lines_cnt){
-                            if(isset($new_cmd_lines[$new_lines_cnt-1]['query'])){
-                                $new_cmd_lines[$new_lines_cnt-1]['query'] .= ";".$cmd_line;
-                            }else{
-                                $new_cmd_lines[$new_lines_cnt-1]['query'] = ";".$cmd_line;
-                            }
+                            //if(isset($new_cmd_lines[$new_lines_cnt-1]['query'])){
+                            //    $new_cmd_lines[$new_lines_cnt-1]['query'] .= ';'.$cmd_line;
+                            //}else{
+                                $new_cmd_lines[$new_lines_cnt-1]['query'] = str_replace(array("\n"), '', $cmd_line);
+                            //}
                         }
                     }
                 }else {
-                    $new_cmd_lines[$new_lines_cnt]['query'] = $cmd_line;
-                    if ($lines_counter < $lines_cnt) {
-                        $new_cmd_lines[$new_lines_cnt]['query'] .= ';';
-                    }
+                    $new_cmd_lines[$new_lines_cnt]['query'] = str_replace(array("\n"), '', $cmd_line);
+                    //if ($lines_counter < $lines_cnt) {
+                    //    $new_cmd_lines[$new_lines_cnt]['query'] .= ';';
+                    //}
                 }
             }
         }
@@ -328,7 +333,8 @@ class Model_Migrations extends RecordsModel
             if(strpos(" ".$key, 'cmd_')){
                 if($val){
                     //?????????????????????
-                    $commands.=$val.'\n';
+                    //$commands.=$val.'\n';
+                    $commands.=$val;
                 }
             }
         }
@@ -377,13 +383,14 @@ class Model_Migrations extends RecordsModel
             if(strpos(" ".$key, 'cmd_')){
 
                 if(!empty($this->record[$key]['curVal'])){
-                    $curVal = str_replace(array("\n"), '', $this->record[$key]['curVal']);
-                    $commands.=$curVal."\n";
+                    //$curVal = str_replace(array("\n"), '', $this->record[$key]['curVal']);
+                    //$commands.=$curVal."\n";
+                    $commands.=$this->record[$key]['curVal'].';'."\n";
                 }
             }
         }
 
-        $commands = substr($commands, 0, strlen($commands)-1);
+        //$commands = substr($commands, 0, strlen($commands)-1);
         if((isset($this->record['commands']['curVal']) and
                 $this->record['commands']['curVal'] != $commands)
             or !isset($this->record['commands']['curVal'])){
@@ -396,6 +403,11 @@ class Model_Migrations extends RecordsModel
 
     public function insertCustomFields()
     {
-        return $this->updateCustomFields();
+        if(!file_exists($this->docRoot.'/migrations/'.$this->record['migration_name']['curVal'])){
+            return $this->updateCustomFields();
+        }else{
+            return true;
+        }
+
     }
 }
