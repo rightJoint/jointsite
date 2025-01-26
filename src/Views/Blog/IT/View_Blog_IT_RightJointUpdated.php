@@ -29,6 +29,8 @@ class View_Blog_IT_RightJointUpdated extends View_Blog_Art
 
     public static function printArtContent(\stdClass $langArtContent, \stdClass $viewParams, string $langLw): string
     {
+        return 'Контент подготавливатеся';
+
         return '<h3>Об этом сайте</h3>'.
             '<p>'.
             'В 2025 г. будет 10 лет как я серьезно увлёкся web-програмированием и заказал хостинг под сайт. '.
