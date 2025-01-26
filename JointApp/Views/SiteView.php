@@ -43,10 +43,16 @@ class SiteView extends WebView
 
     public static function createModalContent(\stdClass $langModal, \stdClass $viewParams):string
     {
-        return self::modalMenuPopArts($langModal->blogMenuLine, $viewParams->popArts, $viewParams->langSl, $viewParams->routes_ns).
-            self::modalMenuJointSite($langModal->jointSiteMenu, $viewParams->langSl, $viewParams->routes_ns).
-            self::modalMenuWebTests($langModal->webTestMenu, $viewParams->langSl, $viewParams->routes_ns).
-            self::modalMenuMusic($langModal->musicMenu, $viewParams->langSl);
+        $return = self::modalMenuPopArts($langModal->blogMenuLine, $viewParams->popArts, $viewParams->langSl, $viewParams->routes_ns);
+        //    self::modalMenuJointSite($langModal->jointSiteMenu, $viewParams->langSl, $viewParams->routes_ns)
+
+        global $currentUser;
+        if($currentUser->user_id == 'F42F81F8-1300-41CA-89BB-36BD7417BE1E'){
+            $return .= self::modalMenuWebTests($langModal->webTestMenu, $viewParams->langSl, $viewParams->routes_ns);
+        }
+        $return .= self::modalMenuMusic($langModal->musicMenu, $viewParams->langSl);
+
+        return $return;
     }
 
     private static function modalMenuPopArts(array $blogMenuLine, array $popArts,
