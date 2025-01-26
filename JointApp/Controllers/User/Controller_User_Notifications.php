@@ -34,6 +34,7 @@ class Controller_User_Notifications extends Controller_User_Account
     public function actionGetUserNtfList()
     {
         $qBuilderList = new JointAppQueryBuilder();
+        $qBuilderList->order('put_date DESC');
         $this->view->listRecords = $this->model->listRecords($qBuilderList);
 
         $this->view->listCount = count($this->view->listRecords);
