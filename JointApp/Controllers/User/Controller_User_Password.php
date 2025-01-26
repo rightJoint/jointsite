@@ -4,6 +4,10 @@
 namespace JointApp\Controllers\User;
 
 
+use JointApp\Factories\ModelFactory;
+use JointApp\Factories\MailFactory;
+use JointApp\JointAppMailer;
+
 class Controller_User_Password extends Controller_User_Account
 {
     public string $password = '';
@@ -53,12 +57,12 @@ class Controller_User_Password extends Controller_User_Account
     {
         $this->editFields = array(
             'password' => array(
-                'format' => 'varchar',
+                'format' => 'password',
                 'curVal' => '',
 
             ),
             'password_new' => array(
-                'format' => 'varchar',
+                'format' => 'password',
                 'curVal' => '',
             ),
         );
@@ -70,42 +74,56 @@ class Controller_User_Password extends Controller_User_Account
         global $currentUser;
 
         if($this->model->getUser($currentUser->user_id)){
-            echo 'post-actionPostChangePassword-getUser-ok';
-            exit;
-            if($this->model::checkUserEmail($this->password_new)){
-                if($this->password_new != $this->model->record['eMail']['curVal']){
-                    $this->model->record['eMail']['curVal'] = $this->password_new;
-                    if($this->model->updateRecord()){
-                        $this->eMail_new = '';
-
-                        $model_Pdo = ModelFactory::createFromExistModel('JointApp\Models\Model_Pdo', $this->model);
-
-                        $phpMailer = MailFactory::getMailer($this->getConfigDir());
-
-                        $mailer = new JointAppMailer($phpMailer,$model_Pdo);
+            if($this->model::checkUserPassword($this->password)){
+                if($this->model::checkUserPassword($this->password_new)){
+                    if($this->password != $this->password_new){
+                        if(password_verify($this->password, $this->model->record['pw_hash']['curVal'])){
+                            $this->model->record['pw_hash']['curVal'] =
+                                password_hash($this->password_new, PASSWORD_DEFAULT);
+                            if($this->model->updateRecord()){
 
 
-                        $replaces = [
-                            'accAlias' => $currentUser->accAlias,
-                            'accLogin' => $currentUser->accLogin,
-                            'newUserEmail' => $this->model->record['eMail']['curVal'],
-                        ];
 
-                        $mailer->addNotification('changeEmailForUser',
-                            'user',
-                            $currentUser->user_id,
-                            json_encode($replaces, JSON_UNESCAPED_UNICODE ),
-                            true,
-                            null);
+                                $model_Pdo = ModelFactory::createFromExistModel('JointApp\Models\Model_Pdo', $this->model);
 
+                                $phpMailer = MailFactory::getMailer($this->getConfigDir());
+
+                                $mailer = new JointAppMailer($phpMailer,$model_Pdo);
+
+                                $replaces = [
+                                    'accAlias' => $currentUser->accAlias,
+                                    'accLogin' => $currentUser->accLogin,
+                                    'newPassword' => $this->password_new,
+                                ];
+
+                                $mailer->addNotification('changePassForUser',
+                                    'user',
+                                    $currentUser->user_id,
+                                    json_encode($replaces, JSON_UNESCAPED_UNICODE ),
+                                    true,
+                                    null);
+
+                                $this->password = '';
+                                $this->password_new = '';
+
+                                $this->view->logMessage = 'password-changed-success';
+                            }else{
+                                $this->logger->error('Model_User_Password updateRecord return false in '.
+                                    'Controller_User_Password on  actionPostChangePassword', $this->logger->logger_context);
+                            }
+                        }else
+                        {
+                            $this->view->logMessage = 'pass-verify-false';
+                        }
                     }else{
-                        $this->logger->error('Model_User_Main getUser return false on actionPostUserMain', $this->logger->logger_context);
+                        $this->view->logMessage = 'pass-the-same';
                     }
+
                 }else{
-                    $this->view->logMessage = 'curren and emails equals';
+                    $this->view->logMessage = 'wrong-new-pass-format';
                 }
             }else{
-                $this->view->logMessage = 'email unacceptable';
+                $this->view->logMessage = 'wrong-pass-format';
             }
             $this->view->h2 = $this->langMap->h2;
             $this->view->process_url = '';
