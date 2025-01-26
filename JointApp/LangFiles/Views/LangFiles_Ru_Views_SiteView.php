@@ -7,6 +7,11 @@ class LangFiles_Ru_Views_SiteView extends LangFiles_Ru_Views_WebView
 
         $jointSiteMenu = new stdClass();
         $jointSiteMenu->menuItems = array(
+            'about' => array(
+                'refText' => 'функции',
+                'refTitle' => 'функции приложения',
+                'usage' => true,
+            ),
             'deploy' => array(
                 'refText' => 'установка',
                 'refTitle' => 'установка приложения из образа или репозитория',

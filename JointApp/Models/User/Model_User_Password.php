@@ -8,6 +8,8 @@ use JointApp\Models\ModuleModel;
 
 class Model_User_Password extends ModuleModel
 {
+    use UserTrait;
+
     public string $tableName = 'users_dt';
 
     public function checkAccessModel(): bool
@@ -32,72 +34,7 @@ class Model_User_Password extends ModuleModel
                 'custom' => false,
                 'curVal' => '',
             ),
-            'accLogin' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'accAlias' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'regDate' => array(
-                'format' => 'datetime',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'netWork' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'validDate' => array(
-                'format' => 'datetime',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'photoLink' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'eMail' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'birthDay' => array(
-                'format' => 'date',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'socProf' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'blackList' => array(
-                'format' => 'tinyint',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'created_by' => array(
-                'format' => 'varchar',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'is_admin' => array(
-                'format' => 'tinyint',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'send_ntf' => array(
-                'format' => 'tinyint',
-                'custom' => false,
-                'curVal' => '',
-            ),
-            'pref_lang' => array(
+            'pw_hash' => array(
                 'format' => 'varchar',
                 'custom' => false,
                 'curVal' => '',

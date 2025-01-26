@@ -199,6 +199,7 @@ class Controller_Components_UsersToGroups extends ModuleController
                 ''=>'',
                 'any' => $this->langMap->rules['any'],
                 'own' => $this->langMap->rules['own'],
+                'forbidden' => $this->langMap->rules['forbidden'],
             );
         }elseif ($type_of_rule == 'create'){
             return array(

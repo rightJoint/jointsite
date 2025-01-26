@@ -37,6 +37,14 @@ class Src_ViewLang_Test extends PHPUnit\Framework\TestCase
             'Src\Views\Music\View_Music_Main',
             'Src\Views\Music\View_Music_PlayAlb',
             'Src\Views\Music\View_Music_Tracks',
+
+            'Src\Views\JointSite\About\View_JointSite_About',
+            'Src\Views\JointSite\About\View_JointSite_About_Api',
+            'Src\Views\JointSite\About\View_JointSite_About_Lang',
+            'Src\Views\JointSite\About\View_JointSite_About_Migrations',
+            'Src\Views\JointSite\About\View_JointSite_About_Notifications',
+            'Src\Views\JointSite\About\View_JointSite_About_Tables',
+            'Src\Views\JointSite\About\View_JointSite_About_Users',
         );
 
         $docRoot = 'C:\OSPanel\domains\x-site.local\src';

@@ -120,6 +120,35 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
     }
 
+    public function updateModelPriKeysFromRequest()
+    {
+        if(isset($this->model->record)){
+            foreach ($this->model->record as $fName=>$fData){
+                if(isset($this->editFields[$fName])){
+                    if(isset($this->editFields[$fName]['pri']) and $this->editFields[$fName]['pri'] == true) {
+                        if (($fData['format'] == 'checkbox') or ($fData['format'] == 'tinyint')) {
+                            if (isset($this->requestParams[$fName]) and $this->requestParams[$fName] == 'on') {
+                                $this->model->record[$fName]['curVal'] = 1;
+                            } else {
+                                $this->model->record[$fName]['curVal'] = 0;
+                            }
+                        } else {
+                            if (isset($this->requestParams[$fName])) {
+                                $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
+                            } else {
+                                if (isset($this->record[$fName]['fetchVal'])) {
+                                    $this->model->record[$fName]['curVal'] = '';
+                                } else {
+                                    $this->model->record[$fName]['curVal'] = null;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public function updateModelRecordFromRequest():void
     {
         if(isset($this->model->record)){
@@ -142,8 +171,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
                             if (isset($this->requestParams[$fName])) {
                                 $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
                             } else {
-                                if (isset($this->record[$fName]['fetchVal'])) {
-                                    $this->model->record[$fName]['curVal'] = '';
+                                if (isset($this->model->record[$fName]['fetchVal'])) {
+                                    $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
                                 } else {
                                     $this->model->record[$fName]['curVal'] = null;
                                 }
@@ -234,24 +263,11 @@ class RecordsController extends Controller implements RecordsControllerInterface
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function getListView():void
     {
         $this->prepareSearchFields();
         $this->prepareEditFields();
+        $this->updateModelPriKeysFromRequest();
         $this->updateModelRecordFromRequest();
         $this->updateSearchFieldsFromRecord();
         $qBuilderList = $this->filterWhere();
@@ -267,15 +283,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->searchFields = $this->searchFields;
         $this->prepareViewParams();
     }
-
-
-
-
-
-
-
-
-
 
     public function applyFilterView():void
     {
@@ -329,8 +336,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
             ->order('')
             ->limit('');
 
-
-
         return array(
             'count' => $this->model->countRecords($qBuilderCount),
             'list' => $this->model->listRecords($qBuilderList),
@@ -352,13 +357,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
             }else{
                 $useTableName = $this->model->tableName;
             }
-            //echo $fName.'<br>';
-
-
 
             if(isset($this->requestParams[$fName]) and $this->requestParams[$fName]!= null){
-
-
                 if(isset($fData['group_by_field'])){
                     if($fData['format']=='varchar' || $fData['format'] == 'text'){
                         $qBuilder->having .= $useFieldName.' like "%'.$this->requestParams[$fName].'%" and ';
@@ -389,7 +389,6 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $qBuilder->where = substr($qBuilder->where, 0 , strlen($qBuilder->where)-4);
 
         $qBuilder->having=substr($qBuilder->having, 0 , strlen($qBuilder->having)-4);
-
 
         if(isset($this->requestParams['onPage'])){
             if($this->requestParams['curPage']){
@@ -470,7 +469,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     public function getDetailView():void
     {
         $this->prepareEditFields();
-        $this->updateModelRecordFromRequest();
+        $this->updateModelPriKeysFromRequest();
         if($this->model->copyRecord()){
             $this->prepareViewFields();
             $this->view->viewFields = $this->viewFields;
@@ -486,7 +485,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     public function getEditView():void
     {
         $this->prepareEditFields();
-        $this->updateModelRecordFromRequest();
+        $this->updateModelPriKeysFromRequest();
         if ($this->model->copyRecord()) {
             $this->updateEditFieldsFromRecord();
             $this->view->editFields = $this->editFields;
@@ -502,7 +501,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
         if ($this->submitText) {
             $this->prepareEditFields();
-            $this->updateModelRecordFromRequest();
+            $this->updateModelPriKeysFromRequest();
             if ($this->model->copyRecord()) {
                 $this->updateModelRecordFromRequest();
                 if($this->view->actionResult = $this->updateEditFieldsFromRecord()){
@@ -536,7 +535,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
     {
         $this->prepareViewFields();
         $this->prepareEditFields();
-        $this->updateModelRecordFromRequest();
+        $this->updateModelPriKeysFromRequest();
         if($this->model->copyRecord()){
             $this->view->type = "delete";
             $this->updateEditFieldsFromRecord();
@@ -553,7 +552,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         if ($this->submitText) {
             $this->view->type = "delete";
             $this->prepareEditFields();
-            $this->updateModelRecordFromRequest();
+            $this->updateModelPriKeysFromRequest();
             if ($this->model->copyRecord()) {
                 if($this->model->deleteRecord()){
                     $this->view->actionResult = true;
@@ -590,9 +589,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
         $this->view->type = "new";
         if ($this->submitText) {
             $this->prepareEditFields();
-
             $this->updateModelRecordFromRequest();
-            //$this->updateEditFieldsFromRecord();
             $this->model->copyCustomFields();
             if($this->view->actionResult = $this->updateEditFieldsFromRecord())
             {

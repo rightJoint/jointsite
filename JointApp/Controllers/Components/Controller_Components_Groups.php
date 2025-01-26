@@ -20,8 +20,10 @@ class Controller_Components_Groups extends ModuleController
         $this->bindComponents = array(
             "userstogroups" => array(
                 "relationships" => array(
-                    "user_id" => "user_id",
+                    "group_id" => "group_id",
                 ),
+                'model' => 'JointApp\Models\Components\Model_Components_UsersToGroups',
+                'controller' => 'JointApp\Controllers\Components\Controller_Components_UsersToGroups'
             ),
             "users" => [],
         );

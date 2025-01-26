@@ -19,11 +19,7 @@ trait RoutesCollection_JointSite
         }else{
             //jointsite/about
             if(strtolower($routes_ns[2]) == 'about') {
-                return (new JointSiteRoute())
-                    ->withController('JointApp\Controllers\Controller')
-                    ->withModel('JointApp\Models\Model')
-                    ->withAction('actionIndex')
-                    ->withView('Src\Views\JointSite\View_JointSite_About');
+                return self::getRoute_JointsiteAbout($routes_ns);
             }
             //jointsite/deploy
             elseif(strtolower($routes_ns[2]) == 'deploy') {
@@ -38,6 +34,43 @@ trait RoutesCollection_JointSite
                 return self::getRoute_JointsiteComponents($routes_ns);
             }
         }
+    }
+
+    //jointsite/about
+    static function getRoute_JointsiteAbout($routes_ns):JointSiteRoute
+    {
+        $route = (new JointSiteRoute())
+            ->withController('JointApp\Controllers\Controller')
+            ->withModel('JointApp\Models\Model')
+            ->withAction('actionIndex');
+
+        //jointsite/about
+        if(!isset($routes_ns[3])){
+            $route
+                ->withView('Src\Views\JointSite\About\View_JointSite_About');
+        }else {
+            //jointsite/about/lang
+            if (strtolower($routes_ns[3]) == 'lang') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Lang');
+            }elseif (strtolower($routes_ns[3]) == 'migrations') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Migrations');
+            }elseif (strtolower($routes_ns[3]) == 'tables') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Tables');
+            }elseif (strtolower($routes_ns[3]) == 'api') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Api');
+            }elseif (strtolower($routes_ns[3]) == 'users') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Users');
+            }elseif (strtolower($routes_ns[3]) == 'notifications') {
+                $route
+                    ->withView('Src\Views\JointSite\About\View_JointSite_About_Notifications');
+            }
+        }
+        return $route;
     }
 
     //jointsite/deploy
