@@ -563,9 +563,16 @@ class WebView extends View implements WebViewInterface
         }
         //metrika
         else{
-            $pageFooter.='<img src="/img/y_metrika.png" style="height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;" '.
-                'alt="'.$langFooter->metricBlock->metrika->alt.'" title="'.$langFooter->metricBlock->metrika->title.'" '.
-                'class="ym-advanced-informer" data-cid="44136454" data-lang="'.$langFooter->langLw.'" />';
+            //$pageFooter.='<img src="/img/y_metrika.png" style="height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;" '.
+            //    'alt="'.$langFooter->metricBlock->metrika->alt.'" title="'.$langFooter->metricBlock->metrika->title.'" '.
+            //    'class="ym-advanced-informer" data-cid="44136454" data-lang="'.$langFooter->langLw.'" />';
+            $pageFooter.= '<noscript><div>'.
+                '<img src="https://mc.yandex.ru/watch/44136454" style="position:absolute; left:-9999px;" alt="" /></div></noscript>'.
+                '<a href="https://metrika.yandex.ru/stat/?id=44136454&amp;from=informer" target="_blank" rel="nofollow">'.
+                '<img src="https://informer.yandex.ru/informer/44136454/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" '.
+                'style="width:3.2em; height:1.2em; border:0;"'.
+                ' alt="'.$langFooter->metricBlock->metrika->alt.'" title="'.$langFooter->metricBlock->metrika->title.'" '.
+                'class="ym-advanced-informer" data-cid="44136454" data-lang="ru" /></a>';
         }
 
         //subscribe buttons
