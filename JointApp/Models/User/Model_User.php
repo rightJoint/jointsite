@@ -59,6 +59,7 @@ class Model_User extends RecordsModel
         $_SESSION["site_user"]["accLogin"] = $this->record["accLogin"]["curVal"];
         $_SESSION["site_user"]["accAlias"] = $this->record["accAlias"]["curVal"];
         $_SESSION["site_user"]["is_admin"] = $this->record["is_admin"]["curVal"];
+        $_SESSION["site_user"]["network"] = $this->record["netWork"]["curVal"];
         if($this->record["photoLink"]["curVal"]){
             $_SESSION["site_user"]["photoLink"] = $this->record["photoLink"]["curVal"];
         }

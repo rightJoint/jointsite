@@ -11,6 +11,7 @@ class CurrentUser
     public string $accAlias = '';
     public bool $is_admin = false;
     public string $photoLink = '';
+    public string $network = 'site';
     public $groups = [];
 
     public function __construct()
@@ -25,10 +26,13 @@ class CurrentUser
             $this->user_id = $_SESSION['site_user']['user_id'];
             $this->accLogin = $_SESSION["site_user"]["accLogin"];
             $this->accAlias = $_SESSION["site_user"]["accAlias"];
-            $this->is_admin = $_SESSION["site_user"]["is_admin"];
-            if(isset($_SESSION["site_user"]["photoLink"])){
-                $this->photoLink = $_SESSION["site_user"]["photoLink"];
+            if(isset($_SESSION['site_user']['is_admin']) and $_SESSION['site_user']['is_admin'] == true){
+                $this->is_admin = true;
             }
+            if(isset($_SESSION['site_user']['photoLink'])){
+                $this->photoLink = $_SESSION['site_user']['photoLink'];
+            }
+            $this->network = $_SESSION['site_user']['network'];
         }
 
         if(isset($_SESSION['site_user']['groups'])){

@@ -5,12 +5,16 @@ namespace JointApp\Controllers;
 use JointApp\Factories\MailFactory;
 use JointApp\Factories\ModelFactory;
 use JointApp\JointAppMailer;
+use JointApp\AuthConfig;
 
 
 class Controller_Auth extends Controller
 {
     public $callSignIn = false;
     public $callSignUp = false;
+    public $socialAuth = false;
+    public string $socialAuthCode = '';
+    public string $okAuthState = '';
 
     public bool $cmdUserQuit = false;
 
@@ -32,11 +36,25 @@ class Controller_Auth extends Controller
         if(isset($queryParams['exit']) and $queryParams['exit']=='userquit'){
             $this->cmdUserQuit = true;
         }
+
+        if(isset($queryParams['code'])){
+            $this->socialAuth = true;
+            $this->socialAuthCode = $queryParams['code'];
+        }
+
+        if(isset($queryParams['state'])){
+            $this->socialAuth = true;
+            $this->okAuthState = $queryParams['state'];
+        }
     }
 
     public function actionGetSignIn()
     {
         $this->view->switchForm = 'signIn';
+
+        if($this->socialAuth){
+            $this->socialAuth();
+        }
     }
 
     public function actionGetSignUp()
@@ -197,6 +215,91 @@ class Controller_Auth extends Controller
             }
         }else{
             $this->logger->error("null validate code", $this->logger->logger_context);
+        }
+    }
+
+    function socialAuth(): void
+    {
+        if ($this->okAuthState == 'ok') {
+            $this->authOk();
+        }else{
+            if (strlen($_GET['code'])<300){
+                echo "VK network";
+                exit;
+                //$this->auth_vk();
+            }else{
+                echo "another network";
+                exit;
+            }
+        }
+    }
+
+    function authOk(): void
+    {
+        $authResult = false;
+
+        $AuthConfig = new AuthConfig();
+        $postReq = http_build_query(
+            array(
+                'code' => $this->socialAuthCode,
+                'client_id' => $AuthConfig->ok->client_id,
+                'client_secret' => $AuthConfig->ok->client_secret,
+                "redirect_uri" => $AuthConfig->ok->redirect_uri,
+                "grant_type" => "authorization_code"
+            )
+        );
+        $opts = array('http' =>
+            array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postReq
+            )
+        );
+        $context = stream_context_create($opts);
+        $tokenReq = file_get_contents('https://api.ok.ru/oauth/token.do?', false, $context);
+        $tokenArr = json_decode($tokenReq, true);
+
+        if(isset($tokenArr['access_token']) and $tokenArr['access_token']!=null){
+            $secret_key = MD5($tokenArr['access_token'].$AuthConfig->ok->client_secret);
+            $sig = MD5('application_key='.$AuthConfig->ok->application_key.'format=jsonmethod=users.getCurrentUser'.$secret_key);
+
+            $usrReq = file_get_contents('https://api.ok.ru/fb.do?application_key='.$AuthConfig->ok->application_key.'&format=json'.
+                '&method=users.getCurrentUser&sig='.$sig.'&access_token='.$tokenArr['access_token']);
+            $usrArr = json_decode($usrReq, true);
+
+            if(isset($usrArr['uid']) and $usrArr['uid']!=null){
+                $this->model->record['netWork']['curVal'] = 'ok';
+                $this->model->record['accLogin']['curVal'] = $usrArr['uid'];
+                $this->model->record['accAlias']['curVal'] = $usrArr['name'];
+                $this->model->record['photoLink']['curVal'] = $usrArr['pic_2'];
+                $this->model->record['birthDay']['curVal'] = $usrArr['birthday'];
+                $this->model->record['socProf']['curVal'] = 'https://ok.ru/profile/'.$usrArr['uid'];
+                $this->model->record['pref_lang']['curVal'] = $this->langLw;
+                $authResult = true;
+            }else{
+                //$this->log_message = 'no-user-uid';
+            }
+        }else{
+            //$this->log_message = 'access_token-problem';
+        }
+
+        if($authResult){
+            if($this->model->copyByLoginOrEmail()){
+                $this->model->updateRecord();
+                $this->model->authSiteUser();
+                $this->logger->redirect('/');
+            }else{
+                $this->model->record['user_id']['curVal'] =
+                $this->model->record['created_by']['curVal'] = $this->model->createGUID();
+                $this->model->record['validDate']['curVal'] =
+                $this->model->record['regDate']['curVal'] = date('Y-m-d H:i:s');
+                $this->model->record['blackList']['curVal'] = 0;
+
+                if($this->model->insertRecord()){
+                    $this->model->authSiteUser();
+                    $this->logger->redirect('/');
+                }
+            }
         }
     }
 

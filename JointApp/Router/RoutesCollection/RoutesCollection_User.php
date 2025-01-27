@@ -23,29 +23,30 @@ trait RoutesCollection_User
             return $route;
         }
         if(empty($currentUser->user_id)){
-            if(strtolower($routes_ns[1]) == 'signin'){
-                $route
-                    ->withController('JointApp\Controllers\Controller_Auth')
-                    ->withModel('JointApp\Models\Model')
-                    ->withAction('actionGetSignIn')
-                    ->withView('JointApp\Views\User\View_User_SignIn');
-            }elseif(strtolower($routes_ns[1]) == 'signup'){
-                $route
-                    ->withController('JointApp\Controllers\Controller_Auth')
-                    ->withModel('JointApp\Models\Model')
-                    ->withAction('actionGetSignUp')
-                    ->withView('JointApp\Views\User\View_User_SignUp');
-            }elseif(strtolower($routes_ns[1]) == 'user'){
-                $route
-                    ->withController('JointApp\Controllers\Controller_Auth')
-                    ->withModel('JointApp\Models\Model')
-                    ->withAction('actionGetSignIn')
-                    ->withView('JointApp\Views\User\View_User_SignIn');
-            }
+                if (!(isset($routes_ns[2])) or
+                    (isset($routes_ns[2]) and empty($routes_ns[2]))) {
+                    $route
+                        ->withController('JointApp\Controllers\Controller_Auth')
+                        ->withModel('JointApp\Models\Model')
+                        ->withAction('actionGetSignIn')
+                        ->withView('JointApp\Views\User\View_User_SignIn');
+                }elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'signin') {
+                    $route
+                        ->withController('JointApp\Controllers\Controller_Auth')
+                        ->withModel('JointApp\Models\User\Model_User')
+                        ->withAction('actionGetSignIn')
+                        ->withView('JointApp\Views\User\View_User_SignIn');
+                }elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'signup') {
+                    $route
+                        ->withController('JointApp\Controllers\Controller_Auth')
+                        ->withModel('JointApp\Models\Model')
+                        ->withAction('actionGetSignUp')
+                        ->withView('JointApp\Views\User\View_User_SignUp');
+                }
         }
         //auth user
         else {
-            if (!(isset($routes_ns[2])) == 'user' or
+            if (!(isset($routes_ns[2])) or
                 (isset($routes_ns[2]) and empty($routes_ns[2]))) {
                 $route
                     ->withController('JointApp\Controllers\User\Controller_User_Main')
