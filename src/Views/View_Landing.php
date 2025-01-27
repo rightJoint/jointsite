@@ -187,12 +187,12 @@ class View_Landing extends SiteView
             '</div>'.
             '<div class="descr-frame">'.
             '<div class="descr-line"><img src="/img/siteLogo/rightjoint-logo-150.png"><span class="fmNm">Right Joint</span></div>'.
-            '<div class="descr-line"><span>'.$contactsblock->address_f.':</span>'.
+            '<div class="descr-line"><span>'.$contactsblock->address_f.':</span> '.
             $contactsblock->address_v.'</div>'.
-            '<div class="descr-line"><span>'.$contactsblock->Schedule_f.':</span>'.
+            '<div class="descr-line"><span>'.$contactsblock->Schedule_f.':</span> '.
             $contactsblock->Schedule_v.'</div>'.
             '<div class="descr-line"><span>E-Mail:</span> rightjoint@yandex.ru</div>'.
-            '<div class="descr-line"><span>'.$contactsblock->phone_f.':</span>'.
+            '<div class="descr-line"><span>'.$contactsblock->phone_f.':</span> '.
             '<a href="tel:+7(903)8887772"> +7 (903) 888-7772</a></div>'.
             '<div class="locPr-block">'.
             '<img src="/img/landing/contacts/small-img-yMap.png" class="active" onclick="changeContImg(0)">'.
