@@ -14,6 +14,7 @@ use Src\RoutesCollection\RoutesCollection_JointSite;
 use Src\RoutesCollection\RoutesCollection_Api;
 use Src\RoutesCollection\RoutesCollection_Main;
 use Src\RoutesCollection\RoutesCollection_Music;
+use Src\RoutesCollection\RoutesCollection_Products;
 use Src\RoutesCollection\RoutesCollection_Siteman;
 use Src\RoutesCollection\RoutesCollection_Test;
 use JointApp\Router\RoutesCollection\RoutesCollection_User;
@@ -32,6 +33,7 @@ class JointSiteRouteFinder
     use RoutesCollection_Basket;
     use RoutesCollection_Applications;
     use RoutesCollection_Blog;
+    use RoutesCollection_Products;
 
     private $context = 'RouteFinder';
 
