@@ -59,6 +59,53 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     static public function getLangFooter():stdClass
     {
         $langFooter = new stdClass();
+
+        $langFooter->langLw = 'ru';
+
+        $metrikBlock = new \stdClass();
+
+        $noIndex = new \stdClass();
+        $noIndex->alt = 'Не индексируется';
+        $noIndex->title = 'Запрещено к индексированию';
+
+        $metrikBlock->noIndex = $noIndex;
+
+        $metrika = new \stdClass();
+        $metrika->alt = 'Яндекс.Метрика';
+        $metrika->title = 'Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)';
+
+        $metrikBlock->metrika = $metrika;
+
+        $signInBlock = new \stdClass();
+
+        $cats = new \stdClass();
+        $cats->alt = 'Вы уже авторизованы';
+        $cats->title = 'Вы уже авторизованы';
+
+        $signInBlock->cats = $cats;
+
+
+        $socialButtons = new \stdClass();
+
+        $ok = new \stdClass();
+        $ok->title = 'Подписаться через Одноклассники';
+        $ok->alt = 'ok-кнопка';
+        $socialButtons->ok = $ok;
+
+        $vk = new \stdClass();
+        $vk->title = 'Подписаться через ВКонтакте';
+        $vk->alt = 'vk-кнопка';
+        $socialButtons->vk = $vk;
+
+        $mail = new stdClass();
+        $mail->title = 'Подписаться по eMail';
+        $mail->alt = 'Регистрация';
+        $socialButtons->mail = $mail;
+
+        $langFooter->metricBlock = $metrikBlock;
+        $langFooter->signInBlock = $signInBlock;
+        $langFooter->socialButtons = $socialButtons;
+
         return $langFooter;
     }
 
@@ -79,6 +126,7 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $authForms = new stdClass();
         $authForms->signInForm = self::modalSignInForm();
         $authForms->signUpForm = self::modalSignUpForm();
+        $authForms->socialButtons = self::socialButtons();
 
         $langModal->authForms = $authForms;
 
@@ -197,5 +245,22 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $modalSignUpForm->err = $err;
 
         return $modalSignUpForm;
+    }
+
+    public static function socialButtons():stdClass
+    {
+        $socialButtons = new \stdClass();
+
+        $ok = new \stdClass();
+        $ok->title = 'Вход через Одноклассники';
+        $ok->alt = 'ok-кнопка';
+        $socialButtons->ok = $ok;
+
+        $vk = new \stdClass();
+        $vk->title = 'Вход через ВКонтакте';
+        $vk->alt = 'vk-кнопка';
+        $socialButtons->vk = $vk;
+
+        return $socialButtons;
     }
 }

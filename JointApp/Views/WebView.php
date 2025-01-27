@@ -376,7 +376,7 @@ class WebView extends View implements WebViewInterface
         $this->addViewParams($addViewParams);
 
         $this->pageContent .= $this->createPageContent($langMap::getLangPageContent(), $viewParams);
-        $this->pageFooter = self::printFooter($langMap::getLangFooter());
+        $this->pageFooter = self::printFooter($langMap::getLangFooter(), $this->robotNoIndex);
 
         $this->pageModal = $this->printModal($langMap::getLangModal(), $viewParams);
     }
@@ -387,6 +387,7 @@ class WebView extends View implements WebViewInterface
         $styleLinks = array(
             '/css/default.css',
             '/css/header.css',
+            '/css/site-footer.css',
             '/css/errors.css',
         );
 
@@ -509,19 +510,49 @@ class WebView extends View implements WebViewInterface
         return $headerText;
     }
 
-    private static function printFooter(\stdClass $langFooter):string
+    private static function printFooter(\stdClass $langFooter, bool $robotNoIndex = true):string
     {
+        global $currentUser;
+
+        $authFlag = false;
+        if(empty($currentUser->user_id)){
+            $authFlag = true;
+        }
+
+
         $pageFooter = '<div class="contentBlock-frame dark ft"><div class="contentBlock-center">'.
             '<div class="contentBlock-wrap">'.
             '<footer>'.
             '<div class="ft-service">';
-        /*
-        if ($this->metrik_block) {
-            $pageFooter.= $this->metrika;
+
+        //no-index-image
+        if($robotNoIndex){
+            $pageFooter.='<img src="/img/popimg/no-index.png" style="height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;" '.
+                'alt="'.$langFooter->metricBlock->noIndex->alt.'" title="'.$langFooter->metricBlock->noIndex->title.'"/>';
         }
-        */
+        //metrika
+        else{
+            $pageFooter.='<img src="/img/y_metrika.png" style="height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;" '.
+                'alt="'.$langFooter->metricBlock->metrika->alt.'" title="'.$langFooter->metricBlock->metrika->title.'" '.
+                'class="ym-advanced-informer" data-cid="44136454" data-lang="'.$langFooter->langLw.'" />';
+        }
+
+        //subscribe buttons
+        if($authFlag){
+            $buttons = '<span onclick="$(\'.modal.menu, .modal.menu .overlay\').css({\'opacity\': 1, \'visibility\': \'visible\'})">'.
+                '<img src="/img/popimg/checkInNow-footer.png" title="'.$langFooter->socialButtons->mail->title.'" '.
+                'alt="'.$langFooter->socialButtons->mail->alt.'"></span>';
+            $buttons .= ModalAuthForms::printSocialButtons($langFooter->socialButtons);
+        }
+        //view cats
+        else{
+            $buttons = '<img src="/img/footer-cats.png" style="height: 2em; width: auto; border:0; max-height: 31px; max-width: 88px;" '.
+                'alt="'.$langFooter->signInBlock->cats->alt.'" title="'.$langFooter->signInBlock->cats->title.'"/>';
+        }
+
         $pageFooter.= '</div><div class="ft-center"><hr><span>by Right Joint</span></div>'.
             '<div class="ft-right">'.
+            $buttons.
             '</div>'.
             '</footer>'.
             '</div></div></div>';

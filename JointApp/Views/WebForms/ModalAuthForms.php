@@ -48,7 +48,7 @@ class ModalAuthForms
             '<div class="modal-line">'.
             '<div class="modal-line-img"><img src="/img/popimg/user-logo.png"></div>' .
             '<div class="modal-line-text">';
-        $return.= self::printSocialButtons();
+        $return.= self::printSocialButtons($this->langForms->socialButtons);
         $return.= '<a class="m-l-blue title decnone" id="siteSignIn" href="#">'.
             $this->langForms->signInForm->form_title.
             '</a>'.
@@ -125,7 +125,7 @@ class ModalAuthForms
             '<div class="modal-line">'.
             '<div class="modal-line-img"><img src="/img/popimg/checkInNow.png"></div>' .
             '<div class="modal-line-text">';
-        $return.= self::printSocialButtons();
+        $return.= self::printSocialButtons($this->langForms->socialButtons);
 
         $return.= '<a class="m-l-blue title decnone" href="#" id="siteSignUp">'.
             $this->langForms->signUpForm->form_title.
@@ -197,19 +197,19 @@ class ModalAuthForms
         return $return;
     }
 
-    public static function printSocialButtons()
+    public static function printSocialButtons(\stdClass $socialButtons)
     {
         $AuthConfig = new AuthConfig();
 
         $return = '<a href="https://connect.ok.ru/oauth/authorize?client_id='.$AuthConfig->ok->client_id.'&scope=VALUABLE_ACCESS'.
             '&response_type=code&redirect_uri='.$AuthConfig->ok->redirect_uri.'&layout=w&state=ok" '.
-            'title="Вход через Одноклассники" class="sb_auth">'.
-            '<img src="/img/social_logo/ok-logo.png" alt="ok-кнопка">' .
+            'title="'.$socialButtons->ok->title.'" class="sb_auth">'.
+            '<img src="/img/social_logo/ok-logo.png" alt="'.$socialButtons->ok->alt.'">' .
             '</a>'.
             '<a href="https://oauth.vk.com/authorize?client_id='.$AuthConfig->vk->client_id.
             '&display=page&redirect_uri='.$AuthConfig->vk->redirect_uri.'&scope=friends&response_type=code&v=5.62" '.
-            'title="Вход через ВКонтакте" class="sb_auth">'.
-            '<img src="/img/social_logo/vk-logo.png" alt="vk-кнопка">' .
+            'title="'.$socialButtons->vk->title.'" class="sb_auth">'.
+            '<img src="/img/social_logo/vk-logo.png" alt="'.$socialButtons->vk->alt.'">' .
             '</a>';
         return $return;
     }
