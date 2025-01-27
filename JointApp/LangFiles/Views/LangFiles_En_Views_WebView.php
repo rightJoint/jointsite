@@ -61,6 +61,53 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     static public function getLangFooter():stdClass
     {
         $langFooter = new stdClass();
+
+        $langFooter->langLw = 'en';
+
+        $metrikBlock = new \stdClass();
+
+        $noIndex = new \stdClass();
+        $noIndex->alt = 'No index';
+        $noIndex->title = 'Index forbidden';
+
+        $metrikBlock->noIndex = $noIndex;
+
+        $metrika = new \stdClass();
+        $metrika->alt = 'Yandex.Metrika';
+        $metrika->title = 'Yandex.Metrika: data for today (views, visits and unique visitors)';
+
+        $metrikBlock->metrika = $metrika;
+
+        $signInBlock = new \stdClass();
+
+        $cats = new \stdClass();
+        $cats->alt = 'You already auth on site';
+        $cats->title = 'You are in';
+
+        $signInBlock->cats = $cats;
+
+
+        $socialButtons = new \stdClass();
+
+        $ok = new \stdClass();
+        $ok->title = 'Subscribe via Odnoklassniki';
+        $ok->alt = 'ok-button';
+        $socialButtons->ok = $ok;
+
+        $vk = new \stdClass();
+        $vk->title = 'Subscribe via VKontakte';
+        $vk->alt = 'vk-button';
+        $socialButtons->vk = $vk;
+
+        $mail = new stdClass();
+        $mail->title = 'Subscribe by eMail';
+        $mail->alt = 'SignUp on site';
+        $socialButtons->mail = $mail;
+
+        $langFooter->metricBlock = $metrikBlock;
+        $langFooter->signInBlock = $signInBlock;
+        $langFooter->socialButtons = $socialButtons;
+
         return $langFooter;
     }
 
@@ -81,6 +128,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $authForms = new stdClass();
         $authForms->signInForm = self::modalSignInForm();
         $authForms->signUpForm = self::modalSignUpForm();
+        $authForms->socialButtons = self::socialButtons();
 
         $langModal->authForms = $authForms;
 
@@ -224,7 +272,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $orderForm->leave_app = 'Оставить заявку';
         $orderForm->cancel_order = 'Отменить заказ';
         $orderForm->cancel_order = 'Отменить заказ';
-        $orderForm->app_txt = 'Далее вы будете переадресованы на страницу, '.
+        $orderForm->app_txt = 'Далее вы будете переадресованы на страницу, ' .
             'на которой всегда сможете отследить статус вашей заявки, добавить описание и вложение';
         $orderForm->name_ps = 'Ваше имя';
         $orderForm->mail_ps = 'Ваш email';
@@ -237,5 +285,22 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langOrder->langLw = 'ru';
 
         return $langOrder;
+    }
+
+    public static function socialButtons():stdClass
+    {
+        $socialButtons = new \stdClass();
+
+        $ok = new \stdClass();
+        $ok->title = 'Subscribe via Odnoklassniki';
+        $ok->alt = 'ok-button';
+        $socialButtons->ok = $ok;
+
+        $vk = new \stdClass();
+        $vk->title = 'Subscribe via Vk';
+        $vk->alt = 'vk-button';
+        $socialButtons->vk = $vk;
+
+        return $socialButtons;
     }
 }
