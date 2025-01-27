@@ -4,9 +4,7 @@
 namespace JointApp\Models\User;
 
 
-use JointApp\Models\Model_Pdo;
 use JointApp\Models\ModuleModel;
-use function PHPUnit\Framework\assertEquals;
 
 class Model_User_Main extends ModuleModel
 {
