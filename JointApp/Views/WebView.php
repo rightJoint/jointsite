@@ -427,6 +427,9 @@ class WebView extends View implements WebViewInterface
             '<meta name="description" content="'.$langHead->description.'"/>';
         if ($robotNoIndex) {
             $headText.= '<meta name="robots" content="noindex">';
+        }else{
+            //yandex metrika
+            $headText.='<meta name="yandex-verification" content="xxx" />';
         }
         foreach ($metaLinks as $name => $content){
             $headText .= '<meta name="'.$name.'" content="'.$content.'">';
