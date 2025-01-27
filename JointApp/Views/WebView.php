@@ -572,7 +572,7 @@ class WebView extends View implements WebViewInterface
                 '<img src="https://informer.yandex.ru/informer/44136454/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" '.
                 'style="width:3.2em; height:1.2em; border:0;"'.
                 ' alt="'.$langFooter->metricBlock->metrika->alt.'" title="'.$langFooter->metricBlock->metrika->title.'" '.
-                'class="ym-advanced-informer" data-cid="44136454" data-lang="ru" /></a>';
+                'class="ym-advanced-informer" data-cid="44136454" data-lang="'.$langFooter->langLw.'" /></a>';
         }
 
         //subscribe buttons
