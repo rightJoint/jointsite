@@ -327,11 +327,8 @@ class Controller_Auth extends Controller
         if($authResult){
             if($this->model->copyByLoginOrEmail()){
                 $this->model->updateRecord();
-                if($this->model->authSiteUser()){
-                    $this->logger->redirect($this->httpRef);
-                }else{
-                    $this->view->view_data = $this->model->log_message;
-                }
+                $this->model->authSiteUser();
+                $this->logger->redirect($this->httpRef);
             }else{
                 $this->model->record['user_id']['curVal'] =
                 $this->model->record['created_by']['curVal'] = $this->model->createGUID();
