@@ -192,6 +192,16 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'музыка трэки в альбом',
                 'usage' => false,
             ),
+            'sitemap' => array(
+                'refText' => 'карта сайта',
+                'refTitle' => 'карта сайта',
+                'usage' => true,
+            ),
+            'sitemapupdate' => array(
+                'refText' => 'обновить карту сайта',
+                'refTitle' => 'обновить карту сайта',
+                'usage' => false,
+            ),
         );
 
         $modulesMenu->menuLine = array(
