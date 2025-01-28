@@ -97,7 +97,7 @@ class View_Applications extends SiteView
             $return.= 'Описание не задано';
         }
         $return.= '</div></div>';
-
+/*
         $return.= '<hr>'.
             '<form class="aplc-form" enctype="multipart/form-data" method="post">'.
             '<div class="aplcf-title">';
@@ -128,6 +128,7 @@ class View_Applications extends SiteView
             $return.='<input type="button" value="Переписать" onclick="rewriteApplCom('."'new'".')">';
         }
         $return.='</div></div></form>';
+*/
         /*
         echo '</div>'.
             '<div class="appl-attach">'.
