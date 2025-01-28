@@ -204,6 +204,16 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'статьи блога',
                 'usage' => true,
             ),
+            'sitemap' => array(
+                'refText' => 'site map',
+                'refTitle' => 'site map',
+                'usage' => true,
+            ),
+            'sitemapupdate' => array(
+                'refText' => 'site map update',
+                'refTitle' => 'site map update',
+                'usage' => false,
+            ),
         );
 
         $modulesMenu->menuLine = array(

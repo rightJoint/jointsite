@@ -20,16 +20,4 @@ class LangFiles_Ru_Views_SiteMapUpdate extends LangFiles_Ru_Views_SiteView
 
         return $langHeader;
     }
-
-    static public function getLangPageContent():stdClass
-    {
-        $langPageContent = new stdClass();
-        $langPageContent->pageContent = 'вставьте сюда содержание страницы';
-        $langPageContent->modulesMenu = self::modulesList();
-
-        $langPageContent->langLw = 'ru';
-
-        return $langPageContent;
-    }
-
 }
