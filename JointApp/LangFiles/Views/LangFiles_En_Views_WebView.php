@@ -292,7 +292,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
 
         $langOrder->orderForm = $orderForm;
 
-        $langOrder->langLw = 'ru';
+        $langOrder->langLw = 'en';
 
         return $langOrder;
     }
