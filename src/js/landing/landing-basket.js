@@ -7,7 +7,7 @@ function lBasketAddPop(em) {
         setRelative: true
     });
 
-    $.get("/basket/add", "lBasketAdd="+$(em).attr("prod-alias"), function (response) {
+    $.get(jointAppLangSl+"/basket/add", "lBasketAdd="+$(em).attr("prod-alias"), function (response) {
         $(em).parent().parent().preloader('remove');
         $(".modal-line-text.basket span").html(response.viewData.total);
         $(".modal-basket-list").html(response.viewData.basket)
@@ -30,7 +30,7 @@ function mkApplication() {
         zIndex: '',
         setRelative: true
     })
-    $.post("/applications", $("form.order").serialize(), function (data) {
+    $.post(jointAppLangSl+"/applications", $("form.order").serialize(), function (data) {
         if(data.viewData.fbfa == 1){
             location.replace(data.viewData.redirectUrl);
         }else{
