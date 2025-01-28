@@ -16,20 +16,22 @@ class WebView extends View implements WebViewInterface
     const USER_AVATARS_DIR = '/userdata/avatars';
     use LoggerAwareTrait;
 
-    //**************CONSTRUCT PARAMS*********************************/
+    //**************ViewFactory PARAMS*********************************/
+    //from JointAppRequest
     //need to require lang files
     public $docRoot = '';
     //calc on $viewlang
     public string $langNs = 'Ru';
     public string $langLw = 'ru';
     public string $langSl = '/ru';
-
-    //**************ViewFactory PARAMS********************************/
-    //from JointAppRequest
     //ref to change language
     public string $langRef = '/';
     //routes to highlight ref is active
     public array $routes_ns = array('', '');
+    //used in head canonical rel
+    public string $siteName = '';
+    //flag canonical rel
+    public bool $langCanonical = false;
 
     //**************PARTS OF HTML PAGE********************************/
     private string $pageHead = '';
@@ -90,24 +92,9 @@ class WebView extends View implements WebViewInterface
 
 
 
-    function __construct(string $docRoot, string $viewlang = '')
+    function __construct()
     {
         $this->setLogger(JointSiteLoggerFactory::getLoggerContext([$this->context => get_class($this)]));
-
-        $this->docRoot = $docRoot;
-
-        //lang params
-        if(!empty($viewlang)){
-            $this->langNs = ucfirst(strtolower($viewlang));
-            $this->langLw = strtolower($viewlang);
-            $this->langSl = '/'.strtolower($viewlang);
-        }
-        //default lang "ru"
-        else{
-            $this->langNs = 'Ru';
-            $this->langLw = 'ru';
-            $this->langSl = '';
-        }
     }
 
     //rewrite parent View method
@@ -352,9 +339,16 @@ class WebView extends View implements WebViewInterface
 
         $langHead = $langMap::getLangHead();
 
+        $headParams = new \stdClass();
+        $headParams->langRef = $this->langRef;
+        $headParams->langLw = $this->langLw;
+        $headParams->siteName = $this->siteName;
+        $headParams->langCanonical = $this->langCanonical;
+        $headParams->shortcutIcon = $this->shortcutIcon;
+        $headParams->robotNoIndex = $this->robotNoIndex;
 
         $this->langHeadUpdate($langHead->updateFromArray);
-        $this->pageHead = self::printHead($langHead, $this->robotNoIndex, $this->shortcutIcon);
+        $this->pageHead = self::printHead($langHead, $headParams);
 
 
         $langHeader = $langMap::getLangHeader();
@@ -381,7 +375,7 @@ class WebView extends View implements WebViewInterface
         $this->pageModal = $this->printModal($langMap::getLangModal(), $viewParams);
     }
 
-    private static function printHead(\stdClass $langHead, bool $robotNoIndex = false, string $shortcutIcon = '/img/siteLogo/favicon.png'):string
+    private static function printHead(\stdClass $langHead, \stdClass $headParams):string
     {
         //add Meta, Styles, Scripts
         $styleLinks = array(
@@ -416,17 +410,23 @@ class WebView extends View implements WebViewInterface
             '<meta http-equiv="content-type" content="text/html"; charset="utf-8"/>'.
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'.
             '<meta name="description" content="'.$langHead->description.'"/>';
-        if ($robotNoIndex) {
+        if ($headParams->robotNoIndex) {
             $headText.= '<meta name="robots" content="noindex">';
         }else{
             //yandex metrika
             $headText.='<meta name="yandex-verification" content="xxx" />';
+
+            //seo link canonical
+            if($headParams->langCanonical){
+                $headText .='<link rel="canonical" href="'.$headParams->siteName.$headParams->langRef.'" />';
+            }
+
         }
         foreach ($metaLinks as $name => $content){
             $headText .= '<meta name="'.$name.'" content="'.$content.'">';
         }
         $headText.= '<title>'.$langHead->title.'</title>'.
-            '<link rel="SHORTCUT ICON" href="'.$shortcutIcon.'" type="image/png">';
+            '<link rel="SHORTCUT ICON" href="'.$headParams->shortcutIcon.'" type="image/png">';
         foreach ($styleLinks as $style) {
             $headText.= '<link rel="stylesheet" href="'.$style.'" type="text/css" media="screen, projection"/>';
         }
