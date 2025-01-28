@@ -6,8 +6,12 @@ class LangFiles_En_Views_Blog_IT_JointPass extends LangFiles_En_Views_BlogArts
 
         $langArtContent = new stdClass();
 
-        $langArtContent->prod_about = 'Passwords organizer. No needs keep in mind all passwords of yours accounts, '.
-            'remember only one Master Pass of this app.';
+        $langArtContent->prod_about = 'Tap on account row in grid and buttons to copy clipboard login and password '.
+            'just appear on filter panel. All data store encrypted in yor disk. You may sort out your accounts '.
+            'by groups and categories. In addition two predefined fields (login and password) you may add '.
+            'custom fields, attach to that images, turn on encryption. Account may contain any unique fields. '.
+            'Watch when your password was last updated just sort them in grid by date. Your may migrate you data '.
+            'to use on another PC. It is possible to change MasterPass, app re-crypt data.';
 
         $product_info = array(
             "h2_сontent" => "Table of content",
