@@ -195,13 +195,13 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'usage' => false,
             ),
             'services' => array(
-                'refText' => 'услуги',
-                'refTitle' => 'список и описание услуг',
+                'refText' => 'services',
+                'refTitle' => 'services list and details',
                 'usage' => true,
             ),
             'blogarts' => array(
-                'refText' => 'блог',
-                'refTitle' => 'статьи блога',
+                'refText' => 'blog',
+                'refTitle' => 'blog articles',
                 'usage' => true,
             ),
             'sitemap' => array(
@@ -273,22 +273,22 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langOrder = new stdClass();
 
-        $langOrder->hire_txt = 'Присматриваю варианты для взаимовыгодного сотрудничества. Готов приступить к работе по договоренности';
-        $langOrder->telega_t = 'связаться по телеграмм';
+        $langOrder->hire_txt = 'Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreemen';
+        $langOrder->telega_t = 'Contact via Telegram';
 
         $orderForm = new stdClass();
 
-        $orderForm->basket_txt = 'Ваш заказ';
-        $orderForm->leave_app = 'Оставить заявку';
-        $orderForm->cancel_order = 'Отменить заказ';
-        $orderForm->cancel_order = 'Отменить заказ';
-        $orderForm->app_txt = 'Далее вы будете переадресованы на страницу, ' .
-            'на которой всегда сможете отследить статус вашей заявки, добавить описание и вложение';
-        $orderForm->name_ps = 'Ваше имя';
-        $orderForm->mail_ps = 'Ваш email';
-        $orderForm->phone_ps = 'Номер телефона';
-        $orderForm->message_ps = 'Сообщение';
-        $orderForm->submit = 'Отправить';
+        $orderForm->basket_txt = 'Your order';
+        $orderForm->leave_app = 'New application';
+        $orderForm->cancel_order = 'Cancel application';
+        $orderForm->cancel_order = 'Cancel application';
+        $orderForm->app_txt = 'Next you will be redirected to the page, where you can watch status of your '.
+            'application, add details or attachments';
+        $orderForm->name_ps = 'Your name';
+        $orderForm->mail_ps = 'Your email';
+        $orderForm->phone_ps = 'Phone number';
+        $orderForm->message_ps = 'Subject';
+        $orderForm->submit = 'Send';
 
         $langOrder->orderForm = $orderForm;
 

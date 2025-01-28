@@ -6,24 +6,24 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
         $langPageContent = parent::getLangPageContent();
 
         $titleBlock = new stdClass();
-        $titleBlock->invoke = 'Программирование на php и c#';
-        $titleBlock->invoke_cm = 'Создание нового и поддержка существующего софта, автоматизация бизнесс-процессов';
-        $titleBlock->st_txt1 = 'Аналитический подход';
-        $titleBlock->st_txt2 = 'Отвественный выполнение';
-        $titleBlock->st_txt3 = 'Решение сложных проблем';
-        $titleBlock->thought = 'Доверив свои задачи специалисту, вам не придется волноваться, что все будет сделано '.
-        'правильно и вовремя.';
-        $titleBlock->cb_txt = 'Позвонить';
-        $titleBlock->advantages_list_1 = 'Более 10 опыта в it-сфере';
-        $titleBlock->advantages_list_2 = 'Хорошая репутация';
-        $titleBlock->advantages_list_3 = 'Опыт работы в банке';
-        $titleBlock->advantages_list_4 = 'Без посредников';
-        $titleBlock->advantages_list_5 = 'Гибкие расценки и система скидок';
-        $titleBlock->ask_q_1 = 'Задайте свои вопросы по';
-        $titleBlock->ask_q_2 = 'Телеграм';
-        $titleBlock->ask_q_3 = 'или';
-        $titleBlock->ask_q_4 = 'оставьте заявку';
-        $titleBlock->ask_q_5 = 'на сайте';
+        $titleBlock->invoke = 'Programming on php and c#';
+        $titleBlock->invoke_cm = 'Developing new and maintenance existing software, business process automation';
+        $titleBlock->st_txt1 = 'Analytical approach';
+        $titleBlock->st_txt2 = 'Responsible for the execution';
+        $titleBlock->st_txt3 = 'Solving complex problems';
+        $titleBlock->thought = 'By entrusting your tasks to a specialist, you do not have to worry '.
+            'that everything will be done correctly and on time.';
+        $titleBlock->cb_txt = 'Call now';
+        $titleBlock->advantages_list_1 = 'More than 10 years of experience in the IT field';
+        $titleBlock->advantages_list_2 = 'Good reputation';
+        $titleBlock->advantages_list_3 = 'Work experience in the bank';
+        $titleBlock->advantages_list_4 = 'Without intermediaries';
+        $titleBlock->advantages_list_5 = 'Flexible pricing and discount system';
+        $titleBlock->ask_q_1 = 'Ask me your questions on ';
+        $titleBlock->ask_q_2 = 'Telegram';
+        $titleBlock->ask_q_3 = 'or';
+        $titleBlock->ask_q_4 = 'leave a request';
+        $titleBlock->ask_q_5 = 'on this site';
 
         $langPageContent->titleBlock = $titleBlock;
 
@@ -36,19 +36,19 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
 
         $contactsBlock = new stdClass();
 
-        $contactsBlock->address_f = 'Адрес';
-        $contactsBlock->address_v = 'г. Иваново, ул. 8 Марта, д. 32, ТРЦ «Серебряный город»';
-        $contactsBlock->Schedule_f = 'Режим работы';
-        $contactsBlock->Schedule_v = 'пнд. - птн. с 9.00 до 18.00, сбт., вск. - выходной';
-        $contactsBlock->phone_f = 'Телефон';
+        $contactsBlock->address_f = 'Address';
+        $contactsBlock->address_v = 'Russia, Ivanovo, 8-Match st., b. 32, «Silver city» mall, public hall';
+        $contactsBlock->Schedule_f = 'Schedule';
+        $contactsBlock->Schedule_v = 'mon. - fri. 9.00 am - 6.00pm +4 UTC, sat., sun. - days off';
+        $contactsBlock->phone_f = 'Phone';
 
         $langPageContent->contactsBlock = $contactsBlock;
 
         $popServ = new stdClass();
 
-        $popServ->h2 = 'Популярные услуги';
-        $popServ->btn_buy = 'Купить';
-        $popServ->more_txt = 'ещё';
+        $popServ->h2 = 'Pop services';
+        $popServ->btn_buy = 'Buy';
+        $popServ->more_txt = 'one more';
 
         $langPageContent->popServ = $popServ;
 
