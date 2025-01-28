@@ -34,6 +34,7 @@ class Controller implements ControllerInterface
     protected $routes_ns = [];
     protected string $langDir = '';
     protected $routes = [];
+    protected string $siteName = '';
 
     protected string $httpRef = '';
 
@@ -62,6 +63,7 @@ class Controller implements ControllerInterface
         $this->routes = $request->routes;
         $this->routes_ns = $request->routes_ns;
         $this->configDir = $request->configDir;
+        $this->siteName = $request->siteName;
 
         if(isset($request->getServerParams()['HTTP_REFERER'])){
             $this->httpRef = $request->getServerParams()['HTTP_REFERER'];
