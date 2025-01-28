@@ -342,6 +342,7 @@ class WebView extends View implements WebViewInterface
         $headParams = new \stdClass();
         $headParams->langRef = $this->langRef;
         $headParams->langLw = $this->langLw;
+        $headParams->langSl = $this->langSl;
         $headParams->siteName = $this->siteName;
         $headParams->langCanonical = $this->langCanonical;
         $headParams->shortcutIcon = $this->shortcutIcon;
@@ -430,6 +431,9 @@ class WebView extends View implements WebViewInterface
         foreach ($styleLinks as $style) {
             $headText.= '<link rel="stylesheet" href="'.$style.'" type="text/css" media="screen, projection"/>';
         }
+        $headText.= '<script>'.
+            'var jointAppLangSl="'.$headParams->langSl.'";'.
+            '</script>';
         foreach ($scriptLinks as $script) {
             $headText.= '<script src="'.$script.'"></script>';
         }
