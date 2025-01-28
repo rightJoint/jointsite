@@ -622,6 +622,11 @@ form.auth-form .modal-line .modal-line-err{
     }
 }
 
+form.order .modal-line .modal-line-text.fbm-title{
+    color: turquoise;
+    font-weight: bold;
+
+}
 form.order .modal-line-text.fbm-title p{
     font-size: 0.8em;
     color: PowderBlue;
