@@ -36,7 +36,7 @@ trait RoutesCollection_Modules_Sitemap
             $route
                 //->withAction('detailTopPanel')
                 ->withAction('getDetailView')
-                ->withView('JointApp\Views\Records\RecordDetailView');
+                ->withView('JointApp\Views\Modules\ModuleDetailView');
         }
         //GET: /siteman/sitemap/editview
         elseif (strtolower($routes_ns[3]) == 'editview'){
