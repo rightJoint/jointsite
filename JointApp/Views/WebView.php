@@ -748,7 +748,7 @@ class WebView extends View implements WebViewInterface
         } else {
             $returnOrder .= 'style="display: none" ';
         }
-        if(isset($_SESSION['basket']) and $_SESSION['basket']['lang'] == 'en'){
+        if($langOrder->langLw == 'en'){
             $p_curr = '$';
         }else{
             $p_curr = 'руб';
@@ -809,12 +809,12 @@ class WebView extends View implements WebViewInterface
             $return.= '<div class="mbl-line"><div class="mbl-line-img"><img src="'.
                 '/img/Services/images/thumbs/'.$findProd_row['cardAlias'].'.png"></div>'.
                 '<div class="mbl-line-info">';
-            $return.=$findProd_row['cardName_'.$langLw];
+            $return.=$findProd_row['cardName'];
             $val = $_SESSION['basket']['prod'][$findProd_row['cardAlias']];
             $return.= ' '.$val;
-            $return.=' ('.$findProd_row['unit_'.$langLw].')';
-            $return.=' * '.$findProd_row['cardPrice_'.$langLw].' = '.($val * $findProd_row['cardPrice_'.$langLw]) .
-                ' ('.$findProd_row['cardCurr_'.$langLw].')';
+            $return.=' ('.$findProd_row['unit'].')';
+            $return.=' * '.$findProd_row['cardPrice'].' = '.($val * $findProd_row['cardPrice']) .
+                ' ('.$findProd_row['cardCurr'].')';
             $return.='</div></div>';
         }
         return $return;
