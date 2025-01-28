@@ -40,6 +40,8 @@ class JointAppRequest extends ServerRequest
     public string $configDir = '';
     //
     public string $usersDir = '';
+    //site name
+    public string $siteName = '';
 
     function __construct(string $method, $uri, array $headers = [], $body = null, string $version = '1.1', array $serverParams = [])
     {
@@ -91,5 +93,6 @@ class JointAppRequest extends ServerRequest
         $env = parse_ini_file('.env');
         $this->configDir = $this->docRoot.'/'.$env['JOINT_SITE_CONFIG_DIR'];
         $this->usersDir = $this->docRoot.'/'.$env['JOINT_SITE_USERS_DIR'];
+        $this->siteName = $env['JOINT_SITE_NAME'];
     }
 }

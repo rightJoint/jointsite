@@ -212,6 +212,15 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
             'blogtagstoarts' => array(
                 'refText' => 'тэги к статьям',
                 'refTitle' => 'тэги к статьям',
+            ),
+            'sitemap' => array(
+                'refText' => 'карта сайта',
+                'refTitle' => 'карта сайта',
+                'usage' => true,
+            ),
+            'sitemapupdate' => array(
+                'refText' => 'обновить карту сайта',
+                'refTitle' => 'обновить карту сайта',
                 'usage' => false,
             ),
         );

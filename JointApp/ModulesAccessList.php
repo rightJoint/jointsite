@@ -55,6 +55,14 @@ class ModulesAccessList
                 //blogtagstoarts
                 'admin-only',
             ),
+            'sitemap' => array(
+                //sitemap
+                'admin',
+            ),
+            'sitemapupdate' => array(
+                //sitemap
+                'admin',
+            ),
         );
     }
 

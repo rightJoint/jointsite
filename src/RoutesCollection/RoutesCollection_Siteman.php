@@ -12,6 +12,8 @@ use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracksToAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracks;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_NtfRead;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_Services;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_Sitemap;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_SitemapUpdate;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_User;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_Groups;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_UsersToGroups;
@@ -34,6 +36,8 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_BlogArts;
     use RoutesCollection_Modules_BlogTags;
     use RoutesCollection_Modules_BlogTagsToArts;
+    use RoutesCollection_Modules_Sitemap;
+    use RoutesCollection_Modules_SitemapUpdate;
 
     static function getRoute_Siteman($routes_ns):JointSiteRoute
     {
@@ -83,8 +87,14 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'blogtags'){
             $route = self::getRoute_ModuleBlogTags($routes_ns);
         }
-        elseif (strtolower($routes_ns[2]) == 'blogtagstoarts'){
+        elseif (strtolower($routes_ns[2]) == 'blogtagstoarts') {
             $route = self::getRoute_ModuleBlogTagsToArts($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'sitemap'){
+            $route = self::getRoute_ModuleSitemap($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'sitemapupdate'){
+            $route = self::getRoute_ModuleSitemapUpdate($routes_ns);
         }
         return $route;
     }
@@ -130,8 +140,11 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'blogtags'){
             $route = self::postRoute_ModuleBlogTags($routes_ns);
         }
-        elseif (strtolower($routes_ns[2]) == 'blogtagstoarts'){
+        elseif (strtolower($routes_ns[2]) == 'blogtagstoarts') {
             $route = self::postRoute_ModuleBlogTagsToArts($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'sitemap'){
+            $route = self::postRoute_ModuleSitemap($routes_ns);
         }
         return $route;
     }
