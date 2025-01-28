@@ -4,6 +4,7 @@
 namespace JointApp\Models\Components;
 
 
+use JointApp\JointAppQueryBuilder;
 use JointApp\Models\ModuleModel;
 
 class Model_Components_Sitemap extends ModuleModel
@@ -11,6 +12,8 @@ class Model_Components_Sitemap extends ModuleModel
     public string $tableName = 'siteMap_dt';
 
     public string $moduleName = 'sitemap';
+
+    public string $siteName = '';
 
     public function getRecordStructure()
     {
@@ -51,22 +54,55 @@ class Model_Components_Sitemap extends ModuleModel
         );
     }
 
-
-
-    /*
-    public function copyCustomFields(): bool
+    public function createSiteMap():void
     {
-        if(!empty($this->record['created_by']['curVal'])){
-            $userAlias_q = 'select accAlias from users_dt where user_id="'.$this->record['created_by']['curVal'].'"';
-            $userAlias_res = $this->pdoQuery($userAlias_q);
-            if($userAlias_res->rowCount() == 1){
-                $userAlias_row = $userAlias_res->fetch(self::FETCH_ASSOC);
-                $this->record['createdUser']['curVal'] = $userAlias_row['accAlias'];
-            }else{
-                return false;
+        $qBuilder = new JointAppQueryBuilder();
+        $qBuilder->select(
+            $this->tableName.'.maploc, '.
+            $this->tableName.'.lastmod, '.
+            $this->tableName.'.changefreq, '.
+            $this->tableName.'.priority '
+        )
+        ->from(
+            $this->tableName
+        )
+        ->where(
+            $this->tableName.'.use_flag is true'
+        )
+        ->order(
+            $this->tableName.'.maploc'
+        );
+
+        $res = $this->fetchToArray($qBuilder->buildQuery());
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
+
+        foreach ($res as $num => $row){
+            $xml.= '<url>'.
+                '<loc>'.
+                $this->siteName.$row['maploc'].
+                '</loc>';
+            if($row['lastmod']){
+                $xml.= '<lastmod>'.
+                    $row['lastmod'].
+                    '</lastmod>';
             }
+            if($row['changefreq']){
+                $xml.= '<changefreq>'.
+                    $row['changefreq'].
+                    '</changefreq>';
+            }
+            if($row['priority']){
+                $xml.= '<priority>'.
+                    ($row['priority']/10).
+                    '</priority>';
+            }
+            $xml.= '</url>'."\n";
         }
-        return true;
+
+        $xml.='</urlset>';
+
+        file_put_contents($this->docRoot.'/sitemap.xml', $xml);
     }
-    */
 }
