@@ -13,6 +13,8 @@ class View_SiteMapUpdate extends SiteView
     public string $logo = '/img/popimg/sitemap.png';
     public string $shortcutIcon = '/img/popimg/sitemap.png';
 
+    public bool $robotNoIndex = true;
+
     public $bindComponents = [];
 
     public string $moduleName = '';
