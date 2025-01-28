@@ -125,13 +125,11 @@ trait RoutesCollection_User
             if(isset($routes_ns[2]) and (strtolower($routes_ns[2]) == 'signin')){
 
                 $route
-                    //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
                     ->withAction('actionPostSignIn')
                     ->withView('JointApp\Views\User\View_User_SignIn');
 
             }elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'signup'){
                 $route
-                    //->withController('Src\Controllers\Controller_User', ['actionName' => 'actionIndex'])
                     ->withAction('actionPostSignUp')
                     ->withView('JointApp\Views\User\View_User_SignUp');
             }
