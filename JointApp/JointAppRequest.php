@@ -32,6 +32,10 @@ class JointAppRequest extends ServerRequest
     public string $langSl = '';
     //wildcard for hrefs parts after lang
     public string $langRef = '';
+    //faced in view head meta rel page of default lang
+    public string $langDefault = 'ru';
+    //canonical
+    public bool $langCanonical = false;
     //routes_ns is logic part of request
     public $routes_ns = [];
 
@@ -66,6 +70,7 @@ class JointAppRequest extends ServerRequest
 
     public function langDetector()
     {
+        $this->routes_ns = $this->routes;
         if(isset($this->routes[1]) and in_array(strtolower($this->routes[1]), $this->acceptableLangs)){
 
             $this->langNs = ucfirst($this->routes[1]);
@@ -75,16 +80,18 @@ class JointAppRequest extends ServerRequest
             $pos_lang = strpos($this->uri_r, $this->langSl);
             $this->langRef = substr($this->uri_r, $pos_lang + strlen($this->langSl),
                 strlen($this->uri_r));
-            $this->routes_ns = $this->routes;
             array_splice($this->routes_ns, 1,1);
+
+            if($this->langLw == $this->langDefault){
+                $this->langCanonical = true;
+            }
         }else{
             //default lang: ru
             $this->viewLang = '';
-            $this->langNs = 'Ru';
-            $this->langLw = 'ru';
+            $this->langNs = ucfirst($this->langDefault);
+            $this->langLw = $this->langDefault;
             $this->langSl = '';
             $this->langRef = $this->uri_r;
-            $this->routes_ns = $this->routes;
         }
     }
 
