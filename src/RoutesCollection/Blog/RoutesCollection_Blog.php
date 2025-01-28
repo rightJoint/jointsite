@@ -18,9 +18,14 @@ trait RoutesCollection_Blog
                     ->withAction('actionIndex');
                 if(strtolower($routes_ns[3]) == 'joint-pass'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_JointPass');
-                }elseif(strtolower($routes_ns[3]) == 'right-joint-updated'){
+                }
+                elseif(strtolower($routes_ns[3]) == 'right-joint-updated'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_RightJointUpdated');
-                }else{
+                }
+                elseif(strtolower($routes_ns[3]) == 'phpstorm-reset-trial'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_PhpStormResetTrial');
+                }
+                else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
             }
