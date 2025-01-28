@@ -45,7 +45,7 @@ class WebView extends View implements WebViewInterface
 
     //**************HEAD LINKS****************************************/
     //add <meta name="robots" content="noindex">
-    public $robotNoIndex = false;
+    public bool $robotNoIndex = false;
     //add SHORTCUT ICON image
     public string $shortcutIcon = '/img/siteLogo/favicon.png';
 

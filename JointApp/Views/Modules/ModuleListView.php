@@ -12,6 +12,8 @@ class ModuleListView extends RecordListView
 
     public string $moduleName = '';
 
+    public bool $robotNoIndex = true;
+
     public function addViewParams($addViewParams)
     {
         parent::addViewParams($addViewParams);

@@ -8,6 +8,7 @@ use JointApp\JointAppRequest;
 class ErrorsView extends SiteView
 {
     public string $logo = '/img/popimg/error.png';
+    public bool $robotNoIndex = true;
 
     public static function addStyleLinks(callable $addStyleLinks):void
     {
