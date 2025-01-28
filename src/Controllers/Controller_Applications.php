@@ -67,18 +67,19 @@ class Controller_Applications extends RecordsController
 
     function getBasketProducts()
     {
-        $basket = json_decode($this->model->record['basket']['curVal'], true);
-
-        $this->basketTotal = $basket['total'];
-
-        foreach ($basket['prod'] as $prodAlias=>$prodCount){;
-            $findProd_qry = 'select * from srvCards_dt where cardAlias = "'.$prodAlias.'"';
-            $findProd_res = $this->model->query($findProd_qry);
-            if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
-                $findProd_row['count'] = $prodCount;
-                $this->basketProducts[$prodAlias] = $findProd_row;;
+        if(!empty($this->model->record['basket']['curVal'])){
+            $basket = json_decode($this->model->record['basket']['curVal'], true);
+            $this->basketTotal = $basket['total'];
+            foreach ($basket['prod'] as $prodAlias=>$prodCount){;
+                $findProd_qry = 'select * from srvCards_dt where cardAlias = "'.$prodAlias.'"';
+                $findProd_res = $this->model->query($findProd_qry);
+                if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
+                    $findProd_row['count'] = $prodCount;
+                    $this->basketProducts[$prodAlias] = $findProd_row;;
+                }
             }
         }
+
 
     }
 
@@ -101,43 +102,44 @@ order by applCm_dt.dateEntered desc';
 
     function mkApplicationModal()
     {
+
         $errFlag = false;
 
         $this->prepareEditFields();
         $this->updateModelRecordFromRequest();
 
+        $fbfmResponse['clientName']['err'] = 0;
+        $fbfmResponse['clientMail']['err'] = 0;
+        $fbfmResponse['clientSubject']['err'] = 0;
+        $fbfmResponse['fbfa'] = 0;
+        $fbfmResponse['redirectUrl'] = '';
+        $fbfmResponse['mo-submit']['err'] = 0;
+        $fbfmResponse['mo-submit']['info'] = '';
 
-        if($this->model->checkClientName()){
-            $fbfmResponse['clientName']['err'] = 0;
-        }else{
+        if(!$this->model->checkClientName()){
             $errFlag = true;
             $fbfmResponse['clientName']['err'] = 1;
             $fbfmResponse['clientName']['info'] = $this->langMap->mkAppErr->err_f.': '.
                 $this->langMap->mkAppErr->err_1;
         }
 
-        if($this->model->checkUserEmail()){
-            $fbfmResponse['clientMail']['err'] = 0;
-        }else{
+        if(!$this->model->checkUserEmail()){
             $errFlag = true;
             $fbfmResponse['clientMail']['err'] = 1;
             $fbfmResponse['clientMail']['info'] = $this->langMap->mkAppErr->err_f.': '.
                 $this->langMap->mkAppErr->err_2;
         }
 
-
-        //$_SESSION['basket']['lang'] = $_SESSION['lang'];
         if(isset($_SESSION['basket']['total'])){
             $this->model->record['basket']['curVal'] = json_encode($_SESSION['basket']);
-            $fbfmResponse['clientSubject']['err'] = 0;
         }else{
             if(strlen($_POST['clientSubject'])>10){
-                $fbfmResponse['clientSubject']['err'] = 0;
+                //$fbfmResponse['clientSubject']['err'] = 0;
             }else{
                 $errFlag = true;
                 $fbfmResponse['clientSubject']['err'] = 1;
                 $fbfmResponse['clientSubject']['info'] = $this->langMap->mkAppErr->err_f.': '.
-                    $this->langMap->mkAppErr->err-3;
+                    $this->langMap->mkAppErr->err_3;
             }
         }
         if(isset($_SESSION['user_id'])){
@@ -151,7 +153,7 @@ order by applCm_dt.dateEntered desc';
             if($this->model->insertRecord()){
                 unset($_SESSION["basket"]);
                 $fbfmResponse['fbfa']=1;
-                $fbfmResponse['redirectUrl']='/applications/details/'.$this->model->record['appl_id']['curVal'];
+                $fbfmResponse['redirectUrl']=$this->langSl.'/applications/details/'.$this->model->record['appl_id']['curVal'];
 
 
                 $model_Pdo = ModelFactory::createFromExistModel('JointApp\Models\Model_Pdo', $this->model);
