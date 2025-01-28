@@ -32,16 +32,30 @@ class Model_Landing extends Model_Pdo
     }
     function basketCalc():array
     {
+
         $basket_prod = array();
-        if(isset($_SESSION['basket']['total']) and $_SESSION['basket']['total']>=1) {
-            $_SESSION["basket"]["total"] = 0;
+        $_SESSION["basket"]["total"] = 0;
+        if(isset($_SESSION['basket']['prod'])){
             foreach ($_SESSION['basket']['prod'] as $key => $val) {
-                $findProd_qry = "select * from srvCards_dt where cardAlias='" . $key . "'";
-                $findProd_res = $this->query($findProd_qry);
+                $qBuilder = new JointAppQueryBuilder();
+                $qBuilder->select(
+                    'card_id, '.
+                    'cardName_'.$this->langLw.' as cardName, '.
+                    'cardAlias,'.
+                    'shortDescr_'.$this->langLw.' as shortDescr, '.
+                    'cardImg, '.
+                    'cardActive, '.
+                    'cardPrice_'.$this->langLw.' as cardPrice, '.
+                    'cardCurr_'.$this->langLw.' as cardCurr, '.
+                    'unit_'.$this->langLw.' as unit'
+                )
+                    ->from('srvCards_dt')
+                    ->where('cardAlias="' . $key . '"');
+                $findProd_res = $this->query($qBuilder->buildQuery());
                 if($findProd_row = $findProd_res->fetch(\PDO::FETCH_ASSOC)){
                     $basket_prod[] = $findProd_row;
                     $_SESSION['basket']['total'] +=
-                        $findProd_row['cardPrice_'.$this->langLw]*$val;
+                        $findProd_row['cardPrice']*$val;
                 }
             }
         }
