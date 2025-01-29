@@ -8,5 +8,5 @@ use JointApp\Views\Records\RecordEditView;
 
 class View_User_Groups extends RecordEditView
 {
-
+    public bool $robotNoIndex = true;
 }

@@ -11,6 +11,7 @@ class View_User_NtfList extends RecordListView
 {
     public string $logo = '/img/modImg/eMail-logo.png';
     public string $shortcutIcon = '/img/modImg/eMail-logo.png';
+    public bool $robotNoIndex = true;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {

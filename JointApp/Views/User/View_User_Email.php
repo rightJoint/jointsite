@@ -12,6 +12,7 @@ class View_User_Email extends RecordEditView
 {
     public string $logo = "/img/popimg/eMailLogo.png";
     public string $shortcutIcon = "/img/popimg/eMailLogo.png";
+    public bool $robotNoIndex = true;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {

@@ -11,6 +11,7 @@ class View_User_Password extends RecordEditView
 {
     public string $logo = "/img/popimg/pass-img.png";
     public string $shortcutIcon = "/img/popimg/pass-img.png";
+    public bool $robotNoIndex = true;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {

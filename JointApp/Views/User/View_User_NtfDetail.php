@@ -11,6 +11,7 @@ class View_User_NtfDetail extends RecordDetailView
 {
     public string $logo = '/img/popimg/eye-icon.png';
     public string $shortcutIcon = '/img/popimg/eye-icon.png';
+    public bool $robotNoIndex = true;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []):LangWebViewInterface
     {
