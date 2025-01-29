@@ -288,7 +288,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langOrder = new stdClass();
 
-        $langOrder->hire_txt = 'Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreemen';
+        $langOrder->hire_txt = 'Looking for an opportunity for mutually beneficial collaboration. Ready to begin work by agreement';
         $langOrder->telega_t = 'Contact via Telegram';
 
         $orderForm = new stdClass();
