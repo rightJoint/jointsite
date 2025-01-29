@@ -1,6 +1,18 @@
 <?php
 class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
 {
+    static public function getLangHead():stdClass
+    {
+        $langHead = parent::getLangHead();
+
+        $langHead->description = 'Web-3 сайт от Right Joint: программирование на php и c#. '.
+            'Популярные услуги: php, c#, js, html, git, docker, crm. '.
+            'Блог - обсуждение.';
+        $langHead->title = 'Web-3 site';
+
+        return $langHead;
+    }
+
     static public function getLangPageContent():\stdClass
     {
         $langPageContent = parent::getLangPageContent();
@@ -52,18 +64,4 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
 
         return $langPageContent;
     }
-    /*
-    function __construct()
-    {
-
-        $this->head["h1"] = "Услуги разработчика";
-        $this->head["title"] = "Наёмный программист";
-        $this->head["description"] = "Наёмный программист RightJoint: программирование на php и c#. Создание нового и поддержка существующего софта. ".
-            "Бесплатно продукт jointPass - органайзер паролей, скачать. ".
-            "Популярные услуги: php, c#, js, html, git, ";
-
-        $this->producth2 = "Мои продукты - бесплатно";
-    );
-    }
-    */
 }

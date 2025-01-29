@@ -1,6 +1,18 @@
 <?php
 class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
 {
+    static public function getLangHead():stdClass
+    {
+        $langHead = parent::getLangHead();
+
+        $langHead->description = 'Web-3 site by Right Joint: programming on php и c#. '.
+            'Pop services: php, c#, js, html, git, docker, crm. '.
+            'Blog - discussions.';
+        $langHead->title = 'Web-3 site';
+
+        return $langHead;
+    }
+
     static public function getLangPageContent():\stdClass
     {
         $langPageContent = parent::getLangPageContent();
