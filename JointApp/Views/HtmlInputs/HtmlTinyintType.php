@@ -4,7 +4,7 @@
 namespace JointApp\Views\HtmlInputs;
 
 
-class HtmlTinyIntType extends HtmlInputView
+class HtmlTinyintType extends HtmlInputView
 {
     public function htmlInput()
     {
