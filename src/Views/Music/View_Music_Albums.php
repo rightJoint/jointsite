@@ -10,6 +10,7 @@ class View_Music_Albums extends View_Music
     public string $logo= '/img/popimg/albums.png';
     public string $shortcutIcon = '/img/popimg/music-logo.png';
     public $hasAccessCreate = false;
+    public bool $robotNoIndex = true;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []): LangWebViewInterface
     {

@@ -22,6 +22,7 @@ class View_Music extends RecordListView
 
     public $robot_no_index = true;
     public $metrik_block = false;
+    public bool $robotNoIndex = true;
 
     public static function addScriptLinks(callable $addScriptLinks): void
     {
