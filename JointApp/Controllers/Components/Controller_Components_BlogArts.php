@@ -26,6 +26,7 @@ class Controller_Components_BlogArts extends ModuleController
                 'controller' => 'JointApp\Controllers\Components\Controller_Components_BlogTagsToArts',
             ),
             'blogtags' => [],
+            'blogcats' => [],
         );
     }
 
@@ -46,8 +47,8 @@ class Controller_Components_BlogArts extends ModuleController
                 'curVal' => '',
             ),
             'artCat' => array(
-                'format' => 'varchar',
-                'curVal' => '',
+                'format' => 'select',
+                'filling' => $this->fillCatsList(),
             ),
             'artRef' => array(
                 'format' => 'varchar',
@@ -195,8 +196,12 @@ class Controller_Components_BlogArts extends ModuleController
             'art_id' => array(
                 'format' => 'varchar',
             ),
-            'artCat' => array(
+            'catName' => array(
                 'format' => 'varchar',
+                'custom' => false,
+            ),
+            'artCat' => array(
+                'format' => 'hidden',
             ),
             'artRef' => array(
                 'format' => 'varchar',
@@ -234,7 +239,11 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'tinyint',
             ),
             'created_by' => array(
+                'format' => 'hidden',
+            ),
+            'accAlias' => array(
                 'format' => 'varchar',
+                'custom' => false,
             ),
         );
     }
@@ -305,6 +314,19 @@ class Controller_Components_BlogArts extends ModuleController
             ),
         );
     }
-
+    public function fillCatsList():array
+    {
+        $findArts = 'select cat_id, catName_'.$this->langLw.' as catName from blogCats order by catName_'.$this->langLw;
+        $return = array(
+            '' => '',
+        );
+        $res = $this->model->pdoQuery($findArts);
+        if($res->rowCount() > 0){
+            while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
+                $return[$row['cat_id']] = $row['catName'];
+            }
+        }
+        return $return;
+    }
 
 }

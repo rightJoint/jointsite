@@ -5,6 +5,7 @@ namespace Src\RoutesCollection;
 
 use JointApp\Router\JointSiteRoute;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogArts;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogCats;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTags;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTagsToArts;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
@@ -36,6 +37,7 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_BlogArts;
     use RoutesCollection_Modules_BlogTags;
     use RoutesCollection_Modules_BlogTagsToArts;
+    use RoutesCollection_Modules_BlogCats;
     use RoutesCollection_Modules_Sitemap;
     use RoutesCollection_Modules_SitemapUpdate;
 
@@ -90,6 +92,9 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'blogtagstoarts') {
             $route = self::getRoute_ModuleBlogTagsToArts($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'blogcats') {
+            $route = self::getRoute_ModuleBlogCats($routes_ns);
+        }
         elseif (strtolower($routes_ns[2]) == 'sitemap'){
             $route = self::getRoute_ModuleSitemap($routes_ns);
         }
@@ -142,6 +147,9 @@ trait RoutesCollection_Siteman
         }
         elseif (strtolower($routes_ns[2]) == 'blogtagstoarts') {
             $route = self::postRoute_ModuleBlogTagsToArts($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'blogcats') {
+            $route = self::postRoute_ModuleBlogCats($routes_ns);
         }
         elseif (strtolower($routes_ns[2]) == 'sitemap'){
             $route = self::postRoute_ModuleSitemap($routes_ns);

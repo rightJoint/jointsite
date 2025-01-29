@@ -214,6 +214,11 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'тэги к статьям',
                 'usage' => false,
             ),
+            'blogcats' => array(
+                'refText' => 'категории',
+                'refTitle' => 'категории',
+                'usage' => false,
+            ),
             'sitemap' => array(
                 'refText' => 'карта сайта',
                 'refTitle' => 'карта сайта',

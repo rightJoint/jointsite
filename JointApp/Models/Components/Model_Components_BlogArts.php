@@ -5,6 +5,7 @@ namespace JointApp\Models\Components;
 
 
 use JointApp\Models\ModuleModel;
+use JointApp\JointAppQueryBuilder;
 
 class Model_Components_BlogArts extends ModuleModel
 {
@@ -80,6 +81,38 @@ class Model_Components_BlogArts extends ModuleModel
                 'custom' => false,
             ),
         );
+    }
+
+    public function listRecords(JointAppQueryBuilder $qBuilder): array
+    {
+        $qBuilder = $this->createdByListWhere($qBuilder);
+
+
+        $qBuilder->select(
+            $this->tableName.'.art_id, '.
+            $this->tableName.'.artCat, '.
+            $this->tableName.'.artRef, '.
+            $this->tableName.'.artName_en, '.
+            $this->tableName.'.artName_ru, '.
+            $this->tableName.'.artMeta_en, '.
+            $this->tableName.'.artMeta_ru, '.
+            $this->tableName.'.artImg, '.
+            $this->tableName.'.activeFlag, '.
+            $this->tableName.'.indexFlag, '.
+            $this->tableName.'.popFlag, '.
+            $this->tableName.'.pubDate, '.
+            $this->tableName.'.refreshDate, '.
+            $this->tableName.'.created_by, '.
+            'users_dt.accAlias, '.
+            'blogCats.catName_'.$this->langLw.' as catName'
+        )
+            ->from($this->tableName)
+            ->join(
+                'left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id '.
+                'left join blogCats on blogCats.cat_id = '.$this->tableName.'.artCat'
+            );
+
+        return $this->checkListButtons($this->fetchToArray($qBuilder->buildQuery()));
     }
 
     public function copyCustomFields(): bool
