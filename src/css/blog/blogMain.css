@@ -1,0 +1,229 @@
+.blog-filter{
+    margin-top: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-bottom: 2px solid silver;
+    background-color: rgb(250, 250, 210);
+}
+
+.blog-filter .blog-filter-cat{
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+}
+.blog-filter .blog-filter-cat label{
+    margin-left: 0.5em;
+    font-size: 0.9em;
+    color: midnightblue;
+}
+.blog-filter .blog-filter-cat label:after{
+    content: ": ";
+}
+
+.blog-filter .blog-filter-cat select{
+
+}
+
+.blog-filter .blog-filter-artName{
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+}
+.blog-filter .blog-filter-artName button{
+    font-size: 1em;
+    vertical-align: bottom;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    border-radius: 0.2em;
+}
+.blog-filter .blog-filter-artName button img{
+    height: 1.3em;
+    width: 1.3em;
+    vertical-align: middle;
+}
+.blog-filter .blog-filter-tags{
+    border: 1px solid darkorange;
+    display: inline-block;
+    width: 100%;
+}
+
+.blog-filter input, .blog-filter select{
+    font-size: 1em;
+}
+.blog-wrap-2, .blog-wrap-3 {
+    margin-top: 1em;
+    width: 100%;
+    display: table-row;
+}
+.blog-art-list{
+    width: 100%;
+    text-align: left;
+    display: table;
+    border-collapse:separate;
+    border-spacing:1em;
+}
+.blog-art-container{
+    vertical-align: top;
+    border: 1px solid darkorange;
+    display: table-cell;
+    padding: 0.5em 0.2em 0.2em 0.2em;
+    border-radius: 0.4em;
+    position: relative;
+    box-shadow: 0 0 0.2em rgba(0,0,0,0.5);
+}
+
+.blog-art-container img{
+    height: 5em;
+    width: 5em;
+    margin: 1em;
+    float: left;
+    border-radius: 0.2em;
+}
+.blog-art-header {
+    display: inline;
+    vertical-align: top;
+}
+.blog-art-header a {
+    color: navy;
+    text-decoration: none;
+    font-weight: bold;
+}
+.blog-art-refresh {
+    display: inline;
+    float: right;
+    font-size: 0.7em;
+}
+
+.blog-art-meta {
+    margin-top: 1em;
+    margin-bottom: 2em;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+a.blog-art-button {
+    vertical-align: bottom;
+    text-decoration: none;
+    background-color: darkorange;
+    color: white;
+    padding: 0.2em;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+    font-family: Serif;
+}
+
+.blog-pagination span.listPages {
+    cursor: pointer;
+    padding: 0.2em;
+}
+.pagination span.listPages.curPage {
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: silver;
+}
+/*>>pagination>>*/
+.blog-pagination {
+    font-size: 0.9em;
+    text-align: left;
+    display: inline-block;
+}
+.pl_text {
+    text-align: right;
+    width: 50%;
+    margin-bottom: 1em;
+    display: inline-block;
+}
+.blog-pagination span.p_btn {
+    color: darkorange;
+    cursor: pointer;
+    font-family: Serif;
+    text-decoration: none;
+}
+.blog-pagination span.p_btn.prev::before {
+    content: "«";
+}
+.blog-pagination span.p_btn.next::after {
+    content: "»";
+}
+.blog-pagination span.p_btn.active {
+    color: darkgrey;
+    cursor: default;
+}
+span.p_num {
+    color: black;
+    padding: 0.2em;
+    font-size: 0.8em;
+    background-color: darkorange;
+    margin: 0.2em;
+    border-radius: 0.1em;
+    text-decoration: none;
+    cursor: pointer;
+}
+span.p_num.active {
+    font-size: 1em;
+    color: white;
+    background-color: darkgrey;
+    cursor: default;
+}
+.pl_text span {
+    color: gray;
+}
+span.found_label{
+    display: inline;
+    color: darkgreen;
+
+}
+span.found_label span{
+    font-weight: bold;
+    color: midnightblue;
+}
+/*<<pagination<<*/
+
+.blog-options{
+    text-align: left;
+    color: rgb(54, 54, 54);
+}
+
+.blog-options label{
+    font-size: 0.8em;
+    color: midnightblue;
+    margin-left: 1em;
+}
+.blog-options select{
+    font-size: 0.8em;
+    border: none;
+    border-bottom: 1px solid midnightblue;
+}
+.blog-options label:after{
+    content: ': ';
+}
+
+.blog-count{
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.blog-sort {
+    display: inline-block;
+}
+
+.blog-view-options{
+    display: inline-block;
+}
+
+@media only screen and (max-width : 1024px) and (orientation : portrait){
+    .blog-wrap-2, .blog-wrap-3 {
+        display: inline-block;
+        /*width: 100%;*/
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .blog-wrap-2 .blog-art-container, .blog-wrap .blog-art-container {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 1em;
+    }
+}

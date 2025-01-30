@@ -10,7 +10,13 @@ trait RoutesCollection_Blog
     static function getRoute_Blog($routes_ns):JointSiteRoute
     {
         $route = new JointSiteRoute();
-        if(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'article'){
+        if(!isset($routes_ns[2]) or empty($routes_ns[2])){
+            $route
+                ->withController('Src\Controllers\Blog\Controller_Blog')
+                ->withModel('Src\Models\Blog\Model_Blog',)
+                ->withAction('actionIndex')
+                ->withView('Src\Views\Blog\View_Blog_Main');
+        }elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'article'){
             if(isset($routes_ns[3])){
                 $route
                     ->withController('Src\Controllers\Blog\Controller_Blog_Arts', ['artRef' => $routes_ns[3]])
@@ -29,6 +35,20 @@ trait RoutesCollection_Blog
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
             }
+        }
+        return $route;
+    }
+
+    static function postRoute_Blog($routes_ns):JointSiteRoute
+    {
+        $route = new JointSiteRoute();
+        if(isset($routes_ns[2]) and $routes_ns[2] == 'filter'){
+            $route
+                ->withController('Src\Controllers\Blog\Controller_Blog')
+                ->withModel('Src\Models\Blog\Model_Blog',)
+                ->withAction('actionFilter')
+                ->withView('Src\Views\Blog\View_Blog_Main')
+                ->responseFormat('json');
         }
         return $route;
     }
