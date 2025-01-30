@@ -119,7 +119,7 @@ class Controller_Blog extends Controller
             $viewLang = $this->view->loadLangView($this->view->docRoot, $this->view->langLw);
             $langPageContent = $viewLang::getLangPageContent();
 
-            $arr['listView'] = $this->view->printArtListBlock($langPageContent->langArtList, $artListArr, $this->inRow);
+            $arr['listView'] = $this->view->printArtListBlock($langPageContent->langArtList, $artListArr, $this->inRow, $this->langSl);
 
             $qBuilderCount = clone $qBuilder;
             $qBuilderCount

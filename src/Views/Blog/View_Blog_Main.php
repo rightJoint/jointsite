@@ -72,7 +72,7 @@ class View_Blog_Main extends SiteView
             '<div class="contentBlock-frame"><div class="contentBlock-center">'.
             '<div class="contentBlock-wrap">'.
             '<div class="blog-art-list">'.
-            self::printArtListBlock($langPageContent->langArtList, $viewParams->artsList, $viewParams->inRow).
+            self::printArtListBlock($langPageContent->langArtList, $viewParams->artsList, $viewParams->inRow, $viewParams->langSl).
             '</div></div></div></div>';
     }
 
@@ -119,7 +119,7 @@ class View_Blog_Main extends SiteView
         return $return;
     }
 
-    public static function printArtListBlock(\stdClass $langArtList, array $artListArr, $inRow):string
+    public static function printArtListBlock(\stdClass $langArtList, array $artListArr, int $inRow, string $langSl):string
     {
         $return = '';
         $len_cnt = 0;
@@ -146,12 +146,12 @@ class View_Blog_Main extends SiteView
             $return .= '<div class="blog-art-container">'.
                 '<img src="'.self::ART_COVERS.'/'.$row['artImg'].'" alt="art-img">'.
                 '<div class="blog-art-header">' .
-                '<a href="/'.'/'.$row['artRef'].'" title="'.$langArtList->refTitle.' rightjoint.ru">'.$row['artName'].'</a>'.
+                '<a href="'.$langSl.'/blog/article/'.$row['artRef'].'" title="'.$langArtList->refTitle.' rightjoint.ru">'.$row['artName'].'</a>'.
                 '<hr>'.
                 '</div>'.
                 '<div class="blog-art-refresh">'.$printDate.'</div>'.
                 '<div class="blog-art-meta">'.$row['artMeta'].'</div>'.
-                '<a class="blog-art-button" href="/'.'/'.$row['artRef'].'" title="'.$langArtList->refTitle.' rightjoint.ru">'.
+                '<a class="blog-art-button" href="'.$langSl.'/blog/article/'.$row['artRef'].'" title="'.$langArtList->refTitle.' rightjoint.ru">'.
                 $langArtList->refText.'</a>'.
                 '</div>';
 
