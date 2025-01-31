@@ -109,7 +109,20 @@ class JointSite implements RequestHandlerInterface
         $this->logger->logEndTime('actions');
 
         $newView = $controller->getView();
+
+        $this->updateWebViewParams($newView, $jointSiteRoute->responseFormat);
+
         return $newView;
+    }
+
+    private function updateViewParams($newView, string $responseFormat)
+    {
+        if(is_subclass_of($newView, 'JointApp\Views\WebView')){
+            if($responseFormat != 'json'){
+                $nftModel = ModelFactory::createModelFromRequest($this->request, 'JointApp\Models\User\Model_User_Notifications');
+                $newView->ntfCount = $nftModel->countRecords((new JointAppQueryBuilder())->where('read_date is null'));
+            }
+        }
     }
 
     public static function requestAdapter(ServerRequestInterface $request):ServerRequestInterface
