@@ -6,7 +6,7 @@ trait UserTrait
 {
     public static function checkUserLogin($login):bool
     {
-        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $login) == 0){
+        if (preg_match('/^[A-Za-z]{1}[0-9a-zA-Z-._]{2,15}$/imsiu', $login) == 0){
             return false;
         }
         return true;
@@ -14,10 +14,10 @@ trait UserTrait
 
     public static function checkUserPassword($password):bool
     {
-        if (preg_match('/^[a-z]{1}[0-9a-z-._]{2,15}$/imsiu', $password) == 0){
-            return false;
-        }else{
+        if (strlen($password) >= 3){
             return true;
+        }else{
+            return false;
         }
     }
 
