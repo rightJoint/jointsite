@@ -81,7 +81,7 @@ class Model_Landing extends Model_Pdo
             )
             ->from('blogArts')
             ->where(
-                'activeFlag is true'
+                'activeFlag is true and cat_id="6C20AC2A-7817-4440-A67D-5A3D40471275"'
             )
             ->order(
                 'pubDate desc'
