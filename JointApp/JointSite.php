@@ -115,7 +115,7 @@ class JointSite implements RequestHandlerInterface
         return $newView;
     }
 
-    private function updateViewParams($newView, string $responseFormat)
+    private function updateWebViewParams($newView, string $responseFormat)
     {
         if(is_subclass_of($newView, 'JointApp\Views\WebView')){
             if($responseFormat != 'json'){
