@@ -240,4 +240,24 @@ class Controller_User_Notifications extends Controller_User_Account
 
         $this->view->viewFields['tBody']['template_params'] = $this->model->record['tBody']['template_params'];
     }
+
+    public function deleteNotification()
+    {
+        global $currentUser;
+        if(!empty($this->ntf_id)){
+
+            $this->model->record['ntf_id']['curVal'] = $this->ntf_id;
+            $this->model->record['user_id']['curVal'] = $currentUser->user_id;
+            if($this->model->copyRecord()){
+                $this->model->record['del_flag']['curVal'] = true;
+                $this->model->updateRecord();
+                $this->logger->redirect($this->langSl.'/user/notifications/');
+            }else{
+                $this->logger->emergency($this->model->log_message,
+                    $this->logger->logger_context);
+            }
+        }else{
+            $this->logger->error('empty ntf_id on actionGetUserNtfDetail', $this->logger->logger_context);
+        }
+    }
 }
