@@ -43,6 +43,13 @@ trait RoutesCollection_User
                         ->withAction('actionGetSignUp')
                         ->withView('JointApp\Views\User\View_User_SignUp');
                 }
+                elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'validate') {
+                    $route
+                        ->withController('JointApp\Controllers\User\Controller_User_Validate')
+                        ->withModel('JointApp\Models\User\Model_User_Validate')
+                        ->withAction('actionIndex')
+                        ->withView('JointApp\Views\User\View_User_Validate');
+                }
         }
         //auth user
         else {
@@ -108,6 +115,13 @@ trait RoutesCollection_User
                     ->withModel('JointApp\Models\Model')
                     ->withAction('actionGetSignUp')
                     ->withView('JointApp\Views\User\View_User_SignUp');
+            }
+            elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'validate') {
+                $route
+                    ->withController('JointApp\Controllers\User\Controller_User_Validate')
+                    ->withModel('JointApp\Models\User\Model_User_Validate')
+                    ->withAction('actionIndex')
+                    ->withView('JointApp\Views\User\View_User_Validate');
             }
         }
 
