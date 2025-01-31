@@ -31,6 +31,9 @@ trait RoutesCollection_Blog
                 elseif(strtolower($routes_ns[3]) == 'phpstorm-reset-trial'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_PhpStormResetTrial');
                 }
+                elseif(strtolower($routes_ns[3]) == 'polygraph-exam'){
+                    $route->withView('Src\Views\Blog\Job\View_Blog_Job_Polygrath');
+                }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
