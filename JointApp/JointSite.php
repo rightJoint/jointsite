@@ -110,15 +110,26 @@ class JointSite implements RequestHandlerInterface
 
         $newView = $controller->getView();
 
+        $this->updateWebViewParams($newView, $jointSiteRoute->responseFormat);
+
+        return $newView;
+    }
+
+    private function updateWebViewParams($newView, string $responseFormat)
+    {
+        if(is_subclass_of($newView, 'JointApp\Views\WebView')){
+            if($responseFormat != 'json'){
+                $nftModel = ModelFactory::createModelFromRequest($this->request, 'JointApp\Models\User\Model_User_Notifications');
+                $newView->ntfCount = $nftModel->countRecords((new JointAppQueryBuilder())->where('read_date is null'));
+            }
+        }
         if(is_subclass_of($newView, 'JointApp\Views\SiteView')){
-            if($jointSiteRoute->responseFormat != 'json'){
+            if($responseFormat != 'json'){
                 $modelLanding = ModelFactory::createModelFromRequest($this->request, 'Src\Models\Model_Landing');
                 $newView->basket = $modelLanding->basketCalc();
                 $newView->popArts = $modelLanding->getPopArts();
             }
         }
-
-        return $newView;
     }
 
     public static function requestAdapter(ServerRequestInterface $request):ServerRequestInterface

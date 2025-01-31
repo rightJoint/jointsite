@@ -43,6 +43,13 @@ trait RoutesCollection_User
                         ->withAction('actionGetSignUp')
                         ->withView('JointApp\Views\User\View_User_SignUp');
                 }
+                elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'validate') {
+                    $route
+                        ->withController('JointApp\Controllers\User\Controller_User_Validate')
+                        ->withModel('JointApp\Models\User\Model_User_Validate')
+                        ->withAction('actionIndex')
+                        ->withView('JointApp\Views\User\View_User_Validate');
+                }
         }
         //auth user
         else {
@@ -70,6 +77,12 @@ trait RoutesCollection_User
                         ->withAction('actionUserSubMenu')
                         ->withAction('actionGetUserNtfDetail')
                         ->withView('JointApp\Views\User\View_User_NtfDetail');
+                }elseif($routes_ns[3] == 'deleteview'){
+                    $route
+                        ->withController('JointApp\Controllers\User\Controller_User_Notifications')
+                        ->withModel('JointApp\Models\User\Model_User_Notifications')
+                        ->withAction('deleteNotification')
+                        ->withView('JointApp\Views\View');
                 }
 
             }
@@ -108,6 +121,13 @@ trait RoutesCollection_User
                     ->withModel('JointApp\Models\Model')
                     ->withAction('actionGetSignUp')
                     ->withView('JointApp\Views\User\View_User_SignUp');
+            }
+            elseif (isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'validate') {
+                $route
+                    ->withController('JointApp\Controllers\User\Controller_User_Validate')
+                    ->withModel('JointApp\Models\User\Model_User_Validate')
+                    ->withAction('actionIndex')
+                    ->withView('JointApp\Views\User\View_User_Validate');
             }
         }
 

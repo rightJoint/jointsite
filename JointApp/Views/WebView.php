@@ -93,6 +93,10 @@ class WebView extends View implements WebViewInterface
     public int $firstEvent = 0;
     public int $lastEvent = 0;
 
+    //new user notifications
+    //modal-menu
+    public int $ntfCount = 0;
+
 
 
     function __construct()
@@ -167,6 +171,7 @@ class WebView extends View implements WebViewInterface
         $viewParams->modalMenuActive = $this->modalMenuActive;
         $viewParams->langRef = $this->langRef;
         $viewParams->langSl = $this->langSl;
+        $viewParams->ntfCount = $this->ntfCount;
         $viewParams->userModules = ModulesAccessList::getUserModules();
 
         $authForms = new \stdClass();
@@ -390,6 +395,7 @@ class WebView extends View implements WebViewInterface
         $styleLinks = array(
             '/css/default.css',
             '/css/header.css',
+            '/css/header/modal-menu.css',
             '/css/site-footer.css',
             '/css/errors.css',
         );
@@ -663,7 +669,8 @@ class WebView extends View implements WebViewInterface
 
         $pageModals.= self::modalMenuSiteman($langModal->modulesMenu, $viewParams->userModules, $viewParams->langSl, $viewParams->routes_ns).
             static::createModalContent($langModal, $viewParams).
-            self::modalSignPanel($langModal->modalSignUser, $langModal->authForms, $viewParams->authForms, $viewParams->langSl);
+            self::modalSignPanel($langModal->modalSignUser, $langModal->authForms, $viewParams->authForms,
+                $viewParams->langSl, $viewParams->ntfCount);
 
         $pageModals.= '</div></div></div></div>';
         return $pageModals;
@@ -681,7 +688,7 @@ class WebView extends View implements WebViewInterface
     }
 
     public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm,
-                                          string $langSl = 'ru'):string
+                                          string $langSl = 'ru', int $ntfCount = 0):string
     {
         global $currentUser;
 
@@ -710,8 +717,17 @@ class WebView extends View implements WebViewInterface
                 'title="'.$modalSignUser->title.'">'.
                 $modalSignUser->siteUser.':</a>'.
                 $currentUser->accAlias.'<sup><a href="/user/cmd?exit=userquit" title="'.$modalSignUser->exit_title.'">'.
-                $modalSignUser->exit.'</a></sup></div>'.
-                '</div>';
+                $modalSignUser->exit.'</a></sup>';
+            if($ntfCount){
+                $user.= '<div class="modal-line-user-info">'.
+                    '<div class="modal-line-user-notifications">'.
+                    '<a href="'.$langSl.'/user/notifications" title="Читать уведомления"><img src="/img/popimg/email-logo3.png"></a>'.
+                    '<sup>'.$ntfCount.'</sup>'.
+                    '</div>'.
+                    '</div>'.
+                    '</div>'.
+                    '</div>';
+            }
             return $user;
         }else{
             $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm, $langSl);

@@ -1,0 +1,12 @@
+.modal-line-user-info{
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    margin-right: 1em;
+}
+
+.modal-line-user-info img{
+    height: 1.5em;
+    width: 1.5em;
+    right: 1em;
+}
