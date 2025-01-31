@@ -65,10 +65,16 @@ class Controller_Components_BlogArts extends ModuleController
             'artMeta_en' => array(
                 'format' => 'text',
                 'curVal' => '',
+                'style' => array(
+                    'class' => 'wd100',
+                ),
             ),
             'artMeta_ru' => array(
                 'format' => 'text',
                 'curVal' => '',
+                'style' => array(
+                    'class' => 'wd100',
+                ),
             ),
             'artImg' => array(
                 'format' => 'file',
