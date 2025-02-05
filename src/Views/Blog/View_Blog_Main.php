@@ -53,6 +53,7 @@ class View_Blog_Main extends SiteView
         parent::addStyleLinks($addStyleLinks);
         $addStyleLinks([
             '/css/blog/blogMain.css',
+            '/css/blog/blogOptionsPanel.css',
         ]);
     }
 
@@ -64,7 +65,7 @@ class View_Blog_Main extends SiteView
             '<div class="blog-options">'.
             self::printCountArts($langPageContent->foundLabel, $viewParams->blogCountArts).
             '<div class="blog-pagination">'.
-            self::printPaginationBlock($viewParams->blogCountArts, $viewParams->curPage, $viewParams->onPage).
+            self::printPaginationBlock($langPageContent->langPg, $viewParams->blogCountArts, $viewParams->curPage, $viewParams->onPage).
             '</div>'.
             self::printSortBlock($langPageContent->langSortBlock).
             self::printViewOptionsBlock($langPageContent->langViewOpt).
@@ -113,9 +114,9 @@ class View_Blog_Main extends SiteView
         return $return;
     }
 
-    public static function printPaginationBlock(int $recordsCount, int $curPage, int $onPage):string
+    public static function printPaginationBlock(\stdClass $langPg, int $recordsCount, int $curPage, int $onPage):string
     {
-        $return = RecordListView::paginationPrint($recordsCount, $curPage, $onPage);
+        $return = RecordListView::paginationPrint($langPg, $recordsCount, $curPage, $onPage);
         return $return;
     }
 
@@ -178,7 +179,6 @@ class View_Blog_Main extends SiteView
     {
         $return =
             '<div class="blog-sort">'.
-            '<div class="blog-sort-field">'.
             '<label for="blog-sort-field">'.$langSortBlock->labelSortField.'</label>'.
             '<select id="blog-sort-field">'.
             '<option value="refreshDate">'.$langSortBlock->optRefreshDate.'</option>'.
@@ -190,7 +190,6 @@ class View_Blog_Main extends SiteView
             '<option value="DESC">'.$langSortBlock->optOrderDesc.'</option>'.
             '<option value="ASC">'.$langSortBlock->optOrderAsc.'</option>'.
             '</select>'.
-            '</div>'.
             "</div>";
         return $return;
     }
