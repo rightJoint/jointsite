@@ -128,7 +128,7 @@ class Controller_Blog extends Controller
 
             $arr['blogCountArts'] = $this->model->countRecords($qBuilderCount);
 
-            $arr['pg'] = $this->view->printPaginationBlock($arr['blogCountArts'], $this->curPage, $this->onPage);
+            $arr['pg'] = $this->view->printPaginationBlock($langPageContent->langPg, $arr['blogCountArts'], $this->curPage, $this->onPage);
         }
         $this->view->responseJson = $arr;
     }
