@@ -5,13 +5,69 @@ namespace Src\Controllers\Blog;
 
 
 use JointApp\Controllers\Controller;
+use JointApp\Factories\ModelFactory;
+use JointApp\JointAppQueryBuilder;
+use JointApp\Views\Records\RecordListView;
 
 class Controller_Blog_Arts extends Controller
 {
     public string $artRef = '';
 
-    public $artRow = [];
-    public $artTags = [];
+    public array $artRow = [];
+    public array $artTags = [];
+    public array $listComments = [];
+
+    public bool $addCommentFlag = false;
+    public string $formCommentsContent = '';
+    public string $commentP_id = 'new';
+    public string $formCommentsErr = '';
+    public string $formCommentsRef = '';
+    public int $countComments = 0;
+
+    public int $curPage = 1;
+    public int $onPage = 5;
+    public string $sort = 'new-first';
+    public string $viewtype = 'tree';
+
+    public bool $filterComments = false;
+    public string $filterCommentsRef = '';
+
+
+    public function controllerFilterBody($bodyParams = []): void
+    {
+        parent::controllerFilterBody($bodyParams);
+
+        if(isset($bodyParams['addCommentFlag']) and $bodyParams['addCommentFlag'] == 'y'){
+            $this->addCommentFlag = true;
+            if(isset($bodyParams['formCommentsContent']) and !empty($bodyParams['formCommentsContent'])){
+                $this->formCommentsContent = $bodyParams['formCommentsContent'];
+            }
+            if(isset($bodyParams['commentP_id']) and !empty($bodyParams['commentP_id'])){
+                $this->commentP_id = $bodyParams['commentP_id'];
+            }
+        }elseif (isset($bodyParams['filterComments']) and $bodyParams['filterComments'] == 'y') {
+            $this->filterComments = true;
+
+        }
+        if(isset($bodyParams['artRef']) and !empty($bodyParams['artRef'])){
+            $this->formCommentsRef = $bodyParams['artRef'];
+        }
+        if (isset($bodyParams['curPage']) and !empty($bodyParams['curPage'])) {
+            $this->curPage = intval($bodyParams['curPage']);
+        }
+        if (isset($bodyParams['onPage']) and !empty($bodyParams['onPage'])) {
+            $this->onPage = $bodyParams['onPage'];
+        }
+        if (isset($bodyParams['sort']) and !empty($bodyParams['sort'])) {
+            $this->sort = $bodyParams['sort'];
+        }
+        if (isset($bodyParams['viewtype']) and !empty($bodyParams['viewtype'])) {
+            $this->viewtype = $bodyParams['viewtype'];
+        }
+        if(isset($bodyParams['artRef']) and !empty($bodyParams['artRef'])){
+            $this->filterCommentsRef = $bodyParams['artRef'];
+        }
+    }
 
     public function controllerFilterParams($controllerParams = []): void
     {
@@ -22,11 +78,31 @@ class Controller_Blog_Arts extends Controller
         }
     }
 
+    public function controllerFilterQuery($queryParams = []): void
+    {
+        parent::controllerFilterQuery($queryParams);
+        if(isset($queryParams['curPage']) and !empty($queryParams['curPage'])){
+            $this->curPage = $queryParams['curPage'];
+        }
+        if(isset($queryParams['onPage']) and !empty($queryParams['onPage'])){
+            $this->onPage = $queryParams['onPage'];
+        }
+        if(isset($queryParams['sort']) and !empty($queryParams['sort'])){
+            $this->sort = $queryParams['sort'];
+        }
+        if(isset($queryParams['viewtype']) and !empty($queryParams['viewtype'])){
+            $this->viewtype = $queryParams['viewtype'];
+        }
+    }
+
     function actionIndex()
     {
         $this->artRow = $this->model->getBlogArt($this->artRef);
         if(isset($this->artRow['art_id'])){
             $this->artTags = $this->model->getArtTags($this->artRow['art_id']);
+            $this->listComments = $this->listComments();
+            $this->countComments = $this->countComments();
+
             $this->prepareViewParams();
         }else{
             $this->logger->error('article not found on actionIndex', $this->logger->logger_context);
@@ -38,6 +114,164 @@ class Controller_Blog_Arts extends Controller
     {
         $this->view->artRow = $this->artRow;
         $this->view->artTags = $this->artTags;
+
+        $this->view->commentP_id = $this->commentP_id;
+        $this->view->formCommentsContent = $this->formCommentsContent;
+        $this->view->formCommentsErr = $this->formCommentsErr;
+        $this->view->artRef = $this->artRef;
+        $this->view->listComments = $this->listComments;
+        $this->view->countComments = $this->countComments;
+
+        $this->view->curPage = $this->curPage;
+        $this->view->onPage = $this->onPage;
+        $this->view->sort = $this->sort;
+        $this->view->viewtype = $this->viewtype;
     }
 
+    public function postComment()
+    {
+        if($this->addCommentFlag){
+            global $currentUser;
+
+            if(!empty($currentUser->user_id)){
+                if($this->commentP_id != 'new' and !empty($this->commentP_id)){
+                    $insertParId = '"'.$this->commentP_id.'"';
+                }else{
+                    $insertParId = 'NULL';
+                }
+
+                $insertContent = str_replace('"', '', $this->formCommentsContent);
+
+                if(strlen($insertContent) > 10){
+                    if($this->formCommentsRef == $this->artRef){
+                        $this->artRow = $this->model->getBlogArt($this->artRef);
+                        if(isset($this->artRow['art_id'])){
+                            $insertComment = 'insert into blogComments '.
+                                '(comment_id, commentP_id, art_id, content, created_by, activeFlag, addDate) '.
+                                'values '.
+                                '("'.$this->model->createGUID().'", '.$insertParId.', "'.$this->artRow['art_id'].'", "'.$insertContent.'", '.
+                                '"'.$currentUser->user_id.'", true, "'.date('Y-m-d H:i:s').'")';
+
+                            if($this->model->pdoQuery($insertComment)){
+                                $this->commentP_id = 'new';
+                                $this->formCommentsContent = '';
+                                $this->prepareViewParams();
+                                $this->logger->redirect($this->langSl.'/blog/article/'.$this->artRef.
+                                    '?curPage='.$this->curPage.'&onPage='.$this->onPage.'&sort='.$this->sort);
+                            }else{
+
+                            }
+
+                            $this->view->curPage = $this->curPage;
+                            $this->view->onPage = $this->onPage;
+                            $this->view->sort = $this->sort;
+                            $this->view->viewtype = $this->viewtype;
+
+                            $this->view->formCommentsContent = $this->formCommentsContent;
+                            $this->view->commentP_id = $this->commentP_id;
+                            $this->view->formCommentsErr = $this->formCommentsErr;
+                            $this->view->artRef = $this->artRef;
+
+                        }else{
+                            $this->logger->error('article not found on actionIndex', $this->logger->logger_context);
+                        }
+
+                    }else{
+                        $this->logger->notice('wrong comment artRef', $this->logger->logger_context);
+                    }
+                }else{
+                    $this->formCommentsErr = 'too few content';
+                }
+            }else{
+                $this->logger->notice('unknown user to post comment', $this->logger->logger_context);
+            }
+        }
+    }
+
+    public function commentsSearchQuery():JointAppQueryBuilder
+    {
+        $qBuilder = new JointAppQueryBuilder();
+        $qBuilder->where('blogArts.art_id = "'.$this->artRow['art_id'].'"');// $artRef
+
+        $limit = (($this->curPage-1)*$this->onPage).", ".$this->onPage;
+
+        if($this->sort == 'by-date'){
+            $qBuilder->order('blogComments.addDate');
+        }elseif ($this->sort == 'new-first'){
+            $qBuilder->order('blogComments.addDate DESC');
+        }
+
+        $qBuilder->limit($limit);
+
+        return $qBuilder;
+    }
+
+    public function listComments():array
+    {
+        $factory = new ModelFactory();
+        $comments = $factory::createFromExistModel('Src\Models\Blog\Model_Blog_Comments', $this->model);
+
+        $qBuilder = $this->commentsSearchQuery();
+        $list = $comments->listRecordsRecursive($qBuilder);
+
+        return $list;
+    }
+
+    public function countComments():int
+    {
+        $factory = new ModelFactory();
+        $comments = $factory::createFromExistModel('Src\Models\Blog\Model_Blog_Comments', $this->model);
+
+        $qBuilder = new JointAppQueryBuilder();
+        $qBuilder->where('blogArts.art_id = "'.$this->artRow['art_id'].'"');// $artRef
+
+        return $comments->countRecords($qBuilder);
+    }
+
+    public function filterComments()
+    {
+        if($this->filterComments){
+            $this->artRow = $this->model->getBlogArt($this->filterCommentsRef);
+
+            $qBuilder = $this->commentsSearchQuery();
+            $qBuilder_count = clone($qBuilder);
+            $factory = new ModelFactory();
+            $comments = $factory::createFromExistModel('Src\Models\Blog\Model_Blog_Comments', $this->model);
+
+            $viewLang = $this->view->loadLangView($this->view->docRoot, $this->view->langLw);
+            $langPageContent = $viewLang::getLangPageContent();
+
+
+            $listComments = $comments->listRecordsRecursive($qBuilder);
+            $authUser = false;
+            global $currentUser;
+            if(!empty($currentUser->user_id)){
+                $authUser = true;
+            }
+
+            $fromParams = new \stdClass();
+            $fromParams->formCommentsContent = $this->formCommentsContent;
+            $fromParams->commentP_id = $this->commentP_id;
+            $fromParams->formCommentsErr = $this->formCommentsErr;
+            $fromParams->artRef = $this->artRef;
+
+            $filterParams = new \stdClass();
+            $filterParams->curPage = $this->curPage;
+            $filterParams->onPage = $this->onPage;
+            $filterParams->sort = $this->sort;
+            $filterParams->viewtype = $this->viewtype;
+
+            $listView = $this->view->printArtCommentsList($langPageContent->langList, $listComments, $langPageContent->formComments,
+                $fromParams, $filterParams, $authUser);
+
+            $qBuilder_count->limit = '';
+            $qBuilder_count->order = '';
+            $count = $comments->countRecords($qBuilder_count);
+            $pg = RecordListView::paginationPrint($langPageContent->landFilter->langPg, $count, $this->curPage, $this->onPage);
+            $this->view->responseJson = array('listView' => $listView, 'count' => $count, 'pg' => $pg);
+        }else{
+            $this->view->responseJson = 'nnnn';
+        }
+
+    }
 }
