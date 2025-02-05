@@ -370,7 +370,6 @@ class Model_Migrations extends RecordsModel
                 if(!empty($this->record[$key]['curVal'])){
                     $curVal = str_replace(array(";"), '', $this->record[$key]['curVal']);
                     $commands.=$curVal.';'."\n";
-                    $commands.=$this->record[$key]['curVal'].';'."\n";
                 }
             }
         }
