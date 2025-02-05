@@ -20,6 +20,12 @@ class LangFiles_Ru_Views_Templates_RecordsList extends LangFiles_Ru_Views_SiteVi
         $filterView = new stdClass();
         $filterView->list_table = $list_table;
 
+        $langPg = new \stdClass();
+        $langPg->next = 'след.';
+        $langPg->pre = 'пред.';
+
+        $filterView->langPg = $langPg;
+
         $langPageContent->fiterView = $filterView;
         return $langPageContent;
     }

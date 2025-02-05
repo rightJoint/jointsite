@@ -168,7 +168,7 @@ class RecordListView extends RecordView
     {
         return '<span class="found_label">'.$langFilterView->list_table['found'].
             ': <span>'.$viewParams->listCount.'</span></span>'.
-            self::paginationPrint($viewParams->listCount, $viewParams->curPage, $viewParams->onPage);
+            self::paginationPrint($langFilterView->langPg, $viewParams->listCount, $viewParams->curPage, $viewParams->onPage);
     }
 
     public static function ctrlLine($langFilterView, \stdClass $viewParams = null)
@@ -399,7 +399,7 @@ class RecordListView extends RecordView
 
     }
 
-    public static function paginationPrint($recordsCount, $curPage, $onPage, $length=2, $pag_length=2):string
+    public static function paginationPrint(\stdClass $langPg, $recordsCount, $curPage, $onPage, $length=2, $pag_length=2):string
     {
         //$length = 2;        //optional: count cells in table row
         //$pag_length = 2;    //optional:
@@ -430,7 +430,7 @@ class RecordListView extends RecordView
         $page_list = null;
         for ($i = $start_p_num; $i <= $end_p_num; $i++){
             if ($curPage == $i){
-                $page_list .= '<span class = "p_num active">'.$i.'</span>';
+                $page_list .= '<span class = "p_num active" page="'.$i.'">'.$i.'</span>';
             }else{
                 if($i == 1){
                     $page_list .= '<span class = "p_num" page="'.$i.'" '.
@@ -444,16 +444,16 @@ class RecordListView extends RecordView
 
         if($curPage < $page_count){
             $btn_nex = '<span class="p_btn next" page="'.($curPage+1).'" '.
-                '>след.</span>';
+                '>'.$langPg->next.'</span>';
         }else {
-            $btn_nex = '<span class="p_btn next active">след.</span>';
+            $btn_nex = '<span class="p_btn next active" page="'.$curPage.'">'.$langPg->next.'</span>';
         }
 
         if ($curPage > 1){
             $btn_pre = '<span class="p_btn prev" page="'.($curPage-1).'" '.
-                '>пред.</span>';
+                '>'.$langPg->pre.'</span>';
         }else {
-            $btn_pre = '<span class="p_btn prev active">пред.</span>';
+            $btn_pre = '<span class="p_btn prev active" page="'.$curPage.'">'.$langPg->pre.'</span>';
         }
 
         return $btn_pre.$page_list.$btn_nex;
