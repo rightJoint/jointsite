@@ -1,0 +1,158 @@
+.art-comments h3{
+    text-align: left;
+    color: midnightblue;
+}
+.art-comments-form{
+    border-top: 1px solid silver;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.form-comments-check-in{
+    text-align: left;
+}
+
+.form-comments-check-in img{
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0.2em;
+    vertical-align: middle;
+}
+.form-comments-check-in span{
+    vertical-align: middle;
+}
+.form-comments-check-in span.check-in{
+    color: darkgreen;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.form-comments-check-in a{
+    vertical-align: middle;
+}
+
+.form-comments-user{
+    margin-top: 0.8em;
+    margin-bottom: 0.5em;
+    text-align: left;
+}
+
+.form-comments-user img{
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 0.2em;
+    vertical-align: middle;
+}
+.form-comments-user span{
+    vertical-align: middle;
+    padding: 0.2em;
+    font-weight: bold;
+}
+.form-comments-buttons{
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+.form-comments-buttons button{
+    padding: 0.2em;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.form-comments-err{
+    text-align: right;
+    background-color: firebrick;
+    color: lightgrey;
+}
+.art-comments-list{
+    margin-top: 1em;
+}
+
+.art-comment-container{
+    border-left: 1px dotted gray;
+    margin-left: 0.7em;
+}
+.art-comment-container-top{
+    text-align: left;
+}
+.art-comment-container-user{
+    width: 49%;
+    display: inline-block;
+    text-align: left;
+    margin-left: -0.7em;
+}
+.art-comment-container-user img{
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 0.2em;
+    vertical-align: middle;
+}
+.art-comment-container-user span{
+    height: 1.4em;
+    width: 1.4em;
+    vertical-align: middle;
+    font-weight: bold;
+    margin-left: 0.5em;
+}
+.art-comment-container-like{
+    width: 49%;
+    display: inline-block;
+    text-align: right;
+}
+.art-comment-container-content{
+    width: calc(100% - 0.7em);
+    text-align: left;
+    margin-left: 0.7em;
+    border-left: 1px solid lightgrey;
+    background-color: lightgoldenrodyellow;
+    border-bottom: 1px solid lightgrey;
+    border-right: 1px dotted gray;
+    border-top: 1px dotted gray;
+    padding: 0;
+    border-bottom-left-radius: 0.3em;
+}
+
+.art-comment-container-content .comment-date{
+    text-align: right;
+    color: darkgray;
+    font-size: 0.7em;
+}
+
+.art-comment-container-content p{
+    margin: 0;
+    padding: 0.2em;
+}
+.art-comment-container-bottom{
+    width: calc(100% - 0.7em);
+    margin-left: 0.7em;
+    text-align: left;
+    font-size: 0.8em;
+    padding-bottom: 1em;
+}
+.art-comments-new {
+    text-align: left;
+}
+span.respond{
+    cursor: pointer;
+}
+.art-comments-new span.respond-new{
+    color: midnightblue;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: none;
+}
+.art-comments-new.active span.respond-new{
+    display: block;
+}
+
+.art-comment-container .art-comment-container {
+    margin-left: 1.4em;
+}
+
+.art-comment-container .art-comment-container:last-child {
+    border: none;
+}
+.add-first-comment{
+    background-color: lemonchiffon;
+    padding: 0.5em;
+}
