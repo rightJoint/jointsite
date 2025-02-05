@@ -58,6 +58,12 @@ class LangFiles_En_Views_BlogMain extends LangFiles_En_Views_SiteView
 
         $langPageContent->foundLabel = 'Found';
 
+        $langPg = new \stdClass();
+        $langPg->next = 'next';
+        $langPg->pre = 'pre';
+
+        $langPageContent->langPg = $langPg;
+
         return $langPageContent;
     }
 }

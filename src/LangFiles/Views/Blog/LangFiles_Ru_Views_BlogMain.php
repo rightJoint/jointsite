@@ -58,6 +58,12 @@ class LangFiles_Ru_Views_BlogMain extends LangFiles_Ru_Views_SiteView
 
         $langPageContent->foundLabel = 'Найдено';
 
+        $langPg = new \stdClass();
+        $langPg->next = 'след.';
+        $langPg->pre = 'пред.';
+
+        $langPageContent->langPg = $langPg;
+
         return $langPageContent;
     }
 }
