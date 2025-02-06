@@ -59,6 +59,10 @@ class ModulesAccessList
                 //blogcats
                 'admin-only',
             ),
+            'blogcomments' => array(
+                //blogcomments
+                'admin-only',
+            ),
             'sitemap' => array(
                 //sitemap
                 'admin',
