@@ -65,7 +65,8 @@ class Model_Pdo extends \PDO
 
         if($this->checkAccessModel()){
             $this->modelFromParams($modelParams);
-            $this->connectDb($sql_db_connect_json = $this->configDir.'/db_conn.php');
+            require_once $this->configDir.'/DbConnector.php';
+            $this->connectDb(new \DbConnector());
         }else{
             $this->logger->warning('check-access-model __construct return false', $this->logger->logger_context);
         }
@@ -88,18 +89,15 @@ class Model_Pdo extends \PDO
 
     }
 
-    private function connectDb($sql_db_connect_json): bool
+    private function connectDb(\DbConnector $DbConnector): bool
     {
         if(getenv('DOCKER_RUN') == "Y"){
-            $connSettings = $this->setUpConnectDocker();
-        }else{
-            $connSettings = $this->setUpConnectConfig($sql_db_connect_json);
+            $DbConnector = $this->setUpConnectDocker();
         }
-
-        $this->conn_db = $connSettings["CONN_DB"];
+        $this->conn_db = $DbConnector->getDb();
         try {
-            parent::__construct('mysql:host=' . $connSettings["CONN_LOC"] . ';',
-                $connSettings["CONN_USER"], $connSettings["CONN_PW"]);
+            parent::__construct('mysql:host=' . $DbConnector->getLoc(). ';',
+                $DbConnector->getUser(), $DbConnector->getPw());
             $this->connect_server_status = true;
 
             if($this->selectDatabase()){
@@ -136,42 +134,12 @@ class Model_Pdo extends \PDO
         return false;
     }
 
-    private function setUpConnectConfig($sql_db_connect_json = JOINT_SITE_CONF_DIR."/db_conn.php"):array
-    {
-        $connSettings = array(
-            "CONN_LOC" => "",
-            "CONN_DB" => "",
-            "CONN_PW" => "",
-            "CONN_USER" => "",
-        );
-        if(file_exists($sql_db_connect_json)) {
-            if ($try_connSettings = json_decode(@file_get_contents($sql_db_connect_json), true)) {
-                $connSettings = $try_connSettings;
-            }else{
-                $this->log_message = $this->langMap->conn_err["file_not_valid"].": ".
-                    "PDO object is not initialized, constructor was not called";
-                $this->logger->alert("Model_pdo throw err:".$this->log_message, $this->logger->logger_context);
-            }
-        }else{
-            $this->log_message = $this->langMap->conn_err["file_not_found"].": ".
-                $sql_db_connect_json.
-                "PDO object is not initialized, constructor was not called";
-            $this->logger->alert("Model_pdo throw err:".$this->log_message, $this->logger->logger_context);
-        }
-        return $connSettings;
-    }
-
-    private function setUpConnectDocker():array
+    private function setUpConnectDocker():\DbConnector
     {
         $password_file_path = getenv('PASSWORD_FILE_PATH');
         $db_pass = trim(file_get_contents($password_file_path));
-        $connSettings = array(
-            "CONN_LOC" => getenv('DB_HOST'),
-            "CONN_DB" => getenv('DB_NAME'),
-            "CONN_PW" => $db_pass,
-            "CONN_USER" => getenv('DB_USER'),
-        );
-        return $connSettings;
+        require_once $this->configDir.'/DbConnector.php';
+        return new \DbConnector(getenv('DB_HOST'), getenv('DB_NAME'), getenv('DB_USER'), $db_pass);
     }
 
     /*

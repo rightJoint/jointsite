@@ -724,10 +724,10 @@ class WebView extends View implements WebViewInterface
                     '<a href="'.$langSl.'/user/notifications" title="Читать уведомления"><img src="/img/popimg/email-logo3.png"></a>'.
                     '<sup>'.$ntfCount.'</sup>'.
                     '</div>'.
-                    '</div>'.
-                    '</div>'.
                     '</div>';
             }
+            $user.= '</div>'.
+                '</div>';
             return $user;
         }else{
             $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm, $langSl);
