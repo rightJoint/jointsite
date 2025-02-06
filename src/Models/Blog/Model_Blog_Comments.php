@@ -68,12 +68,12 @@ class Model_Blog_Comments extends RecordsModel
     public function listRecordsRecursive(JointAppQueryBuilder $qBuilder, $commentP_id = null): array
     {
         if(isset($commentP_id)){
-            $addCond = $this->tableName.'.commentP_id = "'.$commentP_id.'"';
+            $addCond = $this->tableName.'.commentP_id = "'.$commentP_id.'" and '.$this->tableName.'.activeFlag is true';
                 $qBuilder->where($addCond);
             $qBuilder->limit = '';
 
         }else{
-            $addCond = $this->tableName.'.commentP_id is NULL';
+            $addCond = $this->tableName.'.commentP_id is NULL and '.$this->tableName.'.activeFlag is true';
             if(!empty($qBuilder->where)){
                 $qBuilder->where($qBuilder->where.' and '.$addCond);
             }else{
@@ -118,7 +118,7 @@ class Model_Blog_Comments extends RecordsModel
         $appQueryBuilder->select('count('.$this->tableName.'.comment_id'.') as cnt ')
             ->from($this->tableName)
             ->join('inner join blogArts on blogArts.art_id = '.$this->tableName.'.art_id');
-        $appQueryBuilder->where.=' and '.$this->tableName.'.commentP_id is NULL';
+        $appQueryBuilder->where.=' and '.$this->tableName.'.commentP_id is NULL and '.$this->tableName.'.activeFlag is true';
 
         $res = $this->fetchToArray($appQueryBuilder->buildQuery());
 
