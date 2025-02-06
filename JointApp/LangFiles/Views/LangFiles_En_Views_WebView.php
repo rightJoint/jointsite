@@ -49,7 +49,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langPageContent = new stdClass();
         $langPageContent->pageContent = 'put there page content';
-        $langPageContent->modulesMenu = self::modulesList();
+        $langPageContent->modulesMenu = static::modulesList();
 
         $langPageContent->langLw = 'en';
 
@@ -121,7 +121,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langModal->homeRefDefTitle = 'Deploy your own Web-3 site';
         $langModal->langPanelTextRus = 'смотреть на русском';
         $langModal->langPanelTextEn = 'view in english';
-        $langModal->modulesMenu = self::modulesList();
+        $langModal->modulesMenu = static::modulesList();
 
         $authForms = new stdClass();
         $authForms->signInForm = self::modalSignInForm();

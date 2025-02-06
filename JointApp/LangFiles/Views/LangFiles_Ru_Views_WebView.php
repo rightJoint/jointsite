@@ -49,7 +49,7 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
     {
         $langPageContent = new stdClass();
         $langPageContent->pageContent = 'вставьте сюда содержание страницы';
-        $langPageContent->modulesMenu = self::modulesList();
+        $langPageContent->modulesMenu = static::modulesList();
 
         $langPageContent->langLw = 'ru';
 
@@ -121,7 +121,7 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $langModal->homeRefDefTitle = 'Развернуть свой Web-3 сайт';
         $langModal->langPanelTextRus = 'смотреть на русском';
         $langModal->langPanelTextEn = 'view in english';
-        $langModal->modulesMenu = self::modulesList();
+        $langModal->modulesMenu = static::modulesList();
 
         $authForms = new stdClass();
         $authForms->signInForm = self::modalSignInForm();
