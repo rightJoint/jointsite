@@ -194,31 +194,6 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'tracks to albums',
                 'usage' => false,
             ),
-            'services' => array(
-                'refText' => 'services',
-                'refTitle' => 'services list and details',
-                'usage' => true,
-            ),
-            'blogarts' => array(
-                'refText' => 'blog',
-                'refTitle' => 'blog articles',
-                'usage' => true,
-            ),
-            'blogtags' => array(
-                'refText' => 'blog-tags',
-                'refTitle' => 'blog-tags',
-                'usage' => false,
-            ),
-            'blogtagstoarts' => array(
-                'refText' => 'blog-tags-to-arts',
-                'refTitle' => 'blog-tags-to-arts',
-                'usage' => false,
-            ),
-            'blogcats' => array(
-                'refText' => 'categories',
-                'refTitle' => 'categories',
-                'usage' => false,
-            ),
             'sitemap' => array(
                 'refText' => 'site map',
                 'refTitle' => 'site map',

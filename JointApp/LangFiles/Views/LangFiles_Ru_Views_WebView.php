@@ -194,31 +194,6 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'музыка трэки в альбом',
                 'usage' => false,
             ),
-            'services' => array(
-                'refText' => 'услуги',
-                'refTitle' => 'список и описание услуг',
-                'usage' => true,
-            ),
-            'blogarts' => array(
-                'refText' => 'блог',
-                'refTitle' => 'статьи блога',
-                'usage' => true,
-            ),
-            'blogtags' => array(
-                'refText' => 'блог-тэги',
-                'refTitle' => 'блог-тэги',
-                'usage' => false,
-            ),
-            'blogtagstoarts' => array(
-                'refText' => 'тэги к статьям',
-                'refTitle' => 'тэги к статьям',
-                'usage' => false,
-            ),
-            'blogcats' => array(
-                'refText' => 'категории',
-                'refTitle' => 'категории',
-                'usage' => false,
-            ),
             'sitemap' => array(
                 'refText' => 'карта сайта',
                 'refTitle' => 'карта сайта',

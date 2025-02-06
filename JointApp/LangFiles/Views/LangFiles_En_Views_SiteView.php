@@ -81,4 +81,42 @@ class LangFiles_En_Views_SiteView extends LangFiles_En_Views_WebView
 
         return $langModal;
     }
+
+    public static function modulesList():stdClass
+    {
+        $modulesMenu = parent::modulesList();
+
+        $modulesMenu->menuItems['services'] = array(
+            'refText' => 'services',
+            'refTitle' => 'services list and details',
+            'usage' => true,
+        );
+        $modulesMenu->menuItems['blogarts'] = array(
+            'refText' => 'blog',
+            'refTitle' => 'blog articles',
+            'usage' => true,
+        );
+        $modulesMenu->menuItems['blogtags'] = array(
+            'refText' => 'blog-tags',
+            'refTitle' => 'blog-tags',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogtagstoarts'] = array(
+            'refText' => 'blog-tags-to-arts',
+            'refTitle' => 'blog-tags-to-arts',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogcats'] = array(
+            'refText' => 'categories',
+            'refTitle' => 'categories',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogcomments'] = array(
+            'refText' => 'comments',
+            'refTitle' => 'comments',
+            'usage' => false,
+        );
+
+        return $modulesMenu;
+    }
 }

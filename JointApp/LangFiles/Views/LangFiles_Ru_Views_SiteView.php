@@ -81,4 +81,42 @@ class LangFiles_Ru_Views_SiteView extends LangFiles_Ru_Views_WebView
 
         return $langModal;
     }
+
+    public static function modulesList():stdClass
+    {
+        $modulesMenu = parent::modulesList();
+        $modulesMenu->menuItems['services'] = array(
+            'refText' => 'услуги',
+            'refTitle' => 'список и описание услуг',
+            'usage' => true,
+        );
+        $modulesMenu->menuItems['blogarts'] = array(
+            'refText' => 'блог',
+            'refTitle' => 'статьи блога',
+            'usage' => true,
+        );
+        $modulesMenu->menuItems['blogtags'] = array(
+            'refText' => 'блог-тэги',
+            'refTitle' => 'блог-тэги',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogtagstoarts'] = array(
+            'refText' => 'тэги к статьям',
+            'refTitle' => 'тэги к статьям',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogcats'] = array(
+            'refText' => 'категории',
+            'refTitle' => 'категории',
+            'usage' => false,
+        );
+        $modulesMenu->menuItems['blogcomments'] = array(
+            'refText' => 'комментарии',
+            'refTitle' => 'комментарии',
+            'usage' => false,
+        );
+
+        return $modulesMenu;
+    }
+
 }
