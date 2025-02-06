@@ -6,6 +6,7 @@ namespace Src\RoutesCollection;
 use JointApp\Router\JointSiteRoute;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogArts;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogCats;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogComments;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTags;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTagsToArts;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
@@ -38,6 +39,7 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_BlogTags;
     use RoutesCollection_Modules_BlogTagsToArts;
     use RoutesCollection_Modules_BlogCats;
+    use RoutesCollection_Modules_BlogComments;
     use RoutesCollection_Modules_Sitemap;
     use RoutesCollection_Modules_SitemapUpdate;
 
@@ -95,6 +97,9 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'blogcats') {
             $route = self::getRoute_ModuleBlogCats($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'blogcomments') {
+            $route = self::getRoute_ModuleBlogComments($routes_ns);
+        }
         elseif (strtolower($routes_ns[2]) == 'sitemap'){
             $route = self::getRoute_ModuleSitemap($routes_ns);
         }
@@ -151,23 +156,12 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'blogcats') {
             $route = self::postRoute_ModuleBlogCats($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'blogcomments') {
+            $route = self::postRoute_ModuleBlogComments($routes_ns);
+        }
         elseif (strtolower($routes_ns[2]) == 'sitemap'){
             $route = self::postRoute_ModuleSitemap($routes_ns);
         }
         return $route;
     }
-/*
-    static function getRoute_SitemanMusic($routes_ns):JointSiteRoute
-    {
-        $route = new JointSiteRoute();
-        if(!isset($routes_ns[3])){
-            $route
-                ->withController("JointApp\Controllers\Components\Controller_Component_Music")
-                ->withAction("actionModuleStat")
-                ->withModel("JointApp\Models\Model")
-                ->withView("JointApp\Views\Module\ModuleStatView");
-        }
-        return $route;
-    }
-*/
 }
