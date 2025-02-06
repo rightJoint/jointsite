@@ -60,7 +60,7 @@ class LangFiles_Ru_Views_BlogArts extends LangFiles_Ru_Views_SiteView
         $mail->alt = 'Вход по логин и пароль';
         $socialButtons->mail = $mail;
 
-        $socialButtons->defaultText = 'Зарегистрируйтесь что бы писать комменты';
+        $socialButtons->defaultText = 'Зарегистрируйтесь чтобы писать комменты';
 
         return $socialButtons;
     }
