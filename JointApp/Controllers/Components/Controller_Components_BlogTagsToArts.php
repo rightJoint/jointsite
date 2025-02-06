@@ -18,6 +18,8 @@ class Controller_Components_BlogTagsToArts extends ModuleController
         $this->bindComponents = array(
             'blogarts' => [],
             'blogtags' => [],
+            'blogcats' => [],
+            'blogcomments' => [],
         );
     }
 

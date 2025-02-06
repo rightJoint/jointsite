@@ -26,6 +26,8 @@ class Controller_Components_BlogTags extends ModuleController
                 'controller' => 'JointApp\Controllers\Components\Controller_Components_BlogTagsToArts',
             ),
             "blogarts" => [],
+            'blogcats' => [],
+            "blogcomments" => [],
         );
     }
 

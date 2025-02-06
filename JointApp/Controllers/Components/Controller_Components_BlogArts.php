@@ -27,6 +27,7 @@ class Controller_Components_BlogArts extends ModuleController
             ),
             'blogtags' => [],
             'blogcats' => [],
+            'blogcomments' => [],
         );
     }
 
