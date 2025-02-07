@@ -110,7 +110,7 @@ class View_Landing extends SiteView
             $titleBlock->advantages_list_2.'</div>'.
             '</div>'.
             '<div class="advantages-line">'.
-            '<div class="advantages-line-img"><img src="/img/landing/bank-flat.png"></div><div class="advantages-line-txt">' .
+            '<div class="advantages-line-img"><img src="/img/landing/team-player.png"></div><div class="advantages-line-txt">' .
             $titleBlock->advantages_list_3.'</div>'.
             '</div>'.
             '<div class="advantages-line">'.

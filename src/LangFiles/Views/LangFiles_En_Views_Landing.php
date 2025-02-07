@@ -28,7 +28,7 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
         $titleBlock->cb_txt = 'Call now';
         $titleBlock->advantages_list_1 = 'More than 10 years of experience in the IT field';
         $titleBlock->advantages_list_2 = 'Good reputation';
-        $titleBlock->advantages_list_3 = 'Work experience in the bank';
+        $titleBlock->advantages_list_3 = 'Team player';
         $titleBlock->advantages_list_4 = 'Without intermediaries';
         $titleBlock->advantages_list_5 = 'Flexible pricing and discount system';
         $titleBlock->ask_q_1 = 'Ask me your questions on ';

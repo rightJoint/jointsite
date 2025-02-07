@@ -28,7 +28,7 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
         $titleBlock->cb_txt = 'Позвонить';
         $titleBlock->advantages_list_1 = 'Более 10 опыта в it-сфере';
         $titleBlock->advantages_list_2 = 'Хорошая репутация';
-        $titleBlock->advantages_list_3 = 'Опыт работы в банке';
+        $titleBlock->advantages_list_3 = 'Командный игрок';
         $titleBlock->advantages_list_4 = 'Без посредников';
         $titleBlock->advantages_list_5 = 'Гибкие расценки и система скидок';
         $titleBlock->ask_q_1 = 'Задайте свои вопросы по';
