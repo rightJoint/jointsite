@@ -1,0 +1,1 @@
+create table robots_dt (    maploc varchar(128) not null,    indexVal varchar(36)not null,    comment varchar(128),    use_flag BOOLEAN,    date_created datetime,    created_by varchar(36) not null,    primary key (maploc)    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

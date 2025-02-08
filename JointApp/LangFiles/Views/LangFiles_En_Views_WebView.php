@@ -204,6 +204,16 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'site map update',
                 'usage' => false,
             ),
+            'robots' => array(
+                'refText' => 'robots - txt',
+                'refTitle' => 'robots - txt',
+                'usage' => false,
+            ),
+            'robotsupdate' => array(
+                'refText' => 'update robots - txt',
+                'refTitle' => 'update robots - txt',
+                'usage' => false,
+            ),
         );
 
         $modulesMenu->menuLine = array(
