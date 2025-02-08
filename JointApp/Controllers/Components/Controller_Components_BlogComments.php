@@ -90,11 +90,6 @@ class Controller_Components_BlogComments extends ModuleController
                 'search' => 1,
                 'sort' => 1,
             ),
-            /*'content' => array(
-                'format' => 'text',
-                'search' => 1,
-                'sort' => 1,
-            ),*/
             'created_by' => array(
                 'format' => 'varchar',
                 'search' => 1,
@@ -156,43 +151,11 @@ class Controller_Components_BlogComments extends ModuleController
             'commentP_id' => array(
                 'format' => 'varchar',
             ),
-            /*'art_id' => array(
-                'format' => 'varchar',
-            ),
-            */
-            /*'content' => array(
-                'format' => 'text',
-            ),*/
-            /*'created_by' => array(
-                'format' => 'varchar',
-            ),
-            */
-
         );
     }
 
     public function prepareViewFields(): void
     {
-        echo 'prepareViewFields';
         parent::prepareViewFields();
-        echo '<pre>';
-        print_r($this->viewFields);
-        exit;
     }
-    /*
-    public function fillCatsList():array
-    {
-        $findArts = 'select cat_id, catName_'.$this->langLw.' as catName from blogCats order by catName_'.$this->langLw;
-        $return = array(
-            '' => '',
-        );
-        $res = $this->model->pdoQuery($findArts);
-        if($res->rowCount() > 0){
-            while ($row = $res->fetch(\PDO::FETCH_ASSOC)){
-                $return[$row['cat_id']] = $row['catName'];
-            }
-        }
-        return $return;
-    }
-*/
 }
