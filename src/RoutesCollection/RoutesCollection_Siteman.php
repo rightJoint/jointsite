@@ -8,6 +8,8 @@ use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracksToAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracks;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_NtfRead;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_Robots;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_RobotsUpdate;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_Sitemap;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_SitemapUpdate;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_User;
@@ -30,6 +32,8 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_NtfRead;
     use RoutesCollection_Modules_Sitemap;
     use RoutesCollection_Modules_SitemapUpdate;
+    use RoutesCollection_Modules_Robots;
+    use RoutesCollection_Modules_RobotsUpdate;
 
     static function getRoute_Siteman($routes_ns):JointSiteRoute
     {
@@ -76,6 +80,12 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'sitemapupdate'){
             $route = self::getRoute_ModuleSitemapUpdate($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'robots'){
+            $route = self::getRoute_ModuleRobots($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'robotsupdate'){
+            $route = self::getRoute_ModuleRobotsUpdate($routes_ns);
+        }
         return $route;
     }
     static function postRoute_Siteman($routes_ns):JointSiteRoute
@@ -113,6 +123,9 @@ trait RoutesCollection_Siteman
         }
         elseif (strtolower($routes_ns[2]) == 'sitemap'){
             $route = self::postRoute_ModuleSitemap($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'robots'){
+            $route = self::postRoute_ModuleRobots($routes_ns);
         }
         return $route;
     }

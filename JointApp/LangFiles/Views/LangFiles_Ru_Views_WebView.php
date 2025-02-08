@@ -202,6 +202,16 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'обновить карту сайта',
                 'usage' => false,
             ),
+            'robots' => array(
+                'refText' => 'robots - txt',
+                'refTitle' => 'robots - txt',
+                'usage' => false,
+            ),
+            'robotsupdate' => array(
+                'refText' => 'обновить robots - txt',
+                'refTitle' => 'обновить robots - txt',
+                'usage' => false,
+            ),
         );
 
         $modulesMenu->menuLine = array(

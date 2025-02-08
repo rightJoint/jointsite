@@ -47,6 +47,14 @@ class ModulesAccessList
                 //sitemap
                 'admin',
             ),
+            'robots' => array(
+                //
+                'admin',
+            ),
+            'robotsupdate' => array(
+                //
+                'admin',
+            ),
         );
     }
 
