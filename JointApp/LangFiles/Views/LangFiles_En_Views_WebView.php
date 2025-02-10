@@ -254,6 +254,7 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $modalSignUpForm->placeholder_password = 'make up password...';
         $modalSignUpForm->placeholder_repeat = 'repeat password...';
         $modalSignUpForm->placeholder_mail = 'Your email...';
+        $modalSignUpForm->placeholder_catpcha = 'check code';
         $modalSignUpForm->submit_btn = 'SignUp';
 
         $err = new stdClass();
@@ -262,6 +263,8 @@ class LangFiles_En_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $err->signUpErrLoginAccept = 'login unacceptable';
         $err->signUpErrLoginReserved = 'login reserved';
         $err->signUpErrEMailAccept = 'email unacceptable';
+        $err->signUpErrCaptchaEmpty = 'captcha params unacceptable';
+        $err->signUpErrCaptchaWrong = 'wrong check code';
         $modalSignUpForm->err = $err;
 
         return $modalSignUpForm;

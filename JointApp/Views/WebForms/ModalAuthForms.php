@@ -12,13 +12,15 @@ class ModalAuthForms
 
     public \stdClass $langForms;
     public \stdClass $paramsFroms;
+    public string $docRoot = '';
     public string $langSl = 'ru';
 
-    function __construct(\stdClass $langForms, \stdClass $paramsFroms, $langSl = 'ru')
+    function __construct(\stdClass $langForms, \stdClass $paramsFroms, $docRoot, $langSl = 'ru')
     {
         $this->langForms = $langForms;
         $this->paramsFroms  = $paramsFroms;
         $this->langSl  = $langSl;
+        $this->docRoot  = $docRoot;
     }
 
     public function printAuthForms():string
@@ -184,7 +186,34 @@ class ModalAuthForms
                 $this->langForms->signUpForm->err->signUpErrEMailAccept.
                 '</div>';
         }
-        $return.= '</div>'.
+        $return.= '</div>';
+
+
+        if($this->paramsFroms->signUpForm->useSignUpCaptcha){
+
+            $captcha = WebFormCaptcha::create($this->docRoot.'/fonts');
+
+            $_SESSION['SignUpCaptchaCode'] = $captcha['code'];
+
+            $return.= '<div class="modal-line">'.
+                '<div class="modal-line-text"><input type="text" name="signUpCaptchaCode" value="" '.
+                'placeholder="'.$this->langForms->signUpForm->placeholder_catpcha.'"></div>'.
+                '<div class="modal-line-img captcha">'.
+                '<img src="data:image/png;base64, '.base64_encode($captcha['image']).'" title="проверочный код">'.
+                '</div>';
+            if($this->paramsFroms->signUpForm->err->signUpErrCaptchaEmpty){
+                $return.= '<div class="modal-line-err">'.
+                    $this->langForms->signUpForm->err->signUpErrCaptchaEmpty.
+                    '</div>';
+            }
+            if($this->paramsFroms->signUpForm->err->signUpErrCaptchaWrong){
+                $return.= '<div class="modal-line-err">'.
+                    $this->langForms->signUpForm->err->signUpErrCaptchaWrong.
+                    '</div>';
+            }
+            $return.='</div>';
+        }
+        $return.=
             '<div class="modal-line">'.
             '<div class="modal-line-text">'.
             '<a class="m-l-blue title" href="#siteSignIn">'.

@@ -254,6 +254,7 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $modalSignUpForm->placeholder_password = 'пароль...';
         $modalSignUpForm->placeholder_repeat = 'повторите пароль...';
         $modalSignUpForm->placeholder_mail = 'Ваш email...';
+        $modalSignUpForm->placeholder_catpcha = 'код с картинки';
         $modalSignUpForm->submit_btn = 'Зарегистрировать';
 
         $err = new stdClass();
@@ -262,6 +263,8 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
         $err->signUpErrLoginAccept = 'недопустимый логин';
         $err->signUpErrLoginReserved = 'логин зарезервирован';
         $err->signUpErrEMailAccept = 'недопустимый eMail';
+        $err->signUpErrCaptchaEmpty = 'недопустимый параметр каптчи';
+        $err->signUpErrCaptchaWrong = 'неправильный проверочный код';
         $modalSignUpForm->err = $err;
 
         return $modalSignUpForm;
