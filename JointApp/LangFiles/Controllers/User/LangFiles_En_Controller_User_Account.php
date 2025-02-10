@@ -24,11 +24,11 @@ class LangFiles_En_Controller_User_Account extends LangFiles_En_Controller_Recor
             'refTitle' => 'change password',
             'refText' => 'password',
         ),
-        'userGroups' => array(
+        /*'userGroups' => array(
             'usage' => 1,
             'refTitle' => 'groups settings',
             'refText' => 'groups',
-        ),
+        ),*/
     );
     public function __construct()
     {
