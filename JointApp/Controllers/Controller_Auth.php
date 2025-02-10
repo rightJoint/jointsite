@@ -135,6 +135,13 @@ class Controller_Auth extends Controller
                 $this->view->signUpErrEMailAccept = true;
                 $occur_err = true;
             }
+            if(!isset($_SESSION['SignUpCaptchaCode'])){
+                $this->view->signUpErrCaptchaEmpty = true;
+                $occur_err = true;
+            }elseif (isset($_SESSION['SignUpCaptchaCode']) and $_SESSION['SignUpCaptchaCode'] != $this->requestParams['signUpCaptchaCode'] ){
+                $this->view->signUpErrCaptchaWrong = true;
+                $occur_err = true;
+            }
 
             if(!$occur_err){
                 if($this->model->createSiteUser($signUpLogin, $pass, $signUpEMail)) {
