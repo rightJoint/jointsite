@@ -68,7 +68,9 @@ class Model_Components_Robots extends ModuleModel
         $txt = 'User-agent: *'."\n";
 
         foreach ($res as $num => $row) {
-            $txt .= $row['indexVal'] . ': '.$this->siteName . $row['maploc'] . "\n";
+            //dont use siteName, fix robots.txt
+            //$txt .= $row['indexVal'] . ': '.$this->siteName . $row['maploc'] . "\n";
+            $txt .= $row['indexVal'] . ': '. $row['maploc'] . "\n";
         }
 
 

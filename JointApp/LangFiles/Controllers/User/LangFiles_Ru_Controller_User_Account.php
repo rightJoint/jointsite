@@ -24,11 +24,11 @@ class LangFiles_Ru_Controller_User_Account extends LangFiles_Ru_Controller_Recor
                 'refTitle' => 'сменить password',
                 'refText' => 'Пароль',
             ),
-            'userGroups' => array(
+            /*'userGroups' => array(
                 'usage' => 1,
                 'refTitle' => 'настройки групп',
                 'refText' => 'Группы',
-            ),
+            ),*/
         );
 
     public function __construct()
