@@ -4,7 +4,7 @@
 namespace JointApp\Views\HtmlInputs;
 
 
-class HtmlTinyMceType extends HtmlInputView
+class HtmlTinymceType extends HtmlInputView
 {
     public function htmlValue()
     {

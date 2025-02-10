@@ -88,6 +88,9 @@ class WebView extends View implements WebViewInterface
     public bool $signUpErrLoginAccept = false;
     public bool $signUpErrLoginReserved = false;
     public bool $signUpErrEMailAccept = false;
+    public bool $useSignUpCaptcha = true;
+    public bool $signUpErrCaptchaWrong = false;
+    public bool $signUpErrCaptchaEmpty = false;
 
     //calc view runTime in tests
     public int $firstEvent = 0;
@@ -209,7 +212,10 @@ class WebView extends View implements WebViewInterface
         $signUpErr->signUpErrLoginAccept = $this->signUpErrLoginAccept;
         $signUpErr->signUpErrLoginReserved = $this->signUpErrLoginReserved;
         $signUpErr->signUpErrEMailAccept = $this->signUpErrEMailAccept;
+        $signUpErr->signUpErrCaptchaEmpty = $this->signUpErrCaptchaEmpty;
+        $signUpErr->signUpErrCaptchaWrong = $this->signUpErrCaptchaWrong;
         $signUpForm->err = $signUpErr;
+        $signUpForm->useSignUpCaptcha = $this->useSignUpCaptcha;
 
         $authForms->signUpForm = $signUpForm;
 
@@ -218,6 +224,8 @@ class WebView extends View implements WebViewInterface
         $viewParams->authForms = $authForms;
 
         $viewParams->basket = $this->basket;
+
+        $viewParams->docRoot = $this->docRoot;
 
         $addViewParams($viewParams);
     }
@@ -670,6 +678,7 @@ class WebView extends View implements WebViewInterface
         $pageModals.= self::modalMenuSiteman($langModal->modulesMenu, $viewParams->userModules, $viewParams->langSl, $viewParams->routes_ns).
             static::createModalContent($langModal, $viewParams).
             self::modalSignPanel($langModal->modalSignUser, $langModal->authForms, $viewParams->authForms,
+                $viewParams->docRoot,
                 $viewParams->langSl, $viewParams->ntfCount);
 
         $pageModals.= '</div></div></div></div>';
@@ -688,6 +697,7 @@ class WebView extends View implements WebViewInterface
     }
 
     public static function modalSignPanel(\stdClass $modalSignUser , \stdClass $langAuthForms, \stdClass $paramsAuthForm,
+                                          string $docRoot,
                                           string $langSl = 'ru', int $ntfCount = 0):string
     {
         global $currentUser;
@@ -730,7 +740,7 @@ class WebView extends View implements WebViewInterface
                 '</div>';
             return $user;
         }else{
-            $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm, $langSl);
+            $modalAuthForms = new ModalAuthForms($langAuthForms, $paramsAuthForm, $docRoot, $langSl);
             return $modalAuthForms->printAuthForms();
         }
     }
