@@ -1,0 +1,61 @@
+.modal-line-text.free{
+    margin-top: 0.2em;
+    font-size: 0.8em;
+    color: green;
+}
+.modal-line-text.lookFor{
+    margin-top: 0.2em;
+    color: wheat;
+    font-size: 0.8em;
+}
+.modal-line-text.busy{
+    margin-top: 0.2em;
+    color: red;
+    font-size: 0.8em;
+}
+.modal-line-text.free a.phone{
+    display: inline-block;
+    color: limegreen;
+    padding-top: 0.4em;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+.modal-line-text.lookFor a{
+    color: orange;
+    text-decoration: none;
+}
+.modal-line-text.lookFor p{
+    margin-bottom: 1em;
+}
+.modal-line-text a.mailto{
+    color: white;
+    text-decoration: none;
+
+}
+.modal-line-text a.cv{
+    color: lightblue;
+    text-decoration: none;
+}
+.modal-basket-list .mbl-line .mbl-line-img {
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+}
+
+.modal-basket-list .mbl-line .mbl-line-img img{
+    height: 1.5em;
+    width: 1.5em;
+}
+.modal-basket-list .mbl-line .mbl-line-info {
+    text-align: left;
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+}
+.modal-line-text img.payStat{
+    height: 3em;
+    width: 3em;
+    position: absolute;
+    right: 1em;
+    top: 0em;
+}
