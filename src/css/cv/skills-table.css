@@ -1,0 +1,74 @@
+.s-legend{
+
+}
+.s-legend table.skill-legend td.fucking-genius{
+    background-color: mediumpurple;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+td.pretty-good{
+    background-color: lightcoral;
+}
+.s-legend table.skill-legend td.pretty-good{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+td.competitive{
+    background-color: lightgreen;
+}
+.s-legend table.skill-legend td.competitive{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+td.junior{
+    background-color: lightblue;
+}
+.s-legend table.skill-legend td.junior{
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.s-legend table.skill-legend td.c-level{
+
+}
+.s-legend table.skill-legend td.c-level{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    background-color: lightgray;
+}
+.s-legend table.skill-legend td.c-descr{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+}
+.s-legend table.skill-legend td.l-descr{
+    border-bottom: 1px solid lightgray;
+}
+
+table.skills td.skill{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+
+}
+table.skills td.option{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+table.skills td.level{
+    border-bottom: 1px solid lightgray;
+}
+table.skills td.skill.skill-cap{
+    background-color: lightgray;
+
+}
+table.skills td.option.skill-cap{
+    background-color: lightgray;
+
+}
+table.skills td.level.skill-cap{
+    background-color: lightgray;
+
+}
+table.skills td.level{
+    text-align: left;
+}

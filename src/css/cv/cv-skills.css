@@ -1,0 +1,21 @@
+section.cv-skills{
+    border-left: 1px solid navy;
+    border-right: 1px solid navy;
+    border-bottom: 1px solid navy;
+    margin-bottom: 1em;
+    width: 100%;
+}
+section.cv-skills h3{
+    padding: 1em;
+    margin: 0;
+}
+section.cv-skills p{
+    margin: 0;
+    padding: 0;
+}
+section.cv-skills .cv-skills-tb1, section.cv-skills .cv-skills-tb2{
+    text-align: left;
+    padding-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}

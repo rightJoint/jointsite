@@ -1,0 +1,78 @@
+section.cv-experience{
+    border-left: 1px solid navy;
+    border-right: 1px solid navy;
+    border-bottom: 1px solid navy;
+    margin-bottom: 1em;
+    width: 100%;
+}
+section.cv-experience h3{
+    padding: 1em;
+    margin: 0;
+}
+section.cv-experience .prevExp{
+    text-align: left;
+    padding-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+section.cv-experience .prevExp p{
+    padding: 0;
+    margin: 0;
+}
+section.cv-experience table td.c-c1{
+    border-top: 1px solid silver;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    background-color: lightgray;
+}
+section.cv-experience table td.c1{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    vertical-align: top;
+}
+section.cv-experience table td.c-c2{
+    border-top: 1px solid silver;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    background-color: lightgray;
+}
+section.cv-experience table td.c2{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    vertical-align: top;
+}
+section.cv-experience table td.c-c3{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+}
+section.cv-experience table td.c3{
+    border-bottom: 1px solid lightgray;
+    text-align: left;
+}
+p.cv-cell-company{
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+p.cv-cell-role{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+p.cv-cell-date{
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+p.cv-cell-dtDif{
+    margin-top: 0;
+}
+p.cv-cell-pName{
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+p.cv-cell-stack-c{
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

@@ -1,0 +1,34 @@
+.cv-menu{
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: lightgray;
+    display: table;
+    width: calc(100% + 1px);
+}
+.cv-menu-row{
+    display: table-row;
+}
+.cv-menu-i{
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-right: 1px solid navy;
+    display: table-cell;
+    width: 25%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+.cv-menu-i a{
+    color: navy;
+}
+.cv-menu-i.active{
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-right: 1px solid navy;
+    display: table-cell;
+    width: 25%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+.cv-menu-i.active{
+    background-color: lightblue;
+}

@@ -1,0 +1,51 @@
+section.cv-faq{
+    border-left: 1px solid navy;
+    border-right: 1px solid navy;
+    border-bottom: 1px solid navy;
+    margin-bottom: 1em;
+    width: 100%;
+}
+section.cv-faq h3{
+    padding: 1em;
+    margin: 0;
+}
+section.cv-faq .cv-q{
+    text-align: left;
+    padding-left: 0.2em;
+}
+section.cv-faq .cv-q .cv-q-i{
+    display: inline-block;
+    margin-right: 1em;
+}
+section.cv-faq .cv-q .cv-q-i img{
+    height: 2em;
+    width: 2em;
+}
+section.cv-faq .cv-q .cv-q-t{
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+}
+section.cv-faq .cv-a{
+    margin-left: 2em;
+}
+section.cv-faq .cv-a .cv-a-i{
+    margin-right: 1em;
+    display: inline-block;
+}
+section.cv-faq .cv-a .cv-a-i img{
+    height: 2em;
+    width: 2em;
+}
+section.cv-faq .cv-a .cv-a-t{
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 3em);
+    font-style: italic;
+}
+section.cv-faq .cv-a .cv-a-t p{
+    margin-top: 0;
+}
+section.cv-faq .cv-a .cv-a-t p ul li{
+
+}

@@ -1,0 +1,54 @@
+.cv-header{
+    border: 1px solid navy;
+    margin-top: 1em;
+    text-align: left;
+    display: table;
+    width: 100%;
+}
+.cv-header .cv-header-row{
+    display: table-row;
+}
+.cv-header .cv-header-role{
+    display: table-cell;
+    border-right: 1px solid lightgray;
+    width: 34%;
+    vertical-align: top;
+}
+.cv-header .cv-header-img{
+    text-align: center;
+    display: table-cell;
+    /*border: 1px solid blue;*/
+    width: 33%;
+    vertical-align: middle;
+}
+.cv-header .cv-header-contacts{
+    display: table-cell;
+    border-left: 1px solid lightgray;
+    width: 33%;
+    vertical-align: middle;
+}
+.cv-header .cv-header-img img{
+    height: 8em;
+    width: 8em;
+    border-radius: 4em;
+}
+.cv-header .cv-header-role .cv-header-role-title{
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+.cv-header .cv-header-role .cv-header-role-skills{
+
+}
+.cv-header .cv-header-role .cv-header-role-skills span{
+    margin-right: 1em;
+}
+.cv-header .cv-header-contacts .cv-header-contacts-line{
+    margin-bottom: 0.2em;
+
+}
+.cv-header .cv-header-contacts .cv-header-contacts-line span.c-l-field{
+    font-weight: bold;
+}
+.cv-header .cv-header-contacts .cv-header-contacts-line span.c-l-field:after{
+    content: ": ";
+}
