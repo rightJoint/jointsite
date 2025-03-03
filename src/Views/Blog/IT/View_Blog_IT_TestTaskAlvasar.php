@@ -4,8 +4,6 @@
 namespace Src\Views\Blog\IT;
 
 
-use PHPUnit\Exception;
-use Src\Views\Blog\It\AlvasarCode;
 use Src\Views\Blog\View_Blog_Art;
 
 class View_Blog_IT_TestTaskAlvasar extends View_Blog_Art
@@ -79,8 +77,6 @@ class View_Blog_IT_TestTaskAlvasar extends View_Blog_Art
         $birthday_trim = str_replace('.', '', $birthday_trim);
 
         $alvasarCode = @AlvasarCode::calcCode($birthday_trim, $fio);
-
-
 
         $return.= '<div>'.
             '<input type="button" onclick="calcAlvasarCode()" value="Получить код!">'.
