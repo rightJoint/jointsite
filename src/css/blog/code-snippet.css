@@ -1,12 +1,40 @@
 .code-snippet{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.2em;
     background-color: rgba(25,25,50,1);
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+/*modal-scroll-->*/
+.code-snippet::-webkit-scrollbar {
+    height: 2px;
+}
+/* Track */
+.code-snippet::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 1px grey;
+    border-radius: 10px;
+}
+/* Handle */
+.code-snippet::-webkit-scrollbar-thumb{
+    background: aquamarine;
+    border-radius: 10px;
+}
+/* Handle on hover */
+.code-snippet::-webkit-scrollbar-thumb:hover{
+    background: #b30000;
 }
 .code-snippet ul{
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
 }
 .code-snippet ul li{
     color: orange;
     padding-left: 0;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    display: inline-block;
+    width: 100%;
     list-style: none;
 }
 .code-snippet ul li.sp-1{
