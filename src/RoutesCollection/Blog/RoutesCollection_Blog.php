@@ -34,6 +34,15 @@ trait RoutesCollection_Blog
                 elseif(strtolower($routes_ns[3]) == 'polygraph-exam'){
                     $route->withView('Src\Views\Blog\Job\View_Blog_Job_Polygrath');
                 }
+                elseif(strtolower($routes_ns[3]) == 'looking-for-php-fullstack-job-in-2025'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_PhpJob2025');
+                }
+                elseif(strtolower($routes_ns[3]) == 'test-task-alvasar'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskAlvasar');
+                }
+                elseif(strtolower($routes_ns[3]) == 'test-task-parse-brackets'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskParseBrackets');
+                }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
