@@ -55,12 +55,21 @@ trait RoutesCollection_Blog
         elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'testtask'){
             //blog/testTask/
             if(isset($routes_ns[3])){
-
+                //blog/testTask/parse-brackets
                 if(strtolower($routes_ns[3]) == 'parse-brackets'){
                     $route
                         ->withController('Src\Controllers\Blog\Controller_Blog_Test')
                         ->withModel('Src\Models\Blog\Model_Blog_Test',)
                         ->withAction('parseBrackets')
+                        ->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskParseBrackets')
+                        ->responseFormat('json');
+                }
+                //blog/testTask/alvasarcode
+                elseif(strtolower($routes_ns[3]) == 'alvasarcode'){
+                    $route
+                        ->withController('Src\Controllers\Blog\Controller_Blog_Test')
+                        ->withModel('Src\Models\Blog\Model_Blog_Test',)
+                        ->withAction('alvasarCode')
                         ->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskParseBrackets')
                         ->responseFormat('json');
                 }
