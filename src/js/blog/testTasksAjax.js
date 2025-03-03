@@ -12,7 +12,16 @@ function checkBrackets()
                 $('.brackets-test form .brackets-test-result').addClass('fail');
                 $('.brackets-test form .brackets-test-result').html('fail');
             }
-            console.log(data);
+        }
+    );
+}
+
+function calcAlvasarCode()
+{
+    $.get(jointAppLangSl+"/blog/testTask/alvasarcode",
+        "testAlvasar=on&"+$('.alvasar-test form').serialize(),
+        function (data) {
+            $('.alvasar-test form .alvasar-code-result span.code-value').html(data.viewData.resultCode);
         }
     );
 }
