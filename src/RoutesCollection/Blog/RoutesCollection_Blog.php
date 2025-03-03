@@ -10,13 +10,16 @@ trait RoutesCollection_Blog
     static function getRoute_Blog($routes_ns):JointSiteRoute
     {
         $route = new JointSiteRoute();
+        //blog
         if(!isset($routes_ns[2]) or empty($routes_ns[2])){
             $route
                 ->withController('Src\Controllers\Blog\Controller_Blog')
                 ->withModel('Src\Models\Blog\Model_Blog',)
                 ->withAction('actionIndex')
                 ->withView('Src\Views\Blog\View_Blog_Main');
-        }elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'article'){
+        }
+        //blog/article
+        elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'article'){
             if(isset($routes_ns[3])){
                 $route
                     ->withController('Src\Controllers\Blog\Controller_Blog_Arts', ['artRef' => $routes_ns[3]])
@@ -45,6 +48,21 @@ trait RoutesCollection_Blog
                 }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
+                }
+            }
+        }
+        //blog/testTask
+        elseif(isset($routes_ns[2]) and strtolower($routes_ns[2]) == 'testtask'){
+            //blog/testTask/
+            if(isset($routes_ns[3])){
+
+                if(strtolower($routes_ns[3]) == 'parse-brackets'){
+                    $route
+                        ->withController('Src\Controllers\Blog\Controller_Blog_Test')
+                        ->withModel('Src\Models\Blog\Model_Blog_Test',)
+                        ->withAction('parseBrackets')
+                        ->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskParseBrackets')
+                        ->responseFormat('json');
                 }
             }
         }
