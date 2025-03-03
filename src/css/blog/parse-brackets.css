@@ -1,0 +1,19 @@
+.brackets-test{
+
+}
+.brackets-test textarea{
+    height: 5em;
+    width: 20em;
+}
+.brackets-test .br-set{
+    display: inline-block;
+}
+.brackets-test .brackets-test-result{
+
+}
+.brackets-test .brackets-test-result.ok{
+    background-color: lightgreen;
+}
+.brackets-test .brackets-test-result.fail{
+    background-color: red;
+}

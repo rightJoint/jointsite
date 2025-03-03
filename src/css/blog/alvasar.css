@@ -1,0 +1,39 @@
+.alvasar-test{
+
+}
+.alvasar-test form label{
+    font-size: 1em;
+    margin-right: 1em;
+}
+.alvasar-test form label::after{
+    content: ': ';
+}
+.alvasar-test form input[type=text]{
+    font-size: 1em;
+}
+.alvasar-test form input[type=date]{
+    font-size: 1em;
+}
+.alvasar-test form .alvasar-input-line{
+    margin-bottom: 1em;
+}
+.alvasar-test form .alvasar-code-result{
+    margin-top: 1em;
+}
+.alvasar-test form .alvasar-code-result span.code-label::after{
+    content: ': ';
+}
+.alvasar-test form .alvasar-code-result span.code-value{
+    font-weight: bold;
+    color: firebrick;
+    font-size: 1.2em;
+}
+.alvasar-test form input[type=button]{
+    font-weight: bold;
+    font-size: 1em;
+}
+.alvasar-test form{
+    border: 2px solid silver;
+    border-radius: 1em;
+    padding: 1em;
+}
