@@ -181,9 +181,9 @@ class View_Blog_Main extends SiteView
             '<div class="blog-sort">'.
             '<label for="blog-sort-field">'.$langSortBlock->labelSortField.'</label>'.
             '<select id="blog-sort-field">'.
+            '<option value="pubDate">'.$langSortBlock->optPubDate.'</option>'.
             '<option value="refreshDate">'.$langSortBlock->optRefreshDate.'</option>'.
             '<option value="artName">'.$langSortBlock->optArtName.'</option>'.
-            '<option value="pubDate">'.$langSortBlock->optPubDate.'</option>'.
             '</select>'.
             '<label for="blog-sort-order">'.$langSortBlock->labelSortOrderBy.'</label>'.
             '<select id="blog-sort-order">'.

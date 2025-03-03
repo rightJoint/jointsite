@@ -15,7 +15,7 @@ class Controller_Blog extends Controller
 
     public string $filterArtName = '';
     public int $curPage = 1;
-    public string $sortField = 'refreshDate';
+    public string $sortField = 'pubDate';
     public string $sortOrder = 'DESC';
     public int $onPage = 4;
     public int $inRow = 2;
