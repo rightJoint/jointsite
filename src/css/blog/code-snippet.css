@@ -1,0 +1,41 @@
+.code-snippet{
+    background-color: rgba(25,25,50,1);
+}
+.code-snippet ul{
+    padding-left: 0;
+}
+.code-snippet ul li{
+    color: orange;
+    padding-left: 0;
+    list-style: none;
+}
+.code-snippet ul li.sp-1{
+    margin-left: 1em;
+}
+.code-snippet ul li.sp-2{
+    margin-left: 2em;
+}
+.code-snippet ul li.sp-3{
+    margin-left: 3em;
+}
+.code-snippet ul li.sp-4{
+    margin-left: 4em;
+}
+.code-snippet ul li.sp-5{
+    margin-left: 5em;
+}
+.code-snippet ul li.sp-6{
+    margin-left: 6em;
+}
+.code-snippet ul li.sp-7{
+    margin-left: 7em;
+}
+.code-snippet ul li.sp-8{
+    margin-left: 8em;
+}
+.code-snippet ul li.sp-9{
+    margin-left: 9em;
+}
+.code-snippet ul li.sp-10{
+    margin-left: 10em;
+}
