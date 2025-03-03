@@ -5,6 +5,7 @@ namespace Src\Controllers\Blog;
 
 
 use JointApp\Controllers\Controller;
+use Src\Views\Blog\It\AlvasarCode;
 
 class Controller_Blog_Test extends Controller
 {
@@ -25,5 +26,33 @@ class Controller_Blog_Test extends Controller
 
 
         $this->view->responseJson = array('checkResult' => $checkResult);
+    }
+
+    public function alvasarCode()
+    {
+
+        $err = false;
+        $code = '---';
+
+        if(isset($this->requestParams['fio'])){
+            $fio = $this->requestParams['fio'];
+        }else{
+            $err = true;
+        }
+
+        if(isset($this->requestParams['birthday'])){
+            $birthday = $this->requestParams['birthday'];
+            $birthday_date = new \DateTime($birthday);
+            $birthday_trim = date_format($birthday_date, 'd.m.Y');
+            $birthday_trim = str_replace('.', '', $birthday_trim);
+        }else{
+            $err = true;
+        }
+
+        if(!$err){
+            $code = @AlvasarCode::calcCode($birthday_trim, $fio);
+        }
+
+        $this->view->responseJson = array('resultCode' => $code);
     }
 }
