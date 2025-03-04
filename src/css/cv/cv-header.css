@@ -35,12 +35,14 @@
 .cv-header .cv-header-role .cv-header-role-title{
     font-weight: bold;
     margin-bottom: 1em;
+    margin-left: 0.2em;
 }
 .cv-header .cv-header-role .cv-header-role-skills{
 
 }
 .cv-header .cv-header-role .cv-header-role-skills span{
-    margin-right: 1em;
+    margin-right: 0.6em;
+    margin-left: 0.2em;
 }
 .cv-header .cv-header-contacts .cv-header-contacts-line{
     margin-bottom: 0.2em;
@@ -48,6 +50,7 @@
 }
 .cv-header .cv-header-contacts .cv-header-contacts-line span.c-l-field{
     font-weight: bold;
+    margin-left: 0.2em;
 }
 .cv-header .cv-header-contacts .cv-header-contacts-line span.c-l-field:after{
     content: ": ";

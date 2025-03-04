@@ -6,7 +6,8 @@ section.cv-faq{
     width: 100%;
 }
 section.cv-faq h3{
-    padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 2em;
     margin: 0;
 }
 section.cv-faq .cv-q{
@@ -44,6 +45,9 @@ section.cv-faq .cv-a .cv-a-t{
     font-style: italic;
 }
 section.cv-faq .cv-a .cv-a-t p{
+    margin-top: 0;
+}
+section.cv-faq .cv-a .cv-a-t ul{
     margin-top: 0;
 }
 section.cv-faq .cv-a .cv-a-t p ul li{
