@@ -1,3 +1,7 @@
 .idea/
 /temp
 /vendor
+/src/userdata
+/src/robots.txt
+/src/sitemap.xml
+/src/fonts/
