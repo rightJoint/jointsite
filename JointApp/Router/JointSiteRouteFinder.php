@@ -10,6 +10,7 @@ use Psr\Log\LoggerAwareTrait;
 use Src\RoutesCollection\Blog\RoutesCollection_Blog;
 use Src\RoutesCollection\RoutesCollection_Applications;
 use Src\RoutesCollection\RoutesCollection_Basket;
+use Src\RoutesCollection\RoutesCollection_Cv;
 use Src\RoutesCollection\RoutesCollection_JointSite;
 use Src\RoutesCollection\RoutesCollection_Api;
 use Src\RoutesCollection\RoutesCollection_Main;
@@ -34,6 +35,7 @@ class JointSiteRouteFinder
     use RoutesCollection_Applications;
     use RoutesCollection_Blog;
     use RoutesCollection_Products;
+    use RoutesCollection_Cv;
 
     private $context = 'RouteFinder';
 
