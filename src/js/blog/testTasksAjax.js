@@ -6,11 +6,11 @@ function checkBrackets()
             if(data.viewData.checkResult == 1){
                 $('.brackets-test form .brackets-test-result').removeClass('fail');
                 $('.brackets-test form .brackets-test-result').addClass('ok');
-                $('.brackets-test form .brackets-test-result').html('Ok');
+                $('.brackets-test form .brackets-test-result').html(data.viewData.restext);
             }else{
                 $('.brackets-test form .brackets-test-result').removeClass('ok');
                 $('.brackets-test form .brackets-test-result').addClass('fail');
-                $('.brackets-test form .brackets-test-result').html('fail');
+                $('.brackets-test form .brackets-test-result').html(data.viewData.restext);
             }
         }
     );
