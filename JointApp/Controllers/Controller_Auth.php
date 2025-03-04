@@ -335,7 +335,7 @@ class Controller_Auth extends Controller
             if($this->model->copyByLoginOrEmail()){
                 $this->model->updateRecord();
                 $this->model->authSiteUser();
-                $this->logger->redirect($this->httpRef);
+                $this->logger->redirect('/');
             }else{
                 $this->model->record['user_id']['curVal'] =
                 $this->model->record['created_by']['curVal'] = $this->model->createGUID();
@@ -344,7 +344,7 @@ class Controller_Auth extends Controller
                 $this->model->record['blackList']['curVal'] = 0;
                 if($this->model->insertRecord()){
                     $this->model->authSiteUser();
-                    $this->logger->redirect($this->httpRef);
+                    $this->logger->redirect('/');
                 }
             }
         }

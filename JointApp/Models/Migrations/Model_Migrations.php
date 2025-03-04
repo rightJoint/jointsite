@@ -97,7 +97,7 @@ class Model_Migrations extends RecordsModel
     {
         $acceptable_queries = array(
             'insert' => 'insert ',
-            'update' => 'update ',
+            'insert_upper' => 'update ',
             'delete' => 'delete ',
             'replace' => 'replace ',
             'replace_upper' => 'REPLACE ',

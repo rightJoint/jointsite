@@ -29,6 +29,14 @@ class Controller_User_Main extends Controller_User_Account
             $this->view->logMessage = '';
             $this->prepareEditFields();
             $this->updateEditFieldsFromRecord();
+
+            if(in_array($this->model->record['netWork']['curVal'], array('vk', 'ok') )){
+                $this->editFields['accAlias']['readonly'] = 1;
+                $this->editFields['birthDay']['readonly'] = 1;
+                $this->editFields['photoLink']['file_options']['button'] = 0;
+                $this->editFields['photoLink']['file_options']['load_dir'] = null;
+            }
+
             $this->view->editFields = $this->editFields;
             $this->view->fieldAliases = $this->langMap->fieldAliases;
             $this->view->type = 'edit';
@@ -51,8 +59,15 @@ class Controller_User_Main extends Controller_User_Account
                 $this->view->fieldAliases = [];
                 $this->view->actionResult = true;
                 $this->view->logMessage = $this->model->log_message;
-                //$this->prepareEditFields();
                 $this->updateEditFieldsFromRecord();
+
+                if(in_array($this->model->record['netWork']['curVal'], array('vk', 'ok') )){
+                    $this->editFields['accAlias']['readonly'] = 1;
+                    $this->editFields['birthDay']['readonly'] = 1;
+                    $this->editFields['photoLink']['file_options']['button'] = 0;
+                    $this->editFields['photoLink']['file_options']['load_dir'] = null;
+                }
+
                 $this->view->editFields = $this->editFields;
                 $this->view->fieldAliases = $this->langMap->fieldAliases;
                 $this->view->type = 'edit';
