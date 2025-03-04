@@ -3,10 +3,16 @@
 }
 .brackets-test textarea{
     height: 5em;
-    width: 20em;
+    width: 100%;
+    font-size: 1em;
 }
 .brackets-test .br-set{
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+}
+.brackets-test .br-i{
     display: inline-block;
+    margin-right: 1em;
 }
 .brackets-test .brackets-test-result{
 

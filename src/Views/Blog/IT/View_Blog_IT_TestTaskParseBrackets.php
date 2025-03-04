@@ -49,25 +49,26 @@ class View_Blog_IT_TestTaskParseBrackets extends View_Blog_Art
             '<h3>Тест</h3>'.
             '<p>Введите выражение и нажмите Check! для проверки:</p>'.
             '<div class="brackets-test">'.
-            '<form>';
+            '<form>'.
+            '<div class="br-set">';
         $BracketsSigns = self::getBracketsSigns();
         foreach ($BracketsSigns as $brNum => $br){
-            $return.= '<div class="br-set">'.
+            $return.= '<div class="br-i">'.
                 '<label for="'.$brNum.'">'.$br['start'].$br['end'].'</label>'.
                 '<input type="checkbox" id="'.$brNum.'" name="'.$brNum.'" checked>'.
                 '</div>';
         }
 
-        $return.='<div class="testString">'.
+        $return.='</div><div class="testString">'.
             '<textarea name="testString">'.$testString.'</textarea>'.
             '</div>';
         $rText = '';
         $rClass = '';
         if(self::checkBrackets($testString, self::getBracketsSigns())){
-            $rText.='Ok';
+            $rText.='Ok '.date('H:i:s');
             $rClass = ' ok';
         }else{
-            $rText.='fail';
+            $rText.='fail '.date('H:i:s');;
             $rClass = ' fail';
         }
         $return.= '<div class="brackets-test-result'.$rClass.'">'.$rText.'</div>'.
@@ -107,7 +108,7 @@ class View_Blog_IT_TestTaskParseBrackets extends View_Blog_Art
             '<li>);</li>'.
             '</ul>'.
             '</div>'.
-            '<p>Что бы функция php strpos не вернула false, где надо, добавим поробел к строке и вычтем один символ с номера позиции.</p>'.
+            '<p>Что бы функция php strpos не вернула false, где надо, добавим пробел к строке и вычтем один символ с номера позиции.</p>'.
             '<ul>'.
             '<li>Считаем что если есть символ закрытой скобки в исходной строке $str, значит дожен быть символ и открытой скобки</li>'.
             '<li>Строка между скобками $restStr проверяется рекурсивно как и исходная строка</li>'.
@@ -160,7 +161,7 @@ class View_Blog_IT_TestTaskParseBrackets extends View_Blog_Art
             '<h3>Выводы</h3>'.
             '<p>'.
             'Правильное решение тестового задания не гарантирует что бы будете приняты на предложенную вакансию. '.
-            'Никогда не решайте объемных заданий, решайте только те что не составят вам труда или буду полезны лично вам'.
+            'Никогда не решайте объемных заданий, решайте только те что не составят вам труда или буду полезны лично вам.'.
             '</p>'.
             '</section>';
     }

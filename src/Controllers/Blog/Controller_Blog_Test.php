@@ -24,8 +24,16 @@ class Controller_Blog_Test extends Controller
 
         $checkResult = $this->view::checkBrackets($testString, $brSigns);
 
+        $restext = '';
 
-        $this->view->responseJson = array('checkResult' => $checkResult);
+        if($checkResult){
+            $restext = 'Ok ';
+        }else{
+            $restext = 'fail ';
+        }
+        $restext.=date('H:i:s');
+
+        $this->view->responseJson = array('checkResult' => $checkResult, 'restext' => $restext);
     }
 
     public function alvasarCode()
