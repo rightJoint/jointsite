@@ -750,20 +750,33 @@ class WebView extends View implements WebViewInterface
         $returnOrder = '<div class="modal order"><div class="overlay"></div><div class="contentBlock-frame">'.
             '<div class="contentBlock-center"><div class="modal-right"><div class="modal-close"></div></div>'.
             '<div class="modal-left">'.
-            '<div class="modal-line"><div class="modal-line-img">'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-img">'.
             '<img src="/img/Services/logo-free.png"></div>'.
             '<div class="modal-line-text free"><a href="tel:+7(903)8887772" class="phone" target="_blank">+7 (903) 888-7772</a>'.
             '<p>'.$langOrder->hire_txt.'</p>'.
             '<div>'.
-            '</div></div></div>'.
-            '<div class="modal-line"><div class="modal-line-img">'.
+            '</div>'.
+            '</div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-img">'.
+            '<img src="/img/popimg/cv-logo.png"></div><div class="modal-line-text mail">'.
+            '<a href="/cv" class="cv" title="'.$langOrder->cv_title.'">'.$langOrder->cv_text.'</a>'.
+            '</div>'.
+            '</div>'.
+            '<div class="modal-line">'.
+            '<div class="modal-line-img">'.
             '<img src="/img/popimg/eMailLogo.png"></div><div class="modal-line-text mail">'.
-            '<a href="mailto:rightjoint@yandex.ru" class="mailto" target="_blank">rightjoint@yandex.ru</a></div></div>'.
+            '<a href="mailto:rightjoint@yandex.ru" class="mailto" target="_blank">rightjoint@yandex.ru</a>'.
+            '</div>'.
+            '</div>'.
             '<div class="modal-line"><div class="modal-line-img">'.
             '<img src="/img/Services/telegram.png"></div><div class="modal-line-text">'.
             '<a href="https://t.me/rightjoint" class="mailto" target="_blank" title="'.$langOrder->telega_t.'">'.
             't.me/rightjoint</a>'.
-            '</div></div>'.
+            '</div>'.
+            '</div>'.
             '<form class="auth-form order">'.
             '<div class="modal-line">'.
             '<div class="modal-line-text fbm-title ta-right">'.
