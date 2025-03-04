@@ -278,6 +278,8 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
 
         $langOrder->hire_txt = 'Присматриваю варианты для взаимовыгодного сотрудничества. Готов приступить к работе по договоренности';
         $langOrder->telega_t = 'связаться по телеграмм';
+        $langOrder->cv_text = 'Резюме';
+        $langOrder->cv_title = 'Мой опыт работы, профессиональные навыки, ответы на часто задаваемые вопросы';
 
         $orderForm = new stdClass();
 
