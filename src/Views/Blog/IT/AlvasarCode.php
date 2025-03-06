@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Src\Views\Blog\It;
+namespace Src\Views\Blog\IT;
 
 
 class AlvasarCode

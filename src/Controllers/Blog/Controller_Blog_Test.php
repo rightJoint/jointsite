@@ -5,7 +5,7 @@ namespace Src\Controllers\Blog;
 
 
 use JointApp\Controllers\Controller;
-use Src\Views\Blog\It\AlvasarCode;
+use Src\Views\Blog\IT\AlvasarCode;
 
 class Controller_Blog_Test extends Controller
 {
