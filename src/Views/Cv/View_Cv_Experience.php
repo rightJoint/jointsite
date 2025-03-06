@@ -42,6 +42,7 @@ class View_Cv_Experience extends View_Cv_Main
             'Последние два года работал удаленно. Из Транскапиталбанк ушел по соглашению сторон в связи со сменой руководства.'.
             '</p>'.
             '</div>'.
+            '<div class="t-wrap">'.
             '<table>'.
             '<tr>'.
             '<td class="c-c1">Место работы/должность/период</td>'.
@@ -51,6 +52,7 @@ class View_Cv_Experience extends View_Cv_Main
             self::cvExperienceOkna().
             self::cvExperienceLider().
             '</table>'.
+            '</div>'.
             '</section>';
     }
 

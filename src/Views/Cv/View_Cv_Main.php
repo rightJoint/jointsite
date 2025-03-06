@@ -54,7 +54,10 @@ class View_Cv_Main extends SiteView
             '<span>php</span>'.
             '<span>html</span>'.
             '<span>database</span>'.
-            '<span>VCS</span>'.
+            '<span>Apache</span>'.
+            '<span>MySql</span>'.
+            '<span>REST</span>'.
+            '<span>SOLID</span>'.
             '</div>'.
             '</div>'.
             '<div class="cv-header-img">'.

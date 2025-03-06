@@ -50,7 +50,9 @@ class View_Cv_Skills extends View_Cv_Main
             'которые часто запрашиваются в описании к вакансиям и свой опыт по ним я '.
             'описал в таблице.</p>'.
             '</div>'.
+            '<div class="t-wrap">'.
             self::skillsTable().
+            '</div>'.
             '</section>';
     }
 }

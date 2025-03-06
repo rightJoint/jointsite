@@ -20,3 +20,7 @@ section.cv-skills .cv-skills-tb1, section.cv-skills .cv-skills-tb2{
     padding-left: 1em;
     padding-right: 1em;
 }
+.t-wrap{
+    width: 100%;
+    overflow-x: scroll;
+}
