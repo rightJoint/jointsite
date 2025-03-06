@@ -68,11 +68,11 @@ trait SkillsTableTrait
     {
         return '<td rowspan="15" class="skill">php</td>'.
             '<td class="option pretty-good">Конструкции: циклы, суперглобальные, рекурсия, регулярные выражения, анонимные функции, парсинг и т.п.</td>'.
-            '<td class="level">использовал на каждом проекте, хорошо в этом разбираюсь. Опыт использования на других языках программирования.</td>'.
+            '<td class="level">использовал на каждом проекте, опыт использования на других языках программирования.</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">принципы ООП и SOLID, интерфейсы, трейты, абстрактные классы</td>'.
-            '<td class="level">использовал на каждом проекте, я хорошо в этом разбираюсь. Есть опыт код-верью, опыт работы с legacy-кодом</td>'.
+            '<td class="level">Я хорошо в этом разбираюсь. Есть опыт код-верью, опыт работы с legacy-кодом</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">Паттерны, MVC</td>'.
@@ -80,12 +80,14 @@ trait SkillsTableTrait
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">Современная версия 8+</td>'.
-            '<td class="level">10 лет назад я начинал с версии 5.6, на рабочих проектах мне встречались 7-е версии, сейчас в своих проектах использую 8+</td>'.
+            '<td class="level">10 лет назад я начинал с версии 5.6, на рабочих проектах мне встречались 7-е версии, '.
+            'сейчас в своих проектах использую 8+</td>'.
             '</tr>'.
             '<tr>'.
             '<tr>'.
             '<td class="option competitive">REST JSON, XML</td>'.
-            '<td class="level">У меня есть опыт создания REST API, обычно все приложения его поддерживают, включая мой pet-проект</td>'.
+            '<td class="level">У меня есть опыт создания REST API, обычно все приложения его поддерживают, включая мой pet-проект. '.
+            'С api xml не работал, использовал формат для настройки php composer и sitemap</td>'.
             '</tr>'.
             '<tr>'.
             '<tr>'.
@@ -95,31 +97,46 @@ trait SkillsTableTrait
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">PSR-стандарты, composer</td>'.
-            '<td class="level"></td>'.
+            '<td class="level">'.
+            'composer я начал использовать только на pet-проекте с применения psr-4, который не поддерживали рабочие проекты. '.
+            'В своей работе я руководствуюсь стандартами и применяю многие из интерфесов php-fig'.
+            '</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option junior">Фрэймворки: Laravel, Symfony, Yii, Birtix, ModX, WordPress</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="level">'.
+            '<b>Laravel</b>: пробовал следовать документации и установить проек с herd панелью.</br>'.
+            '<b>Birtix</b>: настраивал тестовые стенды интернет-магазинов и git-репозитории. Добавлял '.
+            'формы, скрипты, настривал умный фильтр и т.п.</br>'.
+            '<b>Yii2</b>: участвовал в написании rest-api. Делал миграции, action и т.п.'.
+            '<p>С остальными фрэймворками я знаком поверхностно.</p>'.
+            '</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">Unit-тесты</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="level">Я нахожу применение unit-тестам на своем pet-проекте и '.
+            'близок с php-uint. На рабочих проектах большинство заказчиков принебрегали тестами, но я '.
+            'считаю что это не правильно и для себя так не делаю.</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">Debugging</td>'.
-            '<td class="level">xDebug, ccc</td>'.
+            '<td class="option competitive">Debugging</td>'.
+            '<td class="level">я пробовал успешно применять xDebug с phpStorm и Docker. '.
+            'Мне иногда приходилось искать ошибки на рабочих проектах.</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">ORM</td>'.
-            '<td class="level">Eloquent</td>'.
+            '<td class="option competitive">ORM</td>'.
+            '<td class="level">'.
+            'Некоторые рабочие проекты поддерживали свою ORM и я использовал возможности '.
+            'для рабочих задач. С Eloquent знаком поверхностно</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Консоль</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Консоль</td>'.
+            '<td class="level">Мне приходилось писать php-скрипты для консоли, '.
+            'не только unit-тесты</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Программы: phpStorm, VSCode, Postman</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Программы: phpStorm, VSCode, Postman</td>'.
+            '<td class="level">Я уверенно владею основными средствами разработки, моя любимая ide PhpStorm</td>'.
             '</tr>';
     }
 
@@ -127,7 +144,7 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">html, css</td>'.
-            '<td class="option">html DOM: заголовки (формат ответа, статус код, ), докумет, линки, разметка тэгами и прочее</td>'.
+            '<td class="option">html DOM: заголовки (формат ответа, статус код, ), документ, линки, разметка тэгами и прочее</td>'.
             '<td class="level competitive">Мой уровень</td>'.
             '</tr>'.
             '<tr>'.
