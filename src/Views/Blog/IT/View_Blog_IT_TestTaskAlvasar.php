@@ -50,7 +50,7 @@ class View_Blog_IT_TestTaskAlvasar extends View_Blog_Art
         return '<section>'.
             '<h3>Постановка задачи</h3>'.
             '<p>Пользователь вводит свои ФИО и дату рождения, на выходе получает код судьбы. '.
-            'Методика расчета кода дана в описании задачи <a href="/downloads/Тестовое задание Альвасар.docx">Тестовое задание Альвасар.docx</a>'.
+            'Методика расчета кода дана в описании задачи <a href="/downloads/TestTaskAlvasar.docx" download>Тестовое задание Альвасар.docx</a>'.
             '</p>'.
             '</section>';
     }
