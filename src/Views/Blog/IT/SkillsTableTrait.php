@@ -127,7 +127,7 @@ trait SkillsTableTrait
             '<td class="option competitive">ORM</td>'.
             '<td class="level">'.
             'Некоторые рабочие проекты поддерживали свою ORM и я использовал возможности '.
-            'для рабочих задач. С Eloquent знаком поверхностно</td>'.
+            'для рабочих задач. С Eloquent, Doctrine знаком поверхностно</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">Консоль</td>'.
@@ -343,7 +343,7 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="1" class="skill">Методологии</td>'.
-            '<td class="option">TTD, MariaDb</td>'.
+            '<td class="option">TTD, Kanban,</td>'.
             '<td class="level">Мой уровень</td>'.
             '</tr>';
     }
