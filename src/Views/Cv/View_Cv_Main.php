@@ -61,7 +61,7 @@ class View_Cv_Main extends SiteView
             '</div>'.
             '</div>'.
             '<div class="cv-header-img">'.
-            '<img src="/img/Cv/photo.jpg">'.
+            '<img src="/img/cv/photo.jpg">'.
             '</div>'.
             '<div class="cv-header-contacts">'.
             '<div class="cv-header-contacts-line"><span class="c-l-field">Телефон</span>+7 (903) 888-7772</div>'.
