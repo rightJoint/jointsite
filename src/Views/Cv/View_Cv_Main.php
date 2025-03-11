@@ -58,6 +58,17 @@ class View_Cv_Main extends SiteView
             '<span>MySql</span>'.
             '<span>REST</span>'.
             '<span>SOLID</span>'.
+            '<span>MVC</span>'.
+            '<span>PSR</span>'.
+            '<span>API</span>'.
+            '<span>php-unit</span>'.
+            '<span>phpStorm</span>'.
+            '<span>Jquery</span>'.
+            '<span>Ajax</span>'.
+            '<span>Docker</span>'.
+            '<span>Scrum</span>'.
+            '<span>Ansible</span>'.
+            '<span>Elasticsearch</span>'.
             '</div>'.
             '</div>'.
             '<div class="cv-header-img">'.

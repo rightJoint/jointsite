@@ -141,19 +141,19 @@ trait SkillsTableTrait
             '<td class="level">'.$js->c3->c32.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$js->c2->c23.'</td>'.
+            '<td class="option surficial">'.$js->c2->c23.'</td>'.
             '<td class="level">'.$js->c3->c33.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$js->c2->c24.'</td>'.
+            '<td class="option surficial">'.$js->c2->c24.'</td>'.
             '<td class="level">'.$js->c3->c34.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$js->c2->c25.'</td>'.
+            '<td class="option surficial">'.$js->c2->c25.'</td>'.
             '<td class="level">'.$js->c3->c35.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$js->c2->c26.'</td>'.
+            '<td class="option surficial">'.$js->c2->c26.'</td>'.
             '<td class="level">'.$js->c3->c36.'</td>'.
             '</tr>';
     }
@@ -186,7 +186,7 @@ trait SkillsTableTrait
             '<td class="level">'.$relDb->c3->c36.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$relDb->c2->c27.'</td>'.
+            '<td class="option surficial">'.$relDb->c2->c27.'</td>'.
             '<td class="level">'.$relDb->c3->c37.'</td>'.
             '</tr>'.
             '<tr>'.
@@ -198,11 +198,11 @@ trait SkillsTableTrait
             '<td class="level">'.$relDb->c3->c39.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$relDb->c2->c210.'</td>'.
+            '<td class="option surficial">'.$relDb->c2->c210.'</td>'.
             '<td class="level">'.$relDb->c3->c310.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$relDb->c2->c211.'</td>'.
+            '<td class="option surficial">'.$relDb->c2->c211.'</td>'.
             '<td class="level">'.$relDb->c3->c311.'</td>'.
             '</tr>';
     }
@@ -289,7 +289,7 @@ trait SkillsTableTrait
             '<td class="level">'.$test->c3->c32.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$test->c2->c23.'</td>'.
+            '<td class="option surficial">'.$test->c2->c23.'</td>'.
             '<td class="level">'.$test->c3->c33.'</td>'.
             '</tr>';
     }
@@ -298,11 +298,11 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">'.$queue->c1.'</td>'.
-            '<td class="option junior">Kafka</td>'.
+            '<td class="option surficial">Kafka</td>'.
             '<td class="level" rowspan="2">'.$queue->c2.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">Rabbit Mq</td>'.
+            '<td class="option surficial">Rabbit Mq</td>'.
             '</tr>';
     }
 
@@ -314,14 +314,14 @@ trait SkillsTableTrait
             '<td class="level">'.$methods->c3->c31.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior" >Kanban</td>'.
+            '<td class="option surficial" >Kanban</td>'.
             '<td class="level" rowspan="3">'.$methods->c3->c32.'</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option junior">Aglie</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">Lean</td>'.
+            '<td class="option surficial">Lean</td>'.
             '</tr>'.
             '<tr>'.
             '<td class="option competitive">TTD</td>'.
@@ -350,15 +350,15 @@ trait SkillsTableTrait
             '<td class="level">'.$other->c3->c32.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">Web-Sockets</td>'.
+            '<td class="option surficial">Web-Sockets</td>'.
             '<td class="level">'.$other->c3->c33.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">TelegramBot</td>'.
+            '<td class="option surficial">TelegramBot</td>'.
             '<td class="level" rowspan="2">'.$other->c3->c34.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">BlockChain</td>'.
+            '<td class="option surficial">BlockChain</td>'.
             '</tr>';
     }
 }
