@@ -37,7 +37,7 @@ class View_Cv_Main extends SiteView
             '<div class="contentBlock-wrap">'.
             self::cvHeader($langPageContent->cvHeader).
             self::cvMenu($langPageContent->cvMenu, $viewParams->langSl, $viewParams->routes_ns).
-            static::cvContent().
+            static::cvContent($langPageContent->cvContent).
             '</div>'.
             '</div>'.
             '</div>';
@@ -136,12 +136,12 @@ class View_Cv_Main extends SiteView
         return $return;
     }
 
-    public static function cvContent():string
+    public static function cvContent(\stdClass $langCvContent):string
     {
-        return static::cvExperience();
+        return static::cvExperience($langCvContent);
     }
 
-    public static function cvExperience():string
+    public static function cvExperience(\stdClass $langCvContent):string
     {
         return
             'Experience table';
