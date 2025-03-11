@@ -19,6 +19,7 @@ trait SkillsTableTrait
         self::skillsHtml().
         self::skillsJavaScript().
         self::skillsDatabase().
+        self::skillsOtherDb().
         self::skillsShell().
         self::skillsVsc().
         self::skillsCache().
@@ -28,6 +29,9 @@ trait SkillsTableTrait
         self::skillsTest().
         self::skillsQueue().
         self::skillsMethods().
+        self::skillsHb().
+        self::skillsBot().
+        self::skillsOther().
         '</table>';
     }
 
@@ -238,6 +242,15 @@ trait SkillsTableTrait
             '</tr>';
     }
 
+    public static function skillsOtherDb():string
+    {
+        return '<tr>'.
+            '<td rowspan="1" class="skill">Не реляционные</td>'.
+            '<td class="option">ClickHouse, MonogoDb</td>'.
+            '<td class="level competitive">Мой уровень</td>'.
+            '</tr>';
+    }
+
     public static function skillsShell():string
     {
         return '<tr>'.
@@ -343,7 +356,34 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="1" class="skill">Методологии</td>'.
-            '<td class="option">TTD, Kanban,</td>'.
+            '<td class="option">Scrum, Kanban, Aglie, Lean, TTD</td>'.
+            '<td class="level">Мой уровень</td>'.
+            '</tr>';
+    }
+
+    public static function skillsHb():string
+    {
+        return '<tr>'.
+            '<td rowspan="1" class="skill">Немного реже</td>'.
+            '<td class="option">Swagger, Confluence, Jira</td>'.
+            '<td class="level">Мой уровень</td>'.
+            '</tr>';
+    }
+
+    public static function skillsBot():string
+    {
+        return '<tr>'.
+            '<td rowspan="1" class="skill">Немного реже</td>'.
+            '<td class="option">Web-Sockets, TelegramBot, BlockChain</td>'.
+            '<td class="level">Мой уровень</td>'.
+            '</tr>';
+    }
+
+    public static function skillsOther():string
+    {
+        return '<tr>'.
+            '<td rowspan="1" class="skill">Прочие/td>'.
+            '<td class="option">Web-Ansible, Elasticsearch</td>'.
             '<td class="level">Мой уровень</td>'.
             '</tr>';
     }
