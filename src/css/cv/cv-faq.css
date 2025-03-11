@@ -49,7 +49,8 @@ section.cv-faq .cv-a .cv-a-t p{
 }
 section.cv-faq .cv-a .cv-a-t ul{
     margin-top: 0;
+    padding-left: 0;
 }
-section.cv-faq .cv-a .cv-a-t p ul li{
-
+section.cv-faq .cv-a .cv-a-t ul li{
+    margin-left: 1em;
 }

@@ -24,14 +24,12 @@ trait SkillsTableTrait
         self::skillsVsc().
         self::skillsCache().
         self::skillsDocker().
-        self::skillsMicroservice().
         self::skillsOwasp().
         self::skillsTest().
         self::skillsQueue().
         self::skillsMethods().
-        self::skillsHb().
-        self::skillsBot().
         self::skillsOther().
+        self::skillsHb().
         '</table>';
     }
 
@@ -148,12 +146,13 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">html, css</td>'.
-            '<td class="option">html DOM: заголовки (формат ответа, статус код, ), документ, линки, разметка тэгами и прочее</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">html DOM: заголовки, код ответа, документ, линки, разметка тэгами и прочее</td>'.
+            '<td class="level">Использовалось на каждом проекте, обычно моего опыта достаточно для пешения большинства задач</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">css, адаптивная верстка, Bootstrap </td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">css, адаптивная верстка, Bootstrap </td>'.
+            '<td class="level">У меня есть опыт отзывчивой верстки под разные разрешения, ориентации и viewport, '.
+            'обычно с помощью медиа-тегов в css-файлах</td>'.
             '</tr>';
     }
 
@@ -161,93 +160,90 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="6" class="skill">JavaScript</td>'.
-            '<td class="option">Конструкции: </td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">Конструкции: </td>'.
+            '<td class="level">Знаком с основыными конструкциями и их примением</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Jquery, Ajax</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">Jquery, Ajax</td>'.
+            '<td class="level">Применял на каждом проекте</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">ООП в JS</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">ООП в JS</td>'.
+            '<td class="level">Пока я мало интересовался как устроено наследование или полиморфизм в js</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Фрэймворки React, Vue.js, TypeScript, Nuxt.js, Angular</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">Фрэймворки React, Vue.js, TypeScript, Nuxt.js, Angular</td>'.
+            '<td class="level">Знаком немного в теории, пока не использовал на практике, но есть к этому интерес</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">ES-6</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">ES-6</td>'.
+            '<td class="level">Пока я мало интересовался js стандартами</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">node.js npm</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">node.js npm</td>'.
+            '<td class="level">Не пробовал, но кое-что читал, знаком поверхностно</td>'.
             '</tr>';
     }
 
     public static function skillsDatabase():string
     {
         return '<tr>'.
-            '<td rowspan="12" class="skill">Реляционные базы данных</td>'.
-            '<td class="option">mySql, MariaDb</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td rowspan="11" class="skill">Реляционные базы данных</td>'.
+            '<td class="option competitive">mySql, MariaDb</td>'.
+            '<td class="level">Использовал на рабочих и pet-проектах</td>'.
             '</tr>'.
             '<tr>'.
-            //'<td rowspan="2">php</td>'.
-            '<td class="option">MsSql</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">MsSql</td>'.
+            '<td class="level">Использовал на одном рабочем проекте и на тестовых заданиях</td>'.
             '</tr>'.
             '<tr>'.
-            //'<td rowspan="2">php</td>'.
-            '<td class="option">PostgreSql, Oracle</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">PostgreSql, Oracle</td>'.
+            '<td class="level">Я читал об этих БД, но пока не приходилось работать с ними</td>'.
             '</tr>'.
             '<tr>'.
-            //'<td rowspan="2">php</td>'.
-            '<td class="option">Запросы</td>'.
-            '<td class="level pretty-good">Мой уровень</td>'.
+            '<td class="option pretty-good">Запросы</td>'.
+            '<td class="level">Я довольно хорошо умею составлять сложные sql-запросы с агрегационными функциями для '.
+            'реализации безнес-логики</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Нормализация, денормализация</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">Нормализация, денормализация, ключи, индексы, схема данных</td>'.
+            '<td class="level">Мне часто приходилось добавлять/изменять таблицы в базе данных, '.
+            'настраивать первичные ключи и связывать таблицы внешними ключами. С оптимизацией запросов я '.
+            'знаком в меньшей степени, но есть понимание плана запроса и как это работает.</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Ключи, индексы, схема данных</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option competitive">Отчеты</td>'.
+            '<td class="level">Иногда мне приходилось создавать/изменять отчеты в базе даннх</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Отчеты</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option junior">Оконные функции</td>'.
+            '<td class="level">На практике я почти не стакливался с этим</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Оконные функции</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option competitive">Процедуры, триггры, блокировки</td>'.
+            '<td class="level">Иногда рабочие задачи касались и таких вещей, но на практике не часто</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Процедуры, триггры, блокировки</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td class="option junior">Транзакции, TSQL</td>'.
+            '<td class="level">В теории я имею представление об атомарности, консистентности, проблем параллельного доступа и '.
+            'уровнях изоляции транзакций, но на практике пока не использовал транзакции</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Транзакции, TSQL</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">Репликации</td>'.
+            '<td class="level">Начальные знания о способах репликации и RAID</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Репликации</td>'.
-            '<td class="level junior">Мой уровень</td>'.
-            '</tr>'.
-            '<tr>'.
-            '<td class="option">Шардирование</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">Шардирование</td>'.
+            '<td class="level">Начальные знания, немного касался вопроса по elasticsearch</td>'.
             '</tr>';
     }
 
     public static function skillsOtherDb():string
     {
         return '<tr>'.
-            '<td rowspan="1" class="skill">Не реляционные</td>'.
-            '<td class="option">ClickHouse, MonogoDb</td>'.
-            '<td class="level competitive">Мой уровень</td>'.
+            '<td rowspan="1" class="skill">Не реляционные базы данных</td>'.
+            '<td class="option junior">ClickHouse, MonogoDb</td>'.
+            '<td class="level">Немного читал об этом, пока не использовал</td>'.
             '</tr>';
     }
 
@@ -255,12 +251,12 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">Shell linux, windows</td>'.
-            '<td class="option">Умения рабоать с командной стройкой, проверить службы, порты и т.п., использовать putty, sftp</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Умения рабоать с командной стройкой, проверить службы, порты и т.п., использовать ssh putty, sftp</td>'.
+            '<td class="level">Я часто использую консоль на windows, linux, в Docker</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Умение прочитать логи, настрить конфги</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Умение прочитать логи, настрить конфги</td>'.
+            '<td class="level">Мне часто приходилось разбираться в настройках конфигураций различных серверных и не только программ</td>'.
             '</tr>';
     }
 
@@ -268,29 +264,27 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">Git</td>'.
-            '<td class="option">Работа с репозиториями, ветками, комитами, решение конфликтов и т.п.</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Работа с репозиториями, ветками, комитами, решение конфликтов и т.п.</td>'.
+            '<td class="level">Я довольно близко знаком с git, использовал на рабочих и pet-проектах</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Настройка Workflow, PullRequest и т.п.</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Настройка Workflow, PullRequest и т.п.</td>'.
+            '<td class="level">Мне приходилось настраивать git для командной работы и автоматизировать ci/cd на pet-проекте</td>'.
             '</tr>';
     }
 
     public static function skillsCache():string
     {
         return '<tr>'.
-            '<td rowspan="3" class="skill">Кэш (высоконагруженные системы)</td>'.
-            '<td class="option">Redis</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td rowspan="2" class="skill">Кэш (высоконагруженные системы)</td>'.
+            '<td class="option junior">Redis</td>'.
+            '<td class="level">'.
+            'Я сталкивалися с установкой Redis применительно к задачам по Ansible, '.
+            'немного знаком в теории как использовать для хранения ключей/списков и т.п.</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Memcache</td>'.
-            '<td class="level">Мой уровень</td>'.
-            '</tr>'.
-            '<tr>'.
-            '<td class="option">npm---????</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option junior">Memcache</td>'.
+            '<td class="level">Начальные теоретические знания</td>'.
             '</tr>';
     }
 
@@ -298,43 +292,40 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">Docker</td>'.
-            '<td class="option">mySql, MariaDb</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Сборка</td>'.
+            '<td class="level">'.
+            'У меня есть опыт сборки приложения в docker, настройки docker-файла на pet-проекте'.
+            '</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">MsSql</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option junior">Микросервисы</td>'.
+            '<td class="level">Я вплотную подошел к микросервисам на pet-проекте и настройки сети между контейнерами в docker, '.
+            'имею представление о kubernetes</td>'.
             '</tr>';
-    }
-
-    public static function skillsMicroservice():string
-    {
-        return '<tr>'.
-            '<td rowspan="2" class="skill">Микросервисы</td>'.
-            '<td class="option">mySql, MariaDb</td>'.
-            '<td class="level">Мой уровень</td>'.
-            '</tr>'.
-            '<tr>';
     }
 
     public static function skillsOwasp():string
     {
         return '<tr>'.
             '<td rowspan="1" class="skill">OWASP</td>'.
-            '<td class="option">mySql, MariaDb</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td class="option competitive">Безопасность web-приложений</td>'.
+            '<td class="level">Базовые знания и практические уменя в части безопасности web-приложений и способов защиты от атак</td>'.
             '</tr>';
     }
 
     public static function skillsTest():string
     {
         return '<tr>'.
-            '<td rowspan="2" class="skill">тесты</td>'.
-            '<td class="option">юнит-тесты, интеграционные тесты), опыт написания тестов.</td>'.
+            '<td rowspan="3" class="skill">тесты</td>'.
+            '<td class="option competitive">юнит-тесты</td>'.
             '<td class="level">Мой уровень</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">интеграционные тесты, опыт написания тестов.</td>'.
+            '<td class="option junior">интеграционные тесты</td>'.
+            '<td class="level">Мой уровень</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">Регресс</td>'.
             '<td class="level">Мой уровень</td>'.
             '</tr>';
     }
@@ -343,48 +334,70 @@ trait SkillsTableTrait
     {
         return '<tr>'.
             '<td rowspan="2" class="skill">Брокеры очередей</td>'.
-            '<td class="option">Kafka</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">Kafka</td>'.
+            '<td class="level" rowspan="2">Вообще мне часто приходилось иметь дело с обменом сообщениями с различными сервисами с '.
+            'помощью очередей, и по опыту в этом есть много тонких моментов. Именно с Rabbit и Kafka я не работал</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option">Rabbit Mq</td>'.
-            '<td class="level junior">Мой уровень</td>'.
+            '<td class="option junior">Rabbit Mq</td>'.
             '</tr>';
     }
 
     public static function skillsMethods():string
     {
         return '<tr>'.
-            '<td rowspan="1" class="skill">Методологии</td>'.
-            '<td class="option">Scrum, Kanban, Aglie, Lean, TTD</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td rowspan="5" class="skill">Методологии</td>'.
+            '<td class="option competitive">Scrum</td>'.
+            '<td class="level">На последнем месте я работал в небольшой команде по Scrum и 4-х недельным спринтам</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior" >Kanban</td>'.
+            '<td class="level" rowspan="3">Немного читал об этом</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">Aglie</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">Lean</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option competitive">TTD</td>'.
+            '<td class="level">Иногда я считаю такую методолгию полезной и и сначала пишу тест</td>'.
             '</tr>';
     }
 
     public static function skillsHb():string
     {
         return '<tr>'.
-            '<td rowspan="1" class="skill">Немного реже</td>'.
-            '<td class="option">Swagger, Confluence, Jira</td>'.
-            '<td class="level">Мой уровень</td>'.
-            '</tr>';
-    }
-
-    public static function skillsBot():string
-    {
-        return '<tr>'.
-            '<td rowspan="1" class="skill">Немного реже</td>'.
-            '<td class="option">Web-Sockets, TelegramBot, BlockChain</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td rowspan="1" class="skill">Процессы</td>'.
+            '<td class="option competitive">Swagger, Confluence, Jira</td>'.
+            '<td class="level">У меня есть опыт работы по задачам и учету рабочего времени в Jira, '.
+            'ведении документации по проекту в Confluence</td>'.
             '</tr>';
     }
 
     public static function skillsOther():string
     {
         return '<tr>'.
-            '<td rowspan="1" class="skill">Прочие/td>'.
-            '<td class="option">Web-Ansible, Elasticsearch</td>'.
-            '<td class="level">Мой уровень</td>'.
+            '<td rowspan="5" class="skill">Прочие</td>'.
+            '<td class="option competitive">Ansible</td>'.
+            '<td class="level">Успешный опыт настройки стенда Ansible и передова cron-задач с распределенных серверов</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option competitive">Elasticsearch</td>'.
+            '<td class="level">Успешный опыт установка и настройка сборщиков логов filebeat, pipelines logstash, '.
+            'rollover lifecycle policy</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">Web-Sockets</td>'.
+            '<td class="level">Начальные теоретические знания о технологии и ее возможностях</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">TelegramBot</td>'.
+            '<td class="level" rowspan="2">Поверхностные знания</td>'.
+            '</tr>'.
+            '<tr>'.
+            '<td class="option junior">BlockChain</td>'.
             '</tr>';
     }
 }

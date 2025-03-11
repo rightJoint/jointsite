@@ -29,25 +29,33 @@ class View_Cv_Experience extends View_Cv_Main
 
     public static function cvExperience():string
     {
-        return
-            '<section class="cv-experience">'.
-            '<h3>Опыт работы</h3>'.
-            '<div class="prevExp">'.
-            '<p>Мой коммерческий опыт в it начинается с 2019 года, '.
+        $langExp = new \stdClass();
+        $langExp->h3 = 'Опыт работы';
+        $langExp->p1 = 'Мой коммерческий опыт в it начинается с 2019 года, '.
             'до этого работал преимущественно инженером ПНР на электростанциях, прошел путь от начинающего специалиста '.
             'до ведущего инженера. Сменил несколько направлений и приобрел широкий опыт работы, научился быстро осваиваться в новом стеке и '.
-            'решать сложные задачи. Саморазвивался в it работая над pet-проектами.'.
-            '</p>'.
-            '<p>'.
-            'Последние два года работал удаленно. Из Транскапиталбанк ушел по соглашению сторон в связи со сменой руководства.'.
-            '</p>'.
+            'решать сложные задачи. Саморазвивался в it работая над pet-проектами.';
+        $langExp->p2 = 'Последние два года работал удаленно. Из Транскапиталбанк ушел по соглашению сторон в связи со сменой руководства.';
+        $table = new \stdClass();
+        $trc = new \stdClass();
+        $trc->c1 = 'Место работы/должность/период';
+        $trc->c2 = 'Проект / стек';
+        $trc->c3 = 'Роль / достижения';
+        $table->trc = $trc;
+
+        return
+            '<section class="cv-experience">'.
+            '<h3>'.$langExp->h3.'</h3>'.
+            '<div class="prevExp">'.
+            '<p>'.$langExp->p1.'</p>'.
+            '<p>'.$langExp->p2.'</p>'.
             '</div>'.
             '<div class="t-wrap">'.
             '<table>'.
             '<tr>'.
-            '<td class="c-c1">Место работы/должность/период</td>'.
-            '<td class="c-c2">Проект / стек</td>'.
-            '<td class="c-c3">Роль / достижения</td>'.
+            '<td class="c-c1">'.$table->trc->c1.'</td>'.
+            '<td class="c-c2">'.$table->trc->c2.'</td>'.
+            '<td class="c-c3">'.$table->trc->c3.'</td>'.
             self::cvExperienceTkb().
             self::cvExperienceOkna().
             self::cvExperienceLider().
