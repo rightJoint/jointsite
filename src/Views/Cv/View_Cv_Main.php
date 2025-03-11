@@ -35,21 +35,21 @@ class View_Cv_Main extends SiteView
         return
             '<div class="contentBlock-frame"><div class="contentBlock-center">'.
             '<div class="contentBlock-wrap">'.
-            self::cvHeader().
-            self::cvMenu($viewParams->langSl, $viewParams->routes_ns).
+            self::cvHeader($langPageContent->cvHeader).
+            self::cvMenu($langPageContent->cvMenu, $viewParams->langSl, $viewParams->routes_ns).
             static::cvContent().
             '</div>'.
             '</div>'.
             '</div>';
     }
 
-    public static function cvHeader():string
+    public static function cvHeader(\stdClass $langCvHeader):string
     {
         return
             '<div class="cv-header">'.
             '<div class="cv-header-row">'.
             '<div class="cv-header-role">'.
-            '<div class="cv-header-role-title">Middle FullStack разработчик</div>'.
+            '<div class="cv-header-role-title">'.$langCvHeader->title.'</div>'.
             '<div class="cv-header-role-skills">'.
             '<span>php</span>'.
             '<span>html</span>'.
@@ -64,18 +64,46 @@ class View_Cv_Main extends SiteView
             '<img src="/img/cv/photo.jpg">'.
             '</div>'.
             '<div class="cv-header-contacts">'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">Телефон</span>+7 (903) 888-7772</div>'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">E-Mail</span>rightjoint@yandex.ru</div>'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">Адрес</span>г. Иваново, ул. 8 Марта, д. 32, ТРЦ «Серебряный город»</div>'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">Телеграм</span>t.me/rightjoint</div>'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">Linkedin</span>linkedin.com/rightjoint</div>'.
-            '<div class="cv-header-contacts-line"><span class="c-l-field">Web-сайт</span>rightjoint.ru</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.$langCvHeader->contacts->phoneLabel.'</span>'.
+            '+7 (903) 888-7772'.
+            '</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.
+            'E-Mail'.
+            '</span>'.
+            'rightjoint@yandex.ru'.
+            '</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.
+            $langCvHeader->contacts->addressLabel.
+            '</span>'.
+            $langCvHeader->contacts->addressVal.
+            '</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.
+            $langCvHeader->contacts->tgText.
+            '</span>'.
+            't.me/rightjoint'.
+            '</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.
+            'Linkedin'.
+            '</span>'.
+            'linkedin.com/rightjoint'.
+            '</div>'.
+            '<div class="cv-header-contacts-line">'.
+            '<span class="c-l-field">'.
+            $langCvHeader->contacts->webLabel.
+            '</span>'.
+            'rightjoint.ru'.
+            '</div>'.
             '</div>'.
             '</div>'.
             '</div>';
     }
 
-    public static function cvMenu(string $langSl, array $routes_ns):string
+    public static function cvMenu(\stdClass $langMenu, string $langSl, array $routes_ns):string
     {
         $return= '<div class="cv-menu">'.
             '<div class="cv-menu-row">'.
@@ -84,24 +112,24 @@ class View_Cv_Main extends SiteView
             $return.=' active';
         }
         $return.='">'.
-        '<a href="'.$langSl.'/cv" title="Опыт работы">Опыт работы</a>'.
+        '<a href="'.$langSl.'/cv" title="'.$langMenu->expTitle.'">'.$langMenu->expText.'</a>'.
         '</div>'.
         '<div class="cv-menu-i';
         if(isset($routes_ns[2]) and $routes_ns[2] == 'skills'){
             $return.=' active';
         }
         $return.='">'.
-        '<a href="'.$langSl.'/cv/skills" title="Профессиональные навыки">Профессиональные навыки</a>'.
+        '<a href="'.$langSl.'/cv/skills" title="'.$langMenu->skillsTitle.'">'.$langMenu->skillsText.'</a>'.
         '</div>'.
         '<div class="cv-menu-i';
         if(isset($routes_ns[2]) and $routes_ns[2] == 'faq'){
             $return.=' active';
         }
         $return.='">'.
-        '<a href="'.$langSl.'/cv/faq" title="Часто задаваемые вопросы">Часто задаваемые вопросы</a>'.
+        '<a href="'.$langSl.'/cv/faq" title="'.$langMenu->faqTitle.'">'.$langMenu->faqText.'</a>'.
         '</div>'.
         '<div class="cv-menu-i">'.
-        '<a href="'.$langSl.'/cv/faq" title="Скачать pdf">Скачать pdf</a>'.
+        '<a href="'.$langSl.'/cv/faq" title="'.$langMenu->pdfTitle.'">'.$langMenu->pdfText.'</a>'.
         '</div>'.
         '</div>'.
         '</div>';
