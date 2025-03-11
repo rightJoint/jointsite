@@ -34,7 +34,7 @@ class LangFiles_En_Views_Cv_Main extends LangFiles_En_Views_SiteView
         $langMenu = new \stdClass();
         $langMenu->expText = 'Experience';
         $langMenu->expTitle = 'Подробный опыт работы';
-        $langMenu->skillsText = 'hard skills';
+        $langMenu->skillsText = 'Нard skills';
         $langMenu->skillsTitle = 'Мой уровень владения технологией';
         $langMenu->faqText = 'FAQ';
         $langMenu->faqTitle = 'Мои ответы на популярные вопросы';

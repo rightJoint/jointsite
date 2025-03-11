@@ -28,30 +28,24 @@ class View_Cv_Skills extends View_Cv_Main
         ]);
     }
 
-    public static function cvContent():string
+    public static function cvContent(\stdClass $langCvContent):string
     {
-        return self::cvSillsTable();
+        return self::cvSillsTable($langCvContent->langCvSkills, $langCvContent->langSkillsLegend, $langCvContent->langSkillsTable);
     }
 
-    public static function cvSillsTable():string
+    public static function cvSillsTable(\stdClass $langCvSkills, \stdClass $langSkillsLegend, \stdClass $langSkillsTable):string
     {
         return '<section class="cv-skills">'.
-            '<h3>Профессиональные навыки</h3>'.
+            '<h3>'.$langCvSkills->h3.'</h3>'.
             '<div class="cv-skills-tb1">'.
-            '<p>'.
-            'Заказчику часто требуется чтоб сотрудник умел работать сразу с несколькими '.
-            'инструментами/технологиями. Но сейчас стек настолько широк что на получение глубокого '.
-            'практического опыта по всем технологиями потребуются десятилетия. '.
-            'Я составил примерную шкалу для оценки своих навыков.</p>'.
+            '<p>'.$langCvSkills->p1.'</p>'.
             '</div>'.
-            self::skillsLegendTable().
+            self::skillsLegendTable($langSkillsLegend).
             '<div class="cv-skills-tb2">'.
-            '<p>Список наиболее востребованных навыков, '.
-            'которые часто запрашиваются в описании к вакансиям и свой опыт по ним я '.
-            'описал в таблице.</p>'.
+            '<p>'.$langCvSkills->p2.'</p>'.
             '</div>'.
             '<div class="t-wrap">'.
-            self::skillsTable().
+            self::skillsTable($langSkillsTable).
             '</div>'.
             '</section>';
     }
