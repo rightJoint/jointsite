@@ -40,6 +40,7 @@ class LangFiles_En_Views_Cv_Main extends LangFiles_En_Views_SiteView
         $langMenu->faqTitle = 'Мои ответы на популярные вопросы';
         $langMenu->pdfText = 'Download pdf';
         $langMenu->pdfTitle = 'download cv';
+        $langMenu->pdfRef = 'resume-AlexeyPichugin_en.pdf';
 
         return $langMenu;
     }

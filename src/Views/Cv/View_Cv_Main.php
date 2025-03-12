@@ -140,7 +140,7 @@ class View_Cv_Main extends SiteView
         '<a href="'.$langSl.'/cv/faq" title="'.$langMenu->faqTitle.'">'.$langMenu->faqText.'</a>'.
         '</div>'.
         '<div class="cv-menu-i">'.
-        '<a href="'.$langSl.'/cv/faq" title="'.$langMenu->pdfTitle.'">'.$langMenu->pdfText.'</a>'.
+        '<a href="/'.$langMenu->pdfRef.'" title="'.$langMenu->pdfTitle.'" download>'.$langMenu->pdfText.'</a>'.
         '</div>'.
         '</div>'.
         '</div>';
