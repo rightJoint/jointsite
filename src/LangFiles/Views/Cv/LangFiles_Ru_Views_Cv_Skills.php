@@ -286,7 +286,7 @@ class LangFiles_Ru_Views_Cv_Skills extends LangFiles_Ru_Views_Cv_Main
         $c2->c21 = 'ClickHouse, MonogoDb';
         $c3->c31 = 'Немного читал об этом, пока не использовал';
 
-        $nRelDb->c1 = 'Не реляционные базы данных';
+        $nRelDb->c1 = 'Нереляционные базы данных';
         $nRelDb->c2 = $c2;
         $nRelDb->c3 = $c3;
 

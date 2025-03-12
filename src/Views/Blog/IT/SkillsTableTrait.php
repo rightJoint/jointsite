@@ -170,7 +170,7 @@ trait SkillsTableTrait
             '<td class="level">'.$relDb->c3->c32.'</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option junior">'.$relDb->c2->c23.'</td>'.
+            '<td class="option surficial">'.$relDb->c2->c23.'</td>'.
             '<td class="level">'.$relDb->c3->c33.'</td>'.
             '</tr>'.
             '<tr>'.
@@ -324,7 +324,7 @@ trait SkillsTableTrait
             '<td class="option surficial">Lean</td>'.
             '</tr>'.
             '<tr>'.
-            '<td class="option competitive">TTD</td>'.
+            '<td class="option competitive">TDD</td>'.
             '<td class="level">'.$methods->c3->c33.'</td>'.
             '</tr>';
     }
