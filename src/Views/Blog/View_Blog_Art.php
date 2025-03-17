@@ -210,7 +210,7 @@ class View_Blog_Art extends SiteView
         if($filterParams->viewtype == 'list'){
             $selected = " selected";
         }
-        $return .= '<option value="list"'.$selected.' disabled>'.$landFilter->opTypeList.'</option>';
+        $return .= '<option value="list"'.$selected.'>'.$landFilter->opTypeList.'</option>';
         $selected='';
         if($filterParams->viewtype == "tree"){
             $selected = " selected";

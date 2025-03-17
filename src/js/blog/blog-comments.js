@@ -11,6 +11,11 @@ $(document).ready(function(){
         filterBlog();
         $("form.form-comments [name=onPage]").val($(this).val());
     })
+    $("#art-comments-options-type").change(function (){
+        $("#art-comments-respond-new").trigger("click");
+        filterBlog();
+        $("form.form-comments [name=viewtype]").val($(this).val());
+    })
 })
 function tinyInit()
 {
@@ -81,7 +86,8 @@ function filterBlog()
         "artRef="+$("#blog-art-ref").val()+"&"+
         "curPage="+$(".blog-pagination span.active").attr("page")+"&"+
         "sort="+$("#art-comments-options-sort").val()+"&"+
-        "onPage="+$("#art-comments-options-onPage").val(),
+        "onPage="+$("#art-comments-options-onPage").val()+"&"+
+        "viewtype="+$("#art-comments-options-type").val(),
         function (data) {
 
             if(data.result == true){

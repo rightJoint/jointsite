@@ -157,7 +157,8 @@ class Controller_Blog_Arts extends Controller
                                 $this->formCommentsContent = '';
                                 $this->prepareViewParams();
                                 $this->logger->redirect($this->langSl.'/blog/article/'.$this->artRef.
-                                    '?curPage='.$this->curPage.'&onPage='.$this->onPage.'&sort='.$this->sort);
+                                    '?curPage='.$this->curPage.'&onPage='.$this->onPage.'&sort='.$this->sort.
+                                    '&viewtype='.$this->viewtype);
                             }else{
 
                             }
@@ -212,7 +213,11 @@ class Controller_Blog_Arts extends Controller
         $comments = $factory::createFromExistModel('Src\Models\Blog\Model_Blog_Comments', $this->model);
 
         $qBuilder = $this->commentsSearchQuery();
-        $list = $comments->listRecordsRecursive($qBuilder);
+        if($this->viewtype == 'tree'){
+            $list = $comments->treeRecordsRecursive($qBuilder);
+        }elseif($this->viewtype == 'list'){
+            $list = $comments->listRecordsRecursive($qBuilder);
+        }
 
         return $list;
     }
@@ -223,9 +228,15 @@ class Controller_Blog_Arts extends Controller
         $comments = $factory::createFromExistModel('Src\Models\Blog\Model_Blog_Comments', $this->model);
 
         $qBuilder = new JointAppQueryBuilder();
-        $qBuilder->where('blogArts.art_id = "'.$this->artRow['art_id'].'"');// $artRef
+        $qBuilder->where('blogArts.art_id = "'.$this->artRow['art_id'].'"');
 
-        return $comments->countRecords($qBuilder);
+        if($this->viewtype == 'tree'){
+            $count = $comments->countTreeRecords($qBuilder);
+        }elseif($this->viewtype == 'list'){
+            $count = $comments->countListRecords($qBuilder);
+        }
+
+        return $count;
     }
 
     public function filterComments()
@@ -241,8 +252,12 @@ class Controller_Blog_Arts extends Controller
             $viewLang = $this->view->loadLangView($this->view->docRoot, $this->view->langLw);
             $langPageContent = $viewLang::getLangPageContent();
 
+            if($this->viewtype == 'tree'){
+                $listComments = $comments->treeRecordsRecursive($qBuilder);
+            }elseif ($this->viewtype == 'list'){
+                $listComments = $comments->listRecordsRecursive($qBuilder);
+            }
 
-            $listComments = $comments->listRecordsRecursive($qBuilder);
             $authUser = false;
             global $currentUser;
             if(!empty($currentUser->user_id)){
@@ -266,7 +281,13 @@ class Controller_Blog_Arts extends Controller
 
             $qBuilder_count->limit = '';
             $qBuilder_count->order = '';
-            $count = $comments->countRecords($qBuilder_count);
+
+            if($this->viewtype == 'tree'){
+                $count = $comments->countTreeRecords($qBuilder_count);
+            }elseif ($this->viewtype == 'list'){
+                $count = $comments->countListRecords($qBuilder_count);
+            }
+
             $pg = RecordListView::paginationPrint($langPageContent->landFilter->langPg, $count, $this->curPage, $this->onPage);
             $this->view->responseJson = array('listView' => $listView, 'count' => $count, 'pg' => $pg);
         }else{
