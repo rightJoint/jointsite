@@ -166,7 +166,7 @@ class View_Cv_Faq extends View_Cv_Main
             '<img src="/img/cv/question-logo.png">'.
             '</div>'.
             '<div class="cv-q-t">'.
-            '<span>'.$langCvFaq->q7.'n>'.
+            '<span>'.$langCvFaq->q7.'</span>'.
             '</div>'.
             '<div class="cv-a">'.
             '<div class="cv-a-i">'.
