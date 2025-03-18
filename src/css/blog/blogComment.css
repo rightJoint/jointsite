@@ -156,3 +156,55 @@ span.respond{
     background-color: lemonchiffon;
     padding: 0.5em;
 }
+
+.art-comment-container.quote {
+    border-bottom: none;
+    margin-bottom: 1em;
+}
+
+.art-comment-container.quote .art-comment-container{
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.art-comment-container.quote .art-comment-container-content{
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    border-radius: 0;
+    border-left: none;
+
+}
+
+.art-comment-container.quote .art-comment-container .art-comment-container-content{
+    font-size: 0.8em;
+}
+
+.art-comment-container.quote .art-comment-container-bottom{
+    /*display: none;*/
+    padding-bottom: 0;
+    margin-left: 0;
+    border-left: none;
+}
+
+.art-comment-container.quote .art-comment-container-user{
+    margin-left: 0;
+}
+.art-comment-container.quote .art-comment-container-user span.quote-marker{
+    display: none;
+    margin-right: 1em;
+}
+.art-comment-container.quote .art-comment-container-user span.quote-marker:after{
+    content: ': ';
+}
+.art-comment-container.quote .art-comment-container .art-comment-container-user img{
+    display: none;
+}
+.art-comment-container.quote .art-comment-container .art-comment-container-user span{
+    display: inline;
+    margin-left: 0;
+    font-size: 0.8em;
+    vertical-align: bottom;
+}

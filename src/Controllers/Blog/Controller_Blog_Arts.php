@@ -276,8 +276,13 @@ class Controller_Blog_Arts extends Controller
             $filterParams->sort = $this->sort;
             $filterParams->viewtype = $this->viewtype;
 
-            $listView = $this->view->printArtCommentsList($langPageContent->langList, $listComments, $langPageContent->formComments,
-                $fromParams, $filterParams, $authUser);
+            if($this->viewtype == 'tree'){
+                $listView = $this->view->printArtCommentsTree($langPageContent->langList, $listComments, $langPageContent->formComments,
+                    $fromParams, $filterParams, $authUser);
+            }elseif ($this->viewtype == 'list'){
+                $listView = $this->view->printArtCommentsList($langPageContent->langList, $listComments, $langPageContent->formComments,
+                    $fromParams, $filterParams, $authUser);
+            }
 
             $qBuilder_count->limit = '';
             $qBuilder_count->order = '';

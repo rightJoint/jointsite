@@ -101,6 +101,7 @@ class LangFiles_Ru_Views_BlogArts extends LangFiles_Ru_Views_SiteView
         $langList->respLink = 'Ответить';
         $langList->respTest = 'ответ.';
         $langList->firstComment = 'Напишите коммент первым!';
+        $langList->quote = 'Цитата';
         return $langList;
     }
 }

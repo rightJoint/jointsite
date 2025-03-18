@@ -42,29 +42,6 @@ class Model_Blog_Comments extends RecordsModel
         );
     }
 
-    public function listRecords(JointAppQueryBuilder $qBuilder): array
-    {
-        $qBuilder
-            ->select($this->tableName.'.comment_id, '.
-                $this->tableName.'.commentP_id, '.
-                $this->tableName.'.art_id, '.
-                $this->tableName.'.content, '.
-                $this->tableName.'.created_by, '.
-                $this->tableName.'.activeFlag, '.
-                $this->tableName.'.addDate, '.
-            'users_dt.accLogin, '.
-            'users_dt.accAlias, '.
-            'users_dt.photoLink, '.
-            'users_dt.network'
-            )
-            ->from($this->tableName)
-            ->join('inner join users_dt on users_dt.user_id = '.$this->tableName.'.created_by '.
-            'inner join blogArts on blogArts.art_id = '.$this->tableName.'.art_id'
-            )
-        ->order($this->tableName.'.addDate DESC');
-        return $this->fetchToArray($qBuilder->buildQuery());
-    }
-
     public function treeRecordsRecursive(JointAppQueryBuilder $qBuilder, $commentP_id = null): array
     {
         if(isset($commentP_id)){

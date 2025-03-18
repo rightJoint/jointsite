@@ -100,6 +100,7 @@ class LangFiles_En_Views_BlogArts extends LangFiles_En_Views_SiteView
         $langList->respLink = 'Respond';
         $langList->respTest = 'answ';
         $langList->firstComment = 'Add comment first!';
+        $langList->quote = 'Quote';
         return $langList;
     }
 }
