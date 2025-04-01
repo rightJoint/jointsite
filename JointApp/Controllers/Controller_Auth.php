@@ -277,6 +277,7 @@ class Controller_Auth extends Controller
                 $this->model->record['accLogin']['curVal'] = $usrArr['uid'];
                 $this->model->record['accAlias']['curVal'] = $usrArr['name'];
                 $this->model->record['photoLink']['curVal'] = $usrArr['pic_2'];
+                $this->model->record["is_admin"]["curVal"] = false;
                 $this->model->record['birthDay']['curVal'] = $usrArr['birthday'];
                 $this->model->record['socProf']['curVal'] = 'https://ok.ru/profile/'.$usrArr['uid'];
                 $this->model->record['pref_lang']['curVal'] = $this->langLw;
@@ -322,6 +323,7 @@ class Controller_Auth extends Controller
                     $this->model->record["accLogin"]["curVal"] = $usrArr['response']['0']['id'];
                     $this->model->record["accAlias"]["curVal"] = $usrArr['response']['0']['first_name']." ".$usrArr['response']['0']['last_name'];
                     $this->model->record["photoLink"]["curVal"] = $usrArr['response']['0']['photo_100'];
+                    $this->model->record["is_admin"]["curVal"] = false;
                     $this->model->record["birthDay"]["curVal"] = date_format(date_create($usrArr['response']['0']['bdate']), 'Y-m-d');
                     $this->model->record["socProf"]["curVal"] = 'https://vk.com/id'.$usrArr['response']['0']['id'];
                     $this->model->record['pref_lang']['curVal'] = $this->langLw;
