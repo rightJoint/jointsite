@@ -46,13 +46,20 @@ class View_JointSite_About_Api extends View_JointSite_About
             '</ul>'.
             '</p>'.
             '<p>'.
-            'Для получения списка записей можно передавать дополнительные параметры page - номер страницы, onPage - количество записей на странице'.
+            'Для получения списка записей можно передавать дополнительные параметры:'.
+            '<ul>'.
+            '<li>page - номер страницы</li>'.
+            '<li>onPage - количество записей на странице</li>'.
+            '<li>sortField - поле таблицы для сортировки</li>'.
+            '<li>sortOrder - ASC (DESC) порядок сортировки по полю sortField</li>'.
+            '<li>whereFiled1=condition1&whereFiled2=condition2... - условие поиска по полю whereFiled1, whereFiled2, ...</li>'.
+            '</ul>'.
             '</p>'.
             '</section>'.
             '<section>'.
             '<h3>Доступы АПИ</h3>'.
             '<p>'.
-            'Для доступа к Records api вы должны передовать параметр <b>record_api_access_token</b> '.
+            'Для доступа к Records api вы должны передовать параметр <b>api_record_access_token</b> '.
             'тем методом, которым обращаетесь. Контроллер сравнивает переданный параметр с константой в классе <b>/__config/apiAccessToken.php TOKEN</b> '.
             'и предоставляет доступ при совпадении.'.
             '</p>'.

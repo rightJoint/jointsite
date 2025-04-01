@@ -47,6 +47,7 @@ class Model_User extends RecordsModel
                 if(!isset($this->record[$fieldName]["curVal"])){
                     $this->record[$fieldName]["curVal"] = $user_row[$fieldName];
                 }
+                $this->record[$fieldName]["fetchVal"] = $this->record[$fieldName]["curVal"];
             }
             return true;
         }
