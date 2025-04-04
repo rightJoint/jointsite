@@ -46,6 +46,9 @@ trait RoutesCollection_Blog
                 elseif(strtolower($routes_ns[3]) == 'test-task-parse-brackets'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskParseBrackets');
                 }
+                elseif(strtolower($routes_ns[3]) == 'censored'){
+                    $route->withView('Src\Views\Blog\Other\View_Blog_Other_Censored');
+                }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }

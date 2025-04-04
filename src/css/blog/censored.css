@@ -1,0 +1,12 @@
+img.censored-img{
+    height: 7em;
+    width: 7em;
+    border-radius: 0.5em;
+    margin: 1em;
+}
+img.censored-img.left{
+    float: left;
+}
+img.censored-img.right{
+    float: right;
+}
