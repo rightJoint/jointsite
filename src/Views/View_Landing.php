@@ -231,9 +231,9 @@ class View_Landing extends SiteView
 
             $blog_arts.="<article class='mini-card module module-article article'>".
                 "<div class='pubDate'>".
-                "Статья";
+                $artLang->article;
             if($slArt_row['pubDate']){
-                $blog_arts.=" от <b>".$slArt_row['pubDate']."</b>";
+                $blog_arts.=' '.$artLang->from.' <b>'.$slArt_row['pubDate'].'</b>';
             }
 
             $blog_arts.="</div><h4 class='mini-card-title'>".
@@ -257,12 +257,13 @@ class View_Landing extends SiteView
         }
         $return.= '<div class="popular-articles">'.
             '<div class="popular-header">'.
-            '<h3 class="header-card-title">it-Блог</h3>'.
+            '<h3 class="header-card-title">'.$artLang->h2.'</h3>'.
             '<div class="header-card-info">'.
-            '<span>Написано '.($artsDev_cnt+$artsPc_cnt).' статей</span>';
+            '<span>'.$artLang->written.' '.($artsDev_cnt+$artsPc_cnt).' '.$artLang->arts.'</span>'.
+        '<span class="tg-label">'.$artLang->tags.'</span>';
 
         foreach ($groupTags as $tagName=>$tagCount){
-            $return.= '<span>'.$tagName.' ('.$tagCount.')</span>';
+            $return.= '<span class="tg-item">'.$tagName.' ('.$tagCount.')</span>';
         }
         $return.='</div>'.
             '</div>'.
