@@ -448,8 +448,9 @@ section.dark .gradient2 {
 }
 span.tg-label{
     font-size: 0.8em;
-    color: LemonChiffon;
+    color: limegreen;
 }
 span.tg-item{
     color: lightgray;
+    margin: 0.2em 0;
 }
