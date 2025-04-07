@@ -49,6 +49,9 @@ trait RoutesCollection_Blog
                 elseif(strtolower($routes_ns[3]) == 'censored'){
                     $route->withView('Src\Views\Blog\Other\View_Blog_Other_Censored');
                 }
+                elseif(strtolower($routes_ns[3]) == 'sql-cheat-sheet'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_FiftySqlQuestions');
+                }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }

@@ -1,0 +1,20 @@
+.fifty-sql-questions{
+
+}
+.fifty-sql-questions ol{
+
+}
+.fifty-sql-questions ol li{
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.fifty-sql-questions ul li{
+    font-weight: normal;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.fifty-sql-questions ul li ul li{
+
+}
