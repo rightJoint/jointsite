@@ -1,0 +1,4 @@
+REPLACE INTO `blogArts` (`art_id`, `artCat`, `artRef`, `artName_en`, `artName_ru`, `artMeta_en`, `artMeta_ru`, `artImg`, `activeFlag`, `indexFlag`, `pubDate`, `refreshDate`, `commentsFlag`, `popFlag`, `created_by`) VALUES ('ED217756-64E3-4E38-A794-003EB36BCCA8', '6C20AC2A-7817-4440-A67D-5A3D40471275', 'sql-cheat-sheet', 'SQL-cheat-sheet', 'Шпаргалка по SQL', 'Fifty SQL questions and answers for preparing to the job interview', 'Пятьдесят вопросов и ответов по SQL для подготовки к собеседованию', '3AABF75F-9F27-4E97-BCF8-AEF47AAC51F1.png', 1, 0, '2025-04-05', NULL, NULL, 0, 'F42F81F8-1300-41CA-89BB-36BD7417BE1E');
+REPLACE INTO `blogTags` (`tag_id`, `tag_en`, `tag_ru`, `created_by`) VALUES ('D747CB07-A322-49A3-A0A5-1AF6177A80F4', 'Sql', 'Sql', 'F42F81F8-1300-41CA-89BB-36BD7417BE1E')
+;
+REPLACE INTO `blogTags` (`tag_id`, `tag_en`, `tag_ru`, `created_by`) VALUES ('0B158415-19FA-41F1-8A4B-8CF8469E6188', 'databse', 'Базы данных', 'F42F81F8-1300-41CA-89BB-36BD7417BE1E');
