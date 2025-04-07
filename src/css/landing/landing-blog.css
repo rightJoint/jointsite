@@ -333,7 +333,6 @@ section.dark .gradient2 {
 .popular-header .header-card-info span{
     display: inline-block;
     width: 100%;
-    padding: 0.2em 0;
 }
 .helpfull-refs{
     margin: 2em 0;
@@ -446,4 +445,11 @@ section.dark .gradient2 {
     article.mini-card.module.module-article.article{
         width: 5em;
     }
+}
+span.tg-label{
+    font-size: 0.8em;
+    color: LemonChiffon;
+}
+span.tg-item{
+    color: lightgray;
 }
