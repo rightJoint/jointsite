@@ -222,11 +222,11 @@ class LangFiles_Ru_Views_Blog_IT_FiftySqlQuestions extends LangFiles_Ru_Views_Bl
             'в WHERE для таблицы или поля.';
 
         $langArtContent->q50 = 'Для чего вообще используются SQL-функции?';
-        $langArtContent->a50 = 'SQL обчно используются для:';
+        $langArtContent->a50 = 'SQL-функции обычно используются для:';
         $langArtContent->a501 = 'вычисления данных';
         $langArtContent->a502 = 'для изменения данных в отдельных записях';
         $langArtContent->a503 = 'для обработки выводимых данных';
-        $langArtContent->a504 = 'для форматирования дят и чисел';
+        $langArtContent->a504 = 'для форматирования дат и чисел';
         $langArtContent->a505 = 'для преобразования типов данных';
 
         return $langArtContent;
