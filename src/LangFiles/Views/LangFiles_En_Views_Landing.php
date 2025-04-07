@@ -42,7 +42,12 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
         $jointPass = new stdClass();
 
         $artLang = new stdClass();
-        $artLang->h2 = 'IT-Блог';
+        $artLang->h2 = 'IT-Blog';
+        $artLang->article = 'Article';
+        $artLang->from = 'from';
+        $artLang->written = 'Issued';
+        $artLang->arts = 'articles';
+        $artLang->tags = 'tags';
 
         $langPageContent->artLang = $artLang;
 

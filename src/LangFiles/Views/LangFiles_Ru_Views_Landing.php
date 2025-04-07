@@ -41,6 +41,11 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
 
         $artLang = new stdClass();
         $artLang->h2 = 'IT-Блог';
+        $artLang->article = 'Статья';
+        $artLang->from = 'от';
+        $artLang->written = 'Написано';
+        $artLang->arts = 'статей';
+        $artLang->tags = 'тэги';
 
         $langPageContent->artLang = $artLang;
 
