@@ -32,7 +32,7 @@ class LangFiles_Ru_Views_Blog_IT_FiftySqlQuestions extends LangFiles_Ru_Views_Bl
 
         $langArtContent->q6 = 'Что такое нормализация?';
         $langArtContent->a6 = 'Нормализация - это процесс организации данных в БД для минимизации избыточности. '.
-            'Для это делаю разделение таблицы на несколько меньших таблиц и устанавливают связи между ними';
+            'Для этого таблицы разделяют на несколько меньших таблиц и устанавливают связи между ними';
 
 
         $langArtContent->q7 = 'Какие нормальные формы есть и различия между нами?';
@@ -49,186 +49,185 @@ class LangFiles_Ru_Views_Blog_IT_FiftySqlQuestions extends LangFiles_Ru_Views_Bl
             'Это дает возможность получать данные из нескольких таблиц одновременно';
 
         $langArtContent->q9 = 'В чем разница между DELETE и TRUNCATE в SQL?';
-        $langArtContent->a9 = 'The DELETE statement is used to remove specific rows from a table based on a condition. '.
-            'It can be rolled back and generates individual delete operations for each row. TRUNCATE, on the other '.
-            'hand, is used to remove all rows from a table. It cannot be rolled back, and it is faster than DELETE as '.
-            'it deallocates the data pages instead of logging individual row deletions';
+        $langArtContent->a9 = 'Оператор DELETE используется для удаления записей из таблицы по определенным условиям. '.
+            'Он может быть отменен так как отрабатывает по одной записи. TRUNCATE '.
+            'используется для удаления всех записей из таблицы. Он не может быть отменён, работает быстрее чем DELETE так как '.
+            'удаляет сразу все записи и не логирует удаление отдельных записей';
 
-        $langArtContent->q10 = 'What is the difference between UNION and UNION ALL?';
-        $langArtContent->a10 = 'UNION and UNION ALL are used to combine the result sets of two or more SELECT statements. '.
-            'UNION removes duplicate rows from the combined result set. whereas UNION ALL includes all rows, including duplicates';
+        $langArtContent->q10 = 'В чём разница между UNION и UNION ALL?';
+        $langArtContent->a10 = 'UNION и UNION ALL используются для объединения наборов записей неслокльких SELECT операторов. '.
+            'UNION удаляет дубликаты из общих результатов, в то время ка UNION ALL включает все записи, в том числе дубликаты';
 
-        $langArtContent->q11 = 'What is the difference between the HAVING clause and the WHERE clause?';
-        $langArtContent->a11 = 'The WHERE clause is used to filter rows based on a condition before the data is grouped or aggregated. '.
-            'It operates on individual rows. The HAVING clause, on the other hand, is used to filter grouped rows '.
-            'based on a condition after the data is grouped or aggregated using the GROUP BY clause';
+        $langArtContent->q11 = 'В чём разница между HAVING и WHERE?';
+        $langArtContent->a11 = 'WHERE используется для фильтра записей по условиям перед группировкой и агрегацией, т.е. '.
+            'для фильтрации отдельных записей. HAVING используется для фильтрации сгруппированных столбцов '.
+            'по условию после GROUP BY операции по группировке';
 
-        $langArtContent->q12 = 'What is a transaction in SQL?';
-        $langArtContent->a12 = 'A transaction is a sequence of SQL statements that are executed as a single logical unit of work. '.
-            'It ensures data consistency and integrity by either committing all changes or rolling them back if '.
-            'an error occurs';
+        $langArtContent->q12 = 'Что такое транзакции в SQL?';
+        $langArtContent->a12 = 'Транзакция - это последовательность SQL операторов объединенных в отдельный логический блок. '.
+            'Транзакция грантирует согласованность (consistency) и целостность (integrity) всего блока или отмену всех '.
+            'операций при ошибке';
 
-        $langArtContent->q13 = 'What is the difference between a clustered and a non-clustered index?';
-        $langArtContent->a13 = 'A clustered index determines the physical order of data in a table. It changes the way the data is '.
-            'stored on disk and can be created on only one column. A table can have only one clustered index. '.
-            'A non-clustered index does not affect the physical order of data in a table. It is stored separately and '.
-            'contains a pointer to the actual data. A table can have multiple non-clustered indexes.';
+        $langArtContent->q13 = 'В чём отличия между кластиризованным и некластиризованным идексом?';
+        $langArtContent->a13 = 'Кластеризованный индекс определяет физически порядок записей в таблице. Он изменяет размещение данных на диске '.
+            'и может быть создан только для одного поля. Таблица может иметь только один кластеризованных индекс. '.
+            'Некластеризованный не затрагивает физически порядок данных. Он расположен в БД отдельно и '.
+            'содержит указатель на действительные данные. Таблица может иметь множественный некластеризованный индекс.';
 
-        $langArtContent->q14 = 'What is ACID in the context of database transactions?';
-        $langArtContent->a14 = 'ACID stands for Atomicity, Consistency, Isolation, and Durability. It is a set of properties that '.
-            'guarantee reliable processing of database transactions.';
-        $langArtContent->a141 = 'Atomicity ensures that a transaction is treated as a single unit of work, either all or none of the changes are applied';
-        $langArtContent->a142 = 'Consistency ensures that a transaction brings the database from one valid state to another';
-        $langArtContent->a143 = 'Isolation ensures that concurrent transactions do not interfere with each other';
-        $langArtContent->a144 = 'Durability ensures that once a transaction is committed, its changes are permanent and survive system failures';
+        $langArtContent->q14 = 'Что значит ACID касаемо базы данных и транзакций?';
+        $langArtContent->a14 = 'ACID от слов Атомарность (Atomicity), Согласованность (Consistency), Изоляция (Isolation),'.
+            ' и Надёжность (Durability). Это набор свойств, которые гарантируют '.
+            'правильность выполнения транзакция в базе данных.';
+        $langArtContent->a141 = 'Атомарность гарантирует что транзакция выполнится как единый блок, что или все изменения будут применены или никакие не будут';
+        $langArtContent->a142 = 'Согласованность гарантирует правильность выполнения всех операций в блоке транзакции';
+        $langArtContent->a143 = 'Изоляция гарантирует что параллельные транзакции не повлияют на итоговый результат';
+        $langArtContent->a144 = 'Надежность гарантирует что если транзакция завершилась, изменения сохранятся в даже случае системных отказов';
 
-        $langArtContent->q15 = 'What is a deadlock?';
-        $langArtContent->a15 = 'A deadlock occurs when two or more transactions are waiting for each other to release resources, '.
-            'resulting in a circular dependency. As a result, none of the transactions can proceed, and the system may '.
-            'become unresponsive';
+        $langArtContent->q15 = 'Что такое deadlock?';
+        $langArtContent->a15 = 'deadlock случается когда две или более транзакций ожидают освобождение ресурсов из-за '.
+            'зацикливания. В результате ни одна транзакция не может быть выполнена, и система не отвечает (зависает)';
 
-        $langArtContent->q16 = 'What is the difference between a database and a schema?';
-        $langArtContent->a16 = 'A database is a container that holds multiple objects, such as tables, views, indexes, and procedures. '.
-            'It represents a logical grouping of related data. A schema, on the other hand, is a container within a database '.
-            'that holds objects and defines their ownership. It provides a way to organize and manage database objects.';
+        $langArtContent->q16 = 'В чём разница между базой данных и схемой?';
+        $langArtContent->a16 = 'База данных - это контейнер, который содержит различные объекты, как таблицы, отчеты, индексы и процедуры. '.
+            'БД представляет логически сгруппированные различные данные. Схема - это контейнер в базе данных, '.
+            'который содержит объекты и определяет их принадлежность. Схема - для организации и управления объектами в БД.';
 
-        $langArtContent->q17 = 'What is the difference between a temporary table and table variable?';
-        $langArtContent->a17 = 'A temporary table is a table that is created and exists only for the duration of a session or a '.
-            'transaction. It can be explicitly dropped or is automatically dropped when the session or '.
-            'transaction ends. A table variable is a variable that can store a tablelike structure in memory. It has a '.
-            'limited scope within a batch, stored procedure, or function. It is automatically deallocated when the '.
-            'scope ends';
+        $langArtContent->q17 = 'В чем различия между временной таблицей (temporary table) и переменной таблицей (table variable)?';
+        $langArtContent->a17 = 'Временная таблица создаётся и существует в течении сессии или транзакции. '.
+            'Временная явно или автоматически удаляется когда сессия или транзакция завершиться. '.
+            'Переменная таблица сохраняет структуру в памяти. Переменная используется смысл в рамках одной задачи для '.
+            'встроенной процедуры или функции. Она автоматически удаляется когда задача завершается';
 
-        $langArtContent->q18 = 'What is the purpose of the GROUP BY clause?';
-        $langArtContent->a18 = 'The GROUP BY clause is used to group rows based on one or more columns in a table. It is typically '.
-            'used in conjunction with aggregate functions, such as SUM, AVG, COUNT, etc., to perform calculations on grouped data';
+        $langArtContent->q18 = 'Для чего используется оператор группировки GROUP BY?';
+        $langArtContent->a18 = 'GROUP BY используется для группировки записей по столбцам в таблице. Обычно используется '.
+            'для сложения стольбцов с такими функциями как AVG, COUNT, и т.п.., для выполнения расчетов группированных данных';
 
-        $langArtContent->q19 = 'What is the difference between CHAR and VARCHAR data types?';
-        $langArtContent->a19 = 'CHAR is a fixed-length string data type, while VARCHAR is a variable-length string data type';
+        $langArtContent->q19 = 'Какая разница между CHAR и VARCHAR типами данных?';
+        $langArtContent->a19 = 'CHAR - строка фиксированной длины, VARCHAR может хранить переменную длину строки';
 
-        $langArtContent->q20 = 'What is a stored procedure?';
-        $langArtContent->a20 = 'A stored procedure is a set of SQL statements that are stored in the database and can be executed '.
-            'repeatedly. It provides code reusability and better performance';
+        $langArtContent->q20 = 'Что такое процедура?';
+        $langArtContent->a20 = 'Процедура - это набор SQL операторов сохраненный в БД, поэтому может быть использован '.
+            'повторно и так обеспечивает лучшую производительность';
 
-        $langArtContent->q21 = 'What is a subquery?';
-        $langArtContent->a21 = 'A subquery is a query nested inside another query. It is used to retrieve data based on the result of an inner query';
+        $langArtContent->q21 = 'Что такое подзапрос (subquery)?';
+        $langArtContent->a21 = 'Подзапрос - это запрос, размещенный внутри другого запроса, когда основной запрос использует данные подзапроса';
 
-        $langArtContent->q22 = 'What is a view?';
-        $langArtContent->a22 = 'A view is a virtual table based on the result of an SQL statement. It allows users to retrieve and manipulate data';
+        $langArtContent->q22 = 'Что такое отчёт (view)?';
+        $langArtContent->a22 = 'Отчёт - это виртуальная таблица из результатов SQL-запроса что позволяет использовать данные из нескольких таблиц';
 
-        $langArtContent->q23 = 'What is the difference between a cross join and an inner join?';
-        $langArtContent->a23 = 'A cross join (Cartesian product) returns the combination of all rows from two or more tables. '.
-            'An inner join returns only the matching rows based on a join condition';
+        $langArtContent->q23 = 'В чём разница между cross join и inner join?';
+        $langArtContent->a23 = 'Cross join (Cartesian product) вернет комбинацию всех строк из двух или более таблиц. '.
+            'inner join вернет только столбцы по условию "on" в join операторе';
 
-        $langArtContent->q24 = 'What is the purpose of the COMMIT statement?';
-        $langArtContent->a24 = 'The COMMIT statement is used to save changes made in a transaction permanently. It ends the transaction '.
-            'and makes the changes visible to other users';
+        $langArtContent->q24 = 'Для чего используется оператор COMMIT?';
+        $langArtContent->a24 = 'Оператор COMMIT используется для фиксации изменений транзакции. Он находится в конце блока транзакции '.
+            'и делает изменения видимыми для пользователей';
 
-        $langArtContent->q25 = 'What is the purpose of the ROLLBACK statement?';
-        $langArtContent->a25 = 'The ROLLBACK statement is used to undo changes made in a transaction. It reverts the database to its '.
-            'previous state before the transaction started';
+        $langArtContent->q25 = 'Для чего используется оператор ROLLBACK?';
+        $langArtContent->a25 = 'Оператор ROLLBACK используется для отмены изменений транзакции. Он возвращает данные '.
+            'в предыдущее состояние как перед началом транзакции';
 
-        $langArtContent->q26 = 'What is the purpose of the NULL value in SQL?';
-        $langArtContent->a26 = 'NULL represents the absence of a value or unknown value. It is different from zero or an empty string '.
-            'and requires special handling in SQL queries';
+        $langArtContent->q26 = 'Для чего используется значение поля NULL в SQL?';
+        $langArtContent->a26 = 'NULL предполагает отсутствие значения или его неопределенность. В этом отличие от нуля или пустого значения. '.
+            'Требуется указывать разные условия в SQL-запросах';
 
-        $langArtContent->q27 = 'What is the difference between a view and a materialized view?';
-        $langArtContent->a27 = 'A materialized view is a physical copy of the view s result set stored in the database, which is '.
-            'updated periodically. It improves query performance at the cost of data freshness';
+        $langArtContent->q27 = 'В чём разница между отчетом и материализованным отчетом (materialized view)?';
+        $langArtContent->a27 = 'Материализованный отчет - это физическая копия отчета, сохраненная в базе данных, которая '.
+            'обновляется периодически. Применяется для увеличения скорости и снижения затрат на обновление данных';
 
-        $langArtContent->q28 = 'What is a correlated subquery?';
-        $langArtContent->a28 = 'A correlated subquery is a subquery that refers to a column from the outer query. It executes once '.
-            'for each row processed by the outer query';
+        $langArtContent->q28 = 'Что такое коррелированны подзапрос (correlated subquery)?';
+        $langArtContent->a28 = 'коррелированны подзапрос это подзапрос, который ссылается на поле внешнего запроса. Он выполняется '.
+            'для кажной записи внешнего запроса';
 
-        $langArtContent->q29 = 'What is the purpose of the DISTINCT keyword?';
-        $langArtContent->a29 = 'The DISTINCT keyword is used to retrieve unique values from a column or combination of columns in a SELECT statement';
+        $langArtContent->q29 = 'Для чего используется DISTINCT?';
+        $langArtContent->a29 = 'Ключевое слово DISTINCT используется для получения уникальных значений столбца или группы солбцов в операторе SELECT';
 
-        $langArtContent->q30 = 'What is the difference between the CHAR and VARCHAR data types?';
-        $langArtContent->a30 = 'CHAR stores fixed-length character strings, while VARCHAR stores variable-length character strings. '.
-            'The storage size of CHAR is constant, while VARCHAR adjusts dynamically';
+        $langArtContent->q30 = 'Какая разница между CHAR и VARCHAR типами данных? [Повтор 19 вопроса]';
+        $langArtContent->a30 = 'CHAR - фиксированной длины, в то время как VARCHAR - строка переменной длины. '.
+            'Размер CHAR на диске будет постоянным, а VARCHAR определяться динамически';
 
-        $langArtContent->q31 = 'What is the difference between the IN and EXISTS operators?';
-        $langArtContent->a31 = 'The IN operator checks for a value within a set of values or the result of a subquery. The EXISTS '.
-            'operator checks for the existence of rows returned by a subquery';
+        $langArtContent->q31 = 'В чём разница между IN и EXISTS операторами?';
+        $langArtContent->a31 = 'IN - для проверки наличия значений внутри запроса или подзапроса. EXISTS - '.
+            'для проверки наличия строк в подзапросе';
 
-        $langArtContent->q32 = 'What is the purpose of the TRIGGER statement?';
-        $langArtContent->a32 = 'The TRIGGER statement is used to associate a set of SQL statements with a specific event in the '.
-            'database. It is executed automatically when the event occurs';
+        $langArtContent->q32 = 'Для чего используется Триггер (TRIGGER)?';
+        $langArtContent->a32 = 'TRIGGER предназначен для выполнения набора SQL-запросов при наступлении соответствующего событиея в '.
+            'БД. Триггер выполнится автоматически при наступлении события';
 
-        $langArtContent->q33 = 'What is the difference between a unique constraint and a unique index?';
-        $langArtContent->a33 = 'A unique constraint ensures the uniqueness of values in one or more columns, while a unique index '.
-            'enforces the uniqueness and also improves query performance';
+        $langArtContent->q33 = 'В чём различия между unique constraint и unique index?';
+        $langArtContent->a33 = 'unique constraint гарантирует уникальность значения в одном или более столбцоа, в то время как unique index '.
+            'услиливает уникальность и скорость выполнения запроса';
 
-        $langArtContent->q34 = 'What is the purpose of the TOP or LIMIT clause?';
-        $langArtContent->a34 = 'The TOP (in SQL Server) or LIMIT (in MySQL) clause is used to limit the number of rows returned by '.
-            'a query. It is often used with an ORDER BY clause';
+        $langArtContent->q34 = 'Для чего используются TOP или LIMIT в запросе?';
+        $langArtContent->a34 = 'TOP (в SQL Server) или LIMIT (в MySQL) используется для ограничения количества данных, возвращаемых запросом'.
+            '. Чаще всего используется вместе с ORDER BY';
 
-        $langArtContent->q35 = 'What is the difference between the UNION and JOIN operators?';
-        $langArtContent->a35 = 'UNION combines the result sets of two or more SELECT statements vertically, while JOIN combines '.
-            'columns from two or more tables horizontally based on a join condition';
+        $langArtContent->q35 = 'В чём различия между UNION и JOIN операторами?';
+        $langArtContent->a35 = 'UNION объединяет результаты двух и более SELECT - операторов вертикально, а JOIN объединяет '.
+            'столбцы двух и более таблиц горизонтально по условиям "on" в join-не';
 
-        $langArtContent->q36 = 'What is a data warehouse?';
-        $langArtContent->a36 = 'A data warehouse is a large, centralized repository that stores and manages data from various sources. '.
-            'It is designed for efficient reporting, analysis, and business intelligence purposes';
+        $langArtContent->q36 = 'Что такое хранилище данных (data warehouse - DWH)?';
+        $langArtContent->a36 = 'Хранилище данных - это большой централизованный репозиторий для хранения и управления данными из различных источников. '.
+            'Оно спроектировано для эффективности получения отчетов, аналитики и других задач бизнеса';
 
-        $langArtContent->q37 = 'What is the difference between a primary key and a candidate key?';
-        $langArtContent->a37 = 'A primary key is a chosen candidate key that uniquely identifies a row in a table. '.
-            'A candidate key is a set of one or more columns that could potentially become the primary key';
+        $langArtContent->q37 = 'Какая разница между первичным ключом (primary key) и candidate key?';
+        $langArtContent->a37 = 'Первичный ключ - это выбранный  candidate key, который уникально определяет запись в таблице. '.
+            'candidate key - это набор из одного или более полей, который может стать первичным ключом';
 
-        $langArtContent->q38 = 'What is the purpose of the GRANT statement?';
-        $langArtContent->a38 = 'The GRANT statement is used to grant specific permissions or privileges to users or roles in a database';
+        $langArtContent->q38 = 'Для чего используется GRANT оператор?';
+        $langArtContent->a38 = 'GRANT используется для выдачи конкретных разрешений и привелегий пользователям или ролям в базе данных';
 
-        $langArtContent->q39 = 'What is a correlated update?';
-        $langArtContent->a39 = 'A correlated update is an update statement that refers to a column from the same table in a subquery. '.
-            'It updates values based on the result of the subquery for each row';
+        $langArtContent->q39 = 'Для чего используют correlated update?';
+        $langArtContent->a39 = 'correlated update - это update который ссылается на столбец той же самой таблицы в подзапросе. '.
+            'Это обновляет значения на основе результатов подзапроса для каждого столбца';
 
-        $langArtContent->q40 = 'What is the purpose of the CASE statement?';
-        $langArtContent->a40 = 'The CASE statement is used to perform conditional logic in SQL queries. It allows you to return '.
-            'different values based on specified conditions';
+        $langArtContent->q40 = 'Для чего используется оператор CASE?';
+        $langArtContent->a40 = 'CASE в логических условиях SQL запросов. Это позволяет возвращать '.
+            'различные данные на основе определенных условий';
 
-        $langArtContent->q41 = 'What is the purpose of the COALESCE function?';
-        $langArtContent->a41 = 'The COALESCE function returns the first non-null expression from a list of expressions. It is often '.
-            'used to handle null values effectively';
+        $langArtContent->q41 = 'Для чего используется функция COALESCE?';
+        $langArtContent->a41 = 'COALESCE возвращает первое не нулл (non-null) выражение из списка выражений. Обычно используется для '.
+            'эффективной обработки null-значений';
 
-        $langArtContent->q42 = 'What is the purpose of the ROW_NUMBER() function?';
-        $langArtContent->a42 = 'The ROW_NUMBER() function assigns a unique incremental number to each row in the result set. '.
-            'It is commonly used for pagination or ranking purposes.ll values effectively';
+        $langArtContent->q42 = 'Для чего используется функция ROW_NUMBER()?';
+        $langArtContent->a42 = 'ROW_NUMBER() назначает уникальный инкрементированный номер каждой записи в результирующем наборе. '.
+            'Обычно используется для эффективности постраничного разделения данных или ранжирования';
 
-        $langArtContent->q43 = 'What is the difference between a natural join and an inner join?';
-        $langArtContent->a43 = 'A natural join is an inner join that matches rows based on columns with the same name in the joined '.
-            'tables. It is automatically determined by the database';
+        $langArtContent->q43 = 'В чём различия между natural join и inner join?';
+        $langArtContent->a43 = 'natural join - это inner join который работает по совпадениям полей (столбцов) с одинаковым именем в связанной '.
+            'таблице. Он автоматически отрабатывается базой данных';
 
-        $langArtContent->q44 = 'What is the purpose of the CASCADE DELETE constraint?';
-        $langArtContent->a44 = 'The CASCADE DELETE constraint is used to automatically delete related rows in child tables when a row '.
-            'in the parent table is deleted';
+        $langArtContent->q44 = 'Для чего используется CASCADE DELETE constraint?';
+        $langArtContent->a44 = 'CASCADE DELETE constraint используется для автоматческого удаления записей в дочерней таблице когда '.
+            'удаляются записи в родительской таблице';
 
-        $langArtContent->q45 = 'What is the purpose of the ALL keyword in SQL?';
-        $langArtContent->a45 = 'The ALL keyword in SQL is used in conjunction with comparison operators (like =, >, <, >=, <=, !=) to '.
-            'compare a value against all values in a subquery';
+        $langArtContent->q45 = 'Для чего используется ключевое слово ALL в SQL?';
+        $langArtContent->a45 = 'Ключевое слово ALL используется в запросе вместе с оператором сравнения (like =, >, <, >=, <=, !=) чтобы '.
+            'сравнить эту величину со всеми значениям в подзапросе';
 
-        $langArtContent->q46 = 'What is the difference between the EXISTS and NOT EXISTS operators?';
-        $langArtContent->a46 = 'The EXISTS operator returns true if a subquery returns any rows, while the NOT EXISTS operator returns '.
-            'true if a subquery returns no rows';
+        $langArtContent->q46 = 'В чём разница между операторами EXISTS и NOT EXISTS?';
+        $langArtContent->a46 = 'Оператор EXISTS вернет true если подзапрос вернет любые строки, NOT EXISTS вернёт '.
+            'true если подзапрос не вернет строк';
 
-        $langArtContent->q47 = 'What is the purpose of the CROSS APPLY operator?';
-        $langArtContent->a47 = 'The CROSS APPLY operator is used to invoke a tablevalued function for each row of a table expression. '.
-            'It returns the combined result set';
+        $langArtContent->q47 = 'Для чего используется CROSS APPLY оператор?';
+        $langArtContent->a47 = 'CROSS APPLY - оператор чтобы вызвать табличную функцию для кажной строки в таблице, '.
+            'возвращает объединенный набор данных';
 
-        $langArtContent->q48 = 'What is a self-join?';
-        $langArtContent->a48 = 'A self-join is a join operation where a table is joined with itself. It is useful when you want to '.
-            'compare rows within the same table based on related columns. It requiresbined result set';
+        $langArtContent->q48 = 'Что такое self-join?';
+        $langArtContent->a48 = 'Self-join - это оператор для соединения таблицы с самой собой. Обычно используется для сравнения '.
+            'записей по одинаковым столбцам в той же таблице.';
 
-        $langArtContent->q49 = 'What is an ALIAS command?';
-        $langArtContent->a49 = 'ALIAS command in SQL is the name that can be given to any table or a column. This alias name can be '.
-            'referred in WHERE clause to identify a particular table or a column';
+        $langArtContent->q49 = 'Для чего используется ALIAS команда?';
+        $langArtContent->a49 = 'ALIAS используется чтобы присвоить имя талице или полю. Alias можно использовать '.
+            'в WHERE для таблицы или поля.';
 
-        $langArtContent->q50 = 'Why are SQL functions used?';
-        $langArtContent->a50 = 'SQL functions are used for the following purposes:';
-        $langArtContent->a501 = 'To perform some calculations on the data';
-        $langArtContent->a502 = 'To modify individual data items';
-        $langArtContent->a503 = 'To manipulate the output';
-        $langArtContent->a504 = 'To format dates and numbers';
-        $langArtContent->a505 = 'To convert the data types';
+        $langArtContent->q50 = 'Для чего вообще используются SQL-функции?';
+        $langArtContent->a50 = 'SQL обчно используются для:';
+        $langArtContent->a501 = 'вычисления данных';
+        $langArtContent->a502 = 'для изменения данных в отдельных записях';
+        $langArtContent->a503 = 'для обработки выводимых данных';
+        $langArtContent->a504 = 'для форматирования дят и чисел';
+        $langArtContent->a505 = 'для преобразования типов данных';
 
         return $langArtContent;
     }
