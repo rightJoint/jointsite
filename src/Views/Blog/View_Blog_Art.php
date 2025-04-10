@@ -135,12 +135,17 @@ class View_Blog_Art extends SiteView
             '<div class="art-content">'.
             static::printArtContent($langPageContent->langArtContent, $viewParams, $langPageContent->langLw).
             '</div>'.
-            '<div class="art-comments">'.
-            '<h3>'.$langPageContent->commentsH3.'</h3>'.
+            '<div class="art-comments">';
+        if(!$viewParams->artRow['commentsFlag']){
+            $pageContent.='<h3>'.$langPageContent->commentsH3.'</h3>'.
             '<input type="hidden" id="blog-art-ref" value="'.$viewParams->artRef.'">'.
             static::printArtCommentsOptions($langPageContent->landFilter, $viewParams->countComments, $filterParams).
-            self::printArtComments($langPageContent->formComments, $langPageContent->langList, $fromParams,
-                $viewParams->listComments, $filterParams).
+                self::printArtComments($langPageContent->formComments, $langPageContent->langList, $fromParams,
+                    $viewParams->listComments, $filterParams);
+        }else{
+            $pageContent.= static::printArtNoCommentsOptions($langPageContent->noComments);
+        }
+        $pageContent.=
             '</div>'.
             '</div>'.
             '</div>'.
@@ -394,5 +399,10 @@ class View_Blog_Art extends SiteView
         }
 
         return $return;
+    }
+
+    public static function printArtNoCommentsOptions(string $noCommentsText):string
+    {
+        return '<div class="add-first-comment">'.$noCommentsText.'</div>';
     }
 }
