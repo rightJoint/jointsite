@@ -22,7 +22,8 @@ class Model_Blog_Arts extends Model_Pdo
             'indexFlag, '.
             'pubDate, '.
             'refreshDate, '.
-            'created_by '.
+            'created_by, '.
+            'commentsFlag '.
             'from blogArts '.
             'where artRef = "'.$artRef.'"';
 

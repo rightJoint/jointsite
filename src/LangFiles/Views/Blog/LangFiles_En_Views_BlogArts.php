@@ -45,6 +45,8 @@ class LangFiles_En_Views_BlogArts extends LangFiles_En_Views_SiteView
 
         $langPageContent->commentsH3 = 'Comments';
 
+        $langPageContent->noComments = 'No comments';
+
         $langPageContent->langList = self::getLangCommentsList();
 
         return $langPageContent;

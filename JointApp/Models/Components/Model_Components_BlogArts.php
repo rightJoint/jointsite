@@ -80,6 +80,10 @@ class Model_Components_BlogArts extends ModuleModel
                 'format' => 'varchar',
                 'custom' => false,
             ),
+            'commentsFlag' => array(
+                'format' => 'tinyint',
+                'custom' => false,
+            ),
         );
     }
 
@@ -103,6 +107,7 @@ class Model_Components_BlogArts extends ModuleModel
             $this->tableName.'.pubDate, '.
             $this->tableName.'.refreshDate, '.
             $this->tableName.'.created_by, '.
+            $this->tableName.'.commentsFlag, '.
             'users_dt.accAlias, '.
             'blogCats.catName_'.$this->langLw.' as catName'
         )
@@ -113,22 +118,5 @@ class Model_Components_BlogArts extends ModuleModel
             );
 
         return $this->checkListButtons($this->fetchToArray($qBuilder->buildQuery()));
-    }
-
-    public function copyCustomFields(): bool
-    {
-        /*
-        if(!empty($this->record['created_by']['curVal'])){
-            $userAlias_q = 'select accAlias from users_dt where user_id="'.$this->record['created_by']['curVal'].'"';
-            $userAlias_res = $this->pdoQuery($userAlias_q);
-            if($userAlias_res->rowCount() == 1){
-                $userAlias_row = $userAlias_res->fetch(self::FETCH_ASSOC);
-                $this->record['createdUser']['curVal'] = $userAlias_row['accAlias'];
-            }else{
-                return false;
-            }
-        }
-        */
-        return true;
     }
 }

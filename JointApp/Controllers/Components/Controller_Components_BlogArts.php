@@ -112,12 +112,21 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'varchar',
                 'curVal' => '',
             ),
+            'commentsFlag' => array(
+                'format' => 'tinyint',
+                'curVal' => '',
+            ),
         );
     }
 
     public function prepareSearchFields(): void
     {
         $this->searchFields = array(
+            'pubDate' => array(
+                'format' => 'date',
+                'sort' => 1,
+                'sortOrder' => 'DESC',
+            ),
             'art_id' => array(
                 'format' => 'varchar',
                 'search' => 1,
@@ -178,6 +187,10 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'varchar',
                 'search' => 1,
                 'sort' => 1,
+            ),
+            'commentsFlag' => array(
+                'format' => 'tinyint',
+                'search' => 1,
             ),
         );
     }
@@ -252,6 +265,9 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'varchar',
                 'custom' => false,
             ),
+            'commentsFlag' => array(
+                'format' => 'tinyint',
+            ),
         );
     }
 
@@ -319,6 +335,9 @@ class Controller_Components_BlogArts extends ModuleController
                 'format' => 'varchar',
                 'readonly' => 1,
             ),
+            'commentsFlag' => array(
+                'format' => 'tinyint',
+            )
         );
     }
     public function fillCatsList():array

@@ -46,6 +46,8 @@ class LangFiles_Ru_Views_BlogArts extends LangFiles_Ru_Views_SiteView
 
         $langPageContent->commentsH3 = 'Комментарии';
 
+        $langPageContent->noComments = 'Без комментариев';
+
         $langPageContent->langList = self::getLangCommentsList();
 
         return $langPageContent;
