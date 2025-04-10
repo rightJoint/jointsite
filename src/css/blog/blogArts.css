@@ -68,6 +68,10 @@
     margin-top: 0.5em;
     text-align: left;
 }
+.blog-container .art-content h2{
+    color: midnightblue;
+    text-align: center;
+}
 .blog-container .art-content h3{
     color: midnightblue;
     font-family:  Poppins, Arial, Helvetica, sans-serif;
