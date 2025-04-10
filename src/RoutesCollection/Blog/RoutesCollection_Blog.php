@@ -52,6 +52,9 @@ trait RoutesCollection_Blog
                 elseif(strtolower($routes_ns[3]) == 'sql-cheat-sheet'){
                     $route->withView('Src\Views\Blog\IT\View_Blog_IT_FiftySqlQuestions');
                 }
+                elseif(strtolower($routes_ns[3]) == 'test-task-php-job'){
+                    $route->withView('Src\Views\Blog\IT\View_Blog_IT_TestTaskPhpJob');
+                }
                 else{
                     $route->withView('Src\Views\Blog\View_Blog_Art');
                 }
