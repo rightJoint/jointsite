@@ -152,9 +152,12 @@ span.respond{
 .art-comment-container .art-comment-container:last-child {
     border: none;
 }
-.add-first-comment{
+.add-first-comment, .no-comments{
     background-color: lemonchiffon;
     padding: 0.5em;
+}
+.no-comments{
+    margin-bottom: 2em;
 }
 
 .art-comment-container.quote {

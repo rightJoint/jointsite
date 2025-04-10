@@ -403,6 +403,6 @@ class View_Blog_Art extends SiteView
 
     public static function printArtNoCommentsOptions(string $noCommentsText):string
     {
-        return '<div class="add-first-comment">'.$noCommentsText.'</div>';
+        return '<div class="no-comments">'.$noCommentsText.'</div>';
     }
 }
