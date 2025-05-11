@@ -29,7 +29,7 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
         $titleBlock->invoke = 'Программирование на php и c#';
         $titleBlock->invoke_cm = 'Создание нового и поддержка существующего софта, автоматизация бизнесс-процессов';
         $titleBlock->st_txt1 = 'Аналитический подход';
-        $titleBlock->st_txt2 = 'Отвественный выполнение';
+        $titleBlock->st_txt2 = 'Отвественное выполнение';
         $titleBlock->st_txt3 = 'Решение сложных проблем';
         $titleBlock->thought = 'Доверив свои задачи специалисту, вам не придется волноваться, что все будет сделано '.
         'правильно и вовремя.';
