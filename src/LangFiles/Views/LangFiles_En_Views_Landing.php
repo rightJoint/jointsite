@@ -5,12 +5,20 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
     {
         $langHead = parent::getLangHead();
 
-        $langHead->description = 'Web-3 site by Right Joint: programming on php и c#. '.
-            'Pop services: php, c#, js, html, git, docker, crm. '.
-            'Blog - discussions.';
-        $langHead->title = 'Web-3 site';
+        $langHead->description = 'Developing and supporting web-sites: creating web-sites, integration with api of external services like payment systems, social networks e t.c., '.
+            'business-process automation, scripts optimization, layout, settings up git-repositories and ci/cd. '.
+            'Programming on php and c#. Pop services: php, c#, js, html, git, docker, crm.';
+        $langHead->title = 'IT-services';
 
         return $langHead;
+    }
+
+    static public function getLangHeader():stdClass
+    {
+        $langHeader = parent::getLangHeader();
+        $langHeader->h1 = 'Hiring programmer';
+
+        return $langHeader;
     }
 
     static public function getLangPageContent():\stdClass
@@ -39,24 +47,15 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
 
         $langPageContent->titleBlock = $titleBlock;
 
-        $jointPass = new stdClass();
 
-        $artLang = new stdClass();
-        $artLang->h2 = 'IT-Blog';
-        $artLang->article = 'Article';
-        $artLang->from = 'from';
-        $artLang->written = 'Issued';
-        $artLang->arts = 'articles';
-        $artLang->tags = 'tags';
-
-        $langPageContent->artLang = $artLang;
+        $langPageContent->artLang = self::getLangLandingArt();
 
         $contactsBlock = new stdClass();
 
         $contactsBlock->address_f = 'Address';
         $contactsBlock->address_v = 'Russia, Ivanovo, 8-Match st., b. 32, «Silver city» mall, public hall';
         $contactsBlock->Schedule_f = 'Schedule';
-        $contactsBlock->Schedule_v = 'mon. - fri. 9.00 am - 6.00pm +4 UTC, sat., sun. - days off';
+        $contactsBlock->Schedule_v = 'Weekdays 9.00 am - 6.00pm +4 UTC';
         $contactsBlock->phone_f = 'Phone';
 
         $langPageContent->contactsBlock = $contactsBlock;
@@ -71,18 +70,16 @@ class LangFiles_En_Views_Landing extends LangFiles_En_Views_SiteView
 
         return $langPageContent;
     }
-    /*
-    function __construct()
+
+    static public function getLangLandingArt():\stdClass
     {
-
-        $this->head["h1"] = "Услуги разработчика";
-        $this->head["title"] = "Наёмный программист";
-        $this->head["description"] = "Наёмный программист RightJoint: программирование на php и c#. Создание нового и поддержка существующего софта. ".
-            "Бесплатно продукт jointPass - органайзер паролей, скачать. ".
-            "Популярные услуги: php, c#, js, html, git, ";
-
-        $this->producth2 = "Мои продукты - бесплатно";
-    );
+        $artLang = new stdClass();
+        $artLang->h2 = 'IT-Blog';
+        $artLang->article = 'Article';
+        $artLang->from = 'from';
+        $artLang->written = 'Issued';
+        $artLang->arts = 'articles';
+        $artLang->tags = 'tags';
+        return $artLang;
     }
-    */
 }

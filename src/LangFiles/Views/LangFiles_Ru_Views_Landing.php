@@ -5,12 +5,20 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
     {
         $langHead = parent::getLangHead();
 
-        $langHead->description = 'Web-3 сайт от Right Joint: программирование на php и c#. '.
-            'Популярные услуги: php, c#, js, html, git, docker, crm. '.
-            'Блог - обсуждение.';
-        $langHead->title = 'Web-3 site';
+        $langHead->description = 'Разработка и поддрежка сайтов: создание сайтов, интеграция по api с внешними сервисами, '.
+            'автоматизация бизнесс-процессов, оптимизация скриптов, врестка по макетам, настройка git-репозиториев и ci/cd. '.
+            'Программирование на php и c#. Популярные услуги: php, c#, js, html, git, docker, crm.';
+        $langHead->title = 'IT-услуги';
 
         return $langHead;
+    }
+
+    static public function getLangHeader():stdClass
+    {
+        $langHeader = parent::getLangHeader();
+        $langHeader->h1 = 'Наёмный программист';
+
+        return $langHeader;
     }
 
     static public function getLangPageContent():\stdClass
@@ -39,22 +47,15 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
 
         $langPageContent->titleBlock = $titleBlock;
 
-        $artLang = new stdClass();
-        $artLang->h2 = 'IT-Блог';
-        $artLang->article = 'Статья';
-        $artLang->from = 'от';
-        $artLang->written = 'Написано';
-        $artLang->arts = 'статей';
-        $artLang->tags = 'тэги';
 
-        $langPageContent->artLang = $artLang;
+        $langPageContent->artLang = self::getLangLandingArt();
 
         $contactsBlock = new stdClass();
 
         $contactsBlock->address_f = 'Адрес';
         $contactsBlock->address_v = 'г. Иваново, ул. 8 Марта, д. 32, ТРЦ «Серебряный город»';
         $contactsBlock->Schedule_f = 'Режим работы';
-        $contactsBlock->Schedule_v = 'пнд. - птн. с 9.00 до 18.00, сбт., вск. - выходной';
+        $contactsBlock->Schedule_v = 'Будни с 9.00 до 18.00';
         $contactsBlock->phone_f = 'Телефон';
 
         $langPageContent->contactsBlock = $contactsBlock;
@@ -69,4 +70,17 @@ class LangFiles_Ru_Views_Landing extends LangFiles_Ru_Views_SiteView
 
         return $langPageContent;
     }
+
+    static public function getLangLandingArt():\stdClass
+    {
+        $artLang = new stdClass();
+        $artLang->h2 = 'IT-Блог';
+        $artLang->article = 'Статья';
+        $artLang->from = 'от';
+        $artLang->written = 'Написано';
+        $artLang->arts = 'статей';
+        $artLang->tags = 'тэги';
+        return $artLang;
+    }
+
 }
