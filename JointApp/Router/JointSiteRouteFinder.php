@@ -8,6 +8,7 @@ use JointFramework\Logger\JointSiteLoggerFactory;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerAwareTrait;
 use Src\RoutesCollection\Blog\RoutesCollection_Blog;
+use Src\RoutesCollection\Handbook\RoutesCollection_Handbook;
 use Src\RoutesCollection\RoutesCollection_Applications;
 use Src\RoutesCollection\RoutesCollection_Basket;
 use Src\RoutesCollection\RoutesCollection_Cv;
@@ -36,6 +37,7 @@ class JointSiteRouteFinder
     use RoutesCollection_Blog;
     use RoutesCollection_Products;
     use RoutesCollection_Cv;
+    use RoutesCollection_Handbook;
 
     private $context = 'RouteFinder';
 
