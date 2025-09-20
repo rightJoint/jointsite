@@ -7,10 +7,61 @@ namespace Src\Views\Blog\IT;
 use Src\Views\Blog\View_Blog_Art;
 
 
-class View_Blog_IT_PhpJob2025 extends View_Blog_Art
+class View_Blog_IT_PhpJobCompanies extends View_Blog_Art
 {
     public static function printArtContent(\stdClass $langArtContent, \stdClass $viewParams, string $langLw): string
     {
+
+       // $content = file_get_contents('C:/OSPanel/domains/x-site.web/src/userdata/hh-companies.txt');
+
+
+        $companies_arr = [];
+        $limitLines = 1000;
+        $linesCounter = 0;
+        //return 'parse hh-companies='.$content;
+        $handle = fopen('C:/OSPanel/domains/x-site.web/src/userdata/hh-companies.txt', "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                if($linesCounter < $limitLines){
+                    //echo $line.'<br/>';
+                    //1. company name
+                    if($vacanciesBank_pos = mb_strpos($line, ' (')){
+                        //echo $vacanciesBank_pos.'<br>';
+                        //echo mb_strpos($line, ' (').'<br>';
+                        $companyName = mb_substr($line, 0, $vacanciesBank_pos);
+                        //echo $companyName.'<br>';
+
+                        $line_rest = mb_substr($line, $vacanciesBank_pos, mb_strlen($line));
+                        //echo 'line_rest='.$line_rest."<br>";
+                        $vacanciesBank_pos2 = mb_strpos($line_rest, 'вакан');
+                        //echo '$vacanciesBank_pos2='.$vacanciesBank_pos2.'<br>';
+                        //if($vacanciesBank_pos2 = mb_strpos($line_rest, 'вакан')){
+                            //echo $vacanciesBank_pos2.'<br>';
+
+                            $bankReserve=mb_substr($line_rest, 2 , $vacanciesBank_pos2-3).'<br>';
+
+                            $companies_arr[$companyName]=$bankReserve;
+                        //}
+                    }
+
+
+
+                }else{
+                    break;
+                }
+
+                $linesCounter++;
+            }
+
+            fclose($handle);
+        } else {
+            // error opening the file.
+        }
+
+        echo 'parsed= '.count($companies_arr).'<br>';
+        echo '<pre>';
+        print_r($companies_arr);
+
         return self::intro().
             self::sectionRemote().
             self::sectionRole().

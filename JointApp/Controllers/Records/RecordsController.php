@@ -154,28 +154,20 @@ class RecordsController extends Controller implements RecordsControllerInterface
         if(isset($this->model->record)){
             foreach ($this->model->record as $fName=>$fData){
                 if(isset($this->editFields[$fName])){
-                    if(isset($this->editFields[$fName]['readonly']) and $this->editFields[$fName]['readonly'] == true) {
-                        if(isset($this->model->record[$fName]['fetchVal'])){
-                            $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
-                        }else{
-                            $this->model->record[$fName]['curVal'] = '';
-                        }
-                    }else{
-                        if (($fData['format'] == 'checkbox') or ($fData['format'] == 'tinyint')) {
-                            if (isset($this->requestParams[$fName]) and $this->requestParams[$fName] == 'on') {
-                                $this->model->record[$fName]['curVal'] = 1;
-                            } else {
-                                $this->model->record[$fName]['curVal'] = 0;
-                            }
+                    if (($fData['format'] == 'checkbox') or ($fData['format'] == 'tinyint')) {
+                        if (isset($this->requestParams[$fName]) and $this->requestParams[$fName] == 'on') {
+                            $this->model->record[$fName]['curVal'] = 1;
                         } else {
-                            if (isset($this->requestParams[$fName])) {
-                                $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
+                            $this->model->record[$fName]['curVal'] = 0;
+                        }
+                    } else {
+                        if (isset($this->requestParams[$fName])) {
+                            $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
+                        } else {
+                            if (isset($this->model->record[$fName]['fetchVal'])) {
+                                $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
                             } else {
-                                if (isset($this->model->record[$fName]['fetchVal'])) {
-                                    $this->model->record[$fName]['curVal'] = $this->model->record[$fName]['fetchVal'];
-                                } else {
-                                    $this->model->record[$fName]['curVal'] = null;
-                                }
+                                $this->model->record[$fName]['curVal'] = null;
                             }
                         }
                     }
@@ -610,7 +602,7 @@ class RecordsController extends Controller implements RecordsControllerInterface
                     $this->view->logMessage = $this->model->log_message;
                 }
             }//else{
-                //$this->view->logMessage = 'xxx';
+            //$this->view->logMessage = 'xxx';
             //}
         }
         $this->view->editFields = $this->editFields;

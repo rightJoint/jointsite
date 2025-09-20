@@ -1,7 +1,7 @@
 RewriteEngine on
 RewriteBase /
-RewriteCond %{SERVER_PORT} !^443$
-RewriteRule ^(.*)$ https://rightjoint.ru/$1 [R=301,L]
+#RewriteCond %{SERVER_PORT} !^443$
+#RewriteRule ^(.*)$ https://rightjoint.ru/$1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 DirectoryIndex index.php
 RewriteRule . index.php [L]

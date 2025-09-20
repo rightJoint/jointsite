@@ -146,7 +146,7 @@ trait RoutesCollection_Test
         $route = new JointSiteRoute();
         //POST: test/migrations/migrationslist
         if (strtolower($routes_ns[3]) == 'migrationslist') {
-            if (strtolower($routes_ns[4]) == 'toppanelactions') {
+            if (isset($routes_ns[4]) and strtolower($routes_ns[4]) == 'toppanelactions') {
                 $route = (new JointSiteRoute())
                     ->withController('JointApp\Controllers\Migrations\Controller_MigrationsList',
                         array('processUri' => '/test/migrations/migrationsList'))

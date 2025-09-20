@@ -455,3 +455,12 @@ span.tg-item{
     margin: 0.2em 0;
     font-size: 0.9em;
 }
+
+.tags-list{
+    display: block;
+    height: 10em;
+    overflow-y: scroll;
+}
+.tags-list::-webkit-scrollbar {
+    width: 1px;
+}

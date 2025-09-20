@@ -1,6 +1,7 @@
 <?php
 //php ./vendor/bin/phpunit tests/JointApp/Views/JointApp_ViewLang_Test.php
-
+//php /home/p264533/public_html/rightjoint.ru/vendor/bin/phpunit /home/p264533/public_html/rightjoint.ru/tests/JointApp/Views/JointApp_ViewLang_Test.php
+//update-alternatives --set php /usr/bin/php8.1
 
 class JointApp_ViewLang_Test extends PHPUnit\Framework\TestCase
 {
@@ -47,7 +48,7 @@ class JointApp_ViewLang_Test extends PHPUnit\Framework\TestCase
 
         );
 
-        $docRoot = 'C:/OSPanel/domains/x-site.local';
+        $docRoot = 'C:/OSPanel/domains/x-site.web';
 
         $totalTime = 0;
         $testCounter = 0;

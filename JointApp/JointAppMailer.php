@@ -218,6 +218,7 @@ class JointAppMailer
 
     function sendOnEmail($email, $subject, $body)
     {
+        //mail($email, $subject, $body);
         $this->phpMailer->addAddress($email); // Email получателя
         $this->phpMailer->Subject = $subject;
         $this->phpMailer->Body = $body;

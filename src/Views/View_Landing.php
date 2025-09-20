@@ -260,12 +260,14 @@ class View_Landing extends SiteView
             '<h3 class="header-card-title">'.$artLang->h2.'</h3>'.
             '<div class="header-card-info">'.
             '<span>'.$artLang->written.' '.($artsDev_cnt+$artsPc_cnt).' '.$artLang->arts.'</span>'.
-        '<span class="tg-label">'.$artLang->tags.'</span>';
+        '<span class="tg-label">'.$artLang->tags.'</span>'.
+            '<div class="tags-list">';
+
 
         foreach ($groupTags as $tagName=>$tagCount){
             $return.= '<span class="tg-item">'.$tagName.' ('.$tagCount.')</span>';
         }
-        $return.='</div>'.
+        $return.='</div></div>'.
             '</div>'.
             '<div class="mini-card-grid">'.$blog_arts.'</div></div>';
 

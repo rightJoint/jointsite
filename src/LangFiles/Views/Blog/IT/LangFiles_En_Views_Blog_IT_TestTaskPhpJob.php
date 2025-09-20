@@ -162,7 +162,7 @@ class LangFiles_En_Views_Blog_IT_TestTaskPhpJob extends LangFiles_En_Views_BlogA
         $php->li13 = 'Report.php (класс) - отчет, один метод реализует логику, а второй представление';
         $php->li2 = '<b>Файлы</b>, буквально 3-5 строчек, в них влючаются классы и вызываются их методы';
         $php->li21 = 'install.php - для  загрузки тестовых данных';
-        $php->li22 = 'index.php - для отчета';
+        $php->li22 = 'process_orders.php - для отчета';
         $php->li3 = 'файлы';
         $php->li31 = 'это';
         $php->li32 = 'это для разворачивания списка';

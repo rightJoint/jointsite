@@ -7,7 +7,7 @@ class DbConnector
     private string $user = 'root';
     private string $db = 'js_db';
 
-    public function __construct($loc = 'localhost', $db = 'js_db', $user = 'root', $pw = 'example')
+    public function __construct($loc = 'localhost', $db = 'xweb', $user = 'root', $pw = 'example')
     {
         $this->loc = $loc;
         $this->pw = $pw;

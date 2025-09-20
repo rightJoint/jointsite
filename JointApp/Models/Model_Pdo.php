@@ -176,7 +176,7 @@ class Model_Pdo extends \PDO
     }
 
 
-    public function fetchToArray($findList_qry):array
+    public function fetchToArray(string $findList_qry):array
     {
         $return_listRecords = array();
         if($findList_res = $this->pdoQuery($findList_qry)){
