@@ -5,8 +5,6 @@ namespace JointApp\Controllers\Components;
 
 
 use JointApp\Controllers\ModuleController;
-use JointApp\Models\Components\Model_Components_KipTasks;
-use JointApp\Views\Records\RecordListView;
 
 class Controller_Components_KipTasks extends ModuleController
 {
@@ -28,32 +26,56 @@ class Controller_Components_KipTasks extends ModuleController
         );
     }
 
+    public function loadLangController():string
+    {
+        parent::loadLangController();
+        $name = 'LangFiles_'.$this->langNs.'_Controller_Components_KipTasks';
+        require_once $this->docRoot.'/JointApp/LangFiles/Controllers/Components/'.$name.'.php';
+        return $name;
+    }
+
     public function prepareSearchFields(): void
     {
         $this->searchFields = array(
-            'object' => array(
+            'created_date' => array(
                 'format' => 'varchar',
+                'search' => 0,
+                'sort' => 1,
+                'sortOrder' => 'DESC',
+            ),
+            'object' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipObjects(),
                 'search' => 1,
                 'sort' => 1,
             ),
             'system' => array(
-                'format' => 'varchar',
+                'format' => 'select',
+                'filling' => $this->fillKipSystem(),
                 'search' => 1,
                 'sort' => 1,
             ),
             'subsystem' => array(
-                'format' => 'varchar',
+                'format' => 'hidden',
                 'search' => 1,
                 'sort' => 1,
             ),
             'tasktype' => array(
-                'format' => 'varchar',
+                'format' => 'select',
+                'filling' => $this->fillKipTaskTypes(),
                 'search' => 1,
                 'sort' => 1,
             ),
-            'created_date' => array(
-                'format' => 'varchar',
-                'search' => 0,
+            'priority' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipPriority(),
+                'search' => 1,
+                'sort' => 1,
+            ),
+            'status' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipTaskStatus(),
+                'search' => 1,
                 'sort' => 1,
             ),
         );
@@ -65,7 +87,7 @@ class Controller_Components_KipTasks extends ModuleController
         $this->editFields = array(
             'id' => array(
                 'pri' => 1,
-                'format' => 'varchar',
+                'format' => 'hidden',
                 'curVal' => '',
             ),
             'title' => array(
@@ -85,10 +107,10 @@ class Controller_Components_KipTasks extends ModuleController
             ),
             'created_date' => array(
                 'format' => 'varchar',
-                'curVal' => '121212-212wqweqwe',
+                'curVal' => '',
             ),
             'created_by' => array(
-                'format' => 'varchar',
+                'format' => 'hidden',
                 'curVal' => '',
             ),
             'priority' => array(
@@ -108,16 +130,87 @@ class Controller_Components_KipTasks extends ModuleController
                 'filling' => $this->fillKipObjects(),
             ),
             'system' => array(
-                'format' => 'varchar',
-                'curVal' => '',
+                'format' => 'select',
+                'filling' => $this->fillKipSystem(),
             ),
             'subsystem' => array(
-                'format' => 'varchar',
+                'format' => 'hidden',
                 'curVal' => '',
             ),
             'tasktype' => array(
                 'format' => 'select',
                 'filling' => $this->fillKipTaskTypes(),
+            ),
+            'created_name' => array(
+                'format' => 'varchar',
+                'curVal' => '',
+                'readonly' => 1,
+            ),
+        );
+    }
+
+    public function prepareListFields(): void
+    {
+        $this->listFields = array(
+            'btnDetail' => array(
+                'replaces' => ['id'],
+                'format' => 'link',
+                'url' => 'id=id',
+            ),
+            'btnEdit' => array(
+                'replaces' => ['id'],
+                'format' => 'link',
+                'url' => 'id=id',
+            ),
+            'btnDelete' => array(
+                'replaces' => ['id'],
+                'format' => 'link',
+                'url' => 'id=id',
+            ),
+            'id' => array(
+                'format' => 'hidden',
+            ),
+            'tasktype' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipTaskTypes(),
+            ),
+            'title' => array(
+                'format' => 'varchar',
+            ),
+            'object' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipObjects(),
+            ),
+            'system' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipSystem(),
+            ),
+            'subsystem' => array(
+                'format' => 'hidden',
+            ),
+            'priority' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipPriority(),
+            ),
+            'status' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipTaskStatus(),
+            ),
+            'progress' => array(
+                'format' => 'int',
+            ),
+            'created_date' => array(
+                'format' => 'date',
+            ),
+            'created_by' => array(
+                'format' => 'hidden',
+            ),
+            'created_name' => array(
+                'format' => 'varchar',
+            ),
+            'descr' => array(
+                'format' => 'hidden',
+                'max_length' => 10,
             ),
         );
     }
@@ -130,7 +223,7 @@ class Controller_Components_KipTasks extends ModuleController
             'gts' => 'ГТС (Плотина)',
             'strokino' => 'Строкино',
             'penki' => 'Пеньки',
-            'all' => 'Все объекты',
+            '' => 'Все объекты',
         );
 
         return $return;
@@ -147,7 +240,7 @@ class Controller_Components_KipTasks extends ModuleController
             'skud' => 'СКУД',
             'ops' => 'ОПС',
             'ventolation' => 'Вентиляция',
-            'others' => 'Прочее',
+            '' => 'Любой тип',
         );
 
         return $return;
@@ -162,6 +255,7 @@ class Controller_Components_KipTasks extends ModuleController
             'Completed' => 'Завершено',
             'in progress' => 'В работе',
             'postpone' => 'Отложено',
+            '' => 'Любой статус',
         );
         return $return;
 
@@ -175,10 +269,34 @@ class Controller_Components_KipTasks extends ModuleController
             'very high' => 'Срочно',
             'low' => 'Низкий',
             'very low' => 'Очень низкая',
+            '' => 'Любая важность',
         );
         return $return;
 
     }
+
+    public function fillKipSystem():array
+    {
+        $return = array(
+            'onvs-1-1thHPS' => '1й подъем',
+            'onvs-1-2thHPS-old' => '2й подъем страрый',
+            'onvs-1-2thHPS-new' => '2й подъем новый',
+            'onvs-1-abk-1' => 'АБК-1',
+            'onvs-1-abk-2' => 'АБК-2',
+            'onvs-1-filters-1b' => 'Фильтра 1й блок',
+            'onvs-1-filters-new' => 'Фильтра 2й блок',
+            'onvs-1-guards' => 'Проходная',
+            'onvs-2-heater' => 'Котельная',
+            'onvs-2-labor' => 'Лаборатория',
+            'gts' => 'ГТС (Плотина)',
+            'strokino' => 'Строкино',
+            'penki' => 'Пеньки',
+            '' => 'Все объекты',
+        );
+        return $return;
+
+    }
+
 
     public function updateEditFieldsFromRecord():bool
     {
