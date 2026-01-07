@@ -27,6 +27,14 @@ class Controller_Components_KipParticipators extends ModuleController
             ),
         );
     }
+
+    public function loadLangController():string
+    {
+        parent::loadLangController();
+        $name = 'LangFiles_'.$this->langNs.'_Controller_Components_KipParticipators';
+        require_once $this->docRoot.'/JointApp/LangFiles/Controllers/Components/'.$name.'.php';
+        return $name;
+    }
 /*
     public function prepareSearchFields(): void
     {
@@ -73,6 +81,40 @@ class Controller_Components_KipParticipators extends ModuleController
                 'format' => 'select',
                 'filling' => $this->fillKipParticipators(),
             ),
+        );
+    }
+
+    public function prepareListFields(): void
+    {
+        $this->listFields = array(
+            'btnDetail' => array(
+                'replaces' => ['noteid', 'participator'],
+                'format' => 'link',
+                'url' => 'noteid=noteid&participator=participator',
+            ),
+            'btnEdit' => array(
+                'replaces' => ['noteid', 'participator'],
+                'format' => 'link',
+                'url' => 'noteid=noteid&participator=participator',
+            ),
+            'btnDelete' => array(
+                'replaces' => ['noteid', 'participator'],
+                'format' => 'link',
+                'url' => 'noteid=noteid&participator=participator',
+            ),
+            'noteid' => array(
+                'format' => 'hidden',
+            ),
+            'participator' => array(
+                'format' => 'select',
+                'filling' => $this->fillKipParticipators(),
+            ),
+            /*'created_by' => array(
+                'format' => 'hidden',
+            ),
+            'created_name' => array(
+                'format' => 'varchar',
+            ),*/
         );
     }
 

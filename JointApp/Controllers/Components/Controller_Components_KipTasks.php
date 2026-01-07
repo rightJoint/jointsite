@@ -294,7 +294,8 @@ class Controller_Components_KipTasks extends ModuleController
             'gts' => 'ГТС (Плотина)',
             'strokino' => 'Строкино',
             'penki' => 'Пеньки',
-            '' => 'Все объекты',
+            'all' => 'Все объекты',
+            '' => 'Любой объект',
         );
 
         return $return;
@@ -362,7 +363,8 @@ class Controller_Components_KipTasks extends ModuleController
             'gts' => 'ГТС (Плотина)',
             'strokino' => 'Строкино',
             'penki' => 'Пеньки',
-            '' => 'Все объекты',
+            'all' => 'Все системы',
+            '' => 'Любая система',
         );
         return $return;
 

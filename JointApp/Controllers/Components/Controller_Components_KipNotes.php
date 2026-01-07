@@ -124,6 +124,49 @@ class Controller_Components_KipNotes extends ModuleController
         );
     }
 
+    public function prepareViewFields(): void
+    {
+        $this->viewFields = array(
+            'id' => array(
+                'pri' => true,
+                'format' => 'hidden',
+                'readonly' => 1,
+            ),
+            'title' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+                'style' => array(
+                    'class' => 'wd100',
+                ),
+            ),
+            'descr' => array(
+                'format' => 'mcedetailframe',
+                'id' => 'descr',
+                'curVal' => '',
+                'style' => array(
+                    'class' => 'wd100',
+                ),
+                'readonly' => 1,
+            ),
+            'created_date' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'created_by' => array(
+                'format' => 'hidden',
+                'readonly' => 1,
+            ),
+            'tasktitle' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'created_name' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+        );
+    }
+
     public function prepareSearchFields(): void
     {
         $this->searchFields = array(
