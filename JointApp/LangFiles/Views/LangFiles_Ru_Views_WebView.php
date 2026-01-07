@@ -214,6 +214,21 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'обновить robots - txt',
                 'usage' => false,
             ),
+            'kiptasks' => array(
+                'refText' => 'задачи кип',
+                'refTitle' => 'задачи кип',
+                'usage' => true,
+            ),
+            'kipnotes' => array(
+                'refText' => 'заметки',
+                'refTitle' => 'заметки',
+                'usage' => true,
+            ),
+            'kipparticipators' => array(
+                'refText' => 'участники',
+                'refTitle' => 'участники',
+                'usage' => true,
+            ),
         );
 
         $modulesMenu->menuLine = array(

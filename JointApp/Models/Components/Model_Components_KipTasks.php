@@ -65,27 +65,37 @@ class Model_Components_KipTasks extends ModuleModel
                 'format' => 'varchar',
                 'custom' => false,
             ),
+            'created_name' => array(
+                'format' => 'varchar',
+                'custom' => true,
+            ),
         );
     }
-/*
+
     public function listRecords(JointAppQueryBuilder $qBuilder): array
     {
 
-        $qBuilder->select = 'users_dt.user_id, users_dt.accLogin, users_dt.accAlias, users_dt.pw_hash, users_dt.vldCode, '.
-            'users_dt.regDate, users_dt.netWork, users_dt.validDate, users_dt.photoLink, users_dt.eMail, '.
-            'users_dt.birthDay, users_dt.socProf, users_dt.blackList, '.
-            'users_dt.created_by, users_dt.is_admin, users_dt.send_ntf, users_dt.pref_lang, createdUser_dt.accAlias as created_user';
-
-
+        $qBuilder->select = 'kiptasks.id, kiptasks.title, kiptasks.descr, kiptasks.created_date, kiptasks.created_by, '.
+            'kiptasks.priority, kiptasks.status, kiptasks.progress, kiptasks.object, kiptasks.system, '.
+            'kiptasks.subsystem, kiptasks.tasktype, '.
+            'users_dt.accAlias as created_name';
 
         $qBuilder
             ->from($this->tableName)
-        ->join('left join users_dt createdUser_dt on '.$this->tableName.'.created_by = createdUser_dt.user_id');
-        //echo $qBuilder->buildQuery();
-        //exit;
-
+        ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id');
 
         return $this->fetchToArray($qBuilder->buildQuery());
     }
-*/
+
+    public function copyCustomFields(): bool
+    {
+        $findCreatedAlias_qry = 'select accAlias from users_dt where created_by="'.$this->record['created_by']['curVal'].'"';
+        $findCreatedAlias_arr = $this->fetchToArray($findCreatedAlias_qry);
+        if(count($findCreatedAlias_arr)){
+            $this->record['created_name']['curVal'] = $findCreatedAlias_arr[0]['accAlias'];
+        }
+        return true;
+    }
+
+
 }

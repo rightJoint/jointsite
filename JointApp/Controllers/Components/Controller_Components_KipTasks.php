@@ -215,6 +215,77 @@ class Controller_Components_KipTasks extends ModuleController
         );
     }
 
+    public function prepareViewFields(): void
+    {
+        $this->viewFields = array(
+            'id' => array(
+                'pri' => true,
+                'format' => 'hidden',
+                'readonly' => 1,
+            ),
+            'title' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+                'style' => array(
+                    'class' => 'wd100',
+                ),
+            ),
+            'descr' => array(
+                'format' => 'mcedetailframe',
+                'id' => 'descr',
+                'curVal' => '',
+                'style' => array(
+                    'class' => 'wd100',
+                ),
+                'readonly' => 1,
+            ),
+            'created_date' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            'created_by' => array(
+                'format' => 'hidden',
+                'readonly' => 1,
+            ),
+            'priority' => array(
+                'format' => 'detailselect',
+                'filling' => $this->fillKipPriority(),
+                'readonly' => 1,
+            ),
+            'status' => array(
+                'format' => 'detailselect',
+                'filling' => $this->fillKipTaskStatus(),
+                'readonly' => 1,
+            ),
+            'progress' => array(
+                'format' => 'int',
+                'readonly' => 1,
+            ),
+            'object' => array(
+                'format' => 'detailselect',
+                'filling' => $this->fillKipObjects(),
+                'readonly' => 1,
+            ),
+            'system' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+            /*'subsystem' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),*/
+            'tasktype' => array(
+                'format' => 'detailselect',
+                'filling' => $this->fillKipTaskTypes(),
+                'readonly' => 1,
+            ),
+            'created_name' => array(
+                'format' => 'varchar',
+                'readonly' => 1,
+            ),
+        );
+    }
+
     public function fillKipObjects():array
     {
         $return = array(

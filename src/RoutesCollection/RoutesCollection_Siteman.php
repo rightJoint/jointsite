@@ -9,6 +9,9 @@ use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogCats;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogComments;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTags;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTagsToArts;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipNotes;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipParticipators;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipTasks;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracksToAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracks;
@@ -46,6 +49,9 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_SitemapUpdate;
     use RoutesCollection_Modules_Robots;
     use RoutesCollection_Modules_RobotsUpdate;
+    use RoutesCollection_Modules_KipTasks;
+    use RoutesCollection_Modules_KipNotes;
+    use RoutesCollection_Modules_KipParticipators;
 
     static function getRoute_Siteman($routes_ns):JointSiteRoute
     {
@@ -116,6 +122,15 @@ trait RoutesCollection_Siteman
         elseif (strtolower($routes_ns[2]) == 'robotsupdate'){
             $route = self::getRoute_ModuleRobotsUpdate($routes_ns);
         }
+        elseif (strtolower($routes_ns[2]) == 'kiptasks'){
+            $route = self::getRoute_ModuleKipTasks($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kipnotes'){
+            $route = self::getRoute_ModuleKipNotes($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kipparticipators'){
+            $route = self::getRoute_ModuleKipParticipators($routes_ns);
+        }
         return $route;
     }
     static function postRoute_Siteman($routes_ns):JointSiteRoute
@@ -174,6 +189,15 @@ trait RoutesCollection_Siteman
         }
         elseif (strtolower($routes_ns[2]) == 'robots'){
             $route = self::postRoute_ModuleRobots($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kiptasks'){
+            $route = self::postRoute_ModuleKipTasks($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kipnotes'){
+            $route = self::postRoute_ModuleKipNotes($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kipparticipators'){
+            $route = self::postRoute_ModuleKipParticipators($routes_ns);
         }
         return $route;
     }

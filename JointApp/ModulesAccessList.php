@@ -79,6 +79,18 @@ class ModulesAccessList
                 //
                 'admin',
             ),
+            'kiptasks' => array(
+                //
+                'admin',
+            ),
+            'kipnotes' => array(
+                //
+                'admin',
+            ),
+            'kipparticipators' => array(
+                //
+                'admin',
+            ),
         );
     }
 
