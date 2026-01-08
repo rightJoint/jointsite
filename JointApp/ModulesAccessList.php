@@ -91,6 +91,10 @@ class ModulesAccessList
                 //
                 'admin',
             ),
+            'kipplan' => array(
+                //
+                'admin',
+            ),
         );
     }
 

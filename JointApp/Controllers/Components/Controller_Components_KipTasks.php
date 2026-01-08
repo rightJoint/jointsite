@@ -16,13 +16,14 @@ class Controller_Components_KipTasks extends ModuleController
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
-            "kipnotes" => array(
-                "relationships" => array(
-                    "id" => "taskid",
+            'kipnotes' => array(
+                'relationships' => array(
+                    'id' => 'taskid',
                 ),
                 'model' => 'JointApp\Models\Components\Model_Components_KipNotes',
                 'controller' => 'JointApp\Controllers\Components\Controller_Components_KipNotes'
             ),
+            'kipplan'=>[],
         );
     }
 
@@ -271,10 +272,6 @@ class Controller_Components_KipTasks extends ModuleController
                 'filling' => $this->fillKipSystem(),
                 'readonly' => 1,
             ),
-            /*'subsystem' => array(
-                'format' => 'varchar',
-                'readonly' => 1,
-            ),*/
             'tasktype' => array(
                 'format' => 'detailselect',
                 'filling' => $this->fillKipTaskTypes(),
@@ -287,7 +284,7 @@ class Controller_Components_KipTasks extends ModuleController
         );
     }
 
-    public function fillKipObjects():array
+    public static function fillKipObjects():array
     {
         $return = array(
             'onvs-1' => 'ОНВС-1',
@@ -303,7 +300,7 @@ class Controller_Components_KipTasks extends ModuleController
 
     }
 
-    public function fillKipTaskTypes():array
+    public static function fillKipTaskTypes():array
     {
         $return = array(
             'kip' => 'КИП',
@@ -321,7 +318,7 @@ class Controller_Components_KipTasks extends ModuleController
 
     }
 
-    public function fillKipTaskStatus():array
+    public static function fillKipTaskStatus():array
     {
         $return = array(
             'new' => 'Новая',
@@ -335,7 +332,7 @@ class Controller_Components_KipTasks extends ModuleController
 
     }
 
-    public function fillKipPriority():array
+    public static function fillKipPriority():array
     {
         $return = array(
             'normal' => 'Нормальный',
@@ -349,7 +346,7 @@ class Controller_Components_KipTasks extends ModuleController
 
     }
 
-    public function fillKipSystem():array
+    public static function fillKipSystem():array
     {
         $return = array(
             'onvs-1-1thHPS' => '1й подъем',
@@ -371,7 +368,6 @@ class Controller_Components_KipTasks extends ModuleController
         return $return;
 
     }
-
 
     public function updateEditFieldsFromRecord():bool
     {

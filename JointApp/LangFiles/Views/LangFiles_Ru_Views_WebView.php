@@ -229,6 +229,11 @@ class LangFiles_Ru_Views_WebView implements \JointApp\Interfaces\LangWebViewInte
                 'refTitle' => 'участники',
                 'usage' => true,
             ),
+            'kipplan' => array(
+                'refText' => 'план работ',
+                'refTitle' => 'план работ',
+                'usage' => true,
+            ),
         );
 
         $modulesMenu->menuLine = array(

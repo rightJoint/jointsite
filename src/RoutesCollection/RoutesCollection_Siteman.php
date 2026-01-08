@@ -11,6 +11,7 @@ use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTags;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_BlogTagsToArts;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipNotes;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipParticipators;
+use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipPlan;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_KipTasks;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicAlb;
 use Src\RoutesCollection\Modules\RoutesCollection_Modules_MusicTracksToAlb;
@@ -52,6 +53,7 @@ trait RoutesCollection_Siteman
     use RoutesCollection_Modules_KipTasks;
     use RoutesCollection_Modules_KipNotes;
     use RoutesCollection_Modules_KipParticipators;
+    use RoutesCollection_Modules_KipPlan;
 
     static function getRoute_Siteman($routes_ns):JointSiteRoute
     {
@@ -130,6 +132,9 @@ trait RoutesCollection_Siteman
         }
         elseif (strtolower($routes_ns[2]) == 'kipparticipators'){
             $route = self::getRoute_ModuleKipParticipators($routes_ns);
+        }
+        elseif (strtolower($routes_ns[2]) == 'kipplan'){
+            $route = self::getRoute_ModuleKipPlan($routes_ns);
         }
         return $route;
     }
