@@ -341,3 +341,9 @@ span.found_label span{
     border-radius: 0.2em;
     padding: 0.2em;
 }
+.detail-varchar{
+    display: inline;
+}
+.title .detail-varchar{
+    text-decoration: underline;
+}

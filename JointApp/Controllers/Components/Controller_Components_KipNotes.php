@@ -133,10 +133,10 @@ class Controller_Components_KipNotes extends ModuleController
                 'readonly' => 1,
             ),
             'title' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
                 'style' => array(
-                    'class' => 'wd100',
+                    'class' => 'wd100 title',
                 ),
             ),
             'descr' => array(
@@ -149,7 +149,7 @@ class Controller_Components_KipNotes extends ModuleController
                 'readonly' => 1,
             ),
             'created_date' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
             'created_by' => array(
@@ -157,11 +157,11 @@ class Controller_Components_KipNotes extends ModuleController
                 'readonly' => 1,
             ),
             'tasktitle' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
             'created_name' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
         );
@@ -180,6 +180,11 @@ class Controller_Components_KipNotes extends ModuleController
                 'format' => 'varchar',
                 'search' => 1,
                 'sort' => 1,
+            ),
+            'taskid' => array(
+                'format' => 'varchar',
+                'search' => 0,
+                'sort' => 0,
             ),
         );
 

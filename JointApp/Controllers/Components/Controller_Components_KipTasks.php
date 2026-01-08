@@ -224,10 +224,10 @@ class Controller_Components_KipTasks extends ModuleController
                 'readonly' => 1,
             ),
             'title' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
                 'style' => array(
-                    'class' => 'wd100',
+                    'class' => 'wd100 title',
                 ),
             ),
             'descr' => array(
@@ -240,7 +240,7 @@ class Controller_Components_KipTasks extends ModuleController
                 'readonly' => 1,
             ),
             'created_date' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
             'created_by' => array(
@@ -258,7 +258,7 @@ class Controller_Components_KipTasks extends ModuleController
                 'readonly' => 1,
             ),
             'progress' => array(
-                'format' => 'int',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
             'object' => array(
@@ -267,7 +267,8 @@ class Controller_Components_KipTasks extends ModuleController
                 'readonly' => 1,
             ),
             'system' => array(
-                'format' => 'varchar',
+                'format' => 'detailselect',
+                'filling' => $this->fillKipSystem(),
                 'readonly' => 1,
             ),
             /*'subsystem' => array(
@@ -280,7 +281,7 @@ class Controller_Components_KipTasks extends ModuleController
                 'readonly' => 1,
             ),
             'created_name' => array(
-                'format' => 'varchar',
+                'format' => 'detailvarchar',
                 'readonly' => 1,
             ),
         );
@@ -312,6 +313,7 @@ class Controller_Components_KipTasks extends ModuleController
             'skud' => 'СКУД',
             'ops' => 'ОПС',
             'ventolation' => 'Вентиляция',
+            'other' => 'другой',
             '' => 'Любой тип',
         );
 
