@@ -24,6 +24,7 @@ class Controller_Components_KipTasks extends ModuleController
                 'controller' => 'JointApp\Controllers\Components\Controller_Components_KipNotes'
             ),
             'kipplan'=>[],
+            'kipreport'=>[],
         );
     }
 

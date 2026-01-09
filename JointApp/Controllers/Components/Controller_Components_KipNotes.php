@@ -87,6 +87,10 @@ class Controller_Components_KipNotes extends ModuleController
                 'format' => 'varchar',
                 'curVal' => '',
             ),
+            'progress' => array(
+                'format' => 'int',
+                'curVal' => '',
+            ),
             'descr' => array(
                 'format' => 'tinymce',
                 'id' => 'descr',

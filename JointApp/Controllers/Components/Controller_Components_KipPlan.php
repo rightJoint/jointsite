@@ -16,6 +16,7 @@ class Controller_Components_KipPlan extends Controller_Components_KipTasks
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
+            "kipreport" => [],
             "kiptasks" => [],
             "kipnotes" => [],
         );

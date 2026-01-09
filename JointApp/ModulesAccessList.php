@@ -95,6 +95,10 @@ class ModulesAccessList
                 //
                 'admin',
             ),
+            'kipreport' => array(
+                //
+                'admin',
+            ),
         );
     }
 

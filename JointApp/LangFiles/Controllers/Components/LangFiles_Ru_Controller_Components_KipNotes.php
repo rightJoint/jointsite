@@ -12,6 +12,7 @@ class LangFiles_Ru_Controller_Components_KipNotes extends LangFiles_Ru_Controlle
             'created_date' => 'Дт.созд',
             'created_by' => 'Создал',
             'created_name' => 'Создал',
+            'progress' => 'Прогресс',
         );
     }
 }
