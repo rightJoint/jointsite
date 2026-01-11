@@ -14,6 +14,9 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
 
     public string $processUri = '/siteman/kipreport';
 
+    private string $date_from = '';
+    private string $date_to = '';
+
     public function loadBindComponents(): void
     {
         $this->bindComponents = array(
@@ -38,18 +41,15 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
                 'format' => 'date',
                 'search' => 1,
                 'sort' => 0,
+                'curVal' => $this->date_from,
             ),
             'date_to' => array(
                 'format' => 'date',
                 'search' => 1,
                 'sort' => 0,
+                'curVal' => $this->date_to,
             ),
         );
-    }
-
-    public function prepareEditFields(): void
-    {
-
     }
 
     public function prepareListFields(): void
@@ -72,20 +72,30 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
 
     }
 
-    public function getListRecords():array
+
+    public function updateModelRecordFromRequest():void
     {
+        if(isset($this->requestParams['date_from'])){
+            $this->date_from = $this->requestParams['date_from'];
+        }else{
+            $this->date_from = date('Y-m-d', strtotime(' - 7 days'));
+        }
+        if(isset($this->requestParams['date_to'])){
+            $this->date_to = $this->requestParams['date_to'];
+        }else{
+            $this->date_to = date('Y-m-d');
+        }
+        $this->model->record['date_from']['curVal'] = $this->date_from;
+        $this->model->record['date_to']['curVal'] = $this->date_to;
+    }
 
-        $qBuilderCount = new JointAppQueryBuilder();
+    public function filterWhere():JointAppQueryBuilder
+    {
+        $qBuilder = new JointAppQueryBuilder();
 
-        $qBuilderList = clone ($qBuilderCount);
-        $qBuilderCount
-            ->order('')
-            ->limit('');
-
-        return array(
-            'count' => $this->model->countRecords($qBuilderCount),
-            'list' => $this->model->listRecords($qBuilderList),
-        );
+        $qBuilder->where('created_date <="'.$this->date_to.' 23:59:59" and '.
+            'created_date >= "'.$this->date_from.'"');
+        return $qBuilder;
     }
 
     public function controllerFilterBody($bodyParams = []):void
@@ -93,5 +103,16 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
         if(isset($bodyParams['applyFilterRec'])){
             $this->applyFilterRecord = $bodyParams['applyFilterRec'];
         }
+        if(isset($bodyParams['date_from'])){
+            $this->date_from = $bodyParams['date_from'];
+        }else{
+            $this->date_from = date('Y-m-d', strtotime(' - 7 days'));
+        }
+        if(isset($bodyParams['date_to'])){
+            $this->date_to = $bodyParams['date_to'];
+        }else{
+            $this->date_to = date('Y-m-d');
+        }
     }
+
 }

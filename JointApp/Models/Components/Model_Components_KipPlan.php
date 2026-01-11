@@ -79,14 +79,16 @@ class Model_Components_KipPlan extends ModuleModel
     public function listRecords(JointAppQueryBuilder $qBuilder): array
     {
         $qBuilder->limit = '';
-        $qBuilder->select = '1 as ordernum, kiptasks.id, kiptasks.title, kiptasks.descr, kiptasks.created_date, kiptasks.created_by, '.
+        $qBuilder->select('1 as ordernum, kiptasks.id, kiptasks.title, kiptasks.descr, kiptasks.created_date, kiptasks.created_by, '.
             'kiptasks.priority, kiptasks.status, kiptasks.progress, kiptasks.object, kiptasks.system, '.
             'kiptasks.subsystem, kiptasks.tasktype, '.
-            'users_dt.accAlias as created_name';
+            'users_dt.accAlias as created_name');
 
         $qBuilder
             ->from($this->tableName)
-        ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id');
+            ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id')
+            ->where('kiptasks.status not in ("completed")')
+            ->order('kiptasks.created_date desc');
 
         $listRecords = $this->fetchToArray($qBuilder->buildQuery());
         $listRecords_new = [];
@@ -113,7 +115,7 @@ class Model_Components_KipPlan extends ModuleModel
         }
         else{
             $obj_ans_sys = Controller_Components_KipTasks::fillKipObjects()[$row['object']].'-'.
-            Controller_Components_KipTasks::fillKipSystem()[$row['system']].'-';
+                Controller_Components_KipTasks::fillKipSystem()[$row['system']].'-';
         }
 
         $return['fulltitle'] = '<b>'.Controller_Components_KipTasks::fillKipTaskTypes()[$row['tasktype']].'-'.

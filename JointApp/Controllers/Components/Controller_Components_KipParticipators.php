@@ -102,7 +102,7 @@ class Controller_Components_KipParticipators extends ModuleController
         );
     }
 
-    public function fillKipParticipators():array
+    public static function fillKipParticipators():array
     {
         $return = array(
             'electric' => 'электрик',

@@ -57,24 +57,6 @@ trait RoutesCollection_Modules_KipReport
                 ->withView('JointApp\Views\Modules\ModuleListView')
                 ->responseFormat('json');
         }
-        //POST: /siteman/kipreport/editview
-        elseif (strtolower($routes_ns[3]) == 'editview') {
-            $route
-                ->withAction('postEditView')
-                ->withView('Src\Views\Kip\View_Kip_Tasks_Edit');
-        }
-        //POST: /siteman/kipreport/deleteview
-        elseif (strtolower($routes_ns[3]) == 'deleteview') {
-            $route
-                ->withAction('postDeleteView')
-                ->withView('JointApp\Views\Modules\ModuleEditView');
-        }
-        //POST: /siteman/kipreport/newview
-        elseif (strtolower($routes_ns[3]) == 'newview') {
-            $route
-                ->withAction('postNewView')
-                ->withView('JointApp\Views\Modules\ModuleEditView');
-        }
         return $route;
     }
 }

@@ -4,6 +4,7 @@
 namespace JointApp\Models\Components;
 
 
+use JointApp\Controllers\Components\Controller_Components_KipParticipators;
 use JointApp\Controllers\Components\Controller_Components_KipTasks;
 use JointApp\JointAppQueryBuilder;
 use JointApp\Models\ModuleModel;
@@ -74,28 +75,26 @@ class Model_Components_KipReport extends ModuleModel
                 'custom' => true,
             ),
             'date_from' => array(
-                'format' => 'varchar',
+                'format' => 'date',
                 'custom' => true,
-                'curVal' => date('Y-m-d', strtotime(' - 7 days')),
+                'curVal' => '',
             ),
             'date_to' => array(
-                'format' => 'varchar',
+                'format' => 'date',
                 'custom' => true,
-                'curVal' => date('Y-m-d'),
+                'curVal' => '',
             ),
         );
     }
 
     public function listRecords(JointAppQueryBuilder $qBuilder): array
     {
-        $qBuilder_tasksFromNotes = new JointAppQueryBuilder();
-        $qBuilder_tasksFromNotes->select('kipnotes.id, kipnotes.descr, kipnotes.created_date, kipnotes.created_by, '.
+        $qBuilder->select('kipnotes.id, kipnotes.descr, kipnotes.created_date, kipnotes.created_by, '.
             'kipnotes.taskid')
             ->from('kipnotes')
-            ->where('created_date <= "2026-01-10" and created_date >= "2026-01-01"')
             ->order('kipnotes.created_date');
 
-        $notesIds = $this->fetchToArray($qBuilder_tasksFromNotes->buildQuery());
+        $notesIds = $this->fetchToArray($qBuilder->buildQuery());
 
         $notesArr = [];
 
@@ -123,23 +122,23 @@ class Model_Components_KipReport extends ModuleModel
                 $pQBuilder = new JointAppQueryBuilder();
                 $pQBuilder->select('participator')
                     ->join('inner join kipnotes on kipnotes.id = kipparticipators.noteid ')
-                    ->where('kipnotes.created_date <= "2026-01-10" and created_date >= "2026-01-01"')
+                    //->where('kipnotes.created_date <= "'.$date_from.'" and kipnotes.created_date >= "'.$date_to.'"')
                     ->groupBy('participator')
                     ->from('kipparticipators');
                 $pArr = $this->fetchToArray($pQBuilder->buildQuery());
                 $ps_string = '';
                 if(count($pArr)){
+                    $ps_string.= 'Совместно с ';
                     foreach ($pArr as $num=>$ps){
-                        $ps_string .= $ps['participator'].', ';
+                        $ps_string .= Controller_Components_KipParticipators::fillKipParticipators()[$ps['participator']].', ';
                     }
                 }
-                $ps_string = 'Совместно с '.substr($ps_string, 0, strlen($ps_string)-2);
+                $ps_string = substr($ps_string, 0, strlen($ps_string)-2);
                 $notesArr[$note['taskid']]['fulltitle'].=$ps_string;
             }
             $notesArr[$note['taskid']]['ordernum'] = 122;
-            $notesArr[$note['taskid']]['fulltitle'] .= '<hr>'.$note['descr'];
+            $notesArr[$note['taskid']]['fulltitle'] .= '<br>---------><br>'.$note['descr'];
         }
-
         return $notesArr;
     }
 
