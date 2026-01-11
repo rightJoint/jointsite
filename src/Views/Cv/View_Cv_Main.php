@@ -8,6 +8,7 @@ use Src\Views\Blog\IT\SkillsTableTrait;
 
 class View_Cv_Main extends SiteView
 {
+    public bool $robotNoIndex = true;
 
     use SkillsTableTrait;
 

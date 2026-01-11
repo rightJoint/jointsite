@@ -13,7 +13,7 @@ class Model_Blog extends RecordsModel
 
     const ART_COVERS = '/userdata/blog/covers';
 
-   public function getRecordStructure()
+    public function getRecordStructure()
     {
         $this->record = array(
             'art_id' => array(
@@ -96,7 +96,9 @@ class Model_Blog extends RecordsModel
             $this->tableName.'.refreshDate, '.
             $this->tableName.'.created_by'
         )
-            ->from($this->tableName);
+            ->from($this->tableName)
+            ->where('artRef not in ("censored", "looking-for-php-fullstack-job-in-2025", 
+        "test-task-alvasar", "polygraph-exam", "right-joint-updated")');
 
         return $this->fetchToArray($qBuilder->buildQuery());
     }

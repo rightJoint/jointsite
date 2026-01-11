@@ -10,6 +10,8 @@ use Src\Views\Blog\IT\SkillsTableTrait;
 class View_Cv_Experience extends View_Cv_Main
 {
 
+    public bool $robotNoIndex = true;
+
     use SkillsTableTrait;
 
     public static function loadLangView(string $docRoot = __DIR__, string $viewLang = 'ru', $loads = []): LangWebViewInterface

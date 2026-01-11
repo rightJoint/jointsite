@@ -9,6 +9,7 @@ use Src\Views\Blog\IT\SkillsTableTrait;
 
 class View_Cv_Skills extends View_Cv_Main
 {
+    public bool $robotNoIndex = true;
 
     use SkillsTableTrait;
 

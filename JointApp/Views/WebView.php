@@ -761,9 +761,9 @@ class WebView extends View implements WebViewInterface
             '</div>'.
             '<div class="modal-line">'.
             '<div class="modal-line-img">'.
-            '<img src="/img/popimg/cv-logo.png"></div><div class="modal-line-text mail">'.
-            '<a href="/cv" class="cv" title="'.$langOrder->cv_title.'">'.$langOrder->cv_text.'</a>'.
-            '</div>'.
+            //'<img src="/img/popimg/cv-logo.png"></div><div class="modal-line-text mail">'.
+            //'<a href="/cv" class="cv" title="'.$langOrder->cv_title.'">'.$langOrder->cv_text.'</a>'.
+            //'</div>'.
             '</div>'.
             '<div class="modal-line">'.
             '<div class="modal-line-img">'.
