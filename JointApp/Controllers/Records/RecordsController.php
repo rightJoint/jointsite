@@ -126,6 +126,8 @@ class RecordsController extends Controller implements RecordsControllerInterface
             foreach ($this->model->record as $fName=>$fData){
                 if(isset($this->editFields[$fName])){
                     if(isset($this->editFields[$fName]['pri']) and $this->editFields[$fName]['pri'] == true) {
+                        /*
+                         * pri fields cant be checkbox or tinyint
                         if (($fData['format'] == 'checkbox') or ($fData['format'] == 'tinyint')) {
                             if (isset($this->requestParams[$fName]) and $this->requestParams[$fName] == 'on') {
                                 $this->model->record[$fName]['curVal'] = 1;
@@ -133,16 +135,17 @@ class RecordsController extends Controller implements RecordsControllerInterface
                                 $this->model->record[$fName]['curVal'] = 0;
                             }
                         } else {
-                            if (isset($this->requestParams[$fName])) {
-                                $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
+                        */
+                        if (isset($this->requestParams[$fName])) {
+                            $this->model->record[$fName]['curVal'] = $this->requestParams[$fName];
+                        } else {
+                            if (isset($this->record[$fName]['fetchVal'])) {
+                                $this->model->record[$fName]['curVal'] = '';
                             } else {
-                                if (isset($this->record[$fName]['fetchVal'])) {
-                                    $this->model->record[$fName]['curVal'] = '';
-                                } else {
-                                    $this->model->record[$fName]['curVal'] = null;
-                                }
+                                $this->model->record[$fName]['curVal'] = null;
                             }
                         }
+                        //}
                     }
                 }
             }

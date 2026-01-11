@@ -144,6 +144,11 @@ class HtmlInputView implements HtmlInputViewInterface
             }else{
                 $value_print = '';
             }
+        }elseif ($this->fieldOptions['format'] == 'detailselect'){
+            $value_print = '';
+            if($this->fieldOptions['curVal']){
+                $value_print = $this->fieldOptions['filling'][$this->fieldOptions['curVal']];
+            }
         }
         else {
             $value_print = ' value="';

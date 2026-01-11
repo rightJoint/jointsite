@@ -81,6 +81,13 @@ class ModuleController extends RecordsController
                 $redordList_view = new ModuleListView($this->docRoot);
                 $bindController = new $cName($this->getRequest(), $bindModel, $redordList_view);
 
+                /*fix problem
+                replace key fields in $bindController's request with relationships to create filterWhere
+                */
+                foreach ($kOpt['relationships'] as $curTableKey => $bindTableKey){
+                    unset($bindController->requestParams[$curTableKey]);
+                    $bindController->requestParams[$bindTableKey] = $this->model->record[$curTableKey]['curVal'];
+                }
 
                 $viewLang_name = $redordList_view::loadLangView($this->docRoot, $this->langLw);
                 $viewLang = new $viewLang_name;
