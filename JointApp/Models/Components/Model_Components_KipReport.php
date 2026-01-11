@@ -89,42 +89,58 @@ class Model_Components_KipReport extends ModuleModel
     public function listRecords(JointAppQueryBuilder $qBuilder): array
     {
         $qBuilder_tasksFromNotes = new JointAppQueryBuilder();
-        $qBuilder_tasksFromNotes->select('id')
+        $qBuilder_tasksFromNotes->select('kipnotes.id, kipnotes.descr, kipnotes.created_date, kipnotes.created_by, '.
+            'kipnotes.taskid')
             ->from('kipnotes')
-            ->where('created_date <= "2026-01-10" and created_date >= "2026-01-01"');
+            ->where('created_date <= "2026-01-10" and created_date >= "2026-01-01"')
+            ->order('kipnotes.created_date');
 
         $notesIds = $this->fetchToArray($qBuilder_tasksFromNotes->buildQuery());
 
-        $notesIds_inWhere = '';
+        $notesArr = [];
 
-        
+        foreach ($notesIds as $num => $note){
+            if(!isset($notesArr[$note['taskid']])){
+                $notesArr[$note['taskid']]['fulltitle'] = '';
+                //1. find tasks info
+                $taskQBuilder = new JointAppQueryBuilder();
+                $taskQBuilder->select = '1 as ordernum, kiptasks.id, kiptasks.title, kiptasks.descr, kiptasks.created_date, kiptasks.created_by, '.
+                    'kiptasks.priority, kiptasks.status, kiptasks.progress, kiptasks.object, kiptasks.system, '.
+                    'kiptasks.subsystem, kiptasks.tasktype, '.
+                    'users_dt.accAlias as created_name';
 
-        echo '<pre>';
-        print_r($notesIds);
-        exit;
-        $qBuilder->limit = '';
-        $qBuilder->select = '1 as ordernum, kiptasks.id, kiptasks.title, kiptasks.descr, kiptasks.created_date, kiptasks.created_by, '.
-            'kiptasks.priority, kiptasks.status, kiptasks.progress, kiptasks.object, kiptasks.system, '.
-            'kiptasks.subsystem, kiptasks.tasktype, '.
-            'users_dt.accAlias as created_name';
+                $taskQBuilder
+                    ->from($this->tableName)
+                    ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id')
+                    ->where('kiptasks.id="'.$note['taskid'].'"');
 
-        $qBuilder
-            ->from($this->tableName)
-        ->join('left join users_dt on '.$this->tableName.'.created_by = users_dt.user_id');
+                $taskRow = $this->fetchToArray($taskQBuilder->buildQuery())[0];
+                $taskRowTrim = $this->trimRowReport($taskRow);
 
-        $qBuilder->where = '';
-        $qBuilder->order = '';
-
-        $listRecords = $this->fetchToArray($qBuilder->buildQuery());
-        $listRecords_new = [];
-
-        foreach ($listRecords as $rowNum => $row){
-            $newRow = $this->trimRowReport($row);
-            $newRow['ordernum']=$rowNum+1;
-            $listRecords_new[] = $newRow;
+                $notesArr[$note['taskid']]['fulltitle'] = $taskRowTrim['fulltitle'];
+                $notesArr[$note['taskid']]['status'] = $taskRowTrim['status'];
+                //2. find participators
+                $pQBuilder = new JointAppQueryBuilder();
+                $pQBuilder->select('participator')
+                    ->join('inner join kipnotes on kipnotes.id = kipparticipators.noteid ')
+                    ->where('kipnotes.created_date <= "2026-01-10" and created_date >= "2026-01-01"')
+                    ->groupBy('participator')
+                    ->from('kipparticipators');
+                $pArr = $this->fetchToArray($pQBuilder->buildQuery());
+                $ps_string = '';
+                if(count($pArr)){
+                    foreach ($pArr as $num=>$ps){
+                        $ps_string .= $ps['participator'].', ';
+                    }
+                }
+                $ps_string = 'Совместно с '.substr($ps_string, 0, strlen($ps_string)-2);
+                $notesArr[$note['taskid']]['fulltitle'].=$ps_string;
+            }
+            $notesArr[$note['taskid']]['ordernum'] = 122;
+            $notesArr[$note['taskid']]['fulltitle'] .= '<hr>'.$note['descr'];
         }
 
-        return $listRecords_new;
+        return $notesArr;
     }
 
     private function trimRowReport(array $row):array
@@ -140,7 +156,7 @@ class Model_Components_KipReport extends ModuleModel
         }
         else{
             $obj_ans_sys = Controller_Components_KipTasks::fillKipObjects()[$row['object']].'-'.
-            Controller_Components_KipTasks::fillKipSystem()[$row['system']].'-';
+                Controller_Components_KipTasks::fillKipSystem()[$row['system']].'-';
         }
 
         $return['fulltitle'] = '<b>'.Controller_Components_KipTasks::fillKipTaskTypes()[$row['tasktype']].'-'.

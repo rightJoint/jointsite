@@ -54,15 +54,6 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
 
     public function prepareListFields(): void
     {
-        //echo 1111;
-
-        //$this->model->record['date_from']['curVal'] = '2025.12.12';
-
-        //echo '<pre>';
-        //print_r($this->model);
-        //exit;
-
-
         $this->listFields = array(
             'ordernum' => array(
                 'format' => 'varchar',
@@ -83,12 +74,8 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
 
     public function getListRecords():array
     {
-        //$this->requestParams[$fName];
-
-        //$qBuilderCount = $this->filterWhere();
 
         $qBuilderCount = new JointAppQueryBuilder();
-        //$qBuilderCount->where('date_from <= "'..'"')
 
         $qBuilderList = clone ($qBuilderCount);
         $qBuilderCount
@@ -106,14 +93,5 @@ class Controller_Components_KipReport extends Controller_Components_KipTasks
         if(isset($bodyParams['applyFilterRec'])){
             $this->applyFilterRecord = $bodyParams['applyFilterRec'];
         }
-        /*if(isset($bodyParams['submit'])){
-            $this->submitText = $bodyParams['submit'];
-        }
-        if(isset($bodyParams['curPage'])){
-            $this->viewCurPage = $bodyParams['curPage'];
-        }
-        if(isset($bodyParams['onPage'])){
-            $this->viewOnPage = $bodyParams['onPage'];
-        }*/
     }
 }
